@@ -142,7 +142,7 @@ export function useWebSocket(options: UseWebSocketOptions = {}): UseWebSocketRet
         onOpen?.();
       };
 
-      // Handle incoming messages from server
+      // Handle incoming messages from server with dynamic handler
       ws.current.onmessage = (event) => {
         try {
           const message: WebSocketMessage = JSON.parse(event.data);
@@ -153,6 +153,7 @@ export function useWebSocket(options: UseWebSocketOptions = {}): UseWebSocketRet
           console.error('Raw message data:', event.data);
         }
       };
+
 
       // Handle connection closure
       ws.current.onclose = (event) => {
@@ -259,6 +260,30 @@ export function useWebSocket(options: UseWebSocketOptions = {}): UseWebSocketRet
     };
   }, []); // Empty dependency array to prevent reconnections on re-render
 
+  // Update WebSocket event handlers when callbacks change to prevent stale closures
+  useEffect(() => {
+    if (ws.current && ws.current.readyState === WebSocket.OPEN) {
+      console.log('🔄 Updating WebSocket message handler for latest callbacks');
+      
+      ws.current.onmessage = (event) => {
+        try {
+          const message: WebSocketMessage = JSON.parse(event.data);
+          console.log('📨 Received WebSocket message:', message.type);
+          onMessage?.(message);
+        } catch (error) {
+          console.error('❌ Failed to parse WebSocket message:', error);
+          console.error('Raw message data:', event.data);
+        }
+      };
+      
+      ws.current.onerror = (error) => {
+        console.error('❌ WebSocket connection error:', error);
+        setConnectionState('error');
+        onError?.(error);
+      };
+    }
+  }, [onMessage, onError]); // Update handlers when callbacks change
+
   // Handle page visibility changes to reconnect when tab becomes active
   useEffect(() => {
     const handleVisibilityChange = () => {
@@ -280,19 +305,40 @@ export function useWebSocket(options: UseWebSocketOptions = {}): UseWebSocketRet
   };
 }
 
-// Specialized hook for chat functionality
+// Specialized hook for chat functionality with message scoping and deduplication
 export function useChatWebSocket(conversationId: string, onNewMessage?: (message: any) => void) {
   return useWebSocket({
     onMessage: (wsMessage) => {
+      // Only process messages for the current conversation to prevent leakage
       if (wsMessage.type === 'message_saved' && wsMessage.message) {
-        onNewMessage?.(wsMessage.message);
+        // Filter messages by conversation ID to prevent cross-conversation leakage
+        if (conversationId && wsMessage.message.conversationId === conversationId) {
+          console.log('📨 Received WebSocket message for current conversation:', conversationId);
+          onNewMessage?.(wsMessage.message);
+        } else if (!conversationId) {
+          console.log('⚠️ Received WebSocket message but no conversation selected, ignoring');
+        } else {
+          console.log('⚠️ Received WebSocket message for different conversation, ignoring:', 
+            'expected:', conversationId, 'received:', wsMessage.message.conversationId);
+        }
       }
     },
     onOpen: () => {
-      console.log('Chat WebSocket connected for conversation:', conversationId);
+      if (conversationId) {
+        console.log('Chat WebSocket connected for conversation:', conversationId);
+      } else {
+        console.log('Chat WebSocket connected (no conversation selected)');
+      }
     },
     onClose: () => {
-      console.log('Chat WebSocket disconnected for conversation:', conversationId);
+      if (conversationId) {
+        console.log('Chat WebSocket disconnected for conversation:', conversationId);
+      } else {
+        console.log('Chat WebSocket disconnected');
+      }
+    },
+    onError: (error) => {
+      console.error('Chat WebSocket error:', error);
     },
   });
 }

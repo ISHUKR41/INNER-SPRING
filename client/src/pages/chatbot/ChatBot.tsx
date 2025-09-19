@@ -33,8 +33,8 @@ export default function ChatBot() {
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
-  // Test user ID - in production would come from auth context
-  const userId = "befd8f8b-5cb4-4270-8ce4-6dfad51e303d";
+  // Test user ID - using existing user from database
+  const userId = "d40d10cf-47fd-43e1-a4a7-9ff3b9bd94c7";
 
   // Fetch user's conversations with proper typing and default empty array
   const { data: conversations = [], isLoading: conversationsLoading } = useQuery<ChatConversation[]>({
@@ -44,18 +44,29 @@ export default function ChatBot() {
 
   // Fetch messages for selected conversation with proper typing and default empty array
   const { data: messages = [], isLoading: messagesLoading } = useQuery<ChatMessage[]>({
-    queryKey: [`/api/chat/messages/${selectedConversationId}`],
+    queryKey: [`/api/chat/messages`, selectedConversationId],
     enabled: !!selectedConversationId,
   });
 
-  // WebSocket for real-time chat
+  // WebSocket for real-time chat with message deduplication
   const { sendMessage: sendWsMessage, connectionState } = useChatWebSocket(
     selectedConversationId || "",
     (newMessage) => {
-      // Update messages cache when new message received
+      // Update messages cache when new message received, with deduplication
+      // Use the message's conversationId to avoid stale closure issues
+      const cacheKey = [`/api/chat/messages`, newMessage.conversationId];
       queryClient.setQueryData(
-        [`/api/chat/messages/${selectedConversationId}`],
-        (oldMessages: ChatMessage[] = []) => [...oldMessages, newMessage]
+        cacheKey,
+        (oldMessages: ChatMessage[] = []) => {
+          // Check if message already exists to prevent duplication
+          const messageExists = oldMessages.some(msg => msg.id === newMessage.id);
+          if (messageExists) {
+            console.log('Message already exists in cache, skipping duplicate');
+            return oldMessages;
+          }
+          console.log('Adding new message to cache via WebSocket:', newMessage.id, 'to conversation:', newMessage.conversationId);
+          return [...oldMessages, newMessage];
+        }
       );
     }
   );
@@ -98,10 +109,21 @@ export default function ChatBot() {
       return await response.json();
     },
     onSuccess: (data) => {
-      // Update messages cache with both user and AI messages
+      // Update messages cache with both user and AI messages using segmented key
+      const conversationId = data.userMessage.conversationId;
       queryClient.setQueryData(
-        [`/api/chat/messages/${selectedConversationId}`],
-        (oldMessages: ChatMessage[] = []) => [...oldMessages, data.userMessage, data.aiMessage]
+        [`/api/chat/messages`, conversationId],
+        (oldMessages: ChatMessage[] = []) => {
+          const newMessages = [data.userMessage, data.aiMessage];
+          // Check for duplicates to prevent double addition
+          const existingIds = new Set(oldMessages.map(msg => msg.id));
+          const uniqueNewMessages = newMessages.filter(msg => !existingIds.has(msg.id));
+          if (uniqueNewMessages.length === 0) {
+            console.log('All messages already exist in cache via REST, skipping duplicates');
+            return oldMessages;
+          }
+          return [...oldMessages, ...uniqueNewMessages];
+        }
       );
 
       // Handle escalation if AI detected crisis
