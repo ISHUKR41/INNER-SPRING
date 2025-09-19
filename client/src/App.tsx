@@ -4,17 +4,18 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { queryClient } from "./lib/queryClient";
 
-// Import pages
-import Home from "@/pages/Home";
-import ChatBot from "@/pages/ChatBot";
-import Appointments from "@/pages/Appointments";
-import SelfAssessment from "@/pages/SelfAssessment";
-import Resources from "@/pages/Resources";
-import PeerSupport from "@/pages/PeerSupport";
-import Emergency from "@/pages/Emergency";
-import Dashboard from "@/pages/Dashboard";
-import About from "@/pages/About";
-import NotFound from "@/pages/not-found";
+// Import pages from their new organized folder structure
+// Each page now lives in its own dedicated folder for better organization
+import Home from "@/pages/home/Home";
+import ChatBot from "@/pages/chatbot/ChatBot";
+import Appointments from "@/pages/appointments/Appointments";
+import SelfAssessment from "@/pages/assessments/SelfAssessment";
+import Resources from "@/pages/resources/Resources";
+import PeerSupport from "@/pages/peer-support/PeerSupport";
+import Emergency from "@/pages/emergency/Emergency";
+import Dashboard from "@/pages/dashboard/Dashboard";
+import About from "@/pages/about/About";
+import NotFound from "@/pages/not-found/not-found";
 
 function Router() {
   return (
