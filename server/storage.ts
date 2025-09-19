@@ -1,13 +1,13 @@
 import { 
   users, chatConversations, chatMessages, counselors, appointments, 
   assessments, resources, forumCategories, forumPosts, forumReplies, 
-  emergencyContacts,
+  emergencyContacts, crisisContacts,
   type User, type InsertUser, type ChatConversation, type InsertChatConversation,
   type ChatMessage, type InsertChatMessage, type Counselor, type InsertCounselor,
   type Appointment, type InsertAppointment, type Assessment, type InsertAssessment,
   type Resource, type InsertResource, type ForumCategory, type InsertForumCategory,
   type ForumPost, type InsertForumPost, type ForumReply, type InsertForumReply,
-  type EmergencyContact, type InsertEmergencyContact
+  type EmergencyContact, type InsertEmergencyContact, type CrisisContact, type InsertCrisisContact
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, desc, and, gte, lte, like, sql } from "drizzle-orm";
@@ -67,6 +67,14 @@ export interface IStorage {
   // Emergency contacts
   getEmergencyContacts(): Promise<EmergencyContact[]>;
   createEmergencyContact(contact: InsertEmergencyContact): Promise<EmergencyContact>;
+
+  // Crisis contacts
+  getCrisisContacts(country?: string): Promise<CrisisContact[]>;
+  getCrisisContact(id: string): Promise<CrisisContact | undefined>;
+  createCrisisContact(contact: InsertCrisisContact): Promise<CrisisContact>;
+  updateCrisisContact(id: string, updates: Partial<CrisisContact>): Promise<CrisisContact | undefined>;
+  getActiveCrisisContacts(country?: string): Promise<CrisisContact[]>;
+  getCrisisContactsByType(type: string, country?: string): Promise<CrisisContact[]>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -446,6 +454,81 @@ export class DatabaseStorage implements IStorage {
   async createEmergencyContact(contact: InsertEmergencyContact): Promise<EmergencyContact> {
     const [newContact] = await db.insert(emergencyContacts).values(contact).returning();
     return newContact;
+  }
+
+  // Crisis contacts - Specialized crisis intervention support methods
+  async getCrisisContacts(country?: string): Promise<CrisisContact[]> {
+    // Build query conditions for optional country filtering
+    const conditions = [eq(crisisContacts.isActive, true)];
+    if (country) {
+      conditions.push(eq(crisisContacts.country, country));
+    }
+
+    return await db
+      .select()
+      .from(crisisContacts)
+      .where(and(...conditions))
+      .orderBy(crisisContacts.priority, crisisContacts.name); // Order by priority first, then name
+  }
+
+  async getCrisisContact(id: string): Promise<CrisisContact | undefined> {
+    const [contact] = await db
+      .select()
+      .from(crisisContacts)
+      .where(eq(crisisContacts.id, id));
+    return contact || undefined;
+  }
+
+  async createCrisisContact(contact: InsertCrisisContact): Promise<CrisisContact> {
+    // Security validation: Ensure required fields are present
+    if (!contact.name || !contact.country || !contact.type) {
+      throw new Error("Crisis contact must have name, country, and type specified");
+    }
+
+    // Business logic: Validate at least one contact method is provided
+    if (!contact.phone && !contact.sms && !contact.chatUrl) {
+      throw new Error("Crisis contact must have at least one contact method (phone, SMS, or chat URL)");
+    }
+
+    const [newContact] = await db.insert(crisisContacts).values(contact).returning();
+    return newContact;
+  }
+
+  async updateCrisisContact(id: string, updates: Partial<CrisisContact>): Promise<CrisisContact | undefined> {
+    // Security: Update timestamp for data freshness tracking
+    const updateData = {
+      ...updates,
+      updatedAt: new Date()
+    };
+
+    const [contact] = await db
+      .update(crisisContacts)
+      .set(updateData)
+      .where(eq(crisisContacts.id, id))
+      .returning();
+    return contact || undefined;
+  }
+
+  async getActiveCrisisContacts(country?: string): Promise<CrisisContact[]> {
+    // This method specifically filters for active contacts and optional country
+    return await this.getCrisisContacts(country);
+  }
+
+  async getCrisisContactsByType(type: string, country?: string): Promise<CrisisContact[]> {
+    // Build query conditions for type and optional country filtering
+    const conditions = [
+      eq(crisisContacts.isActive, true),
+      eq(crisisContacts.type, type)
+    ];
+    if (country) {
+      conditions.push(eq(crisisContacts.country, country));
+    }
+
+    return await db
+      .select()
+      .from(crisisContacts)
+      .where(and(...conditions))
+      .orderBy(crisisContacts.priority, crisisContacts.name);
   }
 }
 

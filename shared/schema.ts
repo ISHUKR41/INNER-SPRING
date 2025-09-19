@@ -305,6 +305,48 @@ export const emergencyContacts = pgTable("emergency_contacts", {
   isActive: boolean("is_active").default(true), // Current availability status
 });
 
+/**
+ * Crisis Contacts Table - Specialized crisis intervention and mental health emergency support
+ * 
+ * Comprehensive database of crisis hotlines, text services, and chat support worldwide.
+ * Designed specifically for immediate crisis intervention with multi-modal contact options.
+ * 
+ * Features:
+ * - International coverage with country-specific numbers
+ * - Multiple contact methods (phone, SMS, chat) for accessibility
+ * - Multi-language support for diverse populations
+ * - Real-time availability tracking by time zone
+ * - Crisis-specific categorization for appropriate matching
+ * 
+ * Crisis Intervention Types:
+ * - Suicide prevention: Specialized trained counselors for suicidal ideation
+ * - General crisis: Broad mental health crisis support
+ * - Text/SMS: Anonymous text-based crisis counseling
+ * - Chat: Real-time online chat support
+ * - Specialized: LGBTQ+, veterans, youth-specific crisis lines
+ * 
+ * Data Integrity:
+ * - All contact information verified and regularly updated
+ * - Availability schedules maintained for accurate user expectations
+ * - Quality assurance for crisis response capabilities
+ */
+export const crisisContacts = pgTable("crisis_contacts", {
+  id: uuid("id").primaryKey().default(sql`gen_random_uuid()`), // Unique crisis contact identifier for secure referencing
+  name: text("name").notNull(), // Official service name (e.g., "National Suicide Prevention Lifeline")
+  country: text("country").notNull(), // ISO country code for geographic filtering (e.g., "US", "CA", "UK")
+  phone: text("phone"), // Primary phone number - formatted for international dialing (e.g., "+1-988")
+  sms: text("sms"), // SMS/text number if different from phone (e.g., "741741" for Crisis Text Line)
+  chatUrl: text("chat_url"), // URL for web-based crisis chat support
+  type: text("type").notNull(), // Contact method: 'hotline', 'text', 'chat', 'multi' (supports multiple methods)
+  availability: text("availability").notNull(), // Operating hours: '24/7', 'business', 'evenings', or specific hours
+  languages: text("languages").array(), // Supported languages array (e.g., ["en", "es", "fr"] for accessibility)
+  description: text("description").notNull(), // Detailed service description, specializations, and what to expect
+  isActive: boolean("is_active").default(true), // Current operational status for filtering active services
+  priority: integer("priority").default(1), // Display priority (1 = highest) for ordering recommendations
+  createdAt: timestamp("created_at").defaultNow(), // Record creation timestamp for data management
+  updatedAt: timestamp("updated_at").defaultNow(), // Last update timestamp for data freshness validation
+});
+
 // =====================================
 // DATABASE RELATIONSHIPS
 // =====================================
@@ -476,6 +518,12 @@ export const insertEmergencyContactSchema = createInsertSchema(emergencyContacts
   id: true,
 });
 
+export const insertCrisisContactSchema = createInsertSchema(crisisContacts).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
 // =====================================
 // TYPESCRIPT TYPES
 // =====================================
@@ -527,3 +575,6 @@ export type InsertForumReply = z.infer<typeof insertForumReplySchema>;
 
 export type EmergencyContact = typeof emergencyContacts.$inferSelect;
 export type InsertEmergencyContact = z.infer<typeof insertEmergencyContactSchema>;
+
+export type CrisisContact = typeof crisisContacts.$inferSelect;
+export type InsertCrisisContact = z.infer<typeof insertCrisisContactSchema>;

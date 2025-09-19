@@ -7,7 +7,7 @@ import { generateChatResponse, generateConversationTitle, analyzeAssessmentResul
 import { 
   insertUserSchema, insertChatConversationSchema, insertChatMessageSchema,
   insertAppointmentSchema, insertAssessmentSchema, insertForumPostSchema,
-  insertForumReplySchema
+  insertForumReplySchema, insertCrisisContactSchema
 } from "@shared/schema";
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -355,6 +355,72 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/emergency/contacts", async (req, res) => {
     try {
       const contacts = await storage.getEmergencyContacts();
+      res.json(contacts);
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+
+  // Crisis contacts routes - Specialized crisis intervention support endpoints
+  app.get("/api/crisis/contacts", async (req, res) => {
+    try {
+      const { country } = req.query;
+      const contacts = await storage.getCrisisContacts(country as string);
+      res.json(contacts);
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+
+  app.get("/api/crisis/contacts/:id", async (req, res) => {
+    try {
+      const contact = await storage.getCrisisContact(req.params.id);
+      if (!contact) {
+        return res.status(404).json({ message: "Crisis contact not found" });
+      }
+      res.json(contact);
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+
+  app.get("/api/crisis/contacts/type/:type", async (req, res) => {
+    try {
+      const { country } = req.query;
+      const contacts = await storage.getCrisisContactsByType(req.params.type, country as string);
+      res.json(contacts);
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+
+  app.post("/api/crisis/contacts", async (req, res) => {
+    try {
+      const contactData = insertCrisisContactSchema.parse(req.body);
+      const contact = await storage.createCrisisContact(contactData);
+      res.status(201).json(contact);
+    } catch (error: any) {
+      res.status(400).json({ message: error.message });
+    }
+  });
+
+  app.put("/api/crisis/contacts/:id", async (req, res) => {
+    try {
+      const updates = req.body; // Partial update, no need for full schema validation
+      const contact = await storage.updateCrisisContact(req.params.id, updates);
+      if (!contact) {
+        return res.status(404).json({ message: "Crisis contact not found" });
+      }
+      res.json(contact);
+    } catch (error: any) {
+      res.status(400).json({ message: error.message });
+    }
+  });
+
+  app.get("/api/crisis/contacts/active/:country?", async (req, res) => {
+    try {
+      const country = req.params.country;
+      const contacts = await storage.getActiveCrisisContacts(country);
       res.json(contacts);
     } catch (error: any) {
       res.status(500).json({ message: error.message });
