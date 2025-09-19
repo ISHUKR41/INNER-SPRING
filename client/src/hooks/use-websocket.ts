@@ -52,7 +52,19 @@ export function useWebSocket(options: UseWebSocketOptions = {}): UseWebSocketRet
     // This can happen in some development environments
     if (!host.includes(':') && window.location.hostname === 'localhost') {
       // Default to port 5000 in local development if no port specified
-      host = `localhost:${window.location.port || '5000'}`;
+      host = `localhost:5000`;
+    }
+    
+    // For Replit environment, ensure we have the correct host format
+    // Check if we're in Replit but don't have the standard host format
+    if (!host.includes('localhost') && !host.includes('replit.dev') && !host.includes('replit.app')) {
+      // Try to construct Replit URL if we have the required env vars
+      if (window.location.hostname && window.location.hostname !== 'localhost') {
+        host = window.location.host;
+      } else {
+        // Fallback for development
+        host = `localhost:5000`;
+      }
     }
     
     // Construct WebSocket URL pointing to /ws endpoint on same server
