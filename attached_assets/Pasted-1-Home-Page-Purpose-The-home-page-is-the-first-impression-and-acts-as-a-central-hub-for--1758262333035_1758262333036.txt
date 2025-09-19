@@ -1,0 +1,2379 @@
+1️⃣ Home Page (🏠)
+
+Purpose:
+The home page is the first impression and acts as a central hub for students to access mental health support. It should feel welcoming, safe, calming, and professional, while clearly guiding students to all available features.
+
+Header (Top Section)
+
+Left Side: Logo – a calming, trust-building icon such as a brain, lotus, or heart with soft colors (blue, green, pastel purple).
+
+Right Side: Navigation Menu (horizontal):
+
+Home
+
+AI Chatbot
+
+Appointments
+
+Self-Assessment
+
+Resources
+
+Peer Support
+
+Emergency Help
+
+Dashboard (student view only)
+
+About Us
+
+Optional: Profile icon (top-right) for personalized experience (self-assessment history, upcoming appointments).
+
+Hero Section (Above-the-Fold)
+
+Large full-width banner with calming animation or high-quality image of students feeling relaxed, happy, or supported.
+
+Tagline (centered): “Your mental health matters. Support is just a click away.”
+
+CTA Buttons (prominent, center or right):
+
+“Start Chat with AI” → AI Chatbot page
+
+“Take Self-Assessment” → Self-Assessment page
+
+Supporting sentence: “Confidential, anonymous, and free mental health support for all students.”
+
+Main Body Sections
+
+Quick Access Tiles (Central Grid or Card Layout)
+
+Each tile includes:
+
+Icon
+
+Title
+
+One-line description
+
+Hover effect (color change, slight zoom, shadow)
+
+Tiles to include:
+
+AI Chatbot: “Instant support and coping strategies.”
+
+Appointments: “Book confidential sessions with a counsellor.”
+
+Self-Assessment: “Check your mental health with standard tools.”
+
+Resources: “Access videos, audios, and guides.”
+
+Peer Support: “Share and connect with other students safely.”
+
+Emergency Help: “Immediate support during crises.”
+
+Featured Resources / Daily Mental Health Tips (Right Side or Below Tiles)
+
+Rotating or static section showing:
+
+Quick tip: “Take a 5-minute breathing break.”
+
+Featured video/audio guide with play button
+
+Encourage regular engagement with micro-learning content.
+
+Announcements / Campus News (Optional)
+
+Carousel or scrollable section showing workshops, webinars, new resources, or events related to mental health.
+
+Footer (Bottom Section)
+
+Quick Links: Duplicate of header navigation for easy access.
+
+Contact Info & Helplines: Phone numbers, email, emergency lines.
+
+Disclaimer: Confidentiality and data protection notice.
+
+Social Media / App Links: Optional for campus app downloads.
+
+Design & UX Recommendations:
+
+Color Palette: Soft blues (#a3cef1), greens (#a8e6cf), lavender (#d8b4e2), pastel yellow accents.
+
+Fonts: Sans-serif (Roboto, Open Sans) for readability.
+
+Animations: Subtle hover effects on tiles, fade-in content on scroll.
+
+Mobile Responsiveness: Ensure tiles stack vertically on small screens.
+
+Accessibility: Alt-text for images, readable font size, high contrast for text.
+
+2️⃣ AI Chatbot Page (🤖)
+
+Purpose:
+Provide instant, confidential, empathetic support. It should feel human-like, safe, and offer coping strategies while guiding students to resources or appointments if needed.
+
+Layout & Structure:
+
+Chat Interface (Full-Screen or Split-Screen)
+
+Left Panel: Conversation history (scrollable). Can be minimized for mobile view.
+
+Right Panel (Main Chat Window):
+
+AI avatar or icon
+
+Chat messages in bubbles: AI (soft blue), Student (soft gray)
+
+Typing indicator: “AI is typing…”
+
+Bottom Input Bar:
+
+Text input box
+
+Send button
+
+Optional quick prompts buttons: “I feel anxious,” “I can’t sleep,” “I’m stressed.”
+
+Optional voice input for accessibility
+
+AI Chat Features:
+
+Instant coping strategies: breathing exercises, mindfulness exercises, affirmations.
+
+Escalation suggestions: “Would you like to book a session with a counsellor?”
+
+Links to resources and self-assessment for guidance.
+
+Design & UX Notes:
+
+Friendly, supportive, and non-judgmental tone.
+
+Use soft, calm colors to reduce stress.
+
+Maintain privacy and anonymity.
+
+Mobile-friendly: chat input always visible, conversation scrollable.
+
+3️⃣ Appointments Page (📅)
+
+Purpose:
+Allow students to confidentially book appointments with on-campus counsellors or mental health support services.
+
+Layout & Structure:
+
+Calendar View:
+
+Shows available dates and time slots.
+
+Color-coded: Green = available, Gray = booked.
+
+Booking Form:
+
+Optional fields for anonymity: Name, Student ID, Contact info.
+
+Issue type dropdown: Anxiety, Depression, Stress, Academic Pressure, Sleep Disorder.
+
+Date and Time selection.
+
+Submit button with confirmation popup.
+
+Confirmation & Upcoming Appointments Section:
+
+Displays student’s upcoming bookings.
+
+Option to reschedule or cancel.
+
+Design & UX Notes:
+
+Ensure full confidentiality; no one else can view booking.
+
+Mobile-friendly calendar (vertical scroll).
+
+Optional reminders (SMS/email) without exposing sensitive info.
+
+Clean, minimal, intuitive interface with clear CTAs.
+
+4️⃣ Self-Assessment Page (🧠)
+
+Purpose:
+Enable students to assess their mental health status using validated tools (PHQ-9, GAD-7, GHQ).
+
+Layout & Structure:
+
+Step-by-Step Form:
+
+One question per screen or 2–3 grouped.
+
+Progress bar at top (showing % completed).
+
+Friendly, non-judgmental language: “How often have you felt anxious over the past 2 weeks?”
+
+Score Calculation & Feedback:
+
+Green: Normal
+
+Orange: Moderate concern
+
+Red: High concern
+
+Suggestions:
+
+AI Chatbot guidance
+
+Resource recommendations
+
+Book appointment
+
+Optional Features:
+
+Regional language support
+
+Save results for personal tracking (anonymously)
+
+Graphical representation: line/bar chart of previous assessments
+
+UX Notes:
+
+Keep it simple, non-intimidating.
+
+Color-coded results enhance clarity.
+
+Avoid long scrolling forms; one question at a time is best.
+
+5️⃣ Resources Page (📚)
+
+Purpose:
+Provide a central hub of mental health resources in various formats and languages.
+
+Layout & Structure:
+
+Filters / Search (Left Panel or Top Bar):
+
+Categories: Video, Audio, Guide, PDF
+
+Language selection: English, Hindi, regional languages
+
+Search bar for keywords
+
+Resource Display (Main Area):
+
+Card layout with title, short description, type (video/audio/pdf), language tag
+
+Embedded play button for videos/audio
+
+Download button for PDFs
+
+Featured / Trending Section:
+
+Top 3–5 recommended resources prominently displayed
+
+Design & UX Notes:
+
+Clean, grid layout for quick scanning.
+
+Color-coded tags for categories.
+
+Easy preview and download options.
+
+Mobile-responsive cards stacked vertically.
+
+6️⃣ Peer Support Page (👥)
+
+Purpose:
+Safe, moderated student-to-student forum for sharing experiences and advice.
+
+Layout & Structure:
+
+Forum Threads:
+
+Main feed: Posts by students (anonymized or nickname-based)
+
+Each post shows: Date, category, upvotes, replies
+
+Sidebar / Filter:
+
+Categories: Stress, Academics, Personal Life, Sleep, Anxiety
+
+Search posts by keyword
+
+Post Interaction:
+
+Ask question
+
+Reply
+
+Upvote / Like
+
+Report (for moderation)
+
+Design & UX Notes:
+
+Encourage positive, supportive interaction
+
+Display moderator-approved content clearly
+
+Maintain anonymity to ensure privacy
+
+Highlight new/unread posts for engagement
+
+7️⃣ Emergency Help Page (☎️)
+
+Purpose:
+Provide instant, visible help in case of mental health crisis.
+
+Layout & Structure:
+
+Emergency Buttons (Prominent, Centered):
+
+Hotline numbers (clickable for mobile)
+
+Campus emergency counsellor
+
+Nearby hospital/clinic contacts
+
+Quick AI Guidance:
+
+Option to start chat for urgent support
+
+Step-by-step emergency instructions
+
+Design Notes:
+
+Color-coded urgency: Red/orange for emergency actions
+
+Minimal scrolling; all critical info visible at once
+
+Mobile-friendly with large clickable buttons
+
+8️⃣ Student Dashboard (📊)
+
+Purpose:
+Give students a personalized overview of their mental health progress. No admin features.
+
+Layout & Structure:
+
+Self-Assessment Overview:
+
+Display results of past self-assessments in graph format
+
+Color-coded status: Green (Normal), Orange (Moderate), Red (High)
+
+Upcoming Appointments:
+
+List of scheduled counselling sessions
+
+Option to reschedule or cancel
+
+Resource Tracker:
+
+History of accessed videos, guides, audios
+
+Recommended new resources based on assessment results
+
+Peer Support Activity:
+
+Summary of student’s forum interactions (posts/replies)
+
+Design & UX Notes:
+
+Clean, minimal dashboard with charts and progress bars
+
+Focus on visual feedback and self-awareness
+
+Easy navigation to all main sections from dashboard
+
+9️⃣ About Us Page (ℹ️)
+
+Purpose:
+Explain the platform’s mission, methodology, team, and privacy.
+
+Layout & Structure:
+
+Mission statement: short, student-centered, empathetic
+
+Team introduction: psychologists, tech team, student volunteers
+
+FAQs: confidentiality, usage, support info
+
+Contact info: email, helplines
+
+Privacy & data policy: anonymity and data security assurances
+
+🔟 Overall Design Recommendations
+
+Mobile-first responsive design
+
+Soft, calming color palette: pastel blues, greens, purples
+
+Readable fonts: Roboto, Open Sans, 16–18px minimum
+
+Subtle animations: hover effects, fade-ins for smooth experience
+
+Accessibility: alt-texts, screen reader-friendly, contrast ratios
+
+Confidentiality & privacy focus
+
+User-friendly navigation with fixed header
+
+💡 Suggested High-Level Prompt for Website Development
+
+"Design a fully student-focused Digital Mental Health and Psychological Support System for colleges. The homepage must be welcoming, calm, with hero section, quick access tiles for AI Chatbot, Appointments, Self-Assessment, Resources, Peer Support, and Emergency Help. AI Chatbot must offer empathetic, instant support and coping strategies. Appointments page allows confidential booking with calendar view and rescheduling. Self-Assessment page includes PHQ-9, GAD-7, GHQ questionnaires, color-coded results, and suggestions. Resources page offers videos, audios, and guides in multiple languages with filters. Peer Support page provides a safe, moderated forum. Emergency Help page provides instant contact buttons and AI guidance. Student Dashboard provides personal overview: past assessments, appointments, resource tracker, and forum activity. Design must prioritize calm visuals, accessibility, mobile responsiveness, user-friendly navigation, and full confidentiality."
+
+
+
+
+🏠 HOME PAGE - Complete Ultra-Detailed Layout Specifications
+HEADER SECTION (Fixed Top Bar - Height: 80px)
+Left Side (Logo Area - 300px width):
+
+Position: Absolute left, 20px margin from edge
+
+Logo: Circular design, 50px diameter
+
+Logo elements: Soft gradient brain icon with healing hands underneath
+
+Colors: Primary blue (#3498DB) to light green (#58D68D) gradient
+
+Text next to logo: "MindCare" in Poppins font, 24px, semi-bold
+
+Tagline under logo: "Safe - Confidential - Always Here" in 12px gray text
+
+Center Navigation Menu (800px width):
+
+Position: Centered horizontally
+
+Menu items in horizontal layout, each 90px wide:
+
+🏠 Home (active state: blue underline, bold text)
+
+🤖 AI Chatbot (hover effect: light blue background, rounded corners)
+
+📅 Appointments
+
+🧠 Self-Assessment
+
+📚 Resources
+
+👥 Peer Support
+
+☎️ Emergency Help (red accent color for urgency)
+
+📊 Dashboard
+
+ℹ️ About Us
+
+Font: Inter, 14px, medium weight
+
+Spacing: 15px between each item
+
+Active/hover states: 3px bottom border, smooth transition 0.3s
+
+Right Side (User Area - 250px width):
+
+Emergency Button (120px × 40px): Red gradient background, white text "🚨 Crisis Help", positioned 15px from profile
+
+Profile Section (80px width):
+
+Anonymous avatar icon (40px circle): Soft pastel gradient, user initials if logged in
+
+Dropdown arrow (small, 12px)
+
+Dropdown menu: "My Progress", "Settings", "Privacy", "Logout"
+
+Notification bell icon (24px) with red dot indicator if new messages
+
+Language selector: Small flag icon + dropdown (EN/Hindi/Regional)
+
+HERO SECTION (Full Width Banner - Height: 500px)
+Background:
+
+Soft gradient from light blue (#E3F2FD) to mint green (#E8F5E8)
+
+Subtle animated floating elements (circles, soft shapes) moving slowly
+
+Background opacity: 90% to ensure text readability
+
+Left Side Content (60% width - 720px):
+
+Main Heading (positioned 100px from left, 150px from top):
+
+Text: "Your Mental Health Journey Starts Here"
+
+Font: Poppins, 48px, bold weight
+
+Color: Deep navy (#2C3E50)
+
+Line height: 1.2
+
+Animation: Fade-in from left, 1.5s duration
+
+Subheading (positioned 100px from left, 250px from top):
+
+Text: "Safe, confidential, and personalized mental health support available 24/7. Take the first step towards wellness with AI-guided assistance, professional counseling, and peer community support."
+
+Font: Inter, 18px, regular weight
+
+Color: Medium gray (#5D6D7E)
+
+Line height: 1.6
+
+Max width: 600px for readability
+
+Call-to-Action Buttons (positioned 100px from left, 350px from top):
+
+Primary Button: "Start Your Assessment"
+
+Size: 180px × 50px
+
+Colors: Blue gradient (#3498DB to #5DADE2)
+
+Text: White, 16px, medium weight
+
+Border radius: 25px
+
+Shadow: 0px 4px 15px rgba(52, 152, 219, 0.3)
+
+Hover effect: Slight scale up (1.05) and deeper shadow
+
+Secondary Button: "Chat with AI Now" (positioned 20px right of primary)
+
+Size: 160px × 50px
+
+Colors: White background, blue border (2px)
+
+Text: Blue (#3498DB), 16px, medium weight
+
+Same border radius and hover effects
+
+Trust Indicators (positioned 100px from left, 430px from top):
+
+"✓ 100% Confidential" | "✓ HIPAA Compliant" | "✓ 24/7 Available"
+
+Font: Inter, 14px, each separated by gray dividers
+
+Icons: Green checkmarks, 16px
+
+Right Side Visual (40% width - 480px):
+
+Illustration: Diverse group of students sitting in comfortable poses, some with laptops, some meditating, all looking peaceful and supported
+
+Art style: Modern flat illustration with soft shadows
+
+Colors: Harmonious with brand palette (blues, greens, soft purples)
+
+Position: Vertically centered, 50px margin from right edge
+
+Animation: Gentle floating motion, 4s cycle
+
+MAIN CONTENT AREA (Full Width - Multiple Sections)
+Quick Access Tiles Section (Height: 400px)
+Section Header (positioned center, 100px from hero section):
+
+Title: "Choose Your Support Path"
+
+Font: Poppins, 36px, semi-bold
+
+Center aligned with 600px max width
+
+Subtitle: "Every mental health journey is unique. Start where you feel most comfortable."
+
+Grid Layout (positioned 150px below header, center-aligned):
+
+Container: 1200px max width, responsive grid
+
+Layout: 4 columns × 2 rows with 30px gaps
+
+Each tile: 270px × 160px
+
+Individual Tile Specifications:
+
+Tile 1 - AI Chatbot (Top Left):
+
+Background: Soft blue gradient (#E3F2FD to white)
+
+Icon: Chat bubble with AI sparkles, 48px, positioned top-left 20px margin
+
+Title: "AI Support Chat" (Poppins, 18px, semi-bold)
+
+Description: "Instant coping strategies and emotional support" (Inter, 14px, gray)
+
+Hover effect: 8px shadow, slight color deepening, smooth 0.3s transition
+
+Click area: Full tile clickable
+
+Tile 2 - Appointments (Top Center):
+
+Background: Soft green gradient (#E8F5E8 to white)
+
+Icon: Calendar with heart, 48px
+
+Title: "Book Counseling"
+
+Description: "Schedule with certified mental health professionals"
+
+Same hover effects as tile 1
+
+Tile 3 - Self-Assessment (Top Right):
+
+Background: Soft purple gradient (#F3E5F5 to white)
+
+Icon: Clipboard with checkmark, 48px
+
+Title: "Mental Health Check"
+
+Description: "Understand your current emotional wellbeing"
+
+Same styling pattern
+
+Tile 4 - Resources (Bottom Left):
+
+Background: Soft yellow gradient (#FFF9E5 to white)
+
+Icon: Book with play button, 48px
+
+Title: "Learning Resources"
+
+Description: "Videos, audios, and guides in multiple languages"
+
+Tile 5 - Peer Support (Bottom Center):
+
+Background: Soft coral gradient (#FFE5E5 to white)
+
+Icon: Group of people in circle, 48px
+
+Title: "Student Community"
+
+Description: "Connect with peers in moderated support groups"
+
+Tile 6 - Emergency Help (Bottom Right):
+
+Background: Soft red gradient (#FFEBEE to white)
+
+Icon: Phone with emergency cross, 48px, red accent
+
+Title: "Crisis Support"
+
+Description: "Immediate help available 24/7"
+
+Special styling: Subtle red border for urgency
+
+Featured Content Section (Height: 300px)
+Left Side - Daily Wellness Tip (70% width):
+
+Card container: White background, subtle shadow, rounded corners 12px
+
+Header: "Today's Wellness Focus" with calendar icon
+
+Content: Rotating daily tips about breathing exercises, stress management, sleep hygiene
+
+CTA: "Learn More" button linking to relevant resources
+
+Visual: Small animated icon related to the tip
+
+Right Side - Quick Stats (30% width):
+
+Compact dashboard showing:
+
+"Students Helped Today: 247"
+
+"Active Support Groups: 12"
+
+"Available Counselors: 8"
+
+Purpose: Build trust and show active community
+
+Design: Minimal cards with number emphasis
+
+Testimonials/Success Stories Section (Height: 250px)
+Carousel with 3 anonymous student testimonials
+
+Each testimonial: Photo placeholder (generic silhouette), quote, first name only
+
+Navigation dots at bottom
+
+Auto-rotate every 8 seconds
+
+Design: Soft background, elegant typography
+
+FOOTER SECTION (Height: 200px)
+Top Footer (120px height):
+
+Four columns layout, each 300px wide with 50px gaps:
+
+Column 1 - Quick Links:
+
+All main navigation links repeated
+
+Vertical list format with 10px spacing
+
+Column 2 - Support Resources:
+
+National Suicide Prevention: 988
+
+Crisis Text Line: Text HOME to 741741
+
+Campus Counseling: (XXX) XXX-XXXX
+
+International crisis numbers
+
+Column 3 - About Platform:
+
+Privacy Policy link
+
+Terms of Service
+
+Accessibility Statement
+
+Data Security Information
+
+Column 4 - Connect:
+
+Social media icons (if applicable)
+
+Newsletter signup for mental health tips
+
+Contact form link
+
+Bottom Footer (80px height):
+
+Copyright notice: "© 2025 MindCare Platform. Confidential mental health support."
+
+Additional trust badges: SSL certificate, HIPAA compliance logos
+
+"Made with ❤️ for student wellness" message
+
+🤖 AI CHATBOT PAGE - Complete Detailed Specifications
+Full Page Layout Structure:
+Page Container: Full viewport height (100vh), split into header and chat area
+
+Header (Height: 80px, matches site header):
+
+Same navigation as homepage
+
+Additional breadcrumb: Home > AI Chatbot
+
+Page title overlay: "AI Mental Health Assistant"
+
+Chat Interface (Height: calc(100vh - 80px))
+Left Sidebar - Chat History (Width: 300px on desktop, collapsible on mobile):
+
+Chat History Header (50px height):
+
+Title: "Your Conversations" (Poppins, 16px, semi-bold)
+
+New chat button: "+ Start New Chat" (blue, full width, 40px height)
+
+Position: Fixed top of sidebar
+
+Chat History List (Scrollable area):
+
+Each conversation item (60px height):
+
+Date stamp (top): "Today", "Yesterday", or specific date
+
+First few words preview (14px, gray)
+
+Hover: Light blue background
+
+Active conversation: Blue left border (4px)
+
+Delete option on hover (right side, trash icon)
+
+Sidebar Footer (100px height):
+
+Privacy reminder: "🔒 All conversations are encrypted and confidential"
+
+Settings button for chat preferences
+
+Clear all history button (red text, confirmation dialog)
+
+Main Chat Area (Width: calc(100% - 300px), full height):
+
+Chat Header (70px height):
+
+AI Avatar (50px circle): Friendly robot face with soft blue gradient
+
+AI Name and Status: "MindCare AI Assistant" | "Online and ready to help"
+
+Status indicator: Green dot (12px)
+
+Right side: Minimize chat button, share conversation button
+
+Chat Messages Area (Scrollable, Height: calc(100% - 70px - 80px)):
+
+Message Bubble Specifications:
+
+AI Messages (Left-aligned):
+
+Background: Soft blue (#F0F8FF)
+
+Text color: Dark navy (#2C3E50)
+
+Border radius: 18px (more rounded on right side)
+
+Max width: 70% of chat area
+
+Padding: 12px 16px
+
+Font: Inter, 15px, line height 1.4
+
+Margin: 8px from previous message
+
+Student Messages (Right-aligned):
+
+Background: White with blue border (1px)
+
+Text color: Dark gray (#2C3E50)
+
+Border radius: 18px (more rounded on left side)
+
+Same width and spacing as AI messages
+
+Right-aligned positioning
+
+Message Features:
+
+Timestamp: 12px gray text, positioned below each message
+
+Typing indicator: Three animated dots when AI is responding
+
+Message status: Delivered/Read indicators
+
+Copy text button (appears on hover)
+
+Special Message Types:
+
+Resource cards: Embedded previews of suggested articles/videos
+
+Quick action buttons: "Book Appointment", "Take Assessment", "View Resources"
+
+Crisis detection alerts: Special red-bordered messages with immediate help options
+
+Mood check-ins: Interactive emoji selectors within chat
+
+Chat Input Area (Fixed bottom, 80px height):
+
+Input container: Full width minus 40px margins
+
+Text input box:
+
+Height: 50px, expandable to 120px for long messages
+
+Border radius: 25px
+
+Border: 2px blue on focus, 1px gray default
+
+Padding: 12px 50px 12px 20px (space for send button)
+
+Placeholder: "Share what's on your mind... I'm here to help"
+
+Font: Inter, 16px
+
+Send button:
+
+Position: Absolute right within input box
+
+Size: 40px circle
+
+Background: Blue gradient
+
+Icon: White paper airplane
+
+Active only when text is present
+
+Additional input options:
+
+Voice input button (left side of input, microphone icon)
+
+Emoji selector button
+
+Attachment button (for sharing mood journals, if applicable)
+
+Quick Response Suggestions (Above input, 40px height):
+
+Horizontal scrollable pills with common responses:
+
+"I'm feeling anxious"
+
+"Help me sleep better"
+
+"I'm stressed about exams"
+
+"I feel lonely"
+
+"I need coping strategies"
+
+Each pill: Light blue background, rounded, tappable
+
+Auto-appears at conversation start and contextually during chat
+
+AI Response Features & Behavior:
+Response Types:
+
+Empathetic acknowledgments: "I hear that you're going through a difficult time..."
+
+Coping strategy suggestions: Step-by-step breathing exercises, grounding techniques
+
+Resource recommendations: Links to relevant videos, articles, audio guides
+
+Escalation prompts: "Would it help to speak with a human counselor?"
+
+Follow-up questions: "How did that breathing exercise feel?"
+
+Crisis Detection Protocol:
+
+Keywords trigger immediate response: Suicide, self-harm, abuse mentions
+
+Crisis response format:
+
+Immediate empathetic response
+
+Direct crisis resource links
+
+Option to connect to human immediately
+
+Emergency contact information
+
+Follow-up check-in scheduling
+
+Mobile Responsive Adjustments:
+Mobile Layout (Screen width < 768px):
+
+Sidebar collapses to hamburger menu
+
+Chat area becomes full width
+
+Input area remains fixed at bottom
+
+Quick suggestions become vertically scrollable
+
+Message bubbles adjust to 90% max width
+
+Touch-friendly button sizes (44px minimum)
+
+📅 APPOINTMENTS PAGE - Ultra-Detailed Specifications
+Page Layout Structure (Full width, responsive)
+Page Header (100px height):
+
+Breadcrumb navigation: Home > Appointments
+
+Page title: "Schedule Counseling Sessions" (Poppins, 32px, semi-bold)
+
+Subtitle: "Book confidential appointments with licensed mental health professionals"
+
+Privacy assurance badge: "🔒 Your information remains completely confidential"
+
+Main Content Area (Two-column layout on desktop)
+Left Column - Calendar & Scheduling (65% width, 780px):
+
+Calendar Header (80px height):
+
+Month/Year display: Large, center-aligned (Poppins, 24px)
+
+Navigation arrows: Previous/Next month (50px clickable area each)
+
+View toggle buttons: "Month View" | "Week View" | "Day View"
+
+Today button: Returns to current date
+
+Calendar Grid (Variable height based on view):
+
+Month View Specifications:
+
+Grid: 7 columns (days) × 5-6 rows (weeks)
+
+Each date cell: 100px × 80px minimum
+
+Date number: Top-left, 16px, semi-bold
+
+Available slots indicator: Small colored dots below date
+
+Green dots: Available slots
+
+Orange dots: Limited availability (1-2 slots)
+
+Gray: Fully booked
+
+Red: Unavailable/Holiday
+
+Day View Specifications:
+
+Time slots: 30-minute intervals from 9:00 AM to 6:00 PM
+
+Each slot: Full width × 60px height
+
+Slot display:
+
+Time (left): "9:00 AM - 9:30 AM"
+
+Status (center): "Available" | "Dr. Smith" | "Booked"
+
+Book button (right): Blue button if available
+
+Counselor Information Panel (Below calendar, 200px height):
+
+Available counselors list (scrollable if many):
+
+Professional headshot (60px circle)
+
+Name and credentials
+
+Specializations (tags): "Anxiety", "Depression", "Academic Stress"
+
+Languages spoken
+
+Brief bio (2-3 sentences)
+
+Star rating from anonymous reviews
+
+"Select This Counselor" button
+
+Right Column - Booking Form & Information (35% width, 420px):
+
+Booking Form Container:
+
+White background, subtle shadow, 20px padding
+
+Form header: "Book Your Session" (Poppins, 20px, semi-bold)
+
+Form Fields (Full width, 20px spacing between):
+
+Personal Information Section:
+
+First Name: Text input, required, 50px height
+
+Last Name: Text input, optional (for anonymity)
+
+Student ID: Text input with validation
+
+Email: Required for confirmations
+
+Phone: Optional, for appointment reminders
+
+Anonymous booking checkbox: "I prefer to remain anonymous"
+
+Session Details Section:
+
+Session Type dropdown:
+
+"In-person counseling"
+
+"Video call session"
+
+"Phone consultation"
+
+"Crisis intervention session"
+
+Primary Concern dropdown:
+
+"Anxiety and stress management"
+
+"Depression and mood issues"
+
+"Academic pressure and performance"
+
+"Relationship and social issues"
+
+"Sleep and lifestyle problems"
+
+"Identity and self-esteem"
+
+"Trauma and difficult experiences"
+
+"General mental health check-in"
+
+Urgency Level:
+
+"Routine appointment (within 2 weeks)"
+
+"Moderate urgency (within 1 week)"
+
+"High priority (within 3 days)"
+
+"Crisis situation (same day)"
+
+Additional Information Section:
+
+Text area (100px height): "Share anything you'd like your counselor to know beforehand (optional)"
+
+Checkbox options:
+
+"First time seeking counseling"
+
+"Returning student (previous sessions)"
+
+"Referred by campus health services"
+
+"Self-referral"
+
+Privacy and Consent Section:
+
+"I understand this is a confidential service" checkbox
+
+"I consent to appointment reminders" checkbox
+
+"I agree to cancellation policy" checkbox
+
+Links to: Privacy Policy | Cancellation Policy | What to Expect
+
+Submit Button:
+
+Full width, 50px height
+
+Blue gradient background
+
+Text: "Schedule My Appointment"
+
+Loading state with spinner
+
+Success animation on submission
+
+Confirmation & Management Section:
+After Booking Confirmation (Appears after successful submission):
+
+Success message with appointment details
+
+Calendar integration links (Google, Outlook, Apple)
+
+Reminder setup options
+
+"Add to Your Dashboard" button
+
+"Reschedule" and "Cancel" options
+
+Existing Appointments Panel (If user has booked appointments):
+
+Table/card layout showing:
+
+Date and time
+
+Counselor name
+
+Session type
+
+Status (Confirmed, Pending, Completed)
+
+Actions: Reschedule, Cancel, Join (for online sessions)
+
+Mobile Responsive Design (Screen width < 768px):
+Single column layout
+
+Calendar switches to compact day view by default
+
+Larger touch targets for date selection
+
+Sticky booking form at bottom
+
+Collapsible counselor information
+
+Simplified form with fewer fields visible at once
+
+🧠 SELF-ASSESSMENT PAGE - Comprehensive Detail Specifications
+Page Structure & Flow
+Landing Header (150px height):
+
+Title: "Mental Health Assessment" (Poppins, 36px, center-aligned)
+
+Subtitle: "Evidence-based screening tools to understand your wellbeing"
+
+Assessment type selector (horizontal tabs, 60px height):
+
+"Depression Screen (PHQ-9)"
+
+"Anxiety Assessment (GAD-7)"
+
+"General Health (GHQ-12)"
+
+"Stress Evaluation (PSS-10)"
+
+"Comprehensive Assessment" (all combined)
+
+Assessment Introduction Panel (200px height):
+
+Information box with light blue background
+
+Content varies by selected assessment:
+
+For PHQ-9:
+
+"This 9-question assessment helps identify symptoms of depression over the past 2 weeks"
+
+"Takes approximately 3-5 minutes to complete"
+
+"Your responses are completely confidential and stored securely"
+
+"Results provide guidance on next steps and resources"
+
+Preparation checklist:
+
+✓ Find a quiet, private space
+
+✓ Answer honestly based on recent experiences
+
+✓ No right or wrong answers
+
+✓ Results are for guidance, not diagnosis
+
+Assessment Form Interface:
+
+Progress Indicator (Fixed top, 60px height):
+
+Progress bar: Full width minus 40px margins
+
+Current question number: "Question 3 of 9"
+
+Percentage completion: "33% Complete"
+
+Time estimate: "~2 minutes remaining"
+
+Back button: Returns to previous question
+
+Save & Exit option: Allows resuming later
+
+Question Display Area (Variable height, centered):
+
+Individual Question Layout:
+
+Question container: 800px max width, centered
+
+Question text (Poppins, 24px, medium weight):
+
+"Over the last 2 weeks, how often have you been bothered by little interest or pleasure in doing things?"
+
+Instruction text (Inter, 16px, gray):
+
+"Select the option that best describes your experience"
+
+Answer Options (Radio button format):
+
+Each option: Full width button, 60px height, 15px spacing
+
+Hover effect: Light blue background, smooth transition
+
+Selected effect: Blue background, white text, checkmark icon
+
+Option text examples (PHQ-9):
+
+"Not at all" (Value: 0)
+
+"Several days" (Value: 1)
+
+"More than half the days" (Value: 2)
+
+"Nearly every day" (Value: 3)
+
+Navigation Controls:
+
+Previous button (left): Gray outline, "← Previous Question"
+
+Next button (right): Blue solid, "Next Question →"
+
+Button states: Disabled until option selected
+
+Auto-advance option checkbox: "Automatically go to next question"
+
+Assessment-Specific Configurations:
+PHQ-9 Depression Screen:
+
+9 questions total
+
+Scoring: 0-27 total points
+
+Result interpretations:
+
+0-4: Minimal depression
+
+5-9: Mild depression
+
+10-14: Moderate depression
+
+15-19: Moderately severe depression
+
+20-27: Severe depression
+
+GAD-7 Anxiety Assessment:
+
+7 questions total
+
+Scoring: 0-21 total points
+
+Result interpretations:
+
+0-4: Minimal anxiety
+
+5-9: Mild anxiety
+
+10-14: Moderate anxiety
+
+15-21: Severe anxiety
+
+GHQ-12 General Health:
+
+12 questions about general psychological wellbeing
+
+Likert scale responses
+
+Focus on recent changes in mental state
+
+Results Display Page (Comprehensive Layout):
+Results Header (120px height):
+
+"Your Assessment Results" title
+
+Date completed and time taken
+
+Confidentiality reminder
+
+Option to save results to dashboard
+
+Score Display (200px height):
+
+Large central score circle (150px diameter)
+
+Score number (48px, bold): "12 out of 27"
+
+Score interpretation (18px): "Moderate Depression"
+
+Color coding: Green (low), Orange (moderate), Red (severe)
+
+Circular progress indicator around score
+
+Detailed Interpretation Section (300px height):
+
+Your results panel with icon matching severity level
+
+Text explanation:
+
+"Your responses suggest you may be experiencing moderate symptoms of depression"
+
+"This level of symptoms can significantly impact daily activities and relationships"
+
+"Professional support can be very helpful for managing these feelings"
+
+Recommendations Panel (Variable height):
+
+Personalized suggestions based on score:
+
+For Moderate Scores:
+
+"Consider booking an appointment with a counselor" → Link to appointments page
+
+"Try our guided coping strategies" → Link to AI chatbot
+
+"Explore depression management resources" → Link to filtered resources
+
+"Connect with peer support groups" → Link to peer support
+
+Action Buttons (80px height):
+
+Primary: "Book Counseling Appointment" (blue, full width on mobile)
+
+Secondary: "Explore Resources" (outline button)
+
+Tertiary: "Retake Assessment" (link style)
+
+"Save to Dashboard" button
+
+"Share with Counselor" option (generates anonymous report)
+
+Progress Tracking Section (If previous assessments exist):
+
+Line graph showing scores over time
+
+Comparison with previous results
+
+Trend analysis: "Your scores have improved since last assessment"
+
+Date range selector: 1 month, 3 months, 6 months, 1 year
+
+Educational Information (Expandable sections):
+
+"Understanding Your Results" accordion
+
+"What These Symptoms Mean" section
+
+"Treatment Options Available" information
+
+"Supporting Someone Else" guidance
+
+Mobile Optimization:
+Single question per screen on mobile
+
+Swipe gestures for navigation
+
+Large touch targets for answers
+
+Sticky navigation bar
+
+Simplified results display
+
+Share results via messaging apps
+
+📚 RESOURCES PAGE - Detailed Content Organization
+Page Architecture
+Header Section (120px height):
+
+Page title: "Mental Health Resources" (Poppins, 36px)
+
+Subtitle: "Evidence-based content to support your wellness journey"
+
+Search bar (center): 600px width, "Search for specific topics, symptoms, or techniques"
+
+Quick filter tags: "Popular", "New", "Recommended for You", "Crisis Help"
+
+Filter Sidebar (Left, 280px width on desktop):
+Content Type Filters:
+
+Video Content (with count): "Videos (47)"
+
+Audio Guides: "Audio (32)"
+
+Written Articles: "Articles (89)"
+
+Interactive Tools: "Tools (15)"
+
+Downloadable PDFs: "Guides (23)"
+
+Infographics: "Visual Aids (18)"
+
+Topic Categories:
+
+Anxiety Management (color: soft blue)
+
+Depression Support (color: soft green)
+
+Stress Relief (color: soft purple)
+
+Sleep Improvement (color: soft teal)
+
+Academic Pressure (color: soft orange)
+
+Relationship Issues (color: soft pink)
+
+Self-Esteem Building (color: soft yellow)
+
+Crisis Support (color: soft red)
+
+General Wellness (color: soft gray)
+
+Duration Filters:
+
+Quick Help (Under 5 minutes)
+
+Short Sessions (5-15 minutes)
+
+Deep Dives (15-30 minutes)
+
+Comprehensive (30+ minutes)
+
+Language Options:
+
+English
+
+Hindi
+
+Spanish
+
+Regional languages (expandable list)
+
+Skill Level:
+
+Beginner (New to mental health concepts)
+
+Intermediate (Some experience with techniques)
+
+Advanced (Looking for specialized strategies)
+
+Main Content Area (Width: calc(100% - 280px)):
+Featured Resources Carousel (Height: 250px):
+
+3-4 highlighted resources rotating every 8 seconds
+
+Each card shows: Thumbnail, title, brief description, content type, duration
+
+"Staff Picks" or "Most Helpful This Week" designation
+
+Auto-play controls with pause option
+
+Resource Grid Layout:
+
+Card-based design, 3 columns on desktop, responsive to 1 column on mobile
+
+Each card: 350px width × 200px height minimum
+
+Individual Resource Card Specifications:
+
+Video Resource Card:
+
+Thumbnail image (full width, 120px height)
+
+Play button overlay (center, 50px diameter)
+
+Video duration badge (bottom right): "8:32"
+
+Title (16px, semi-bold, 2 lines max): "5-Minute Breathing Exercise for Anxiety"
+
+Creator/Source (14px, gray): "Dr. Sarah Johnson, Licensed Therapist"
+
+Description (14px, 3 lines max): "Learn a simple breathing technique that can help reduce anxiety symptoms in just 5 minutes"
+
+Metadata row: Language tag, Difficulty level, Topic category
+
+Engagement indicators: Views, likes, saves
+
+Action buttons: Play, Save, Share
+
+Audio Resource Card:
+
+Audio waveform visualization or relevant image
+
+Duration and audio quality indicator
+
+Download option for offline listening
+
+Transcript availability indicator
+
+Similar metadata and actions as video cards
+
+Article Resource Card:
+
+Header image or icon representation
+
+Reading time estimate: "7 min read"
+
+Author credentials
+
+Article preview (first 2-3 sentences)
+
+Tags for key concepts covered
+
+PDF download option if available
+
+Resource Detail Page (When clicking on resource):
+Video/Audio Player Section:
+
+Full-width player (16:9 aspect ratio for videos)
+
+Quality controls, playback speed options
+
+Closed captions toggle
+
+Bookmark specific moments feature
+
+Related resources sidebar
+
+Content Information Panel:
+
+Complete description and learning objectives
+
+Recommended prerequisites or follow-up content
+
+User ratings and reviews (anonymous)
+
+"Report inappropriate content" option
+
+Social sharing buttons
+
+Interactive Elements:
+
+Note-taking area that saves to user dashboard
+
+Reflection questions related to content
+
+Quiz or knowledge check (for some resources)
+
+"Mark as completed" checkbox
+
+Personal rating request after viewing
+
+Advanced Features:
+Personalized Recommendations Engine:
+
+Based on assessment results
+
+Viewing history analysis
+
+Similar user patterns
+
+Seasonal recommendations (exam stress during finals)
+
+Learning Path Creator:
+
+Guided sequences of resources
+
+"Your Journey with Anxiety Management" type paths
+
+Progress tracking through path completion
+
+Estimated time commitment for full path
+
+Community Features:
+
+Resource ratings and reviews
+
+"Users also found helpful" suggestions
+
+Discussion threads for specific resources
+
+User-generated content submissions (moderated)
+
+👥 PEER SUPPORT PAGE - Complete Community Platform Design
+Page Layout Architecture
+Community Header (100px height):
+
+"Student Support Community" title (Poppins, 32px)
+
+Community guidelines link: "Read Community Guidelines"
+
+Online members indicator: "247 students online now"
+
+Post creation button: "Share Your Experience" (prominent, blue)
+
+Navigation Tabs (60px height):
+All Posts (default active)
+
+My Posts
+
+Saved Posts
+
+Following
+
+Trending This Week
+
+Support Groups (scheduled live discussions)
+
+Content Area Layout (Three-column design):
+Left Sidebar - Community Tools (250px width):
+
+Quick Actions Panel:
+
+"New Post" button (full width, blue gradient)
+
+"Ask Anonymous Question" option
+
+"Find Study Buddy" feature
+
+"Join Live Support Group" (if sessions active)
+
+Community Categories:
+
+General Support 🤝
+
+Academic Stress 📚
+
+Anxiety & Worry 😰
+
+Depression Support 💙
+
+Sleep Issues 😴
+
+Relationship Help 💕
+
+Identity & Self-Esteem ✨
+
+Crisis Recovery 🛡️
+
+Success Stories 🎉
+
+Off-Topic / Social 💬
+
+My Community Stats:
+
+Posts created: Number with trend arrow
+
+Helpful responses given: Count
+
+Support received: Gratitude count
+
+Community level: Badges/achievements for positive participation
+
+Main Feed (Width: 600px, center column):
+
+Post Creation Interface (Expandable, 120px default height):
+
+"What's on your mind today?" prompt
+
+Anonymous posting toggle
+
+Category selector dropdown
+
+Mood selector (emoji-based)
+
+Character count (500 character limit)
+
+Content warning tags for sensitive topics
+
+Submit as: "Your Name" vs "Anonymous Student"
+
+Individual Post Layout (Variable height, 20px spacing):
+
+Post Header (50px height):
+
+User avatar/anonymous icon (40px circle)
+
+Username or "Anonymous Student"
+
+Post timestamp: "2 hours ago"
+
+Category tag: Color-coded pill
+
+Mood indicator emoji
+
+Menu button (report, save, follow user)
+
+Post Content (Variable height):
+
+Text content with readable typography
+
+Content warnings (collapsed by default if sensitive)
+
+Hashtags and mentions highlighted
+
+Image attachments (if allowed)
+
+Link previews for shared resources
+
+Post Engagement Bar (40px height):
+
+Upvote/downvote buttons with counts
+
+"Helpful" reaction button
+
+Comment count: "12 responses"
+
+Share button (within platform only)
+
+Save to personal collection
+
+Follow thread notifications toggle
+
+Comments Section (Expandable):
+
+Nested comment threads (2 levels max)
+
+Same anonymous options as posts
+
+"Mark as helpful" for particularly good advice
+
+Report inappropriate responses
+
+Moderator badges visible on staff responses
+
+Right Sidebar - Community Resources (300px width):
+
+Today's Wellness Check:
+
+Quick mood log for community
+
+Anonymous aggregate: "How the community is feeling today"
+
+Encouraging message based on community mood
+
+Upcoming Events:
+
+Live support group sessions
+
+Virtual study halls
+
+Wellness workshops
+
+Guest speaker sessions
+
+Peer mentor office hours
+
+Community Spotlights:
+
+"Helpful Member This Week"
+
+"Inspiring Recovery Story"
+
+"Positive Momentum" achievements
+
+Community milestone celebrations
+
+Quick Resources:
+
+Crisis support resources
+
+Coping strategy quick cards
+
+Links to assessment tools
+
+Counseling appointment shortcuts
+
+Specialized Features:
+Anonymous Posting System:
+
+True anonymity option with rotating anonymous identifiers
+
+"Anonymous-1", "Anonymous-2" system for thread continuity
+
+IP and device anonymization
+
+No post history linkage for anonymous posts
+
+Content Moderation:
+
+Pre-publication screening for crisis language
+
+Community reporting system
+
+Trained student volunteer moderators
+
+Professional counselor oversight
+
+AI-assisted content filtering for harmful content
+
+Support Group Integration:
+
+Scheduled live chat sessions
+
+Video support groups (optional camera)
+
+Themed discussion groups
+
+Peer mentor facilitation
+
+Waiting room for sensitive discussions
+
+Safety Features:
+
+Crisis intervention alerts
+
+Automatic resource recommendations
+
+Professional help escalation protocols
+
+Bullying/harassment prevention
+
+Safe space maintenance
+
+☎️ EMERGENCY HELP PAGE - Crisis Intervention Interface
+Page Design Philosophy
+This page must prioritize immediate accessibility, clear crisis resources, and instant connection to help while maintaining a calming but urgent design approach.
+
+Header Section (Minimal, 60px height):
+Simplified navigation (just logo and "Back to Safety" button)
+
+No distracting elements or complex menus
+
+Crisis hotline number prominently displayed
+
+Hero Emergency Section (200px height, above fold):
+Large, clear heading: "You Are Not Alone - Help Is Available Now"
+
+Immediate crisis assessment: "Are you in immediate danger?" (Yes/No buttons)
+
+If "Yes" selected: Direct dial buttons appear for emergency services
+
+If "No" selected: Crisis support options appear
+
+Immediate Help Options (300px height):
+Crisis Hotlines (Left column, 50% width):
+
+National Suicide Prevention Lifeline:
+
+Large button: "Call 988" (50px height, red background)
+
+Text alternative: "Text HELLO to 741741"
+
+Chat option: "Chat online now"
+
+Campus Counseling Center:
+
+Direct phone number with large call button
+
+"Emergency counselor on-call" availability status
+
+After-hours protocol information
+
+Immediate Coping Support (Right column, 50% width):
+
+"I Need Help Right Now" AI chat button
+
+Guided breathing exercise launcher
+
+Crisis coping strategies quick access
+
+"Call a friend" feature with trusted contact setup
+
+Assessment and Triage Section:
+Quick Crisis Assessment (Interactive, guided):
+
+Simple yes/no questions to determine urgency level:
+
+"Are you having thoughts of hurting yourself?"
+
+"Do you have a plan to hurt yourself?"
+
+"Are you in immediate physical danger?"
+
+"Do you have someone you can call right now?"
+
+Personalized Response Based on Assessment:
+
+High risk: Immediate professional contact, location services for emergency response
+
+Moderate risk: Campus counselor connection, safety planning tools
+
+Lower risk: Coping resources, peer support options, follow-up scheduling
+
+Safety Planning Tools:
+Interactive Safety Plan Creator:
+
+Warning signs recognition
+
+Internal coping strategies
+
+Social support contacts
+
+Professional support contacts
+
+Environment safety modifications
+
+Motivation reminders
+
+Resource Library (Crisis-Focused):
+Immediate coping techniques
+
+Grounding exercises
+
+Distress tolerance skills
+
+Emergency contact templates
+
+Recovery stories and hope-focused content
+
+📊 STUDENT DASHBOARD - Personal Mental Health Overview
+This is the most detailed section as it's the central hub for student self-management and progress tracking.
+
+Dashboard Architecture & Layout
+Dashboard Header (100px height):
+
+Personal welcome: "Welcome back, [Name/Anonymous]"
+
+Last login information
+
+Quick stats: "You've made progress on 3 goals this week"
+
+Quick action button: "Log Today's Mood"
+
+Emergency help button (always visible, top right)
+
+Main Dashboard Grid (Responsive card layout):
+Top Row - Primary Metrics (3 cards, equal width):
+
+Card 1 - Current Wellbeing Score (300px width × 200px height):
+
+Large circular progress indicator (120px diameter)
+
+Current wellbeing score: "72/100" (calculated from multiple inputs)
+
+Color-coded: Green (70-100), Orange (40-69), Red (0-39)
+
+Trend indicator: Arrow showing improvement/decline since last week
+
+Quick interpretation: "Good - You're managing well"
+
+"View detailed breakdown" link
+
+Card 2 - Mood Tracking Summary (300px width × 200px height):
+
+7-day mood chart (line graph)
+
+Average mood for the week
+
+Most frequent mood emoji
+
+Mood pattern insights: "Your mood tends to dip on Mondays"
+
+"Log current mood" button
+
+"View full mood history" link
+
+Card 3 - Goals Progress (300px width × 200px height):
+
+Active goals counter: "3 of 5 goals on track"
+
+Progress bars for each active goal:
+
+"Exercise 3x per week" (80% complete)
+
+"Sleep 8 hours nightly" (60% complete)
+
+"Practice mindfulness daily" (90% complete)
+
+"Add new goal" button
+
+"Celebrate achievements" section for completed goals
+
+Middle Row - Activity & Engagement (2 cards, 60/40 split):
+Card 4 - Recent Activity Log (480px width × 250px height):
+
+Timeline of recent platform engagement:
+
+"Yesterday: Completed anxiety assessment"
+
+"3 days ago: Watched 'Managing Academic Stress' video"
+
+"1 week ago: Participated in peer support discussion"
+
+"2 weeks ago: Booked counseling appointment"
+
+Activity streaks: "5-day learning streak!"
+
+"View all activity" link
+
+Card 5 - Quick Actions (320px width × 250px height):
+
+Grid of 6 most-used features:
+
+Chat with AI
+
+Book appointment
+
+Take assessment
+
+Browse resources
+
+Join peer discussion
+
+Practice breathing exercise
+
+Customizable shortcuts based on user preferences
+
+"Customize shortcuts" link
+
+Bottom Row - Detailed Sections (3 cards, equal width):
+Card 6 - Assessment History (300px width × 300px height):
+
+Graph showing assessment scores over time
+
+Multiple assessment types on same chart with different colors:
+
+PHQ-9 Depression scores (blue line)
+
+GAD-7 Anxiety scores (orange line)
+
+Stress level scores (green line)
+
+Date range selector: 1M, 3M, 6M, 1Y
+
+Next recommended assessment: "Retake anxiety screen in 2 weeks"
+
+"Take new assessment" button
+
+Card 7 - Appointment Management (300px width × 300px height):
+
+Upcoming appointments list:
+
+Date, time, counselor name
+
+Session type (in-person/virtual)
+
+Preparation reminder
+
+Past appointment summary:
+
+"You've attended 4 sessions this semester"
+
+"Last session: Dr. Smith, March 15"
+
+"Schedule new appointment" button
+
+"Join virtual session" button (if appointment is today)
+
+Card 8 - Learning Progress (300px width × 300px height):
+
+Resources completed this month: Number with trend
+
+Learning paths progress:
+
+"Anxiety Management Path: 60% complete"
+
+"Sleep Improvement Journey: 25% complete"
+
+Certificates or badges earned
+
+Recommended next content
+
+"Continue learning" button
+
+Expandable Detailed Views:
+Mood Tracking Detailed View:
+
+Calendar heat map showing daily mood entries
+
+Mood correlations with:
+
+Sleep hours
+
+Exercise activity
+
+Academic deadlines
+
+Weather patterns
+
+Social activities
+
+Mood patterns analysis:
+
+Best/worst days of week
+
+Time of day trends
+
+Seasonal patterns
+
+Export mood data option
+
+Goals Management Interface:
+
+SMART goals creator:
+
+Specific, Measurable, Achievable, Relevant, Time-bound
+
+Goal categories:
+
+Physical wellness
+
+Mental health practices
+
+Academic balance
+
+Social connections
+
+Personal growth
+
+Progress tracking methods:
+
+Daily check-ins
+
+Weekly reviews
+
+Photo progress journals
+
+Habit streaks
+
+Goal adjustment tools
+
+Achievement celebrations with virtual rewards
+
+Personal Insights Dashboard:
+
+AI-powered insights based on user data:
+
+"You tend to feel anxious before major assignments"
+
+"Your mood improves after using breathing exercises"
+
+"You're most productive for learning on Tuesday afternoons"
+
+Personalized recommendations:
+
+Content suggestions based on current challenges
+
+Optimal times for different activities
+
+Early warning signs of mental health decline
+
+Privacy controls for data analysis
+
+Customization Features:
+Dashboard Personalization:
+
+Drag-and-drop card rearrangement
+
+Show/hide specific metrics
+
+Color theme selection (6 calming palettes)
+
+Card size preferences
+
+Notification preferences for each section
+
+Data Export and Privacy:
+
+Export personal data in multiple formats
+
+Share specific metrics with counselors
+
+Data retention settings
+
+Account deletion options
+
+Privacy dashboard showing what data is collected
+
+Mobile Dashboard Optimization:
+Mobile Layout (Screen width < 768px):
+
+Single column card stack
+
+Swipeable card interface
+
+Collapsed navigation with bottom tab bar
+
+Touch-optimized charts and graphs
+
+Voice input for mood logging
+
+Quick gesture shortcuts
+
+Progressive Web App Features:
+
+Offline mood logging
+
+Push notifications for reminders
+
+Home screen installation
+
+Background sync when connected
+
+ℹ️ ABOUT US PAGE - Platform Information & Trust Building
+Hero Section (200px height):
+"About MindCare Platform" heading
+
+Mission statement: "Empowering students with accessible, confidential, and evidence-based mental health support"
+
+Trust indicators: "Serving 50,000+ students nationwide"
+
+Our Mission Section:
+Detailed explanation of platform purpose
+
+Statistics on student mental health crisis
+
+Our approach to solving accessibility issues
+
+Commitment to evidence-based practices
+
+Professional Team Section:
+Licensed mental health professionals
+
+Clinical advisory board
+
+Technical team credentials
+
+Student advisory committee
+
+Privacy & Security Information:
+HIPAA compliance details
+
+Data encryption practices
+
+Anonymous usage options
+
+Student privacy rights
+
+Platform Statistics:
+Students helped
+
+Crisis interventions
+
+Sessions facilitated
+
+Resources accessed
+
+Success stories (anonymous)
+
+Partnership & Accreditation:
+University partnerships
+
+Professional organization memberships
+
+Compliance certifications
+
+Research collaborations
+
+🎯 COMPREHENSIVE WEBSITE DEVELOPMENT PROMPT
+Complete Ultra-Detailed Website Development Prompt:
+
+Create a comprehensive digital mental health and psychological support platform specifically designed for higher education students with the following ultra-detailed specifications:
+
+OVERALL DESIGN REQUIREMENTS:
+Design a modern, responsive website with a calming color palette (soft blues #E3F2FD, mint greens #E8F5E8, lavender #F3E5F5, and white backgrounds). Use Poppins font for headings (24px-48px) and Inter font for body text (14px-18px). Implement subtle animations, smooth transitions, and ensure full mobile responsiveness with progressive web app capabilities.
+
+NAVIGATION & STRUCTURE:
+Create a fixed header (80px height) with logo on left, horizontal navigation menu in center, and user profile/emergency button on right. Include 9 main sections: Home, AI Chatbot, Appointments, Self-Assessment, Resources, Peer Support, Emergency Help, Student Dashboard, and About Us.
+
+HOME PAGE SPECIFICATIONS:
+Design a welcoming hero section (500px height) with gradient background, compelling headline "Your Mental Health Journey Starts Here", dual CTA buttons for "Start Assessment" and "Chat with AI", and trust indicators. Below hero, create a grid of 6 quick-access tiles (270px × 160px each) with hover effects, icons, and descriptions for each main feature. Include featured content section, testimonials carousel, and comprehensive footer with crisis resources.
+
+AI CHATBOT PAGE SPECIFICATIONS:
+Implement full-screen chat interface with collapsible sidebar (300px width) for conversation history. Main chat area with AI avatar, typing indicators, message bubbles (AI: soft blue background, Student: white with blue border), and fixed input area (80px height) with voice input option. Include quick response suggestions, crisis detection protocols, and resource recommendation cards within conversations.
+
+APPOINTMENTS PAGE SPECIFICATIONS:
+Create two-column layout with interactive calendar (65% width) showing available slots with color coding (green: available, orange: limited, gray: booked). Include counselor information panels with photos, specializations, and ratings. Right column booking form (35% width) with personal information, session type selection, urgency levels, and comprehensive confirmation system.
+
+SELF-ASSESSMENT PAGE SPECIFICATIONS:
+Design step-by-step assessment interface with progress indicators, one question per screen approach, and radio button selections. Implement PHQ-9, GAD-7, and GHQ-12 assessments with proper scoring algorithms. Create comprehensive results display with circular progress indicators, color-coded interpretations, personalized recommendations, and progress tracking over time.
+
+RESOURCES PAGE SPECIFICATIONS:
+Develop filterable content library with sidebar filters (280px width) for content type, topics, duration, language, and skill level. Main content area with card-based layout (3 columns desktop, responsive to mobile) showing videos, articles, audio guides, and interactive tools. Each resource card includes thumbnails, duration, metadata, engagement metrics, and quick action buttons.
+
+PEER SUPPORT PAGE SPECIFICATIONS:
+Build community platform with three-column layout: left sidebar (250px) with categories and quick actions, center feed (600px) with post creation interface and threaded discussions, right sidebar (300px) with community stats and upcoming events. Implement anonymous posting options, content moderation, upvoting system, and crisis intervention protocols.
+
+EMERGENCY HELP PAGE SPECIFICATIONS:
+Design crisis-focused interface with immediate help options, large call buttons for hotlines (988, campus counseling), quick crisis assessment questionnaire, safety planning tools, and escalation protocols based on risk level. Ensure minimal navigation distractions and maximum accessibility for crisis situations.
+
+STUDENT DASHBOARD SPECIFICATIONS:
+Create personalized dashboard with responsive card grid layout showing: wellbeing score (circular progress, 120px diameter), 7-day mood tracking chart, goal progress bars, recent activity timeline, appointment management, assessment history graphs, and learning progress. Implement customizable layout, data export options, and mobile-optimized interface with swipeable cards.
+
+TECHNICAL REQUIREMENTS:
+Ensure HIPAA compliance, end-to-end encryption, anonymous usage options, progressive web app functionality, offline capabilities for core features, cross-browser compatibility, accessibility compliance (WCAG 2.1 AA), and mobile-first responsive design. Implement crisis detection algorithms, secure authentication, data anonymization, and comprehensive privacy controls.
+
+SPECIAL FEATURES:
+Include mood tracking with calendar heat maps, personalized AI recommendations based on usage patterns, goal setting with SMART criteria, learning paths with progress tracking, peer support with trained moderation, crisis escalation protocols, multi-language support, and integrated appointment scheduling with calendar systems.
+
+USER EXPERIENCE PRIORITIES:
+Prioritize stigma-free access, complete confidentiality, intuitive navigation, emotional safety, cultural sensitivity, evidence-based content, professional oversight, and seamless integration between all platform features. Ensure every interaction promotes mental health awareness while maintaining user agency and privacy.
+
+Build this platform as a comprehensive, student-centered mental health ecosystem that reduces barriers to care, promotes early intervention, provides evidence-based support, and creates a safe community for peer interaction, all while maintaining the highest standards of privacy, security, and clinical oversight.
+
+
+
+
+
+
+
+
+
+create a detailed website for me and website mujhe fully professional chiaye like sab cheez fully professional chiaye jitna jada professional ho sake and detaeiled mai bhe hona chiaeye fully website and website mujhe fully functional chiaye kuch bhe miss nhi hona chiaey and sare cheez aacha se work karna chiaye kuch bhe demo nhi
+
+and jab tak tum apna puta work khatam nhi kar loo jab tak stop mat hona and fully professional and modern website chiaye
+
+and fully webiste ka jo bhe folder and pages hoga aacha se oragnize rahna chiaye bhout hee aach se folder bana hua hona chiaye and haar ek page ke liye ek folder hona chiaye and haar cheez ke liye ek folder hona chiaey and uske andar hee uska codes hona chiaye
+
+and jitna bhe codes hoga sab mai detailed comment hona chiaye and easy to understand english mai comment hona chiaye
+
+isko mind mai rakhna fully professional and modern website chiaaey mujhe
+
+fully profeesional modern and detsiled website
+create karna hai
+
+
+
+mujhe sare pages mai or jada detailing chiaye and sare pages mujhe working mai chiaye kuch bhe demo nhi and sare pages fully professional hona chiye text beh professional chiaye colors bhe fontss bhe and icons bhe and modern bhe hona chiaye
+
+Home
+AI Chatbot
+Appointments
+Self-Assessment
+Resources
+Peer Support
+Emergency Help
+Dashboard
+About Us
+Crisis Help
+
+ye sare pages hai abhi
+
+and pura webiste and sare codes error free hona chiaey and sare codes mai comments bhe add kar dena jitna bhe code hoga sabmai and enlgish mai comment hona chiey and fully easy to understand englsih and fully responsive bhe hona chiaye sare devices ke liye mobile tablet pc desktop tv and mobile mai bhe bhout sare types ke mobiles hai sab mai fully responsive hona chiaaye
+
+
+
+
+
+
+
+
+
