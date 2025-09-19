@@ -93,36 +93,52 @@
 }
 
 .dark {
-  --background: hsl(208, 57%, 8%);
-  --foreground: hsl(200, 6.6667%, 91.1765%);
-  --card: hsl(208, 30%, 12%);
-  --card-foreground: hsl(0, 0%, 85.0980%);
-  --popover: hsl(208, 57%, 8%);
-  --popover-foreground: hsl(200, 6.6667%, 91.1765%);
+  /* Professional Dark Theme - High Contrast & Visibility */
+  --background: hsl(222, 84%, 4%); /* Deep dark blue - professional and calming */
+  --foreground: hsl(210, 40%, 98%); /* Bright white text for high contrast */
+  --card: hsl(222, 47%, 8%); /* Slightly lighter dark blue for cards */
+  --card-foreground: hsl(210, 40%, 96%); /* High contrast card text */
+  --popover: hsl(222, 47%, 8%);
+  --popover-foreground: hsl(210, 40%, 96%);
   
-  /* MindCare Specific Colors - Dark Mode */
-  --mindcare-navy: hsl(208, 57%, 35%); /* Lighter navy for dark mode */
-  --mindcare-blue: hsl(214, 73%, 65%); /* Brighter blue for dark mode */
-  --mindcare-green: hsl(84, 76%, 55%); /* Brighter green for dark mode */
+  /* MindCare Specific Colors - Enhanced Dark Mode */
+  --mindcare-navy: hsl(208, 57%, 45%); /* Brighter navy for visibility */
+  --mindcare-blue: hsl(214, 73%, 70%); /* Bright blue for excellent visibility */
+  --mindcare-green: hsl(84, 76%, 60%); /* Vibrant green for accent */
   
-  --primary: hsl(214, 73%, 65%);
-  --primary-foreground: hsl(208, 57%, 8%);
-  --secondary: hsl(84, 76%, 55%);
-  --secondary-foreground: hsl(208, 57%, 8%);
-  --muted: hsl(208, 30%, 15%);
-  --muted-foreground: hsl(210, 3.3898%, 65%); /* Improved contrast: lighter for better readability on dark background */
-  --accent: hsl(208, 57%, 35%);
-  --accent-foreground: hsl(84, 76%, 55%);
-  --destructive: hsl(356.3033, 90.5579%, 54.3137%);
+  /* Enhanced Primary Colors for Dark Mode */
+  --primary: hsl(214, 73%, 70%); /* Brighter blue for better visibility */
+  --primary-foreground: hsl(222, 84%, 4%); /* Dark background for text on primary */
+  --secondary: hsl(84, 76%, 60%); /* Vibrant green */
+  --secondary-foreground: hsl(222, 84%, 4%);
+  --muted: hsl(222, 47%, 12%); /* Slightly lighter for sections */
+  --muted-foreground: hsl(210, 40%, 80%); /* High contrast muted text */
+  --accent: hsl(208, 57%, 45%);
+  --accent-foreground: hsl(210, 40%, 98%);
+  --destructive: hsl(0, 84%, 65%); /* Brighter red for visibility */
   --destructive-foreground: hsl(0, 0%, 100%);
-  --border: hsl(208, 20%, 25%); /* Improved contrast: lighter border in dark mode */
-  --input: hsl(208, 30%, 22%); /* Improved contrast: lighter input background in dark mode */
-  --ring: hsl(214, 73%, 65%);
+  --border: hsl(222, 47%, 20%); /* Visible borders */
+  --input: hsl(222, 47%, 15%); /* Input backgrounds */
+  --ring: hsl(214, 73%, 70%);
   
-  /* Custom MindCare gradients - Dark Mode */
-  --gradient-primary: linear-gradient(135deg, hsl(214, 73%, 65%), hsl(84, 76%, 55%));
-  --gradient-secondary: linear-gradient(135deg, hsl(84, 76%, 55%), hsl(208, 57%, 35%));
-  --gradient-accent: linear-gradient(135deg, hsl(208, 57%, 35%), hsl(214, 73%, 65%));
+  /* Custom MindCare gradients - Enhanced Dark Mode */
+  --gradient-primary: linear-gradient(135deg, hsl(214, 73%, 70%), hsl(84, 76%, 60%));
+  --gradient-secondary: linear-gradient(135deg, hsl(84, 76%, 60%), hsl(208, 57%, 45%));
+  --gradient-accent: linear-gradient(135deg, hsl(208, 57%, 45%), hsl(214, 73%, 70%));
+  
+  /* Feature Tile Gradients for Dark Mode */
+  --gradient-tile-blue: linear-gradient(135deg, hsl(214, 50%, 15%), hsl(214, 73%, 25%));
+  --gradient-tile-green: linear-gradient(135deg, hsl(84, 40%, 15%), hsl(84, 76%, 25%));
+  --gradient-tile-purple: linear-gradient(135deg, hsl(276, 40%, 15%), hsl(276, 50%, 25%));
+  --gradient-tile-yellow: linear-gradient(135deg, hsl(42, 50%, 15%), hsl(42, 87%, 25%));
+  --gradient-tile-coral: linear-gradient(135deg, hsl(341, 40%, 15%), hsl(341, 75%, 25%));
+  --gradient-tile-red: linear-gradient(135deg, hsl(0, 50%, 15%), hsl(0, 84%, 25%));
+  
+  /* Statistics Card Accents for Dark Mode */
+  --stat-red: hsl(0, 84%, 65%);
+  --stat-orange: hsl(20, 90%, 65%);
+  --stat-purple: hsl(276, 50%, 65%);
+  --stat-dark-red: hsl(345, 84%, 65%);
 }
 
 @layer base {
@@ -152,6 +168,55 @@
   
   .gradient-accent {
     background: var(--gradient-accent);
+  }
+  
+  /* Feature Tile Gradients */
+  .gradient-tile-blue {
+    background: var(--gradient-tile-blue, linear-gradient(135deg, hsl(214, 73%, 95%), hsl(214, 73%, 85%)));
+  }
+  
+  .dark .gradient-tile-blue {
+    background: var(--gradient-tile-blue);
+  }
+  
+  .gradient-tile-green {
+    background: var(--gradient-tile-green, linear-gradient(135deg, hsl(84, 76%, 95%), hsl(84, 76%, 85%)));
+  }
+  
+  .dark .gradient-tile-green {
+    background: var(--gradient-tile-green);
+  }
+  
+  .gradient-tile-purple {
+    background: var(--gradient-tile-purple, linear-gradient(135deg, hsl(276, 50%, 95%), hsl(276, 50%, 85%)));
+  }
+  
+  .dark .gradient-tile-purple {
+    background: var(--gradient-tile-purple);
+  }
+  
+  .gradient-tile-yellow {
+    background: var(--gradient-tile-yellow, linear-gradient(135deg, hsl(42, 87%, 95%), hsl(42, 87%, 85%)));
+  }
+  
+  .dark .gradient-tile-yellow {
+    background: var(--gradient-tile-yellow);
+  }
+  
+  .gradient-tile-coral {
+    background: var(--gradient-tile-coral, linear-gradient(135deg, hsl(341, 75%, 95%), hsl(341, 75%, 85%)));
+  }
+  
+  .dark .gradient-tile-coral {
+    background: var(--gradient-tile-coral);
+  }
+  
+  .gradient-tile-red {
+    background: var(--gradient-tile-red, linear-gradient(135deg, hsl(0, 84%, 95%), hsl(0, 84%, 85%)));
+  }
+  
+  .dark .gradient-tile-red {
+    background: var(--gradient-tile-red);
   }
   
   .hero-bg {

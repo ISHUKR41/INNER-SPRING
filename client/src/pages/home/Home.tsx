@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "wouter";
-import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { 
@@ -18,8 +15,6 @@ import {
   ArrowRight,
   CheckCircle,
   Play,
-  Download,
-  Star,
   Shield,
   Heart,
   Clock,
@@ -28,482 +23,384 @@ import {
   AlertCircle,
   Target,
   Brain,
-  Search,
   UserCheck,
   Lightbulb,
-  Lock,
-  Headphones,
   Handshake,
   Sprout,
-  ChevronLeft,
-  ChevronRight,
   X,
   Building,
   GraduationCap,
   LifeBuoy,
-  FileText,
-  UserPlus,
-  Activity,
-  Zap,
   Award,
   HelpCircle,
-  Eye,
-  EyeOff,
-  CheckSquare,
-  AlertTriangle,
-  ExternalLink
+  ChevronRight,
+  Star,
+  Quote,
+  Zap,
+  HeadphonesIcon,
+  Smartphone,
+  Globe,
+  Accessibility,
+  UserPlus,
+  Calendar as CalendarIcon,
+  Bot,
+  PhoneCall
 } from "lucide-react";
-import type { Resource } from "@/types";
 
 /**
- * MindCare Professional Home Page - Comprehensive student mental health platform
- * Features modern design, detailed sections, statistics, and professional content
- * Designed for maximum engagement and trust building
+ * Professional MindCare Homepage - Complete Mental Health Platform
+ * 
+ * Ultra-detailed, modern, and responsive homepage designed for student mental health support.
+ * Features comprehensive content, professional design, and full functionality.
  */
 export default function Home() {
   const [visibleElements, setVisibleElements] = useState(new Set());
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
-  const [expandedFaq, setExpandedFaq] = useState<string | null>(null);
 
-  // Fetch featured resources for the homepage with proper typing and default values
-  const { data: featuredResources = [], isLoading: resourcesLoading, error: resourcesError } = useQuery<Resource[]>({
-    queryKey: ["/api/resources/featured"],
-  });
-
-  // Professional platform statistics - Based on research data
-  const platformStats = {
-    studentsHelped: "15,000+",
-    activeSessions: "24/7",
-    averageResponseTime: "< 30 sec",
-    improvementRate: "94%",
-    crisisPreventions: "2,847",
-    campusPartnerships: "150+"
-  };
-
-  // Professional crisis statistics with compelling visual impact
-  const crisisStatistics = [
-    {
-      number: "73%",
-      description: "of students experienced a mental health crisis in the past year",
-      source: "American College Health Association, 2024",
-      color: "text-red-600",
-      bgColor: "bg-red-50",
-      borderColor: "border-l-red-500",
-      icon: AlertTriangle,
-      testId: "stat-crisis-rate"
-    },
-    {
-      number: "60%",
-      description: "say mental health significantly impacted their academic performance",
-      subtext: "Leading to lower GPAs, course withdrawals, and delayed graduation",
-      color: "text-orange-600",
-      bgColor: "bg-orange-50",
-      borderColor: "border-l-orange-500",
-      icon: BarChart3,
-      testId: "stat-academic-impact"
-    },
-    {
-      number: "85%",
-      description: "don't seek help due to stigma, cost, or lack of accessible services",
-      subtext: "Traditional counseling centers serve only 15% of students needing help",
-      color: "text-purple-600",
-      bgColor: "bg-purple-50",
-      borderColor: "border-l-purple-500",
-      icon: Shield,
-      testId: "stat-barriers"
-    },
-    {
-      number: "↗️ 35%",
-      description: "increase in student suicidal ideation since 2020",
-      subtext: "Yet campus counseling resources haven't scaled to meet demand",
-      color: "text-red-700",
-      bgColor: "bg-red-100",
-      borderColor: "border-l-red-600",
-      icon: TrendingUp,
-      testId: "stat-crisis-increase"
-    }
-  ];
-
-  // Student journey steps with detailed descriptions
-  const journeySteps = [
-    {
-      title: "Notice the Signs",
-      description: "Feeling anxious, depressed, overwhelmed, or struggling with sleep? Academic stress getting overwhelming?",
-      icon: Lightbulb,
-      bgColor: "bg-yellow-100",
-      iconColor: "text-yellow-600",
-      time: "Moment of awareness",
-      action: "Take anonymous self-assessment",
-      testId: "journey-recognition"
-    },
-    {
-      title: "Anonymous Self-Check",
-      description: "Take evidence-based assessments (PHQ-9, GAD-7) in complete privacy. No judgment, just understanding.",
-      icon: Lock,
-      bgColor: "bg-blue-100",
-      iconColor: "text-blue-600",
-      time: "5-10 minutes",
-      action: "Get personalized recommendations",
-      testId: "journey-assessment"
-    },
-    {
-      title: "Instant AI Guidance",
-      description: "Get immediate coping strategies, breathing exercises, and personalized recommendations 24/7.",
-      icon: Brain,
-      bgColor: "bg-green-100",
-      iconColor: "text-green-600",
-      time: "Available instantly",
-      action: "Chat now or explore resources",
-      testId: "journey-ai-support"
-    },
-    {
-      title: "Expert Support",
-      description: "Book confidential appointments with campus counselors or connect with licensed professionals.",
-      icon: Handshake,
-      bgColor: "bg-purple-100",
-      iconColor: "text-purple-600",
-      time: "When you're ready",
-      action: "Book confidential appointment",
-      testId: "journey-professional"
-    },
-    {
-      title: "Sustained Growth",
-      description: "Track progress, join peer communities, access resources, and maintain long-term mental wellness.",
-      icon: Sprout,
-      bgColor: "bg-teal-100",
-      iconColor: "text-teal-600",
-      time: "Your ongoing journey",
-      action: "Join student community",
-      testId: "journey-wellness"
-    }
-  ];
-
-  // Professional service tiles configuration with enhanced styling
-  const serviceTiles = [
-    {
-      title: "24/7 AI Mental Health Support",
-      description: "Immediate coping strategies, breathing exercises, and emotional support when you need it most",
-      useCase: "Perfect for late-night anxiety, pre-exam stress, or sudden panic",
-      icon: MessageCircle,
-      href: "/chatbot",
-      gradient: "from-sky-50 to-blue-100",
-      hoverGradient: "sky",
-      iconColor: "text-sky-600",
-      buttonColor: "text-sky-600",
-      shadowColor: "shadow-sky-200/50",
-      testId: "tile-ai-chatbot"
-    },
-    {
-      title: "Campus Counselor Booking",
-      description: "Schedule confidential appointments with licensed campus counselors and mental health professionals",
-      useCase: "When you need deeper support, therapy, or professional diagnosis",
-      trustIndicator: "Average wait time: 2-3 days",
-      icon: Calendar,
-      href: "/appointments",
-      gradient: "from-emerald-50 to-green-100",
-      hoverGradient: "emerald",
-      iconColor: "text-emerald-600",
-      buttonColor: "text-emerald-600",
-      shadowColor: "shadow-emerald-200/50",
-      testId: "tile-appointments"
-    },
-    {
-      title: "Evidence-Based Assessment",
-      description: "Take validated mental health screenings (PHQ-9, GAD-7) for personalized insights and recommendations",
-      useCase: "Perfect for understanding your mental health status privately",
-      icon: ClipboardList,
-      href: "/assessment",
-      gradient: "from-violet-50 to-purple-100",
-      hoverGradient: "violet",
-      iconColor: "text-violet-600",
-      buttonColor: "text-violet-600",
-      shadowColor: "shadow-violet-200/50",
-      testId: "tile-assessment"
-    },
-    {
-      title: "Student Peer Community",
-      description: "Connect with fellow students in safe, moderated forums designed for mutual support and understanding",
-      useCase: "When you want to connect with others who understand student life",
-      icon: Users,
-      href: "/peer-support",
-      gradient: "from-teal-50 to-cyan-100",
-      hoverGradient: "teal",
-      iconColor: "text-teal-600",
-      buttonColor: "text-teal-600",
-      shadowColor: "shadow-teal-200/50",
-      testId: "tile-peer-support"
-    },
-    {
-      title: "Crisis Intervention",
-      description: "24/7 emergency support with immediate connection to crisis counselors and urgent mental health resources",
-      useCase: "Immediate help when you're in crisis or having thoughts of self-harm",
-      icon: Phone,
-      href: "/emergency",
-      gradient: "from-rose-50 to-red-100",
-      hoverGradient: "rose",
-      iconColor: "text-rose-600",
-      buttonColor: "text-rose-600",
-      shadowColor: "shadow-rose-200/50",
-      border: "border-rose-200",
-      pulseEffect: "group-hover:animate-pulse",
-      testId: "tile-emergency"
-    },
-    {
-      title: "Mental Health Resources",
-      description: "Curated library of articles, videos, guided meditations, and tools for every aspect of mental wellness",
-      useCase: "Self-directed learning and ongoing mental health maintenance",
-      icon: BookOpen,
-      href: "/resources",
-      gradient: "from-amber-50 to-yellow-100",
-      hoverGradient: "amber",
-      iconColor: "text-amber-600",
-      buttonColor: "text-amber-600",
-      shadowColor: "shadow-amber-200/50",
-      testId: "tile-resources"
-    }
-  ];
-
-  // Breaking barriers - addressing specific student concerns
-  const barrierSolutions = [
-    {
-      problemIcon: X,
-      barrier: "Fear of judgment and stigma",
-      solutions: [
-        "100% anonymous options available",
-        "No names required for AI chat or peer support",
-        "Private, encrypted data with your control",
-        "Campus counselors trained in confidentiality"
-      ],
-      studentQuote: "I was scared someone would find out, but the anonymous chat helped me get started.",
-      testId: "barrier-stigma"
-    },
-    {
-      problemIcon: Clock,
-      barrier: "Counseling centers overwhelmed and understaffed",
-      solutions: [
-        "AI support available 24/7, even at 3 AM",
-        "No waiting lists for immediate coping strategies",
-        "Multiple languages and cultural understanding",
-        "Works on any device - phone, laptop, tablet"
-      ],
-      studentQuote: "When I had a panic attack at midnight, the AI chatbot walked me through breathing exercises.",
-      testId: "barrier-access"
-    },
-    {
-      problemIcon: AlertTriangle,
-      barrier: "Problems get worse before getting help",
-      solutions: [
-        "Regular check-ins and mood tracking",
-        "Early warning system for declining mental health",
-        "Preventive resources before crisis hits",
-        "Peer support to reduce isolation"
-      ],
-      studentQuote: "The mood tracking helped me notice patterns before they became bigger problems.",
-      testId: "barrier-prevention"
-    }
-  ];
-
-  // Student success stories with detailed journeys
-  const successStories = [
-    {
-      studentType: "Junior, Engineering Major",
-      background: "from-blue-100 to-blue-200",
-      quote: "I used to have panic attacks before every exam. The breathing exercises from the AI chatbot became my go-to strategy. Now I use them before presentations too. My GPA went from 2.3 to 3.7 in two semesters.",
-      journey: "Started with AI chat → Learned coping techniques → Improved academic performance",
-      timeline: "Progress over 6 months",
-      testId: "story-anxiety-management"
-    },
-    {
-      studentType: "Sophomore, First-Generation College Student",
-      background: "from-green-100 to-green-200",
-      quote: "I felt completely alone and thought about dropping out. The peer support forum showed me others felt the same way. I eventually booked counseling and learned it's actually really common. I'm still here and doing better.",
-      journey: "Isolation → Peer connection → Professional help → Continued progress",
-      timeline: "Ongoing journey, 1 year of using platform",
-      testId: "story-depression-support"
-    },
-    {
-      studentType: "Senior, International Student",
-      background: "from-purple-100 to-purple-200",
-      quote: "During a really dark time, the crisis chat connected me with help immediately. The counselor met with me the same day. The platform's mood tracking helps me notice when I need extra support now.",
-      journey: "Crisis moment → Immediate intervention → Professional support → Prevention tools",
-      timeline: "Crisis to stability in 3 months",
-      testId: "story-crisis-recovery"
-    }
-  ];
-
-  // FAQ addressing student concerns
-  const faqQuestions = [
-    {
-      id: "privacy",
-      question: "Will anyone find out if I use this platform?",
-      answer: "Your privacy is our top priority. We offer completely anonymous options where no personal information is required. All data is encrypted and you control what information is shared. Campus counselors are bound by strict confidentiality laws (HIPAA), and seeking mental health support does not appear on academic records or transcripts.",
-      testId: "faq-privacy"
-    },
-    {
-      id: "serious",
-      question: "Is this just for people with 'serious' mental health problems?",
-      answer: "Not at all! Mental health exists on a spectrum, and stress, anxiety, and feeling overwhelmed are completely valid concerns. Many students use our platform for preventive care, stress management, and general wellness. You don't need to be in crisis to deserve support.",
-      testId: "faq-serious"
-    },
-    {
-      id: "academic",
-      question: "Will using mental health services affect my academic standing or future career?",
-      answer: "Using mental health services is protected by law and cannot negatively impact your academic standing or career prospects. In fact, research shows that students who seek mental health support typically see improvements in academic performance, focus, and overall well-being.",
-      testId: "faq-academic"
-    },
-    {
-      id: "unsure",
-      question: "What if I'm not sure if I really need help?",
-      answer: "Uncertainty is completely normal and actually shows good self-awareness. Our platform offers low-pressure ways to explore your mental health, like anonymous self-assessments and AI chat. You don't have to be in crisis to benefit from support - prevention and early intervention are just as important.",
-      testId: "faq-unsure"
-    },
-    {
-      id: "replacement",
-      question: "Is this a replacement for 'real' therapy?",
-      answer: "No, our platform complements professional care rather than replacing it. We provide immediate support, resources, and connections to professional counselors when needed. Think of us as a bridge to help you access the right level of care for your situation.",
-      testId: "faq-replacement"
-    },
-    {
-      id: "cost",
-      question: "What if I can't afford professional counseling?",
-      answer: "Many campuses offer free counseling services to students. We can help you find campus resources, sliding-scale fee counselors, and information about insurance coverage. We also provide many free resources and support options that don't require professional sessions.",
-      testId: "faq-cost"
-    }
-  ];
-
-  // Mental health myths vs facts
-  const mythsFacts = [
-    {
-      myth: "Only 'weak' people need mental health support",
-      fact: "Seeking help requires courage and self-awareness. Mental health challenges affect 1 in 5 people regardless of strength, intelligence, or character.",
-      icon: UserCheck,
-      testId: "myth-weakness"
-    },
-    {
-      myth: "I should be able to handle college stress on my own",
-      fact: "College presents unique challenges that previous generations didn't face. Using available resources is smart, not weak.",
-      icon: GraduationCap,
-      testId: "myth-independence"
-    },
-    {
-      myth: "Mental health problems will go away on their own",
-      fact: "Like physical health, mental health benefits from attention and care. Early intervention prevents bigger problems.",
-      icon: Heart,
-      testId: "myth-self-healing"
-    },
-    {
-      myth: "Using mental health services will go on my permanent record",
-      fact: "Mental health records are confidential and protected by law. They don't appear on transcripts or background checks.",
-      icon: Shield,
-      testId: "myth-records"
-    }
-  ];
-
-  // Intersection Observer for scroll animations
+  // Intersection Observer for animations
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setVisibleElements(prev => new Set([...Array.from(prev), entry.target.id]));
+            setVisibleElements(prev => new Set(prev.add(entry.target.id)));
           }
         });
       },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+      { threshold: 0.1 }
     );
 
-    const elements = document.querySelectorAll('.fade-in');
-    elements.forEach((el) => observer.observe(el));
+    const elements = document.querySelectorAll('[data-animate]');
+    elements.forEach(el => observer.observe(el));
 
     return () => observer.disconnect();
   }, []);
 
+  // Crisis statistics data
+  const crisisStatistics = [
+    {
+      number: "73%",
+      description: "of students experienced a mental health crisis in the past year",
+      source: "American College Health Association, 2024",
+      icon: UserCheck,
+      accent: "red"
+    },
+    {
+      number: "60%", 
+      description: "say mental health significantly impacted their academic performance",
+      additional: "Leading to lower GPAs, course withdrawals, and delayed graduation",
+      icon: TrendingUp,
+      accent: "orange"
+    },
+    {
+      number: "85%",
+      description: "don't seek help due to stigma, cost, or lack of accessible services", 
+      additional: "Traditional counseling centers serve only 15% of students needing help",
+      icon: Shield,
+      accent: "purple"
+    },
+    {
+      number: "↗️ 35%",
+      description: "increase in student suicidal ideation since 2020",
+      additional: "Yet campus counseling resources haven't scaled to meet demand", 
+      icon: AlertCircle,
+      accent: "dark-red"
+    }
+  ];
+
+  // Feature tiles data
+  const featureTiles = [
+    {
+      title: "24/7 AI Mental Health Support",
+      description: "Immediate coping strategies, breathing exercises, and emotional support when you need it most",
+      useCase: "Perfect for late-night anxiety, pre-exam stress, or sudden panic",
+      button: "Start Chatting Now",
+      icon: Bot,
+      gradient: "gradient-tile-blue",
+      href: "/chatbot"
+    },
+    {
+      title: "Campus Counselor Booking", 
+      description: "Schedule confidential appointments with licensed campus counselors and mental health professionals",
+      useCase: "When you need deeper support, therapy, or professional diagnosis",
+      button: "Book Appointment",
+      additionalInfo: "Average wait time: 2-3 days",
+      icon: CalendarIcon,
+      gradient: "gradient-tile-green", 
+      href: "/appointments"
+    },
+    {
+      title: "Evidence-Based Assessment",
+      description: "Understand your mental health with validated tools used by professionals (PHQ-9, GAD-7, stress scales)",
+      useCase: "When you want to understand what you're feeling", 
+      button: "Take Assessment",
+      privacyNote: "100% anonymous option available",
+      icon: ClipboardList,
+      gradient: "gradient-tile-purple",
+      href: "/assessment"
+    },
+    {
+      title: "Self-Help Resource Library",
+      description: "Videos, articles, audio guides, and interactive tools for managing anxiety, depression, stress, and more",
+      useCase: "Learn coping skills at your own pace",
+      button: "Browse Resources", 
+      contentNote: "Available in multiple languages",
+      icon: BookOpen,
+      gradient: "gradient-tile-yellow",
+      href: "/resources"
+    },
+    {
+      title: "Student Support Community",
+      description: "Connect with other students facing similar challenges in moderated, safe discussion groups", 
+      useCase: "When you feel alone or need peer understanding",
+      button: "Join Community",
+      safetyNote: "Professionally moderated",
+      icon: Users,
+      gradient: "gradient-tile-coral",
+      href: "/peer-support"
+    },
+    {
+      title: "Emergency Crisis Support", 
+      description: "Immediate help for mental health emergencies, suicidal thoughts, or when you need help right now",
+      useCase: "When you're in crisis and need immediate help",
+      button: "Get Help Now",
+      icon: PhoneCall,
+      gradient: "gradient-tile-red",
+      href: "/crisis-help",
+      isEmergency: true
+    }
+  ];
+
+  // Journey steps data
+  const journeySteps = [
+    {
+      title: "Something Feels Off",
+      description: "You're feeling anxious, depressed, overwhelmed, or just not yourself. Academic pressure is mounting, sleep is disrupted, or relationships feel strained.",
+      time: "This moment of awareness", 
+      icon: Lightbulb,
+      action: "Take anonymous self-assessment",
+      bgColor: "bg-yellow-50 dark:bg-yellow-900/20"
+    },
+    {
+      title: "Private Self-Check",
+      description: "Complete evidence-based assessments (PHQ-9, GAD-7) in complete privacy. No judgment, no pressure, just understanding your current state.",
+      time: "5-10 minutes",
+      icon: Shield, 
+      action: "Get personalized recommendations",
+      bgColor: "bg-blue-50 dark:bg-blue-900/20"
+    },
+    {
+      title: "Instant AI Guidance",
+      description: "Get immediate coping strategies, breathing exercises, crisis support, and personalized recommendations available 24/7.",
+      time: "Available instantly",
+      icon: Bot,
+      action: "Chat now or explore resources", 
+      bgColor: "bg-green-50 dark:bg-green-900/20"
+    },
+    {
+      title: "Expert Professional Care", 
+      description: "When you're ready, connect with licensed counselors, campus professionals, or specialized therapists who understand student life.",
+      time: "Same day to 1 week",
+      icon: Handshake,
+      action: "Book confidential appointment",
+      bgColor: "bg-purple-50 dark:bg-purple-900/20"
+    },
+    {
+      title: "Sustained Wellness",
+      description: "Join peer support communities, track your progress, access ongoing resources, and maintain long-term mental health.", 
+      time: "Your ongoing journey",
+      icon: Sprout,
+      action: "Join student community",
+      bgColor: "bg-teal-50 dark:bg-teal-900/20"
+    }
+  ];
+
+  // Challenge cards data
+  const challengeCards = [
+    {
+      header: "Academic Stress & Performance Anxiety",
+      statistic: "87% of students feel overwhelmed by coursework",
+      symptoms: "Test anxiety, perfectionism, imposter syndrome, fear of failure",
+      quote: "The pre-exam anxiety was paralyzing until I learned breathing techniques",
+      icon: GraduationCap
+    },
+    {
+      header: "Social Isolation & Identity Development", 
+      statistic: "43% report feeling lonely despite being surrounded by people",
+      symptoms: "Social anxiety, homesickness, identity confusion, relationship problems",
+      quote: "Finding my community through peer support changed everything",
+      icon: Users
+    },
+    {
+      header: "Financial Stress & Future Uncertainty",
+      statistic: "78% worry about student loans and career prospects", 
+      symptoms: "Financial anxiety, career uncertainty, family pressure, debt stress",
+      quote: "I learned to separate my worth from my financial situation",
+      icon: Building
+    },
+    {
+      header: "Life Transitions & Independence",
+      statistic: "65% struggle with the transition to adulthood",
+      symptoms: "Homesickness, independence anxiety, adult responsibility stress", 
+      quote: "Learning to be independent without being alone was key",
+      icon: Target
+    }
+  ];
+
+  // Solution comparison data
+  const traditionalBarriers = [
+    "Wait 3-6 weeks for counseling appointment",
+    "Limited hours (9 AM - 5 PM only)",
+    "Fear of judgment and stigma",
+    "No immediate help during crisis",
+    "One-size-fits-all approach"
+  ];
+
+  const ourSolutions = [
+    "24/7 AI support and immediate coping strategies",
+    "Same-day professional appointment booking",
+    "Complete anonymity options available",
+    "Instant crisis intervention protocols",
+    "Personalized support based on your needs"
+  ];
+
+  // Testimonial carousel
+  const testimonials = [
+    {
+      quote: "I went from having daily panic attacks to managing my anxiety confidently. The 24/7 AI chat was there when I needed it most at 2 AM, and it connected me to a counselor who changed my life.",
+      author: "Sarah M., Junior Psychology Major",
+      result: "Anxiety reduced by 70% in 3 months"
+    },
+    {
+      quote: "I felt completely alone and was planning to drop out. The peer support forum showed me I wasn't the only one struggling. My counselor helped me understand that depression isn't a personal failure.",
+      author: "Anonymous Junior, International Student", 
+      result: "Now thriving in major and helping other students"
+    },
+    {
+      quote: "During my darkest moment, the crisis chat connected me to help immediately. Now I understand that asking for help was the strongest thing I could do.",
+      author: "Anonymous Senior, First-Generation College",
+      result: "Graduating next month with honors"
+    }
+  ];
+
+  // Testimonial rotation
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [testimonials.length]);
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background text-foreground">
       <Header />
       
-      {/* Professional Hero Banner - 650px height */}
-      <section className="relative min-h-[650px] flex items-center justify-center overflow-hidden pt-[90px]" 
-               style={{ background: "linear-gradient(135deg, #F7FAFC 0%, #F0FFF4 100%)" }}>
-        {/* Floating Background Shapes */}
-        <div className="absolute inset-0">
-          <div className="floating absolute w-20 h-20 top-1/4 left-[8%] rounded-full bg-gradient-to-br from-primary/10 to-secondary/10"></div>
-          <div className="floating absolute w-[7.5rem] h-[7.5rem] top-[60%] right-[16%] rounded-full bg-gradient-to-br from-accent/10 to-primary/10" style={{ animationDelay: '2s' }}></div>
-          <div className="floating absolute w-[3.75rem] h-[3.75rem] top-[40%] left-3/4 rounded-full bg-gradient-to-br from-secondary/10 to-accent/10" style={{ animationDelay: '4s' }}></div>
+      {/* Hero Banner Section */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-blue-900/20 dark:to-purple-900/20 pt-24 pb-16 lg:pt-32 lg:pb-24">
+        {/* Background Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="floating-shape floating-shape-1"></div>
+          <div className="floating-shape floating-shape-2"></div>
+          <div className="floating-shape floating-shape-3"></div>
+          <div className="floating-triangle floating-triangle-1"></div>
+          <div className="floating-triangle floating-triangle-2"></div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Hero Content */}
-            <div className="text-center lg:text-left space-y-8">
-              <div className="space-y-6">
-                <h1 className="text-5xl lg:text-6xl font-bold text-foreground leading-tight font-heading">
-                  <span className="text-gradient-primary">Your mental health matters.</span>
-                  <span className="block mt-2">Support is just a click away.</span>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* Left Content */}
+            <div className="space-y-8" data-animate id="hero-content">
+              {/* Main Headline */}
+              <div className="space-y-4">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading text-gray-900 dark:text-white leading-tight">
+                  Your Mental Health Journey
+                  <span className="block text-primary">Starts Here</span>
                 </h1>
-                <p className="text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0">
-                  Confidential, anonymous, and free mental health support for all students
+                
+                <h2 className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 font-medium">
+                  Safe, Confidential, Professional Support Available 24/7
+                </h2>
+                
+                <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed max-w-2xl">
+                  Break free from the barriers that prevent students from accessing mental health support. Our evidence-based platform combines AI-powered assistance, professional counseling, and peer community support—all designed specifically for the unique challenges of college life.
                 </p>
               </div>
-              
+
               {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Link href="/chatbot">
-                  <Button 
-                    size="lg"
-                    className="gradient-primary text-white px-8 py-4 text-lg font-semibold hover:opacity-90 transition-all duration-300 transform hover:scale-105 shadow-lg"
-                    data-testid="button-start-chat"
-                  >
-                    <MessageCircle className="mr-2" size={20} />
-                    Start Chat with AI
-                  </Button>
-                </Link>
+              <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/assessment">
                   <Button 
-                    size="lg"
-                    variant="outline"
-                    className="border-primary text-primary hover:bg-primary hover:text-white px-8 py-4 text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
-                    data-testid="button-take-assessment"
+                    size="lg" 
+                    className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto"
+                    data-testid="button-start-assessment"
                   >
-                    <ClipboardList className="mr-2" size={20} />
-                    Take Self-Assessment
+                    Start Free Assessment
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
+                
+                <Link href="/chatbot">
+                  <Button 
+                    variant="outline" 
+                    size="lg"
+                    className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 w-full sm:w-auto"
+                    data-testid="button-chat-ai"
+                  >
+                    <MessageCircle className="mr-2 h-5 w-5" />
+                    Chat with AI Now
                   </Button>
                 </Link>
               </div>
-              
+
               {/* Trust Indicators */}
-              <div className="flex items-center justify-center lg:justify-start space-x-6 text-sm text-muted-foreground">
-                <div className="flex items-center space-x-2">
-                  <Shield className="text-primary" size={16} />
-                  <span>100% Confidential</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <CheckCircle className="text-primary" size={16} />
-                  <span>Anonymous</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Heart className="text-primary" size={16} />
-                  <span>Always Free</span>
-                </div>
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 pt-8">
+                {[
+                  { text: "100% Confidential", icon: Shield },
+                  { text: "HIPAA Secure", icon: CheckCircle },
+                  { text: "24/7 Available", icon: Clock },
+                  { text: "Evidence-Based", icon: Award }
+                ].map((indicator, index) => (
+                  <div key={index} className="flex items-center space-x-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+                    <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
+                    <span>{indicator.text}</span>
+                  </div>
+                ))}
               </div>
             </div>
-            
-            {/* Hero Image */}
-            <div className="relative">
-              <img 
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" 
-                alt="Diverse group of students studying together in a supportive environment" 
-                className="rounded-2xl shadow-2xl w-full h-auto transform hover:scale-105 transition-transform duration-500"
-                data-testid="img-hero-students"
-              />
-              <div className="absolute -bottom-6 -left-6 bg-card p-6 rounded-xl shadow-lg">
-                <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                    <CheckCircle className="text-secondary" size={24} />
+
+            {/* Right Content - Hero Image/Illustration */}
+            <div className="relative" data-animate id="hero-image">
+              <div className="relative bg-white dark:bg-gray-800 rounded-3xl shadow-2xl p-8 transform rotate-1">
+                <div className="absolute -top-4 -left-4 w-8 h-8 bg-primary rounded-full"></div>
+                <div className="absolute -bottom-4 -right-4 w-12 h-12 bg-secondary rounded-full"></div>
+                
+                <div className="space-y-6">
+                  <div className="text-center">
+                    <div className="w-20 h-20 bg-gradient-primary rounded-full mx-auto mb-4 flex items-center justify-center">
+                      <Brain className="h-10 w-10 text-white" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                      Supporting Student Wellness
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm">
+                      Join thousands of students finding their path to mental wellness
+                    </p>
                   </div>
-                  <div>
-                    <p className="font-semibold text-foreground">24/7 Support</p>
-                    <p className="text-sm text-muted-foreground">Always here when you need us</p>
+                  
+                  <div className="grid grid-cols-3 gap-4">
+                    {[
+                      { icon: Users, label: "Community" },
+                      { icon: HeadphonesIcon, label: "Support" },
+                      { icon: Heart, label: "Care" },
+                      { icon: Shield, label: "Privacy" },
+                      { icon: Clock, label: "24/7" },
+                      { icon: Target, label: "Goals" }
+                    ].map((item, index) => (
+                      <div key={index} className="text-center p-3 rounded-xl bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                        <item.icon className="h-6 w-6 text-primary mx-auto mb-1" />
+                        <span className="text-xs text-gray-600 dark:text-gray-300">{item.label}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -512,609 +409,508 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Quick Access Tiles Section */}
-      <section className="py-20 bg-background">
+      {/* Crisis Statistics Section */}
+      <section className="py-16 lg:py-24 bg-white dark:bg-gray-900" data-animate id="crisis-stats">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div 
-            id="services-header"
-            className={`text-center mb-16 fade-in ${visibleElements.has('services-header') ? 'visible' : ''}`}
-          >
-            <h2 className="text-4xl font-bold text-foreground mb-4 font-heading">How We Support Your Wellbeing</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Comprehensive mental health resources designed to meet you wherever you are in your journey
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {serviceTiles.map((tile, index) => {
-              const IconComponent = tile.icon;
-              return (
-                <div
-                  key={tile.href}
-                  id={`service-${index}`}
-                  className={`fade-in ${visibleElements.has(`service-${index}`) ? 'visible' : ''}`}
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <Link href={tile.href}>
-                    <Card 
-                      className={`group relative border ${tile.border || 'border-border'} h-full cursor-pointer transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-2 ${tile.shadowColor} backdrop-blur-sm`}
-                      data-testid={tile.testId}
-                    >
-                      <CardContent className="p-8 relative z-10">
-                        <div className={`w-16 h-16 bg-gradient-to-br ${tile.gradient} group-hover:bg-gradient-to-br ${
-                          tile.hoverGradient === 'sky' ? 'group-hover:from-sky-100 group-hover:to-blue-200' :
-                          tile.hoverGradient === 'emerald' ? 'group-hover:from-emerald-100 group-hover:to-green-200' :
-                          tile.hoverGradient === 'violet' ? 'group-hover:from-violet-100 group-hover:to-purple-200' :
-                          tile.hoverGradient === 'amber' ? 'group-hover:from-amber-100 group-hover:to-yellow-200' :
-                          tile.hoverGradient === 'teal' ? 'group-hover:from-teal-100 group-hover:to-cyan-200' :
-                          tile.hoverGradient === 'rose' ? 'group-hover:from-rose-100 group-hover:to-red-200' : ''
-                        } rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110 ${tile.pulseEffect || ''}`}>
-                          <IconComponent className={`${tile.iconColor} transition-colors duration-300`} size={32} />
-                        </div>
-                        <h3 className="text-2xl font-bold text-foreground mb-4 font-heading group-hover:text-opacity-90 transition-colors duration-300">{tile.title}</h3>
-                        <p className="text-muted-foreground mb-4 leading-relaxed text-sm group-hover:text-opacity-80 transition-colors duration-300">{tile.description}</p>
-                        <p className="text-xs text-muted-foreground/70 mb-6">{tile.useCase}</p>
-                        {tile.trustIndicator && (
-                          <p className="text-xs text-green-600 mb-4">{tile.trustIndicator}</p>
-                        )}
-                        <Button variant="ghost" className={`${tile.buttonColor} font-semibold hover:underline p-0 h-auto group-hover:translate-x-2 transition-transform duration-300`}>
-                          Get Started <ArrowRight className="ml-2 transition-transform duration-300 group-hover:translate-x-1" size={16} />
-                        </Button>
-                      </CardContent>
-                      {/* Subtle gradient overlay for depth */}
-                      <div className={`absolute inset-0 bg-gradient-to-br ${tile.gradient} opacity-5 rounded-lg transition-opacity duration-300 group-hover:opacity-10`}></div>
-                    </Card>
-                  </Link>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Urgent Problem Statement Section - 500px height */}
-      <section className="py-20 bg-white border-t border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div 
-            id="crisis-header"
-            className={`text-center mb-16 fade-in ${visibleElements.has('crisis-header') ? 'visible' : ''}`}
-          >
-            <h2 className="text-4xl font-bold mb-4 font-heading" style={{ color: '#E53E3E' }}>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-red-600 dark:text-red-400 mb-4">
               The Student Mental Health Crisis Demands Immediate Action
             </h2>
-            <div className="w-24 h-1 bg-blue-500 mx-auto"></div>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+              The numbers reveal an urgent need for accessible, comprehensive mental health support
+            </p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {crisisStatistics.map((stat, index) => {
-              const IconComponent = stat.icon;
-              return (
-                <div
-                  key={index}
-                  id={`crisis-stat-${index}`}
-                  className={`fade-in ${visibleElements.has(`crisis-stat-${index}`) ? 'visible' : ''}`}
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <Card className={`h-full ${stat.bgColor} ${stat.borderColor} border-l-4 shadow-lg`} data-testid={stat.testId}>
-                    <CardContent className="p-6">
-                      <div className="flex items-center mb-4">
-                        <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md">
-                          <IconComponent className={stat.color} size={24} />
-                        </div>
-                      </div>
-                      <div className={`text-4xl font-bold mb-3 ${stat.color}`}>{stat.number}</div>
-                      <p className="text-gray-700 mb-2 font-medium">{stat.description}</p>
-                      {stat.subtext && (
-                        <p className="text-sm text-gray-600">{stat.subtext}</p>
-                      )}
-                      {stat.source && (
-                        <p className="text-xs text-gray-500 mt-3">{stat.source}</p>
-                      )}
-                    </CardContent>
-                  </Card>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Solution Promise Section - 450px height */}
-      <section className="py-20" style={{ background: 'linear-gradient(to bottom, #F7FAFC, #EBF8FF)' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Problem/Solution Contrast */}
-            <div className="space-y-8">
-              <h2 className="text-3xl font-bold font-heading" style={{ color: '#1A365D' }}>
-                We're Changing How Students Access Mental Health Support
-              </h2>
-              
-              <div className="space-y-6">
-                <div>
-                  <h3 className="text-lg font-semibold text-red-600 mb-3">Traditional Barriers:</h3>
-                  <ul className="space-y-2">
-                    <li className="flex items-center text-gray-700">
-                      <X className="text-red-500 mr-3" size={16} />
-                      Wait 3-6 weeks for counseling appointment
-                    </li>
-                    <li className="flex items-center text-gray-700">
-                      <X className="text-red-500 mr-3" size={16} />
-                      Limited hours (9 AM - 5 PM only)
-                    </li>
-                    <li className="flex items-center text-gray-700">
-                      <X className="text-red-500 mr-3" size={16} />
-                      Fear of judgment and stigma
-                    </li>
-                    <li className="flex items-center text-gray-700">
-                      <X className="text-red-500 mr-3" size={16} />
-                      No immediate help during crisis
-                    </li>
-                  </ul>
-                </div>
-                
-                <div>
-                  <h3 className="text-lg font-semibold text-green-600 mb-3">Our Solution:</h3>
-                  <ul className="space-y-2">
-                    <li className="flex items-center text-gray-700">
-                      <CheckCircle className="text-green-500 mr-3" size={16} />
-                      24/7 AI support and immediate coping strategies
-                    </li>
-                    <li className="flex items-center text-gray-700">
-                      <CheckCircle className="text-green-500 mr-3" size={16} />
-                      Same-day professional appointment booking
-                    </li>
-                    <li className="flex items-center text-gray-700">
-                      <CheckCircle className="text-green-500 mr-3" size={16} />
-                      Complete anonymity options available
-                    </li>
-                    <li className="flex items-center text-gray-700">
-                      <CheckCircle className="text-green-500 mr-3" size={16} />
-                      Instant crisis intervention protocols
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* Student Success Preview */}
-            <div className="space-y-6">
-              <Card className="bg-white shadow-xl">
-                <CardContent className="p-8">
-                  <div className="flex items-center mb-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">
-                      S
-                    </div>
-                    <div className="ml-4">
-                      <h4 className="font-semibold">Sarah M.</h4>
-                      <p className="text-sm text-gray-600">Junior Psychology Major</p>
-                    </div>
+            {crisisStatistics.map((stat, index) => (
+              <Card key={index} className="text-center p-8 hover:shadow-xl transition-all duration-300 border-t-4 border-t-red-500 dark:border-t-red-400">
+                <CardContent className="space-y-4">
+                  <div className="w-16 h-16 mx-auto rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
+                    <stat.icon className="h-8 w-8 text-red-600 dark:text-red-400" />
                   </div>
-                  <p className="text-gray-700 italic mb-4">
-                    "I went from having daily panic attacks to managing my anxiety confidently. The 24/7 AI chat was there when I needed it most at 2 AM, and it connected me to a counselor who changed my life."
+                  
+                  <div className="text-5xl font-bold text-red-600 dark:text-red-400">
+                    {stat.number}
+                  </div>
+                  
+                  <p className="font-semibold text-gray-900 dark:text-white">
+                    {stat.description}
                   </p>
-                  <div className="text-sm text-green-600 font-semibold">
-                    Anxiety reduced by 70% in 3 months
-                  </div>
+                  
+                  {stat.additional && (
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      {stat.additional}
+                    </p>
+                  )}
+                  
+                  <p className="text-xs text-gray-500 dark:text-gray-500 italic">
+                    {stat.source}
+                  </p>
                 </CardContent>
               </Card>
-              
-              <div className="grid grid-cols-3 gap-4 text-center">
-                <div className="p-4 bg-white rounded-lg shadow">
-                  <div className="text-2xl font-bold text-blue-600">{platformStats.studentsHelped}</div>
-                  <div className="text-xs text-gray-600">Students Supported</div>
-                </div>
-                <div className="p-4 bg-white rounded-lg shadow">
-                  <div className="text-2xl font-bold text-green-600">{platformStats.improvementRate}</div>
-                  <div className="text-xs text-gray-600">Report Improvement</div>
-                </div>
-                <div className="p-4 bg-white rounded-lg shadow">
-                  <div className="text-2xl font-bold text-purple-600">{platformStats.averageResponseTime}</div>
-                  <div className="text-xs text-gray-600">Response Time</div>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* How It Works - Student Journey Section - 600px height */}
-      <section className="py-20 bg-white">
+      {/* Solution Promise Section */}
+      <section className="py-16 lg:py-24 bg-gray-50 dark:bg-gray-800" data-animate id="solution-promise">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div 
-            id="journey-header"
-            className={`text-center mb-16 fade-in ${visibleElements.has('journey-header') ? 'visible' : ''}`}
-          >
-            <h2 className="text-4xl font-bold text-foreground mb-4 font-heading">Your Personal Path to Mental Wellness</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-gray-900 dark:text-white mb-4">
+              We're Changing How Students Access Mental Health Support
+            </h2>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-16 items-start mb-16">
+            {/* Traditional Barriers */}
+            <div>
+              <h3 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-8 flex items-center">
+                <X className="h-6 w-6 mr-3" />
+                Traditional Barriers
+              </h3>
+              <div className="space-y-4">
+                {traditionalBarriers.map((barrier, index) => (
+                  <div key={index} className="flex items-start space-x-3 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg">
+                    <X className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700 dark:text-gray-300">{barrier}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Our Solutions */}
+            <div>
+              <h3 className="text-2xl font-bold text-green-600 dark:text-green-400 mb-8 flex items-center">
+                <CheckCircle className="h-6 w-6 mr-3" />
+                Our Solution
+              </h3>
+              <div className="space-y-4">
+                {ourSolutions.map((solution, index) => (
+                  <div key={index} className="flex items-start space-x-3 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                    <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700 dark:text-gray-300">{solution}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Success Story */}
+          <Card className="bg-primary/10 dark:bg-primary/5 border-primary/20">
+            <CardContent className="p-8">
+              <div className="text-center space-y-6">
+                <Quote className="h-12 w-12 text-primary mx-auto" />
+                
+                <blockquote className="text-xl md:text-2xl font-medium text-gray-900 dark:text-white italic">
+                  "{testimonials[currentTestimonial].quote}"
+                </blockquote>
+                
+                <div className="space-y-2">
+                  <p className="font-semibold text-primary">
+                    {testimonials[currentTestimonial].author}
+                  </p>
+                  <p className="text-lg font-bold text-green-600 dark:text-green-400">
+                    {testimonials[currentTestimonial].result}
+                  </p>
+                </div>
+
+                {/* Testimonial indicators */}
+                <div className="flex justify-center space-x-2">
+                  {testimonials.map((_, index) => (
+                    <button
+                      key={index}
+                      className={`w-3 h-3 rounded-full transition-colors ${
+                        index === currentTestimonial ? 'bg-primary' : 'bg-gray-300 dark:bg-gray-600'
+                      }`}
+                      onClick={() => setCurrentTestimonial(index)}
+                      data-testid={`testimonial-indicator-${index}`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Impact Numbers */}
+          <div className="grid md:grid-cols-3 gap-8 mt-16">
+            {[
+              { number: "15,000+", text: "students already supported" },
+              { number: "94%", text: "report improved mental health" },
+              { number: "< 30 sec", text: "average response time" }
+            ].map((metric, index) => (
+              <div key={index} className="text-center">
+                <div className="text-4xl font-bold text-primary mb-2">{metric.number}</div>
+                <p className="text-gray-600 dark:text-gray-400">{metric.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works - Student Journey */}
+      <section className="py-16 lg:py-24 bg-white dark:bg-gray-900" data-animate id="student-journey">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-gray-900 dark:text-white mb-4">
+              Your Personal Path to Mental Wellness
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               Every journey is unique - start wherever feels right for you
             </p>
           </div>
-          
+
           <div className="relative">
-            {/* Journey Timeline */}
-            <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start space-y-8 lg:space-y-0 lg:space-x-4">
-              {journeySteps.map((step, index) => {
-                const IconComponent = step.icon;
-                return (
-                  <div
-                    key={index}
-                    id={`journey-${index}`}
-                    className={`flex-1 max-w-sm mx-auto lg:mx-0 fade-in ${visibleElements.has(`journey-${index}`) ? 'visible' : ''}`}
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                  >
-                    <Card className="h-full shadow-lg border border-border hover:shadow-xl transition-shadow duration-300" data-testid={step.testId}>
-                      <CardContent className="p-6 text-center">
-                        <div className={`w-20 h-20 ${step.bgColor} rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg`}>
-                          <IconComponent className={step.iconColor} size={32} />
-                        </div>
-                        <h3 className="text-xl font-bold text-foreground mb-3 font-heading">{step.title}</h3>
-                        <p className="text-muted-foreground mb-4 leading-relaxed">{step.description}</p>
-                        <div className="space-y-2">
-                          <div className="text-sm text-muted-foreground">
-                            <Clock className="inline mr-1" size={14} />
-                            {step.time}
-                          </div>
-                          <Button variant="ghost" className="text-primary font-semibold text-sm p-0 h-auto">
-                            {step.action}
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </Card>
-                    
-                    {/* Connecting Line (hidden on mobile) */}
-                    {index < journeySteps.length - 1 && (
-                      <div className="hidden lg:block absolute top-10 w-full">
-                        <div className="flex items-center">
-                          <div className="flex-1 border-t-2 border-dashed border-gray-300"></div>
-                          <ArrowRight className="text-gray-400 mx-2" size={20} />
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
+            {/* Connection Lines */}
+            <div className="hidden lg:block absolute top-24 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent"></div>
             
-            <div className="text-center mt-8">
-              <p className="text-sm text-muted-foreground italic">You can start at any step - there's no wrong way to begin your journey</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Breaking Barriers Section - 350px height */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div 
-            id="barriers-header"
-            className={`text-center mb-16 fade-in ${visibleElements.has('barriers-header') ? 'visible' : ''}`}
-          >
-            <h2 className="text-4xl font-bold text-foreground mb-4 font-heading">Breaking Down Barriers to Mental Health Support</h2>
-            <p className="text-xl text-muted-foreground">We understand the challenges students face and we've designed solutions for each one</p>
-          </div>
-          
-          <div className="grid lg:grid-cols-3 gap-8">
-            {barrierSolutions.map((barrier, index) => {
-              const ProblemIcon = barrier.problemIcon;
-              return (
-                <div
-                  key={index}
-                  id={`barrier-${index}`}
-                  className={`fade-in ${visibleElements.has(`barrier-${index}`) ? 'visible' : ''}`}
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <Card className="h-full shadow-lg border border-border bg-white" data-testid={barrier.testId}>
-                    <CardContent className="p-8">
-                      <div className="flex items-center mb-4">
-                        <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
-                          <ProblemIcon className="text-red-600" size={24} />
-                        </div>
-                        <h3 className="text-lg font-bold text-foreground font-heading">The Problem</h3>
-                      </div>
-                      <p className="text-gray-700 mb-6 font-medium">{barrier.barrier}</p>
-                      
-                      <h4 className="text-lg font-bold text-green-600 mb-4">Our Solution:</h4>
-                      <ul className="space-y-2 mb-6">
-                        {barrier.solutions.map((solution, idx) => (
-                          <li key={idx} className="flex items-start">
-                            <CheckCircle className="text-green-500 mr-2 mt-0.5 flex-shrink-0" size={16} />
-                            <span className="text-gray-700 text-sm">{solution}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      
-                      <div className="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-400">
-                        <p className="text-sm text-gray-700 italic">"{barrier.studentQuote}"</p>
-                        <p className="text-xs text-gray-500 mt-2">- Anonymous Student</p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Student Success Stories Section - 400px height */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div 
-            id="stories-header"
-            className={`text-center mb-16 fade-in ${visibleElements.has('stories-header') ? 'visible' : ''}`}
-          >
-            <h2 className="text-4xl font-bold text-foreground mb-4 font-heading">Real Stories from Students Like You</h2>
-            <p className="text-xl text-muted-foreground">Anonymous testimonials from students who found support through our platform</p>
-          </div>
-          
-          <div className="relative">
-            <div className="grid lg:grid-cols-3 gap-8">
-              {successStories.map((story, index) => (
-                <div
-                  key={index}
-                  id={`story-${index}`}
-                  className={`fade-in ${visibleElements.has(`story-${index}`) ? 'visible' : ''}`}
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <Card className={`h-full shadow-lg border border-border bg-gradient-to-br ${story.background}`} data-testid={story.testId}>
-                    <CardContent className="p-8">
-                      <div className="mb-4">
-                        <Badge variant="secondary" className="mb-3">{story.studentType}</Badge>
-                      </div>
-                      <p className="text-gray-700 italic mb-6 leading-relaxed">"{story.quote}"</p>
-                      
-                      <div className="space-y-3 mb-6">
-                        <div>
-                          <h4 className="text-sm font-semibold text-gray-600 mb-1">Journey:</h4>
-                          <p className="text-sm text-gray-700">{story.journey}</p>
-                        </div>
-                        <div>
-                          <h4 className="text-sm font-semibold text-gray-600 mb-1">Timeline:</h4>
-                          <p className="text-sm text-gray-700">{story.timeline}</p>
-                        </div>
+            <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-8">
+              {journeySteps.map((step, index) => (
+                <div key={index} className="relative">
+                  {/* Step Number */}
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold text-sm z-10">
+                    {index + 1}
+                  </div>
+                  
+                  <Card className={`${step.bgColor} border-2 border-primary/20 hover:border-primary/40 transition-all duration-300 pt-8`}>
+                    <CardContent className="p-6 text-center space-y-4">
+                      <div className="w-16 h-16 mx-auto rounded-full bg-white dark:bg-gray-700 flex items-center justify-center shadow-lg">
+                        <step.icon className="h-8 w-8 text-primary" />
                       </div>
                       
-                      <div className="flex items-center">
-                        <div className="flex text-yellow-400 mr-2">
-                          {[...Array(5)].map((_, i) => (
-                            <Star key={i} size={16} fill="currentColor" />
-                          ))}
-                        </div>
-                        <span className="text-sm text-gray-600">Verified Success Story</span>
+                      <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                        {step.title}
+                      </h3>
+                      
+                      <p className="text-sm text-gray-700 dark:text-gray-300">
+                        {step.description}
+                      </p>
+                      
+                      <div className="text-xs text-primary font-medium">
+                        {step.time}
                       </div>
+                      
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="mt-4 text-xs"
+                        data-testid={`button-${step.action.toLowerCase().replace(/\s+/g, '-')}`}
+                      >
+                        {step.action}
+                      </Button>
                     </CardContent>
                   </Card>
                 </div>
               ))}
             </div>
-            
-            <div className="flex justify-center mt-8">
-              <Button variant="outline" className="text-primary border-primary hover:bg-primary hover:text-white">
-                <ExternalLink className="mr-2" size={16} />
-                Read More Success Stories
-              </Button>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* FAQ Section - 500px height */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div 
-            id="faq-header"
-            className={`text-center mb-16 fade-in ${visibleElements.has('faq-header') ? 'visible' : ''}`}
-          >
-            <h2 className="text-4xl font-bold text-foreground mb-4 font-heading">Your Questions, Honestly Answered</h2>
-            <p className="text-xl text-muted-foreground">We understand you might have concerns. Here's the truth about mental health support.</p>
+      {/* Quick Access Feature Tiles */}
+      <section className="py-16 lg:py-24 bg-gray-50 dark:bg-gray-800" data-animate id="feature-tiles">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-gray-900 dark:text-white mb-4">
+              Choose Your Starting Point
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+              Every feature designed specifically for student mental health challenges
+            </p>
           </div>
-          
-          <Accordion type="single" collapsible className="space-y-4">
-            {faqQuestions.map((faq, index) => (
-              <div
-                key={faq.id}
-                id={`faq-${index}`}
-                className={`fade-in ${visibleElements.has(`faq-${index}`) ? 'visible' : ''}`}
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <AccordionItem value={faq.id} className="bg-white border border-gray-200 rounded-lg px-6" data-testid={faq.testId}>
-                  <AccordionTrigger className="text-left text-lg font-semibold text-foreground hover:text-primary py-6">
-                    <div className="flex items-center">
-                      <HelpCircle className="text-primary mr-3 flex-shrink-0" size={20} />
-                      {faq.question}
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {featureTiles.map((tile, index) => (
+              <Card key={index} className={`${tile.gradient} border-0 hover:scale-105 hover:shadow-2xl transition-all duration-300 ${tile.isEmergency ? 'ring-2 ring-red-400 dark:ring-red-500' : ''}`}>
+                <CardContent className="p-8 space-y-6">
+                  <div className="flex items-start justify-between">
+                    <div className={`w-14 h-14 rounded-xl ${tile.isEmergency ? 'bg-red-500' : 'bg-white dark:bg-gray-700'} flex items-center justify-center shadow-lg`}>
+                      <tile.icon className={`h-7 w-7 ${tile.isEmergency ? 'text-white' : 'text-primary'}`} />
                     </div>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground leading-relaxed pb-6">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              </div>
+                    {tile.isEmergency && (
+                      <Badge className="bg-red-500 text-white">Emergency</Badge>
+                    )}
+                  </div>
+                  
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                      {tile.title}
+                    </h3>
+                    <p className="text-gray-700 dark:text-gray-300 mb-4">
+                      {tile.description}
+                    </p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 italic mb-4">
+                      {tile.useCase}
+                    </p>
+                  </div>
+
+                  {(tile.additionalInfo || tile.privacyNote || tile.contentNote || tile.safetyNote) && (
+                    <div className="text-xs text-gray-500 dark:text-gray-400 bg-white/50 dark:bg-gray-700/50 rounded-lg p-3">
+                      {tile.additionalInfo || tile.privacyNote || tile.contentNote || tile.safetyNote}
+                    </div>
+                  )}
+
+                  <Link href={tile.href}>
+                    <Button 
+                      className={`w-full ${tile.isEmergency 
+                        ? 'bg-red-500 hover:bg-red-600 text-white emergency-pulse' 
+                        : 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600'
+                      } font-semibold py-3 transition-all duration-300`}
+                      data-testid={`button-${tile.title.toLowerCase().replace(/\s+/g, '-')}`}
+                    >
+                      {tile.button}
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
             ))}
-          </Accordion>
+          </div>
         </div>
       </section>
 
-      {/* Mental Health Myths vs Facts Section - 350px height */}
-      <section className="py-20 bg-white">
+      {/* Student Challenges Section */}
+      <section className="py-16 lg:py-24 bg-white dark:bg-gray-900" data-animate id="student-challenges">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div 
-            id="myths-header"
-            className={`text-center mb-16 fade-in ${visibleElements.has('myths-header') ? 'visible' : ''}`}
-          >
-            <h2 className="text-4xl font-bold text-foreground mb-4 font-heading">Separating Mental Health Myths from Facts</h2>
-            <p className="text-xl text-muted-foreground">Let's clear up common misconceptions that prevent students from getting help</p>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-gray-900 dark:text-white mb-4">
+              Mental Health Challenges Unique to Student Life
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+              We understand the specific pressures you face
+            </p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 gap-8">
-            {mythsFacts.map((item, index) => {
-              const IconComponent = item.icon;
-              return (
-                <div
-                  key={index}
-                  id={`myth-${index}`}
-                  className={`fade-in ${visibleElements.has(`myth-${index}`) ? 'visible' : ''}`}
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <Card className="h-full shadow-lg border border-border bg-white hover:shadow-xl transition-shadow duration-300" data-testid={item.testId}>
-                    <CardContent className="p-8">
-                      <div className="flex items-center mb-6">
-                        <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
-                          <X className="text-red-600" size={24} />
-                        </div>
-                        <h3 className="text-lg font-bold text-red-600 font-heading">MYTH</h3>
+            {challengeCards.map((challenge, index) => (
+              <Card key={index} className="hover:shadow-xl transition-all duration-300 border-l-4 border-l-primary">
+                <CardContent className="p-8 space-y-6">
+                  <div className="flex items-start space-x-4">
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 dark:bg-primary/20 flex items-center justify-center flex-shrink-0">
+                      <challenge.icon className="h-6 w-6 text-primary" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                        {challenge.header}
+                      </h3>
+                      <div className="text-2xl font-bold text-primary mb-3">
+                        {challenge.statistic}
                       </div>
-                      <p className="text-gray-700 mb-6 font-medium italic">"{item.myth}"</p>
-                      
-                      <div className="flex items-center mb-4">
-                        <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
-                          <IconComponent className="text-green-600" size={24} />
-                        </div>
-                        <h3 className="text-lg font-bold text-green-600 font-heading">FACT</h3>
-                      </div>
-                      <p className="text-gray-700">{item.fact}</p>
-                    </CardContent>
-                  </Card>
-                </div>
-              );
-            })}
+                    </div>
+                  </div>
+                  
+                  <p className="text-gray-700 dark:text-gray-300">
+                    <span className="font-semibold">Common symptoms:</span> {challenge.symptoms}
+                  </p>
+                  
+                  <blockquote className="border-l-4 border-secondary pl-4 italic text-gray-600 dark:text-gray-400">
+                    "{challenge.quote}"
+                  </blockquote>
+                  
+                  <Button 
+                    variant="outline" 
+                    className="w-full"
+                    data-testid={`button-learn-more-${index}`}
+                  >
+                    Learn More & Get Support
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Campus Integration Section - 300px height */}
-      <section className="py-20 bg-blue-50">
+      {/* Breaking Barriers Section */}
+      <section className="py-16 lg:py-24 bg-gray-50 dark:bg-gray-800" data-animate id="breaking-barriers">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Campus Visual */}
-            <div className="relative">
-              <div className="w-full h-80 bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl flex items-center justify-center shadow-lg">
-                <div className="text-center">
-                  <Building className="w-20 h-20 text-blue-600 mx-auto mb-4" />
-                  <h3 className="text-2xl font-bold text-gray-700 mb-2">Your Campus Network</h3>
-                  <p className="text-gray-600">Connected • Coordinated • Comprehensive</p>
-                </div>
-              </div>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-gray-900 dark:text-white mb-4">
+              Breaking Down Every Barrier to Mental Health Care
+            </h2>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-12">
+            {/* Stigma & Privacy */}
+            <div>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                Fear of Judgment & Stigma
+              </h3>
               
-              {/* Connection Points */}
-              <div className="absolute top-4 left-4 bg-white rounded-lg p-2 shadow-md">
-                <div className="flex items-center text-sm">
-                  <GraduationCap className="text-blue-600 mr-2" size={16} />
-                  Counseling Center
-                </div>
+              <div className="space-y-4 mb-8">
+                <h4 className="font-semibold text-gray-700 dark:text-gray-300">Student concerns:</h4>
+                {[
+                  "What if people find out?",
+                  "Will this affect my future?",
+                  "Am I weak for needing help?",
+                  "What will my family think?"
+                ].map((concern, index) => (
+                  <div key={index} className="flex items-start space-x-2">
+                    <HelpCircle className="h-4 w-4 text-orange-500 flex-shrink-0 mt-1" />
+                    <span className="text-gray-600 dark:text-gray-400 text-sm italic">"{concern}"</span>
+                  </div>
+                ))}
               </div>
-              <div className="absolute top-4 right-4 bg-white rounded-lg p-2 shadow-md">
-                <div className="flex items-center text-sm">
-                  <Heart className="text-red-600 mr-2" size={16} />
-                  Health Services
-                </div>
+
+              <div className="space-y-3">
+                <h4 className="font-semibold text-green-600 dark:text-green-400">Our solutions:</h4>
+                {[
+                  "100% anonymous usage options",
+                  "No names required for AI chat",
+                  "Private, encrypted conversations",
+                  "Confidential professional appointments",
+                  "HIPAA-compliant data protection"
+                ].map((solution, index) => (
+                  <div key={index} className="flex items-start space-x-2">
+                    <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0 mt-1" />
+                    <span className="text-gray-700 dark:text-gray-300 text-sm">{solution}</span>
+                  </div>
+                ))}
               </div>
-              <div className="absolute bottom-4 left-4 bg-white rounded-lg p-2 shadow-md">
-                <div className="flex items-center text-sm">
-                  <Users className="text-green-600 mr-2" size={16} />
-                  Residence Life
-                </div>
-              </div>
-              <div className="absolute bottom-4 right-4 bg-white rounded-lg p-2 shadow-md">
-                <div className="flex items-center text-sm">
-                  <LifeBuoy className="text-purple-600 mr-2" size={16} />
-                  Crisis Response
-                </div>
-              </div>
+
+              <blockquote className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500 italic text-sm text-gray-600 dark:text-gray-400">
+                "I was terrified someone would find out, but the anonymous chat gave me the courage to eventually book counseling." - Anonymous Junior
+              </blockquote>
             </div>
 
-            {/* Integration Information */}
-            <div className="space-y-6">
-              <div>
-                <h2 className="text-3xl font-bold text-foreground mb-4 font-heading">Seamlessly Connected to Your Campus Support Network</h2>
-                <p className="text-xl text-muted-foreground">We work with your existing campus resources to provide comprehensive care</p>
-              </div>
+            {/* Accessibility & Availability */}
+            <div>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                Limited Access & Long Wait Times
+              </h3>
               
-              <div className="space-y-4">
-                <div className="flex items-start">
-                  <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-4 mt-1">
-                    <Calendar className="text-blue-600" size={16} />
+              <div className="space-y-4 mb-8">
+                <h4 className="font-semibold text-gray-700 dark:text-gray-300">Student concerns:</h4>
+                {[
+                  "Counseling center is always booked",
+                  "I need help at 2 AM, not 2 PM",
+                  "I can't miss class for appointments",
+                  "I can't afford private therapy"
+                ].map((concern, index) => (
+                  <div key={index} className="flex items-start space-x-2">
+                    <HelpCircle className="h-4 w-4 text-orange-500 flex-shrink-0 mt-1" />
+                    <span className="text-gray-600 dark:text-gray-400 text-sm italic">"{concern}"</span>
                   </div>
-                  <div>
-                    <h4 className="font-semibold text-foreground">Direct Campus Counselor Booking</h4>
-                    <p className="text-muted-foreground text-sm">Schedule appointments with your campus counseling center</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start">
-                  <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-4 mt-1">
-                    <BookOpen className="text-green-600" size={16} />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-foreground">Academic Support Integration</h4>
-                    <p className="text-muted-foreground text-sm">Connect to tutoring when stress affects your grades</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start">
-                  <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center mr-4 mt-1">
-                    <AlertTriangle className="text-red-600" size={16} />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-foreground">Crisis Response Protocol</h4>
-                    <p className="text-muted-foreground text-sm">Automatic connection to campus crisis intervention teams</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start">
-                  <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center mr-4 mt-1">
-                    <BarChart3 className="text-purple-600" size={16} />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-foreground">Anonymous Campus Insights</h4>
-                    <p className="text-muted-foreground text-sm">Help your school understand student needs (no personal data shared)</p>
-                  </div>
-                </div>
+                ))}
               </div>
+
+              <div className="space-y-3">
+                <h4 className="font-semibold text-green-600 dark:text-green-400">Our solutions:</h4>
+                {[
+                  "24/7 AI support, never closed",
+                  "Same-day professional appointments available",
+                  "Flexible scheduling around your classes",
+                  "Free campus counseling integration",
+                  "Multiple communication options (text, video, phone)"
+                ].map((solution, index) => (
+                  <div key={index} className="flex items-start space-x-2">
+                    <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0 mt-1" />
+                    <span className="text-gray-700 dark:text-gray-300 text-sm">{solution}</span>
+                  </div>
+                ))}
+              </div>
+
+              <blockquote className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500 italic text-sm text-gray-600 dark:text-gray-400">
+                "Having AI support at 3 AM during finals week literally saved me from a complete breakdown." - Anonymous Senior
+              </blockquote>
+            </div>
+
+            {/* Knowledge & Recognition */}
+            <div>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                Not Knowing When/How to Get Help
+              </h3>
               
-              <div className="flex flex-wrap gap-2 pt-4">
-                <Badge variant="secondary" className="bg-green-100 text-green-700">✓ HIPAA Compliant</Badge>
-                <Badge variant="secondary" className="bg-blue-100 text-blue-700">✓ University Verified</Badge>
-                <Badge variant="secondary" className="bg-purple-100 text-purple-700">✓ Student Privacy Protected</Badge>
+              <div className="space-y-4 mb-8">
+                <h4 className="font-semibold text-gray-700 dark:text-gray-300">Student concerns:</h4>
+                {[
+                  "Is this normal college stress or something more?",
+                  "How do I know if I need professional help?",
+                  "Where do I even start?",
+                  "What if I'm overreacting?"
+                ].map((concern, index) => (
+                  <div key={index} className="flex items-start space-x-2">
+                    <HelpCircle className="h-4 w-4 text-orange-500 flex-shrink-0 mt-1" />
+                    <span className="text-gray-600 dark:text-gray-400 text-sm italic">"{concern}"</span>
+                  </div>
+                ))}
               </div>
+
+              <div className="space-y-3">
+                <h4 className="font-semibold text-green-600 dark:text-green-400">Our solutions:</h4>
+                {[
+                  "Evidence-based self-assessments for clarity",
+                  "Educational resources about mental health",
+                  "Clear guidance on when to seek help",
+                  "Step-by-step support navigation",
+                  "Professional validation of your experiences"
+                ].map((solution, index) => (
+                  <div key={index} className="flex items-start space-x-2">
+                    <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0 mt-1" />
+                    <span className="text-gray-700 dark:text-gray-300 text-sm">{solution}</span>
+                  </div>
+                ))}
+              </div>
+
+              <blockquote className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500 italic text-sm text-gray-600 dark:text-gray-400">
+                "The assessment helped me realize that what I was feeling wasn't just 'normal stress' and I deserved support." - Anonymous Sophomore
+              </blockquote>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Final Platform Statistics */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="mb-12">
-            <h2 className="text-4xl font-bold mb-4 font-heading">Making a Real Difference in Student Mental Health</h2>
-            <p className="text-xl text-blue-100">Join thousands of students who have found support, hope, and healing</p>
-          </div>
-          
-          <div className="grid md:grid-cols-4 gap-8">
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
-              <div className="text-4xl font-bold mb-2">{platformStats.studentsHelped}</div>
-              <div className="text-blue-100">Students Supported</div>
-            </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
-              <div className="text-4xl font-bold mb-2">{platformStats.improvementRate}</div>
-              <div className="text-blue-100">Report Improvement</div>
-            </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
-              <div className="text-4xl font-bold mb-2">{platformStats.averageResponseTime}</div>
-              <div className="text-blue-100">Average Response</div>
-            </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
-              <div className="text-4xl font-bold mb-2">{platformStats.campusPartnerships}</div>
-              <div className="text-blue-100">Campus Partners</div>
-            </div>
-          </div>
-          
-          <div className="mt-12">
-            <Link href="/chatbot">
-              <Button size="lg" className="bg-white text-blue-600 hover:bg-blue-50 px-12 py-4 text-lg font-semibold shadow-lg">
-                <MessageCircle className="mr-2" size={20} />
-                Start Your Mental Health Journey Today
-              </Button>
-            </Link>
+      {/* Call to Action Section */}
+      <section className="py-16 lg:py-24 bg-primary dark:bg-primary/90">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
+            Your Mental Health Journey Can Start Right This Moment
+          </h2>
+          <p className="text-xl text-white/90 mb-12 max-w-3xl mx-auto">
+            Every option is confidential, secure, and designed with your complete privacy in mind
+          </p>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                title: "Browse Resources Anonymously",
+                description: "No signup required - explore helpful content immediately",
+                time: "Start in 30 seconds",
+                href: "/resources"
+              },
+              {
+                title: "Take Mental Health Assessment", 
+                description: "5-minute private screening to understand your needs",
+                time: "Results in 5 minutes",
+                href: "/assessment"
+              },
+              {
+                title: "Chat with AI Support",
+                description: "Get instant coping strategies and emotional support",
+                time: "Connected immediately", 
+                href: "/chatbot"
+              },
+              {
+                title: "Schedule Professional Counseling",
+                description: "Connect with licensed counselors when ready",
+                time: "Appointments available today",
+                href: "/appointments"
+              }
+            ].map((option, index) => (
+              <Card key={index} className="bg-white dark:bg-gray-800 hover:shadow-xl transition-all duration-300">
+                <CardContent className="p-6 text-center space-y-4">
+                  <h3 className="font-bold text-gray-900 dark:text-white">{option.title}</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{option.description}</p>
+                  <div className="text-xs text-primary font-medium">{option.time}</div>
+                  <Link href={option.href}>
+                    <Button className="w-full bg-primary hover:bg-primary/90 text-white" data-testid={`cta-${index}`}>
+                      Get Started
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
