@@ -1,8 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { 
   Brain, 
   Home, 
@@ -11,13 +20,16 @@ import {
   ClipboardList, 
   BookOpen, 
   Users, 
-  Phone, 
+  AlertTriangle,
   BarChart3, 
   Info,
   Menu,
   Bell,
   User,
-  AlertTriangle
+  ChevronDown,
+  Globe,
+  Settings,
+  LogOut
 } from "lucide-react";
 
 /**
@@ -27,8 +39,19 @@ import {
 export default function Header() {
   const [location] = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
 
-  // Navigation items configuration
+  // Handle scroll shadow effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setHasScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Navigation items configuration - Updated to match specifications
   const navItems = [
     { 
       path: "/", 
@@ -38,19 +61,19 @@ export default function Header() {
     },
     { 
       path: "/chatbot", 
-      label: "AI Chatbot", 
+      label: "AI Support", 
       icon: MessageCircle, 
       active: location === "/chatbot" 
     },
     { 
       path: "/appointments", 
-      label: "Appointments", 
+      label: "Counseling", 
       icon: Calendar, 
       active: location === "/appointments" 
     },
     { 
       path: "/assessment", 
-      label: "Self-Assessment", 
+      label: "Assessment", 
       icon: ClipboardList, 
       active: location === "/assessment" 
     },
@@ -62,16 +85,9 @@ export default function Header() {
     },
     { 
       path: "/peer-support", 
-      label: "Peer Support", 
+      label: "Community", 
       icon: Users, 
       active: location === "/peer-support" 
-    },
-    { 
-      path: "/emergency", 
-      label: "Emergency Help", 
-      icon: Phone, 
-      active: location === "/emergency",
-      isEmergency: true 
     },
     { 
       path: "/crisis-help", 
@@ -88,7 +104,7 @@ export default function Header() {
     },
     { 
       path: "/about", 
-      label: "About Us", 
+      label: "About", 
       icon: Info, 
       active: location === "/about" 
     },
@@ -96,29 +112,63 @@ export default function Header() {
 
   return (
     <header 
-      className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border shadow-sm"
+      className={`fixed top-0 left-0 right-0 z-[1000] transition-all duration-300 ${
+        hasScrolled 
+          ? 'bg-white/95 backdrop-blur-md shadow-[0_2px_20px_rgba(0,0,0,0.1)]' 
+          : 'bg-white/95 backdrop-blur-md'
+      } border-b border-border/20`}
+      style={{ backgroundColor: 'rgba(255, 255, 255, 0.95)' }}
       role="banner"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo Section */}
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-[90px]">          
+          {/* Left Logo Section - 320px */}
           <Link 
             href="/"
-            className="flex items-center space-x-3 focus-ring rounded-lg"
-            data-testid="logo-link"
+            className="flex items-center space-x-4 focus-ring rounded-lg w-[320px]"
+            data-testid="link-logo"
           >
-            <div className="w-12 h-12 rounded-full gradient-primary flex items-center justify-center shadow-lg">
-              <Brain className="text-white text-xl" size={24} />
+            <div 
+              className="w-[55px] h-[55px] rounded-full flex items-center justify-center shadow-lg relative overflow-hidden"
+              style={{
+                background: 'linear-gradient(135deg, #4A90E2 0%, #7ED321 100%)'
+              }}
+            >
+              <Brain className="text-white" size={28} />
+              {/* Subtle glow pulse animation */}
+              <div className="absolute inset-0 rounded-full animate-pulse bg-white/10"></div>
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-foreground font-heading">MindCare</h1>
-              <p className="text-xs text-muted-foreground">Safe • Confidential • Always Here</p>
+              <h1 
+                className="font-heading font-semibold leading-tight"
+                style={{
+                  fontSize: '26px',
+                  fontFamily: 'Poppins, Inter, sans-serif',
+                  fontWeight: 600,
+                  color: '#1A365D'
+                }}
+                data-testid="text-brand-name"
+              >
+                MindCare
+              </h1>
+              <p 
+                className="leading-tight"
+                style={{
+                  fontSize: '12px',
+                  fontFamily: 'Inter, sans-serif',
+                  fontWeight: 400,
+                  color: '#718096'
+                }}
+                data-testid="text-brand-tagline"
+              >
+                Safe - Confidential - Always Here
+              </p>
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Center Navigation - 700px */}
           <nav 
-            className="hidden lg:flex items-center space-x-6"
+            className="hidden lg:flex items-center justify-center w-[700px]"
             role="navigation"
             aria-label="Main navigation"
           >
@@ -129,126 +179,190 @@ export default function Header() {
                   key={item.path}
                   href={item.path}
                   className={`
-                    flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300
+                    flex items-center justify-center px-3 py-6 text-sm font-medium transition-all duration-300 relative
                     ${item.active 
-                      ? "text-primary bg-primary/10 border-b-2 border-primary" 
+                      ? 'font-semibold border-b-[3px] border-[#4A90E2]' 
                       : item.isEmergency 
-                        ? "text-destructive hover:text-destructive/80 hover:bg-destructive/10" 
-                        : "text-foreground hover:text-primary hover:bg-muted"
+                        ? 'hover:text-[#4A90E2]' 
+                        : 'hover:text-[#4A90E2]'
                     }
                     focus-ring
                   `}
+                  style={{
+                    fontSize: '14px',
+                    fontFamily: 'Inter, sans-serif',
+                    fontWeight: item.active ? 600 : 500,
+                    color: item.active ? '#4A90E2' : '#4A5568',
+                    width: '77px'
+                  }}
                   data-testid={`nav-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
                 >
-                  <IconComponent size={16} />
                   <span>{item.label}</span>
                 </Link>
               );
             })}
           </nav>
 
-          {/* User Controls */}
-          <div className="flex items-center space-x-4">
-            {/* Emergency Crisis Help Button */}
+          {/* Right User Controls - 380px */}
+          <div className="flex items-center space-x-3 w-[380px] justify-end">
+            {/* Crisis Button - 130px x 45px */}
             <Link href="/crisis-help">
               <Button 
-                size="sm"
-                className="emergency-pulse bg-destructive text-destructive-foreground hover:bg-destructive/90 hidden sm:flex"
+                className="emergency-pulse text-white text-sm font-semibold hover:scale-105 transition-transform duration-200 shadow-md hover:shadow-lg hidden sm:flex"
+                style={{
+                  width: '130px',
+                  height: '45px',
+                  background: 'linear-gradient(135deg, #E53E3E 0%, #C53030 100%)',
+                  fontSize: '14px',
+                  fontWeight: 600
+                }}
                 data-testid="button-crisis-help"
               >
-                <AlertTriangle size={16} className="mr-1" />
-                Crisis Help
+                🚨 Crisis Help
               </Button>
             </Link>
 
-            {/* Notification Bell */}
+            {/* Language Selector - 70px */}
+            <Select defaultValue="en">
+              <SelectTrigger 
+                className="w-[70px] h-10 border-0 bg-transparent focus:ring-0 focus:ring-offset-0"
+                data-testid="select-language"
+              >
+                <div className="flex items-center space-x-1">
+                  <Globe size={16} className="text-muted-foreground" />
+                  <ChevronDown size={12} className="text-muted-foreground" />
+                </div>
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="en">🇺🇸 EN</SelectItem>
+                <SelectItem value="hi">🇮🇳 HI</SelectItem>
+                <SelectItem value="es">🇪🇸 ES</SelectItem>
+              </SelectContent>
+            </Select>
+
+            {/* Notification Bell - 20px */}
             <Button
               variant="ghost"
               size="icon"
-              className="relative focus-ring"
+              className="relative focus-ring w-10 h-10"
               data-testid="button-notifications"
+              aria-label="View notifications"
             >
-              <Bell size={20} />
+              <Bell size={20} className="text-muted-foreground" />
               <Badge 
                 variant="destructive" 
-                className="absolute -top-1 -right-1 w-3 h-3 p-0 flex items-center justify-center"
+                className="absolute -top-1 -right-1 w-2 h-2 p-0 flex items-center justify-center"
               >
                 <span className="sr-only">New notifications</span>
               </Badge>
             </Button>
 
-            {/* User Profile */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="w-10 h-10 rounded-full gradient-accent text-white focus-ring"
-              data-testid="button-user-profile"
-            >
-              <User size={20} />
-            </Button>
+            {/* Profile Menu with Dropdown - 120px */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="w-10 h-10 rounded-full text-white focus-ring overflow-hidden"
+                  style={{
+                    background: 'linear-gradient(135deg, #4A90E2 0%, #7ED321 100%)'
+                  }}
+                  data-testid="button-user-profile"
+                  aria-label="Open user menu"
+                >
+                  <User size={18} />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuLabel data-testid="dropdown-label-account">My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem data-testid="dropdown-item-profile">
+                  <User className="mr-2 h-4 w-4" />
+                  <span>Profile</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem data-testid="dropdown-item-settings">
+                  <Settings className="mr-2 h-4 w-4" />
+                  <span>Settings</span>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem data-testid="dropdown-item-logout">
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Logout</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
-            {/* Mobile Menu Toggle */}
+            {/* Mobile Menu Toggle - 40px touchable area */}
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="lg:hidden focus-ring"
+                  className="lg:hidden focus-ring w-10 h-10"
                   data-testid="button-mobile-menu"
+                  aria-label="Open mobile menu"
                 >
-                  <Menu size={24} />
+                  <Menu size={24} className="text-muted-foreground" />
                   <span className="sr-only">Open mobile menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-80">
-                <div className="flex flex-col space-y-4 mt-8">
+              <SheetContent side="right" className="w-full bg-white/95 backdrop-blur-md">
+                <div className="flex flex-col h-full">
                   {/* Mobile Logo */}
-                  <div className="flex items-center space-x-3 mb-6">
-                    <div className="w-10 h-10 rounded-full gradient-primary flex items-center justify-center">
-                      <Brain className="text-white" size={20} />
+                  <div className="flex items-center space-x-3 mb-8 pt-4">
+                    <div 
+                      className="w-12 h-12 rounded-full flex items-center justify-center shadow-lg"
+                      style={{
+                        background: 'linear-gradient(135deg, #4A90E2 0%, #7ED321 100%)'
+                      }}
+                    >
+                      <Brain className="text-white" size={24} />
                     </div>
                     <div>
-                      <h2 className="text-xl font-bold text-foreground font-heading">MindCare</h2>
-                      <p className="text-xs text-muted-foreground">Mental Health Support</p>
+                      <h2 className="text-xl font-bold font-heading" style={{ color: '#1A365D' }}>MindCare</h2>
+                      <p className="text-xs" style={{ color: '#718096' }}>Mental Health Support</p>
                     </div>
                   </div>
 
                   {/* Mobile Navigation Items */}
-                  {navItems.map((item) => {
-                    const IconComponent = item.icon;
-                    return (
-                      <Link
-                        key={item.path}
-                        href={item.path}
-                        className={`
-                          flex items-center space-x-3 px-4 py-3 rounded-lg text-base font-medium transition-all duration-300
-                          ${item.active 
-                            ? "text-primary bg-primary/10 border-l-4 border-primary" 
-                            : item.isEmergency 
-                              ? "text-destructive hover:bg-destructive/10" 
-                              : "text-foreground hover:bg-muted"
-                          }
-                          focus-ring
-                        `}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        data-testid={`mobile-nav-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
-                      >
-                        <IconComponent size={20} />
-                        <span>{item.label}</span>
-                      </Link>
-                    );
-                  })}
+                  <div className="flex-1 space-y-2">
+                    {navItems.map((item) => {
+                      const IconComponent = item.icon;
+                      return (
+                        <Link
+                          key={item.path}
+                          href={item.path}
+                          className={`
+                            flex items-center space-x-3 px-4 py-4 rounded-lg text-base font-medium transition-all duration-300
+                            ${item.active 
+                              ? 'bg-[#4A90E2]/10 border-l-4 border-[#4A90E2] text-[#4A90E2]' 
+                              : item.isEmergency 
+                                ? 'text-destructive hover:bg-destructive/10' 
+                                : 'text-[#4A5568] hover:bg-muted hover:text-[#4A90E2]'
+                            }
+                            focus-ring
+                          `}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          data-testid={`mobile-nav-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
+                        >
+                          <IconComponent size={20} />
+                          <span>{item.label}</span>
+                        </Link>
+                      );
+                    })}
+                  </div>
 
                   {/* Mobile Emergency Button */}
-                  <div className="pt-4 border-t border-border">
+                  <div className="pt-6 border-t border-border/20 pb-6">
                     <Link href="/crisis-help">
                       <Button 
-                        className="w-full emergency-pulse bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                        className="w-full emergency-pulse text-white text-base font-semibold h-12 shadow-md"
+                        style={{
+                          background: 'linear-gradient(135deg, #E53E3E 0%, #C53030 100%)'
+                        }}
                         onClick={() => setIsMobileMenuOpen(false)}
                         data-testid="mobile-button-crisis-help"
                       >
-                        <AlertTriangle size={18} className="mr-2" />
-                        Crisis Help
+                        🚨 Crisis Help
                       </Button>
                     </Link>
                   </div>
