@@ -74,6 +74,13 @@ export default function Header() {
       isEmergency: true 
     },
     { 
+      path: "/crisis-help", 
+      label: "Crisis Help", 
+      icon: AlertTriangle, 
+      active: location === "/crisis-help",
+      isEmergency: true 
+    },
+    { 
       path: "/dashboard", 
       label: "Dashboard", 
       icon: BarChart3, 
@@ -143,7 +150,7 @@ export default function Header() {
           {/* User Controls */}
           <div className="flex items-center space-x-4">
             {/* Emergency Crisis Help Button */}
-            <Link href="/emergency">
+            <Link href="/crisis-help">
               <Button 
                 size="sm"
                 className="emergency-pulse bg-destructive text-destructive-foreground hover:bg-destructive/90 hidden sm:flex"
@@ -234,14 +241,14 @@ export default function Header() {
 
                   {/* Mobile Emergency Button */}
                   <div className="pt-4 border-t border-border">
-                    <Link href="/emergency">
+                    <Link href="/crisis-help">
                       <Button 
                         className="w-full emergency-pulse bg-destructive text-destructive-foreground hover:bg-destructive/90"
                         onClick={() => setIsMobileMenuOpen(false)}
                         data-testid="mobile-button-crisis-help"
                       >
                         <AlertTriangle size={18} className="mr-2" />
-                        Emergency Crisis Help
+                        Crisis Help
                       </Button>
                     </Link>
                   </div>

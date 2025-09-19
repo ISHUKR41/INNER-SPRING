@@ -50,6 +50,7 @@ import SelfAssessment from "@/pages/assessments/SelfAssessment"; // Standardized
 import Resources from "@/pages/resources/Resources";       // Educational content and resource library
 import PeerSupport from "@/pages/peer-support/PeerSupport"; // Anonymous community support forum
 import Emergency from "@/pages/emergency/Emergency";       // Crisis intervention and emergency contacts
+import CrisisHelp from "@/pages/crisis-help/CrisisHelp";   // Dedicated crisis help and emergency support page
 import Dashboard from "@/pages/dashboard/Dashboard";       // Personal progress tracking and overview
 import About from "@/pages/about/About";                   // Platform information and team details
 import NotFound from "@/pages/not-found/not-found";        // 404 error page for invalid routes
@@ -69,6 +70,7 @@ import NotFound from "@/pages/not-found/not-found";        // 404 error page for
  * - "/resources" - Educational content and coping resources
  * - "/peer-support" - Anonymous community discussion forum
  * - "/emergency" - Crisis intervention and emergency contacts
+ * - "/crisis-help" - Dedicated crisis help and emergency support
  * - "/dashboard" - Personal progress tracking and history
  * - "/about" - Platform information and support details
  * 
@@ -86,6 +88,7 @@ function Router() {
       <Route path="/resources" component={Resources} />
       <Route path="/peer-support" component={PeerSupport} />
       <Route path="/emergency" component={Emergency} />
+      <Route path="/crisis-help" component={CrisisHelp} />
       
       {/* Secondary routes for user management and information */}
       <Route path="/dashboard" component={Dashboard} />

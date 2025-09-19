@@ -33,6 +33,7 @@ export default function Footer() {
   const supportLinks = [
     { href: "/peer-support", label: "Peer Support" },
     { href: "/emergency", label: "Emergency Help" },
+    { href: "/crisis-help", label: "Crisis Help" },
     { href: "/dashboard", label: "Dashboard" },
     { href: "/about", label: "About Us" },
     { href: "/privacy", label: "Privacy Policy" },
