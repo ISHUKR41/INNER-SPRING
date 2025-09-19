@@ -30,7 +30,7 @@ export const chatConversations = pgTable("chat_conversations", {
 // Individual chat messages
 export const chatMessages = pgTable("chat_messages", {
   id: uuid("id").primaryKey().default(sql`gen_random_uuid()`),
-  conversationId: uuid("conversation_id").references(() => chatConversations.id),
+  conversationId: uuid("conversation_id").references(() => chatConversations.id).notNull(), // Security: enforce FK requirement
   role: text("role").notNull(), // 'user' or 'assistant'
   content: text("content").notNull(),
   timestamp: timestamp("timestamp").defaultNow(),
@@ -120,7 +120,7 @@ export const forumPosts = pgTable("forum_posts", {
 // Forum post replies
 export const forumReplies = pgTable("forum_replies", {
   id: uuid("id").primaryKey().default(sql`gen_random_uuid()`),
-  postId: uuid("post_id").references(() => forumPosts.id),
+  postId: uuid("post_id").references(() => forumPosts.id).notNull(), // Security: enforce FK requirement
   userId: uuid("user_id").references(() => users.id),
   content: text("content").notNull(),
   isAnonymous: boolean("is_anonymous").default(true),
@@ -245,6 +245,9 @@ export const insertAppointmentSchema = createInsertSchema(appointments).omit({
 export const insertAssessmentSchema = createInsertSchema(assessments).omit({
   id: true,
   completedAt: true,
+}).extend({
+  // Security: Enforce strict response validation - responses must be an array
+  responses: z.array(z.any()).min(1, "Assessment must have at least one response"),
 });
 
 export const insertResourceSchema = createInsertSchema(resources).omit({

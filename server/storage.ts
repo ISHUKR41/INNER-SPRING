@@ -123,9 +123,25 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createChatMessage(message: InsertChatMessage): Promise<ChatMessage> {
+    // Security: Validate foreign key exists before any database operations
+    if (!message.conversationId) {
+      throw new Error("Conversation ID is required for chat messages");
+    }
+    
+    // Security: Verify conversation exists before creating message
+    const conversation = await db
+      .select({ id: chatConversations.id })
+      .from(chatConversations)
+      .where(eq(chatConversations.id, message.conversationId))
+      .limit(1);
+    
+    if (conversation.length === 0) {
+      throw new Error("Invalid conversation ID: conversation does not exist");
+    }
+    
     const [msg] = await db.insert(chatMessages).values(message).returning();
     
-    // Update conversation timestamp
+    // Update conversation timestamp - no unsafe type assertion needed
     await db
       .update(chatConversations)
       .set({ updatedAt: new Date() })
@@ -165,6 +181,41 @@ export class DatabaseStorage implements IStorage {
 
   // Appointments
   async createAppointment(appointment: InsertAppointment): Promise<Appointment> {
+    // Security: Validate foreign keys exist before database operations
+    if (!appointment.userId) {
+      throw new Error("User ID is required for appointments");
+    }
+    
+    if (!appointment.counselorId) {
+      throw new Error("Counselor ID is required for appointments");
+    }
+    
+    // Security: Verify user exists
+    const user = await db
+      .select({ id: users.id })
+      .from(users)
+      .where(eq(users.id, appointment.userId))
+      .limit(1);
+    
+    if (user.length === 0) {
+      throw new Error("Invalid user ID: user does not exist");
+    }
+    
+    // Security: Verify counselor exists and is available
+    const counselor = await db
+      .select({ id: counselors.id, isAvailable: counselors.isAvailable })
+      .from(counselors)
+      .where(eq(counselors.id, appointment.counselorId))
+      .limit(1);
+    
+    if (counselor.length === 0) {
+      throw new Error("Invalid counselor ID: counselor does not exist");
+    }
+    
+    if (!counselor[0].isAvailable) {
+      throw new Error("Counselor is not available for appointments");
+    }
+    
     const [newAppointment] = await db.insert(appointments).values(appointment).returning();
     return newAppointment;
   }
@@ -237,18 +288,26 @@ export class DatabaseStorage implements IStorage {
 
   // Resources
   async getResources(category?: string, type?: string, language?: string): Promise<Resource[]> {
-    let query = db.select().from(resources);
-    
+    // Build conditions array for filtering resources based on optional parameters
     const conditions = [];
     if (category) conditions.push(eq(resources.category, category));
     if (type) conditions.push(eq(resources.type, type));
     if (language) conditions.push(eq(resources.language, language));
     
+    // Use a single query construction to maintain proper Drizzle ORM typing
+    // This avoids PgSelectBase type issues that occur with conditional query building
     if (conditions.length > 0) {
-      query = query.where(and(...conditions));
+      return await db
+        .select()
+        .from(resources)
+        .where(and(...conditions))
+        .orderBy(desc(resources.createdAt));
+    } else {
+      return await db
+        .select()
+        .from(resources)
+        .orderBy(desc(resources.createdAt));
     }
-    
-    return await query.orderBy(desc(resources.createdAt));
   }
 
   async getResource(id: string): Promise<Resource | undefined> {
@@ -292,18 +351,25 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getForumPosts(categoryId?: string, limit = 20): Promise<ForumPost[]> {
-    let query = db
-      .select()
-      .from(forumPosts)
-      .where(eq(forumPosts.isApproved, true));
-    
+    // Use separate query constructions to maintain proper Drizzle ORM typing
+    // This avoids query builder type issues when conditionally adding where clauses
     if (categoryId) {
-      query = query.where(and(eq(forumPosts.isApproved, true), eq(forumPosts.categoryId, categoryId)));
+      // When categoryId is provided, filter by both approval status and category
+      return await db
+        .select()
+        .from(forumPosts)
+        .where(and(eq(forumPosts.isApproved, true), eq(forumPosts.categoryId, categoryId)))
+        .orderBy(desc(forumPosts.createdAt))
+        .limit(limit);
+    } else {
+      // When no categoryId, only filter by approval status
+      return await db
+        .select()
+        .from(forumPosts)
+        .where(eq(forumPosts.isApproved, true))
+        .orderBy(desc(forumPosts.createdAt))
+        .limit(limit);
     }
-    
-    return await query
-      .orderBy(desc(forumPosts.createdAt))
-      .limit(limit);
   }
 
   async getForumPost(id: string): Promise<ForumPost | undefined> {
@@ -325,9 +391,25 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createForumReply(reply: InsertForumReply): Promise<ForumReply> {
+    // Security: Validate foreign key exists before any database operations
+    if (!reply.postId) {
+      throw new Error("Post ID is required for forum replies");
+    }
+    
+    // Security: Verify post exists before creating reply
+    const post = await db
+      .select({ id: forumPosts.id })
+      .from(forumPosts)
+      .where(eq(forumPosts.id, reply.postId))
+      .limit(1);
+    
+    if (post.length === 0) {
+      throw new Error("Invalid post ID: forum post does not exist");
+    }
+    
     const [newReply] = await db.insert(forumReplies).values(reply).returning();
     
-    // Update post reply count
+    // Update post reply count - no unsafe type assertion needed
     await db
       .update(forumPosts)
       .set({ 
