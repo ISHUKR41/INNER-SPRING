@@ -23,6 +23,7 @@ import {
   Clock,
   BarChart3
 } from "lucide-react";
+import type { Resource } from "@/types";
 
 /**
  * Home Page Component - Landing page with hero section and service overview
@@ -31,8 +32,8 @@ import {
 export default function Home() {
   const [visibleElements, setVisibleElements] = useState(new Set());
 
-  // Fetch featured resources for the homepage
-  const { data: featuredResources, isLoading: resourcesLoading } = useQuery({
+  // Fetch featured resources for the homepage with proper typing and default values
+  const { data: featuredResources = [], isLoading: resourcesLoading } = useQuery<Resource[]>({
     queryKey: ["/api/resources/featured"],
   });
 
@@ -170,7 +171,7 @@ export default function Home() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setVisibleElements(prev => new Set([...prev, entry.target.id]));
+            setVisibleElements(prev => new Set([...Array.from(prev), entry.target.id]));
           }
         });
       },

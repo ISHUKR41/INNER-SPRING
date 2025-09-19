@@ -61,13 +61,13 @@ export default function PeerSupport() {
   // Mock user ID - in production would come from auth context
   const userId = "mock-user-id";
 
-  // Fetch forum categories
-  const { data: categories, isLoading: categoriesLoading } = useQuery({
+  // Fetch forum categories with proper typing and default empty array
+  const { data: categories = [], isLoading: categoriesLoading } = useQuery<ForumCategory[]>({
     queryKey: ["/api/forum/categories"],
   });
 
-  // Fetch forum posts
-  const { data: posts, isLoading: postsLoading } = useQuery({
+  // Fetch forum posts with proper typing and default empty array
+  const { data: posts = [], isLoading: postsLoading } = useQuery<ForumPostType[]>({
     queryKey: ["/api/forum/posts", filters],
     queryFn: async () => {
       const params = new URLSearchParams();

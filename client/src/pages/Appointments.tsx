@@ -66,13 +66,13 @@ export default function Appointments() {
   // Mock user ID - in production would come from auth context
   const userId = "mock-user-id";
 
-  // Fetch available counselors
-  const { data: counselors, isLoading: counselorsLoading } = useQuery({
+  // Fetch available counselors with proper typing and default empty array
+  const { data: counselors = [], isLoading: counselorsLoading } = useQuery<Counselor[]>({
     queryKey: ["/api/counselors/available"],
   });
 
-  // Fetch user's appointments
-  const { data: userAppointments, isLoading: appointmentsLoading } = useQuery({
+  // Fetch user's appointments with proper typing and default empty array
+  const { data: userAppointments = [], isLoading: appointmentsLoading } = useQuery<Appointment[]>({
     queryKey: [`/api/appointments/user/${userId}`],
     enabled: !!userId,
   });

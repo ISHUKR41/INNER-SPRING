@@ -50,8 +50,8 @@ export default function ForumPost({
   // Mock user ID - in production would come from auth context
   const userId = "mock-user-id";
 
-  // Fetch replies for this post
-  const { data: replies, isLoading: repliesLoading } = useQuery({
+  // Fetch replies for this post with proper typing and default empty array
+  const { data: replies = [], isLoading: repliesLoading } = useQuery<ForumReply[]>({
     queryKey: [`/api/forum/posts/${post.id}/replies`],
     enabled: isRepliesOpen,
   });

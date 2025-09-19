@@ -35,8 +35,8 @@ export default function Resources() {
   });
   const [activeCategory, setActiveCategory] = useState("all");
 
-  // Fetch resources with filters
-  const { data: resources, isLoading } = useQuery({
+  // Fetch resources with filters with proper typing and default empty array
+  const { data: resources = [], isLoading } = useQuery<Resource[]>({
     queryKey: ["/api/resources", filters],
     queryFn: async () => {
       const params = new URLSearchParams();
@@ -49,13 +49,13 @@ export default function Resources() {
     },
   });
 
-  // Fetch featured resources
-  const { data: featuredResources } = useQuery({
+  // Fetch featured resources with proper typing and default empty array
+  const { data: featuredResources = [] } = useQuery<Resource[]>({
     queryKey: ["/api/resources/featured"],
   });
 
-  // Search resources
-  const { data: searchResults, isLoading: searchLoading } = useQuery({
+  // Search resources with proper typing and default empty array
+  const { data: searchResults = [], isLoading: searchLoading } = useQuery<Resource[]>({
     queryKey: ["/api/resources/search", filters.search],
     queryFn: async () => {
       if (!filters.search) return [];

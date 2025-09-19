@@ -42,14 +42,14 @@ export default function SelfAssessment() {
   // Mock user ID - in production would come from auth context
   const userId = "mock-user-id";
 
-  // Fetch user's assessment history
-  const { data: assessmentHistory, isLoading: historyLoading } = useQuery({
+  // Fetch user's assessment history with proper typing and default empty array
+  const { data: assessmentHistory = [], isLoading: historyLoading } = useQuery<Assessment[]>({
     queryKey: [`/api/assessments/user/${userId}`],
     enabled: !!userId,
   });
 
-  // Fetch latest assessment for selected type
-  const { data: latestAssessment } = useQuery({
+  // Fetch latest assessment for selected type with proper typing and default null
+  const { data: latestAssessment = null } = useQuery<Assessment | null>({
     queryKey: [`/api/assessments/latest/${userId}/${selectedAssessment}`],
     enabled: !!userId && !!selectedAssessment,
   });
@@ -99,9 +99,9 @@ export default function SelfAssessment() {
     });
   };
 
-  // Get assessment progress data for charts
+  // Get assessment progress data for charts with proper array handling
   const getProgressData = () => {
-    if (!assessmentHistory) return [];
+    if (!assessmentHistory || !Array.isArray(assessmentHistory)) return [];
     
     return assessmentHistory
       .filter((assessment: Assessment) => assessment.assessmentType === selectedAssessment)

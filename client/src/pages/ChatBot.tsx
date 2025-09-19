@@ -36,14 +36,14 @@ export default function ChatBot() {
   // Mock user ID - in production would come from auth context
   const userId = "mock-user-id";
 
-  // Fetch user's conversations
-  const { data: conversations, isLoading: conversationsLoading } = useQuery({
+  // Fetch user's conversations with proper typing and default empty array
+  const { data: conversations = [], isLoading: conversationsLoading } = useQuery<ChatConversation[]>({
     queryKey: [`/api/chat/conversations/${userId}`],
     enabled: !!userId,
   });
 
-  // Fetch messages for selected conversation
-  const { data: messages, isLoading: messagesLoading } = useQuery({
+  // Fetch messages for selected conversation with proper typing and default empty array
+  const { data: messages = [], isLoading: messagesLoading } = useQuery<ChatMessage[]>({
     queryKey: [`/api/chat/messages/${selectedConversationId}`],
     enabled: !!selectedConversationId,
   });
@@ -313,7 +313,7 @@ export default function ChatBot() {
           {selectedConversationId ? (
             <ChatInterface
               conversationId={selectedConversationId}
-              messages={messages || []}
+              messages={messages}
               isLoading={messagesLoading}
               onSendMessage={handleSendMessage}
               isSending={sendMessageMutation.isPending}
