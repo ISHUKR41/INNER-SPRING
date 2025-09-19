@@ -59,7 +59,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Rate limiting configuration to prevent abuse and ensure fair resource usage
   const connectionAttempts = new Map<string, { count: number, lastAttempt: number }>();
   const RATE_LIMIT_WINDOW = 60000; // 1 minute window for rate limiting
-  const MAX_CONNECTIONS_PER_IP = 10; // Maximum connections per IP per window
+  const MAX_CONNECTIONS_PER_IP = 50; // Maximum connections per IP per window (increased for development)
   
   /**
    * WebSocket Server Configuration

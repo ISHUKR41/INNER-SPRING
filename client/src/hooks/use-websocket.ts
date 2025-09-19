@@ -221,7 +221,7 @@ export function useWebSocket(options: UseWebSocketOptions = {}): UseWebSocketRet
     connect();
   }, [connect]);
 
-  // Initialize connection on mount
+  // Initialize connection on mount - use empty dependency array to prevent reconnections
   useEffect(() => {
     connect();
 
@@ -245,7 +245,7 @@ export function useWebSocket(options: UseWebSocketOptions = {}): UseWebSocketRet
         ws.current = null;
       }
     };
-  }, [connect]);
+  }, []); // Empty dependency array to prevent reconnections on re-render
 
   // Handle page visibility changes to reconnect when tab becomes active
   useEffect(() => {

@@ -33,8 +33,8 @@ export default function ChatBot() {
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
-  // Mock user ID - in production would come from auth context
-  const userId = "mock-user-id";
+  // Test user ID - in production would come from auth context
+  const userId = "befd8f8b-5cb4-4270-8ce4-6dfad51e303d";
 
   // Fetch user's conversations with proper typing and default empty array
   const { data: conversations = [], isLoading: conversationsLoading } = useQuery<ChatConversation[]>({
