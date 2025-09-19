@@ -77,6 +77,15 @@
   /* Hero section gradients */
   --hero-bg: linear-gradient(135deg, hsl(210, 40%, 98%) 0%, hsl(220, 60%, 97%) 25%, hsl(145, 40%, 97%) 75%, hsl(210, 40%, 98%) 100%);
   
+  /* New Hero Banner Gradient (Light Blue to Mint) */
+  --hero-banner-bg: linear-gradient(135deg, #F7FAFC 0%, #F0FFF4 100%);
+  
+  /* Specific Colors for New Hero */
+  --hero-navy: #1A365D;
+  --hero-blue: #4299E1;
+  --hero-mint: #F0FFF4;
+  --hero-light-blue: #F7FAFC;
+  
   /* Animation timing */
   --animation-fast: 0.2s;
   --animation-normal: 0.3s;
@@ -147,6 +156,83 @@
   
   .hero-bg {
     background: var(--hero-bg);
+  }
+  
+  .hero-banner-bg {
+    background: var(--hero-banner-bg);
+    position: relative;
+  }
+  
+  .hero-banner-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(circle, rgba(0,0,0,0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.3;
+    pointer-events: none;
+  }
+  
+  .floating-shape {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.1;
+    animation: float-gentle 8s ease-in-out infinite;
+  }
+  
+  .floating-shape-1 {
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(66, 153, 225, 0.3), rgba(66, 153, 225, 0.1));
+    top: 15%;
+    left: 8%;
+    animation-delay: 0s;
+  }
+  
+  .floating-shape-2 {
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(126, 211, 33, 0.3), rgba(126, 211, 33, 0.1));
+    top: 60%;
+    right: 16%;
+    animation-delay: 2s;
+  }
+  
+  .floating-shape-3 {
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, rgba(26, 54, 93, 0.2), rgba(26, 54, 93, 0.1));
+    top: 35%;
+    right: 30%;
+    animation-delay: 4s;
+  }
+  
+  .floating-triangle {
+    position: absolute;
+    width: 0;
+    height: 0;
+    animation: float-gentle-reverse 10s ease-in-out infinite;
+  }
+  
+  .floating-triangle-1 {
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-bottom: 43px solid rgba(66, 153, 225, 0.1);
+    top: 25%;
+    left: 70%;
+    animation-delay: 1s;
+  }
+  
+  .floating-triangle-2 {
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 52px solid rgba(126, 211, 33, 0.08);
+    top: 70%;
+    left: 15%;
+    animation-delay: 3s;
   }
   
   /* Enhanced card hover effects */
@@ -449,6 +535,24 @@
   }
   100% {
     transform: translateY(-15px);
+  }
+}
+
+@keyframes float-gentle {
+  0%, 100% { 
+    transform: translateY(0px) scale(1); 
+  }
+  50% { 
+    transform: translateY(-15px) scale(1.02); 
+  }
+}
+
+@keyframes float-gentle-reverse {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg); 
+  }
+  50% { 
+    transform: translateY(10px) rotate(2deg); 
   }
 }
 
