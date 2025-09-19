@@ -364,19 +364,117 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Create HTTP server
   const httpServer = createServer(app);
 
-  // Add WebSocket server for real-time chat
-  const wss = new WebSocketServer({ server: httpServer, path: '/ws' });
+  // Rate limiting map to track connection attempts per IP
+  // This helps prevent abuse and ensures fair resource usage
+  const connectionAttempts = new Map<string, { count: number, lastAttempt: number }>();
+  const RATE_LIMIT_WINDOW = 60000; // 1 minute window
+  const MAX_CONNECTIONS_PER_IP = 10; // Maximum connections per IP per window
+  
+  // Create WebSocket server for real-time chat functionality
+  // This enables bidirectional communication between client and server
+  // The WebSocket server is attached to the same HTTP server at /ws endpoint
+  const wss = new WebSocketServer({ 
+    server: httpServer, 
+    path: '/ws',
+    // Configure WebSocket server options for better reliability and security
+    clientTracking: true, // Track connected clients
+    maxPayload: 1024 * 1024, // 1MB max message size for security
+    
+    // Verify origin to prevent unauthorized cross-origin WebSocket connections
+    // This adds a basic layer of security against malicious websites
+    verifyClient: (info: { origin: string; secure: boolean; req: any }) => {
+      const origin = info.origin;
+      const clientIP = info.req.socket.remoteAddress || 'unknown';
+      
+      console.log(`🔍 WebSocket connection attempt from IP: ${clientIP}, Origin: ${origin}`);
+      
+      // Basic rate limiting: Check connection attempts per IP
+      const now = Date.now();
+      const clientAttempts = connectionAttempts.get(clientIP);
+      
+      if (clientAttempts) {
+        // Reset counter if window has expired
+        if (now - clientAttempts.lastAttempt > RATE_LIMIT_WINDOW) {
+          clientAttempts.count = 1;
+          clientAttempts.lastAttempt = now;
+        } else {
+          clientAttempts.count++;
+          clientAttempts.lastAttempt = now;
+          
+          // Reject if too many attempts
+          if (clientAttempts.count > MAX_CONNECTIONS_PER_IP) {
+            console.log(`❌ Rate limit exceeded for IP: ${clientIP} (${clientAttempts.count} attempts)`);
+            return false;
+          }
+        }
+      } else {
+        // First connection attempt from this IP
+        connectionAttempts.set(clientIP, { count: 1, lastAttempt: now });
+      }
+      
+      // Origin verification for production security
+      // In development, allow all origins for easier testing
+      if (process.env.NODE_ENV === 'production') {
+        // Define allowed origins for production
+        const allowedOrigins = [
+          `https://${process.env.REPL_SLUG}--${process.env.REPL_OWNER}.replit.app`,
+          'https://localhost:5000', // Allow secure localhost in production
+        ];
+        
+        // Reject connections from unauthorized origins
+        if (origin && !allowedOrigins.some(allowed => origin.startsWith(allowed))) {
+          console.log(`❌ Unauthorized origin rejected: ${origin}`);
+          return false;
+        }
+      }
+      
+      console.log(`✅ WebSocket connection authorized for IP: ${clientIP}`);
+      return true;
+    }
+  });
 
-  wss.on('connection', (ws: WebSocket) => {
-    console.log('WebSocket connection established');
+  console.log('🔌 WebSocket server initialized at /ws endpoint');
 
+  // Handle new WebSocket connections with enhanced security and monitoring
+  wss.on('connection', (ws: WebSocket, req) => {
+    const clientIP = req.socket.remoteAddress || 'unknown';
+    const userAgent = req.headers['user-agent'] || 'unknown';
+    
+    console.log('✅ New WebSocket client connected');
+    console.log('🌐 Client IP:', clientIP);
+    console.log('🔍 User Agent:', userAgent.slice(0, 50) + (userAgent.length > 50 ? '...' : ''));
+    console.log('📊 Total connected clients:', wss.clients.size);
+
+    // Send welcome message to newly connected client
+    if (ws.readyState === WebSocket.OPEN) {
+      ws.send(JSON.stringify({
+        type: 'connection_established',
+        message: 'WebSocket connection successful'
+      }));
+    }
+
+    // Handle incoming messages from clients
     ws.on('message', async (data) => {
       try {
+        console.log('📨 Received WebSocket message:', data.toString().slice(0, 100) + '...');
         const message = JSON.parse(data.toString());
         
-        if (message.type === 'chat_message') {
-          // Security: Validate required fields before any database operations
+        // Handle different message types with enhanced validation
+        if (message.type === 'ping') {
+          // Handle ping messages from client for connection health monitoring
+          console.log('🏓 Received ping from client, sending pong');
+          if (ws.readyState === WebSocket.OPEN) {
+            ws.send(JSON.stringify({
+              type: 'pong',
+              timestamp: message.timestamp || Date.now()
+            }));
+          }
+        } else if (message.type === 'chat_message') {
+          console.log('💬 Processing chat message for conversation:', message.conversationId);
+          
+          // Security: Comprehensive input validation before database operations
           if (!message.conversationId) {
+            console.log('❌ Rejected message: Missing conversation ID');
             ws.send(JSON.stringify({
               type: 'error',
               message: 'Conversation ID is required'
@@ -385,6 +483,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           }
           
           if (!message.role || !message.content) {
+            console.log('❌ Rejected message: Missing role or content');
             ws.send(JSON.stringify({
               type: 'error',
               message: 'Role and content are required'
@@ -392,39 +491,108 @@ export async function registerRoutes(app: Express): Promise<Server> {
             return;
           }
           
-          // Validate message data using schema
+          // Validate message structure using Zod schema
+          // This ensures data integrity and prevents invalid data from reaching storage
           const messageData = insertChatMessageSchema.parse({
             conversationId: message.conversationId,
             role: message.role,
             content: message.content
           });
           
-          // Handle real-time chat message - storage now has comprehensive validation
+          // Store message in database with full validation
+          // The storage layer provides additional security and data validation
           const savedMessage = await storage.createChatMessage(messageData);
+          console.log('✅ Message saved to database with ID:', savedMessage.id);
 
-          // Broadcast to connected clients if needed
+          // Send confirmation back to the client that sent the message
           if (ws.readyState === WebSocket.OPEN) {
             ws.send(JSON.stringify({
               type: 'message_saved',
               message: savedMessage
             }));
           }
+
+          // Optional: Broadcast to other clients in the same conversation
+          // This could be implemented for multi-user chat rooms in the future
+          // For now, we only confirm to the sender
+          
+        } else {
+          console.log('⚠️ Unknown message type received:', message.type);
+          ws.send(JSON.stringify({
+            type: 'error',
+            message: `Unknown message type: ${message.type}`
+          }));
         }
+        
       } catch (error) {
-        console.error('WebSocket message error:', error);
-        // Send error response to client
+        console.error('❌ WebSocket message processing error:', error);
+        
+        // Send detailed error information to client for debugging
         if (ws.readyState === WebSocket.OPEN) {
           ws.send(JSON.stringify({
             type: 'error',
-            message: error instanceof Error ? error.message : 'Invalid message data'
+            message: error instanceof Error ? error.message : 'Invalid message data',
+            details: process.env.NODE_ENV === 'development' ? error : undefined
           }));
         }
       }
     });
 
-    ws.on('close', () => {
-      console.log('WebSocket connection closed');
+    // Handle client disconnection with proper cleanup
+    ws.on('close', (code, reason) => {
+      console.log('🔌 WebSocket client disconnected');
+      console.log('🌐 Client IP:', clientIP);
+      console.log('📋 Close code:', code, 'Reason:', reason.toString() || 'No reason provided');
+      console.log('📊 Remaining connected clients:', wss.clients.size);
+      
+      // Critical: Explicitly clear the ping interval to prevent memory leaks
+      // This ensures server-side intervals are properly cleaned up on disconnection
+      const pingInterval = (ws as any).pingInterval;
+      if (pingInterval) {
+        clearInterval(pingInterval);
+        console.log('🧹 Cleaned up ping interval for disconnected client');
+      }
     });
+
+    // Handle WebSocket errors with enhanced logging and cleanup
+    ws.on('error', (error) => {
+      console.error('❌ WebSocket client error occurred');
+      console.error('🌐 Client IP:', clientIP);
+      console.error('📋 Error details:', error.message || error);
+      
+      // Clean up ping interval on error as well
+      const pingInterval = (ws as any).pingInterval;
+      if (pingInterval) {
+        clearInterval(pingInterval);
+        console.log('🧹 Cleaned up ping interval due to client error');
+      }
+    });
+
+    // Implement ping/pong for connection health monitoring
+    // This helps detect dropped connections and maintain reliable communication
+    const pingInterval = setInterval(() => {
+      if (ws.readyState === WebSocket.OPEN) {
+        // Send native WebSocket ping frame for connection health check
+        ws.ping();
+      } else {
+        // Connection is closed, clean up the interval immediately
+        clearInterval(pingInterval);
+      }
+    }, 30000); // Ping every 30 seconds
+
+    // Handle pong responses to confirm client is still connected
+    ws.on('pong', () => {
+      console.log('🏓 Received pong from client - connection healthy');
+    });
+    
+    // Store the ping interval reference on the WebSocket for proper cleanup
+    // This ensures we can clear it when the connection closes
+    (ws as any).pingInterval = pingInterval;
+  });
+
+  // Handle WebSocket server-level errors
+  wss.on('error', (error) => {
+    console.error('❌ WebSocket server error:', error);
   });
 
   return httpServer;
