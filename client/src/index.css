@@ -13,20 +13,25 @@
   --popover: hsl(0, 0%, 100%);
   --popover-foreground: hsl(222, 47%, 11%);
   
-  /* Primary - Soft Blue */
-  --primary: hsl(210, 83%, 58%);
+  /* MindCare Specific Colors */
+  --mindcare-navy: hsl(208, 57%, 24%); /* Deep navy #1A365D */
+  --mindcare-blue: hsl(214, 73%, 59%); /* Calming blue #4A90E2 */
+  --mindcare-green: hsl(84, 76%, 50%); /* Hopeful green #7ED321 */
+  
+  /* Primary - MindCare Calming Blue */
+  --primary: hsl(214, 73%, 59%);
   --primary-foreground: hsl(0, 0%, 100%);
   
-  /* Secondary - Soft Green */
-  --secondary: hsl(145, 55%, 62%);
-  --secondary-foreground: hsl(0, 0%, 100%);
+  /* Secondary - MindCare Hopeful Green */
+  --secondary: hsl(84, 76%, 50%);
+  --secondary-foreground: hsl(208, 57%, 24%);
   
   /* Muted colors */
   --muted: hsl(210, 40%, 96%);
-  --muted-foreground: hsl(215, 16%, 47%);
+  --muted-foreground: hsl(215, 16%, 45%); /* Improved contrast: darker for better readability */
   
-  /* Accent - Lavender */
-  --accent: hsl(276, 50%, 54%);
+  /* Accent - Deep Navy */
+  --accent: hsl(208, 57%, 24%);
   --accent-foreground: hsl(0, 0%, 100%);
   
   /* Alert colors */
@@ -34,8 +39,8 @@
   --destructive-foreground: hsl(0, 0%, 100%);
   
   /* Border and input */
-  --border: hsl(214, 32%, 91%);
-  --input: hsl(214, 32%, 91%);
+  --border: hsl(214, 32%, 88%); /* Improved contrast: slightly darker border */
+  --input: hsl(214, 32%, 88%); /* Improved contrast: slightly darker input background */
   --ring: hsl(210, 83%, 58%);
   
   /* Additional theme colors */
@@ -65,9 +70,9 @@
   --radius: 0.75rem;
   
   /* Custom MindCare gradients */
-  --gradient-primary: linear-gradient(135deg, hsl(210, 83%, 58%), hsl(145, 55%, 62%));
-  --gradient-secondary: linear-gradient(135deg, hsl(145, 55%, 62%), hsl(276, 50%, 54%));
-  --gradient-accent: linear-gradient(135deg, hsl(276, 50%, 54%), hsl(210, 83%, 58%));
+  --gradient-primary: linear-gradient(135deg, hsl(214, 73%, 59%), hsl(84, 76%, 50%));
+  --gradient-secondary: linear-gradient(135deg, hsl(84, 76%, 50%), hsl(208, 57%, 24%));
+  --gradient-accent: linear-gradient(135deg, hsl(208, 57%, 24%), hsl(214, 73%, 59%));
   
   /* Hero section gradients */
   --hero-bg: linear-gradient(135deg, hsl(210, 40%, 98%) 0%, hsl(220, 60%, 97%) 25%, hsl(145, 40%, 97%) 75%, hsl(210, 40%, 98%) 100%);
@@ -79,25 +84,36 @@
 }
 
 .dark {
-  --background: hsl(0, 0%, 0%);
+  --background: hsl(208, 57%, 8%);
   --foreground: hsl(200, 6.6667%, 91.1765%);
-  --card: hsl(228, 9.8039%, 10%);
+  --card: hsl(208, 30%, 12%);
   --card-foreground: hsl(0, 0%, 85.0980%);
-  --popover: hsl(0, 0%, 0%);
+  --popover: hsl(208, 57%, 8%);
   --popover-foreground: hsl(200, 6.6667%, 91.1765%);
-  --primary: hsl(203.7736, 87.6033%, 52.5490%);
-  --primary-foreground: hsl(0, 0%, 100%);
-  --secondary: hsl(195.0000, 15.3846%, 94.9020%);
-  --secondary-foreground: hsl(210, 25%, 7.8431%);
-  --muted: hsl(0, 0%, 9.4118%);
-  --muted-foreground: hsl(210, 3.3898%, 46.2745%);
-  --accent: hsl(205.7143, 70%, 7.8431%);
-  --accent-foreground: hsl(203.7736, 87.6033%, 52.5490%);
+  
+  /* MindCare Specific Colors - Dark Mode */
+  --mindcare-navy: hsl(208, 57%, 35%); /* Lighter navy for dark mode */
+  --mindcare-blue: hsl(214, 73%, 65%); /* Brighter blue for dark mode */
+  --mindcare-green: hsl(84, 76%, 55%); /* Brighter green for dark mode */
+  
+  --primary: hsl(214, 73%, 65%);
+  --primary-foreground: hsl(208, 57%, 8%);
+  --secondary: hsl(84, 76%, 55%);
+  --secondary-foreground: hsl(208, 57%, 8%);
+  --muted: hsl(208, 30%, 15%);
+  --muted-foreground: hsl(210, 3.3898%, 65%); /* Improved contrast: lighter for better readability on dark background */
+  --accent: hsl(208, 57%, 35%);
+  --accent-foreground: hsl(84, 76%, 55%);
   --destructive: hsl(356.3033, 90.5579%, 54.3137%);
   --destructive-foreground: hsl(0, 0%, 100%);
-  --border: hsl(210, 5.2632%, 14.9020%);
-  --input: hsl(207.6923, 27.6596%, 18.4314%);
-  --ring: hsl(202.8169, 89.1213%, 53.1373%);
+  --border: hsl(208, 20%, 25%); /* Improved contrast: lighter border in dark mode */
+  --input: hsl(208, 30%, 22%); /* Improved contrast: lighter input background in dark mode */
+  --ring: hsl(214, 73%, 65%);
+  
+  /* Custom MindCare gradients - Dark Mode */
+  --gradient-primary: linear-gradient(135deg, hsl(214, 73%, 65%), hsl(84, 76%, 55%));
+  --gradient-secondary: linear-gradient(135deg, hsl(84, 76%, 55%), hsl(208, 57%, 35%));
+  --gradient-accent: linear-gradient(135deg, hsl(208, 57%, 35%), hsl(214, 73%, 65%));
 }
 
 @layer base {
@@ -171,6 +187,20 @@
   .fade-in.visible {
     opacity: 1;
     transform: translateY(0);
+  }
+  
+  /* Respect reduced motion for fade-ins */
+  @media (prefers-reduced-motion: reduce) {
+    .fade-in {
+      transition: none;
+      transform: none;
+      opacity: 1;
+    }
+    
+    .fade-in.visible {
+      opacity: 1;
+      transform: none;
+    }
   }
   
   /* Professional button effects - removed unused .btn-glow class */
@@ -395,6 +425,33 @@
   }
 }
 
+@keyframes parallax-slow {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-50px);
+  }
+}
+
+@keyframes parallax-medium {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-30px);
+  }
+}
+
+@keyframes parallax-fast {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-15px);
+  }
+}
+
 /* Responsive design helpers */
 @media (max-width: 768px) {
   .mobile-hide {
@@ -410,13 +467,62 @@
   }
 }
 
-/* Accessibility improvements */
+/* Accessibility improvements - Comprehensive motion reduction */
 @media (prefers-reduced-motion: reduce) {
+  /* Disable all custom animation classes */
   .floating,
+  .floating-delayed,
   .card-hover,
-  .fade-in {
-    animation: none;
-    transition: none;
+  .fade-in,
+  .shimmer-bg,
+  .emergency-pulse,
+  .bounce-hover,
+  .scale-breath,
+  .loading-dots,
+  .loading-dots div,
+  *[class*="parallax-"],
+  *[class*="rotate-"],
+  *[class*="bounce-"],
+  *[class*="scale-"],
+  *[class*="float"],
+  *[class*="pulse-"],
+  *[class*="slide-"],
+  *[class*="fade-"],
+  *[class*="accordion-"] {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+  
+  /* Disable all Tailwind animation utilities */
+  *[class*="animate-"],
+  *[class*="transition-"],
+  *[class*="duration-"],
+  *[class*="ease-"],
+  *[class*="delay-"] {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  /* Force disable all animations and transitions globally */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+    scroll-behavior: auto !important;
+  }
+  
+  /* Preserve focus styles but remove transitions */
+  *:focus {
+    transition: none !important;
+  }
+  
+  /* Ensure hover states are instant */
+  *:hover {
+    transition: none !important;
   }
 }
 
