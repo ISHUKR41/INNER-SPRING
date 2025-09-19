@@ -3,7 +3,7 @@ import { createServer, type Server } from "http";
 import { WebSocketServer, WebSocket } from "ws";
 import * as bcrypt from "bcrypt";
 import { storage } from "./storage";
-import { generateChatResponse, generateConversationTitle, analyzeAssessmentResults } from "./openai";
+import { generateChatResponse, generateConversationTitle, analyzeAssessmentResults } from "./services/openai";
 import { 
   insertUserSchema, insertChatConversationSchema, insertChatMessageSchema,
   insertAppointmentSchema, insertAssessmentSchema, insertForumPostSchema,
