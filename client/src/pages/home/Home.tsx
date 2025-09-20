@@ -421,8 +421,8 @@ export default function Home() {
     <div className="min-h-screen bg-background text-foreground">
       <Header />
       
-      {/* Section 1: Hero Banner */}
-      <section className="hero-section relative overflow-hidden pt-24 pb-16 lg:pt-32 lg:pb-24" data-testid="section-hero">
+      {/* Section 1: Hero Banner - Fully Responsive */}
+      <section className="hero-section relative overflow-hidden pt-16 xs:pt-20 sm:pt-24 md:pt-28 lg:pt-32 xl:pt-36 2xl:pt-40 3xl:pt-48 pb-12 xs:pb-16 sm:pb-20 md:pb-24 lg:pb-28 xl:pb-32 2xl:pb-36 3xl:pb-44" data-testid="section-hero">
         {/* Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="floating-shape floating-shape-1"></div>
@@ -430,32 +430,32 @@ export default function Home() {
           <div className="floating-shape floating-shape-3"></div>
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Left Content */}
-            <div className="space-y-8">
+        <div className="relative max-w-full mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 3xl:px-24">
+          <div className="grid lg:grid-cols-2 gap-8 xs:gap-10 sm:gap-12 lg:gap-16 xl:gap-20 2xl:gap-24 3xl:gap-32 items-center">
+            {/* Left Content - Responsive Spacing */}
+            <div className="space-y-4 xs:space-y-6 sm:space-y-8 lg:space-y-10 xl:space-y-12 2xl:space-y-16">
               {/* Main Headline */}
               <div className="space-y-4" data-testid="hero-content">
-                <h1 className="text-hero text-high-contrast" data-testid="text-main-headline">
+                <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl 3xl:text-9xl font-bold font-heading leading-tight text-high-contrast" data-testid="text-main-headline">
                   Your Mental Health Journey
                   <span className="block text-emphasis text-glow-primary">Starts Here</span>
                 </h1>
                 
-                <h2 className="text-lead text-medium-contrast" data-testid="text-secondary-headline">
+                <h2 className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl 3xl:text-7xl font-semibold text-medium-contrast leading-snug" data-testid="text-secondary-headline">
                   Safe, Confidential, Professional Support Available 24/7
                 </h2>
                 
-                <p className="text-body-large text-medium-contrast max-w-2xl" data-testid="text-hero-description">
+                <p className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl 3xl:text-5xl text-medium-contrast max-w-full lg:max-w-2xl xl:max-w-4xl leading-relaxed" data-testid="text-hero-description">
                   Break free from the barriers that prevent students from accessing mental health support. Our evidence-based platform combines AI-powered assistance, professional counseling, and peer community support—all designed specifically for the unique challenges of college life.
                 </p>
               </div>
 
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4" data-testid="hero-cta-buttons">
+              {/* CTA Buttons - Enhanced Touch Targets */}
+              <div className="flex flex-col sm:flex-row gap-3 xs:gap-4 sm:gap-6 lg:gap-8" data-testid="hero-cta-buttons">
                 <Button 
                   asChild
                   size="lg" 
-                  className="btn-professional bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold rounded-xl w-full sm:w-auto"
+                  className="btn-professional bg-primary hover:bg-primary/90 text-primary-foreground px-4 xs:px-6 sm:px-8 lg:px-12 xl:px-16 py-3 xs:py-4 sm:py-5 lg:py-6 xl:py-8 text-sm xs:text-base sm:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-semibold rounded-xl w-full sm:w-auto min-h-12 xs:min-h-14 sm:min-h-16 lg:min-h-20 xl:min-h-24"
                 >
                   <Link href="/assessment" data-testid="button-start-assessment">
                     Start Free Assessment
