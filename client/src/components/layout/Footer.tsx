@@ -20,7 +20,10 @@ import {
   MessageSquare,
   ExternalLink,
   Clock,
-  Globe
+  Globe,
+  Sparkles,
+  ArrowUp,
+  CheckCircle2
 } from "lucide-react";
 
 /**
@@ -110,41 +113,126 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-background dark:bg-foreground text-foreground dark:text-white border-t border-border dark:border-gray-700" role="contentinfo">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Main Footer Content - 4 Column Layout */}
-        <div className="py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <footer 
+      className="relative bg-gradient-to-b from-background to-muted/30 dark:from-[#0D1117] dark:via-[#161B22] dark:to-[#21262D] border-t border-border/60 dark:border-gray-700/50 overflow-hidden"
+      role="contentinfo"
+    >
+      {/* Subtle Background Pattern */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.02] via-transparent to-secondary/[0.02] dark:from-primary/[0.03] dark:to-secondary/[0.03]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(59,130,246,0.05),transparent_50%)] dark:bg-[radial-gradient(circle_at_50%_0%,rgba(59,130,246,0.08),transparent_50%)]" />
+      
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Top Banner with Emergency Highlight */}
+        <div className="py-6 mb-8 relative">
+          <div className="bg-gradient-to-r from-destructive/10 via-destructive/5 to-transparent dark:from-destructive/15 dark:via-destructive/8 dark:to-transparent rounded-2xl p-6 border border-destructive/20 dark:border-destructive/30 backdrop-blur-sm shadow-lg dark:shadow-2xl">
+            <div className="flex items-center justify-center space-x-4 mb-4">
+              <div className="w-10 h-10 rounded-full bg-destructive/20 dark:bg-destructive/30 flex items-center justify-center animate-pulse motion-reduce:animate-none">
+                <AlertTriangle className="text-destructive dark:text-red-400" size={20} />
+              </div>
+              <div className="text-center">
+                <h3 className="text-xl font-bold font-heading text-destructive dark:text-red-400 mb-1">
+                  Crisis Support Available 24/7
+                </h3>
+                <p className="text-sm text-muted-foreground dark:text-gray-300">
+                  Immediate help is always available. You're not alone in this journey.
+                </p>
+              </div>
+              <div className="w-10 h-10 rounded-full bg-destructive/20 dark:bg-destructive/30 flex items-center justify-center animate-pulse motion-reduce:animate-none">
+                <Heart className="text-destructive dark:text-red-400" size={20} />
+              </div>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {emergencyContacts.slice(0, 3).map((contact, index) => {
+                const isClickable = contact.type === 'phone' || contact.type === 'text';
+                const content = (
+                  <div className="flex items-center space-x-3 p-4 rounded-xl bg-background/80 dark:bg-gray-800/60 hover:bg-background dark:hover:bg-gray-700/80 transition-all duration-300 border border-border/30 dark:border-gray-600/50 backdrop-blur-sm shadow-sm hover:shadow-md">
+                    <div className="w-8 h-8 rounded-full bg-primary/20 dark:bg-primary/30 flex items-center justify-center">
+                      {contact.type === 'phone' && <Phone size={14} className="text-primary dark:text-primary" />}
+                      {contact.type === 'text' && <MessageSquare size={14} className="text-primary dark:text-primary" />}
+                      {contact.type === 'link' && <Globe size={14} className="text-primary dark:text-primary" />}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-semibold text-sm text-foreground dark:text-white truncate">
+                        {contact.label}
+                      </p>
+                      <p className="text-primary dark:text-primary text-xs font-medium">
+                        {contact.contact}
+                      </p>
+                    </div>
+                  </div>
+                );
+                
+                if (isClickable) {
+                  return (
+                    <a
+                      key={index}
+                      href={contact.href}
+                      className="block transform hover:scale-105 motion-reduce:hover:scale-100 transition-transform duration-200 focus-ring rounded-xl"
+                      data-testid={`crisis-contact-${contact.type}-${index}`}
+                      aria-label={`Call ${contact.label}`}
+                    >
+                      {content}
+                    </a>
+                  );
+                } else {
+                  return (
+                    <Link
+                      key={index}
+                      href={contact.href}
+                      className="block transform hover:scale-105 motion-reduce:hover:scale-100 transition-transform duration-200 focus-ring rounded-xl"
+                      data-testid={`crisis-resource-link-${index}`}
+                    >
+                      {content}
+                    </Link>
+                  );
+                }
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* Main Footer Content - Enhanced 4 Column Layout */}
+        <div className="py-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
             
-            {/* Column 1 - Crisis Resources */}
+            {/* Column 1 - Extended Crisis Resources */}
             <div className="space-y-6">
-              <div className="flex items-center space-x-2 mb-6">
-                <AlertTriangle className="text-destructive" size={24} />
-                <h4 className="text-lg font-bold font-heading text-destructive dark:text-red-400">
-                  Immediate Help Available
+              <div className="relative">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-destructive/20 to-destructive/10 dark:from-destructive/30 dark:to-destructive/20 flex items-center justify-center mb-4 shadow-lg">
+                  <AlertTriangle className="text-destructive dark:text-red-400" size={20} />
+                </div>
+                <h4 className="text-xl font-bold font-heading text-foreground dark:text-white mb-2">
+                  Additional Emergency Resources
                 </h4>
+                <p className="text-sm text-muted-foreground dark:text-gray-300 mb-6">
+                  Comprehensive crisis support network for every situation
+                </p>
               </div>
               
-              <div className="space-y-4">
-                {emergencyContacts.map((contact, index) => {
+              <div className="space-y-3">
+                {emergencyContacts.slice(3).map((contact, index) => {
                   const isClickable = contact.type === 'phone' || contact.type === 'text';
                   const content = (
-                    <div className="flex items-start space-x-3 p-3 rounded-lg bg-muted/50 dark:bg-gray-800/50 hover:bg-muted dark:hover:bg-gray-700 transition-colors">
-                      {contact.type === 'phone' && <Phone size={16} className={contact.urgent ? 'text-destructive' : 'text-primary'} />}
-                      {contact.type === 'text' && <MessageSquare size={16} className={contact.urgent ? 'text-destructive' : 'text-primary'} />}
-                      {contact.type === 'link' && <Globe size={16} className="text-primary" />}
-                      <div className="flex-1">
-                        <p className={`font-semibold text-sm ${contact.urgent ? 'text-destructive dark:text-red-400' : 'text-foreground dark:text-white'}`}>
-                          {contact.label}
-                        </p>
-                        <p className="text-muted-foreground dark:text-gray-300 text-xs font-medium">
-                          {contact.contact}
-                        </p>
-                        <div className="flex items-center space-x-1 mt-1">
-                          <Clock size={10} className="text-muted-foreground" />
-                          <p className="text-muted-foreground dark:text-gray-400 text-xs">
-                            {contact.available}
+                    <div className="group p-4 rounded-xl bg-card/50 dark:bg-gray-800/40 hover:bg-card dark:hover:bg-gray-700/60 border border-border/30 dark:border-gray-600/40 transition-all duration-300 hover:shadow-md hover:shadow-primary/5 dark:hover:shadow-primary/10 backdrop-blur-sm">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-6 h-6 rounded-lg bg-primary/20 dark:bg-primary/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          {contact.type === 'phone' && <Phone size={12} className="text-primary" />}
+                          {contact.type === 'text' && <MessageSquare size={12} className="text-primary" />}
+                          {contact.type === 'link' && <Globe size={12} className="text-primary" />}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-semibold text-sm text-foreground dark:text-white group-hover:text-primary transition-colors">
+                            {contact.label}
                           </p>
+                          <p className="text-muted-foreground dark:text-gray-300 text-xs font-medium">
+                            {contact.contact}
+                          </p>
+                          <div className="flex items-center space-x-1 mt-2">
+                            <Clock size={10} className="text-muted-foreground" />
+                            <p className="text-muted-foreground dark:text-gray-400 text-xs">
+                              {contact.available}
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -155,8 +243,8 @@ export default function Footer() {
                       <a
                         key={index}
                         href={contact.href}
-                        className="block focus-ring rounded-lg"
-                        data-testid={`crisis-contact-${contact.type}-${index}`}
+                        className="block transform hover:scale-[1.02] motion-reduce:hover:scale-100 transition-transform duration-200 focus-ring rounded-xl"
+                        data-testid={`crisis-contact-${contact.type}-${index + 3}`}
                         aria-label={`Call ${contact.label}`}
                       >
                         {content}
@@ -167,8 +255,8 @@ export default function Footer() {
                       <Link
                         key={index}
                         href={contact.href}
-                        className="block focus-ring rounded-lg"
-                        data-testid={`crisis-resource-link-${index}`}
+                        className="block transform hover:scale-[1.02] motion-reduce:hover:scale-100 transition-transform duration-200 focus-ring rounded-xl"
+                        data-testid={`crisis-resource-link-${index + 3}`}
                       >
                         {content}
                       </Link>
@@ -180,222 +268,289 @@ export default function Footer() {
 
             {/* Column 2 - Platform Information */}
             <div className="space-y-6">
-              <div className="flex items-center space-x-3 mb-6">
-                <div className="w-8 h-8 rounded-lg gradient-primary flex items-center justify-center">
-                  <Brain className="text-white" size={16} />
+              <div className="relative">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary/30 to-secondary/20 dark:from-primary/40 dark:to-secondary/30 flex items-center justify-center mb-4 shadow-lg">
+                  <Brain className="text-white" size={20} />
                 </div>
-                <h4 className="text-lg font-semibold font-heading text-foreground dark:text-white">
+                <h4 className="text-xl font-bold font-heading text-foreground dark:text-white mb-2">
                   About MindCare Platform
                 </h4>
+                <p className="text-sm text-muted-foreground dark:text-gray-300 mb-6">
+                  Evidence-based mental health support designed specifically for students
+                </p>
               </div>
               
-              <ul className="space-y-3">
+              <ul className="space-y-2">
                 {platformLinks.map((link) => {
                   const IconComponent = link.icon;
                   return (
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="flex items-center space-x-3 text-muted-foreground dark:text-gray-300 hover:text-foreground dark:hover:text-white transition-colors duration-300 focus-ring rounded p-2 hover:bg-muted/50 dark:hover:bg-gray-800/50"
+                        className="group flex items-center space-x-3 p-3 rounded-xl bg-card/30 dark:bg-gray-800/30 hover:bg-card dark:hover:bg-gray-700/50 border border-transparent hover:border-primary/20 dark:hover:border-primary/30 transition-all duration-300 hover:shadow-md hover:shadow-primary/5 dark:hover:shadow-primary/10 backdrop-blur-sm"
                         data-testid={`platform-link-${link.label.toLowerCase().replace(/\s+/g, '-')}`}
                       >
-                        <IconComponent size={16} className="text-primary" />
-                        <span className="text-sm font-medium">{link.label}</span>
+                        <div className="w-8 h-8 rounded-lg bg-primary/10 dark:bg-primary/20 group-hover:bg-primary/20 dark:group-hover:bg-primary/30 flex items-center justify-center transition-colors">
+                          <IconComponent size={14} className="text-primary group-hover:text-primary" />
+                        </div>
+                        <span className="text-sm font-medium text-muted-foreground dark:text-gray-300 group-hover:text-foreground dark:group-hover:text-white transition-colors">
+                          {link.label}
+                        </span>
                       </Link>
                     </li>
                   );
                 })}
               </ul>
 
-              <div className="mt-6 pt-4 border-t border-border dark:border-gray-700">
-                <div className="flex items-center space-x-2 text-sm mb-2">
+              <div className="mt-8 p-4 rounded-xl bg-gradient-to-br from-card/60 to-muted/40 dark:from-gray-800/40 dark:to-gray-700/30 border border-border/30 dark:border-gray-600/40 backdrop-blur-sm">
+                <h5 className="font-semibold text-sm text-foreground dark:text-white mb-3 flex items-center space-x-2">
                   <Mail size={14} className="text-primary" />
-                  <a href="mailto:support@mindcare.edu" className="text-muted-foreground dark:text-gray-300 hover:text-primary transition-colors" data-testid="email-support">
-                    support@mindcare.edu
+                  <span>Direct Contact</span>
+                </h5>
+                <div className="space-y-2">
+                  <a href="mailto:support@mindcare.edu" className="flex items-center space-x-2 text-sm text-primary hover:text-primary/80 transition-colors" data-testid="email-support">
+                    <span className="font-medium">support@mindcare.edu</span>
                   </a>
-                </div>
-                <div className="flex items-center space-x-2 text-sm">
-                  <MapPin size={14} className="text-primary" />
-                  <span className="text-muted-foreground dark:text-gray-300">Student Health Center</span>
+                  <div className="flex items-center space-x-2 text-sm text-muted-foreground dark:text-gray-300">
+                    <MapPin size={14} className="text-primary" />
+                    <span>Student Health Center</span>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Column 3 - Student Resources */}
             <div className="space-y-6">
-              <div className="flex items-center space-x-2 mb-6">
-                <Users className="text-secondary" size={20} />
-                <h4 className="text-lg font-semibold font-heading text-foreground dark:text-white">
-                  Additional Support
+              <div className="relative">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-secondary/30 to-accent/20 dark:from-secondary/40 dark:to-accent/30 flex items-center justify-center mb-4 shadow-lg">
+                  <Users className="text-white" size={20} />
+                </div>
+                <h4 className="text-xl font-bold font-heading text-foreground dark:text-white mb-2">
+                  Student Support Network
                 </h4>
+                <p className="text-sm text-muted-foreground dark:text-gray-300 mb-6">
+                  Comprehensive academic and wellness resources for your success
+                </p>
               </div>
               
-              <ul className="space-y-3">
+              <ul className="space-y-2">
                 {studentResourceLinks.map((link) => {
                   const IconComponent = link.icon;
                   return (
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="flex items-center space-x-3 text-muted-foreground dark:text-gray-300 hover:text-foreground dark:hover:text-white transition-colors duration-300 focus-ring rounded p-2 hover:bg-muted/50 dark:hover:bg-gray-800/50"
+                        className="group flex items-center space-x-3 p-3 rounded-xl bg-card/30 dark:bg-gray-800/30 hover:bg-card dark:hover:bg-gray-700/50 border border-transparent hover:border-secondary/20 dark:hover:border-secondary/30 transition-all duration-300 hover:shadow-md hover:shadow-secondary/5 dark:hover:shadow-secondary/10 backdrop-blur-sm"
                         data-testid={`student-resource-${link.label.toLowerCase().replace(/\s+/g, '-')}`}
                       >
-                        <IconComponent size={16} className="text-secondary" />
-                        <span className="text-sm font-medium">{link.label}</span>
+                        <div className="w-8 h-8 rounded-lg bg-secondary/10 dark:bg-secondary/20 group-hover:bg-secondary/20 dark:group-hover:bg-secondary/30 flex items-center justify-center transition-colors">
+                          <IconComponent size={14} className="text-secondary group-hover:text-secondary" />
+                        </div>
+                        <span className="text-sm font-medium text-muted-foreground dark:text-gray-300 group-hover:text-foreground dark:group-hover:text-white transition-colors">
+                          {link.label}
+                        </span>
                       </Link>
                     </li>
                   );
                 })}
               </ul>
 
-              {/* Quick Action Links */}
-              <div className="mt-6 pt-4 border-t border-border dark:border-gray-700">
-                <h5 className="font-semibold text-sm text-foreground dark:text-white mb-3">Quick Access</h5>
-                <div className="space-y-2">
-                  <Link href="/chatbot" className="flex items-center space-x-2 text-xs text-primary hover:text-primary/80 transition-colors" data-testid="quick-access-chatbot">
-                    <MessageSquare size={12} />
-                    <span>24/7 AI Support Chat</span>
+              {/* Enhanced Quick Access */}
+              <div className="mt-8 p-4 rounded-xl bg-gradient-to-br from-secondary/5 to-secondary/10 dark:from-secondary/10 dark:to-secondary/20 border border-secondary/20 dark:border-secondary/30 backdrop-blur-sm">
+                <h5 className="font-semibold text-sm text-foreground dark:text-white mb-4 flex items-center space-x-2">
+                  <Sparkles size={14} className="text-secondary" />
+                  <span>Quick Access Tools</span>
+                </h5>
+                <div className="grid grid-cols-1 gap-2">
+                  <Link href="/chatbot" className="flex items-center space-x-3 p-2 rounded-lg bg-background/80 dark:bg-gray-800/60 hover:bg-background dark:hover:bg-gray-700/80 border border-border/30 dark:border-gray-600/50 transition-all duration-200" data-testid="quick-access-chatbot">
+                    <MessageSquare size={12} className="text-primary" />
+                    <span className="text-xs font-medium text-foreground dark:text-white">24/7 AI Support Chat</span>
                   </Link>
-                  <Link href="/assessment" className="flex items-center space-x-2 text-xs text-primary hover:text-primary/80 transition-colors" data-testid="quick-access-assessment">
-                    <BookOpen size={12} />
-                    <span>Mental Health Assessment</span>
+                  <Link href="/assessment" className="flex items-center space-x-3 p-2 rounded-lg bg-background/80 dark:bg-gray-800/60 hover:bg-background dark:hover:bg-gray-700/80 border border-border/30 dark:border-gray-600/50 transition-all duration-200" data-testid="quick-access-assessment">
+                    <BookOpen size={12} className="text-primary" />
+                    <span className="text-xs font-medium text-foreground dark:text-white">Mental Health Assessment</span>
                   </Link>
-                  <Link href="/appointments" className="flex items-center space-x-2 text-xs text-primary hover:text-primary/80 transition-colors" data-testid="quick-access-appointments">
-                    <Users size={12} />
-                    <span>Book Counseling Session</span>
+                  <Link href="/appointments" className="flex items-center space-x-3 p-2 rounded-lg bg-background/80 dark:bg-gray-800/60 hover:bg-background dark:hover:bg-gray-700/80 border border-border/30 dark:border-gray-600/50 transition-all duration-200" data-testid="quick-access-appointments">
+                    <Users size={12} className="text-primary" />
+                    <span className="text-xs font-medium text-foreground dark:text-white">Book Counseling Session</span>
                   </Link>
                 </div>
               </div>
             </div>
 
-            {/* Column 4 - Community & Contact */}
+            {/* Column 4 - Community & Enhanced Engagement */}
             <div className="space-y-6">
-              <div className="flex items-center space-x-2 mb-6">
-                <Heart className="text-accent" size={20} />
-                <h4 className="text-lg font-semibold font-heading text-foreground dark:text-white">
-                  Stay Connected
+              <div className="relative">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-accent/30 to-primary/20 dark:from-accent/40 dark:to-primary/30 flex items-center justify-center mb-4 shadow-lg">
+                  <Heart className="text-white" size={20} />
+                </div>
+                <h4 className="text-xl font-bold font-heading text-foreground dark:text-white mb-2">
+                  Join Our Community
                 </h4>
+                <p className="text-sm text-muted-foreground dark:text-gray-300 mb-6">
+                  Connect with others on their wellness journey and stay informed
+                </p>
               </div>
               
-              {/* Newsletter Signup */}
-              <div className="space-y-4">
-                <div>
-                  <h5 className="font-semibold text-sm text-foreground dark:text-white mb-2">Mental Health Newsletter</h5>
-                  <p className="text-muted-foreground dark:text-gray-300 text-xs mb-3">
-                    Weekly tips, resources, and wellness insights delivered to your inbox.
-                  </p>
-                  <div className="flex space-x-2">
-                    <Input
-                      type="email"
-                      placeholder="Your email"
-                      className="text-xs bg-background dark:bg-gray-800/50 border-border dark:border-gray-600 text-foreground dark:text-white placeholder:text-muted-foreground focus:border-primary dark:focus:border-primary"
-                      data-testid="input-newsletter-email"
-                    />
-                    <Button 
-                      size="sm"
-                      className="bg-primary hover:bg-primary/90 text-primary-foreground px-3"
-                      data-testid="button-subscribe-newsletter"
-                    >
-                      Join
-                    </Button>
-                  </div>
+              {/* Enhanced Newsletter Signup */}
+              <div className="p-5 rounded-xl bg-gradient-to-br from-primary/5 to-secondary/5 dark:from-primary/10 dark:to-secondary/10 border border-primary/20 dark:border-primary/30 backdrop-blur-sm">
+                <div className="flex items-center space-x-2 mb-3">
+                  <Sparkles size={16} className="text-primary" />
+                  <h5 className="font-semibold text-sm text-foreground dark:text-white">
+                    Wellness Newsletter
+                  </h5>
                 </div>
-
-                {/* Feedback Portal */}
-                <div className="pt-4 border-t border-border dark:border-gray-700">
-                  <h5 className="font-semibold text-sm text-foreground dark:text-white mb-2">Help Us Improve</h5>
-                  <div className="space-y-2">
-                    <Link href="/feedback" className="flex items-center space-x-2 text-xs text-muted-foreground dark:text-gray-300 hover:text-primary transition-colors" data-testid="feedback-portal">
-                      <MessageSquare size={12} />
-                      <span>Student Feedback Portal</span>
-                    </Link>
-                    <Link href="/partnership" className="flex items-center space-x-2 text-xs text-muted-foreground dark:text-gray-300 hover:text-primary transition-colors" data-testid="campus-partnership">
-                      <Users size={12} />
-                      <span>Campus Partnership Requests</span>
-                    </Link>
-                    <Link href="/support" className="flex items-center space-x-2 text-xs text-muted-foreground dark:text-gray-300 hover:text-primary transition-colors" data-testid="technical-support">
-                      <ExternalLink size={12} />
-                      <span>Technical Support Contact</span>
-                    </Link>
-                  </div>
+                <p className="text-muted-foreground dark:text-gray-300 text-xs mb-4">
+                  Weekly mental health tips, resources, and community insights delivered to your inbox.
+                </p>
+                <div className="flex space-x-2 mb-3">
+                  <Input
+                    type="email"
+                    placeholder="Enter your email"
+                    className="text-xs bg-background/80 dark:bg-gray-800/60 border-border/50 dark:border-gray-600/50 text-foreground dark:text-white placeholder:text-muted-foreground focus:border-primary dark:focus:border-primary backdrop-blur-sm"
+                    data-testid="input-newsletter-email"
+                  />
+                  <Button 
+                    size="sm"
+                    className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white px-4 shadow-lg hover:shadow-xl transition-all duration-300"
+                    data-testid="button-subscribe-newsletter"
+                  >
+                    <CheckCircle2 size={12} className="mr-1" />
+                    Subscribe
+                  </Button>
                 </div>
+                <p className="text-xs text-muted-foreground dark:text-gray-400 flex items-center space-x-1">
+                  <Shield size={10} />
+                  <span>We respect your privacy and never share your email</span>
+                </p>
+              </div>
 
-                {/* Social Media */}
-                <div className="pt-4 border-t border-border dark:border-gray-700">
-                  <h5 className="font-semibold text-sm text-foreground dark:text-white mb-3">Follow Us</h5>
-                  <div className="flex space-x-3">
-                    {socialLinks.map((social) => {
-                      const IconComponent = social.icon;
-                      return (
-                        <Button
-                          key={social.label}
-                          variant="ghost"
-                          size="sm"
-                          className="text-muted-foreground dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-muted/50 dark:hover:bg-gray-700 w-8 h-8 p-0"
-                          asChild
-                          data-testid={`social-${social.label.toLowerCase()}`}
-                        >
-                          <a href={social.href} aria-label={`Follow us on ${social.label}`} target="_blank" rel="noopener noreferrer">
-                            <IconComponent size={16} />
-                          </a>
-                        </Button>
-                      );
-                    })}
-                  </div>
+              {/* Enhanced Feedback Section */}
+              <div className="p-4 rounded-xl bg-card/50 dark:bg-gray-800/40 border border-border/30 dark:border-gray-600/40 backdrop-blur-sm">
+                <h5 className="font-semibold text-sm text-foreground dark:text-white mb-3 flex items-center space-x-2">
+                  <MessageSquare size={14} className="text-secondary" />
+                  <span>Help Us Improve</span>
+                </h5>
+                <div className="space-y-2">
+                  <Link href="/feedback" className="flex items-center space-x-2 text-xs text-muted-foreground dark:text-gray-300 hover:text-secondary transition-colors p-2 rounded-lg hover:bg-secondary/5 dark:hover:bg-secondary/10" data-testid="feedback-portal">
+                    <MessageSquare size={12} />
+                    <span>Student Feedback Portal</span>
+                  </Link>
+                  <Link href="/partnership" className="flex items-center space-x-2 text-xs text-muted-foreground dark:text-gray-300 hover:text-secondary transition-colors p-2 rounded-lg hover:bg-secondary/5 dark:hover:bg-secondary/10" data-testid="campus-partnership">
+                    <Users size={12} />
+                    <span>Campus Partnership Requests</span>
+                  </Link>
+                  <Link href="/support" className="flex items-center space-x-2 text-xs text-muted-foreground dark:text-gray-300 hover:text-secondary transition-colors p-2 rounded-lg hover:bg-secondary/5 dark:hover:bg-secondary/10" data-testid="technical-support">
+                    <ExternalLink size={12} />
+                    <span>Technical Support Contact</span>
+                  </Link>
+                </div>
+              </div>
+
+              {/* Enhanced Social Media */}
+              <div className="p-4 rounded-xl bg-gradient-to-br from-accent/5 to-primary/5 dark:from-accent/10 dark:to-primary/10 border border-accent/20 dark:border-accent/30 backdrop-blur-sm">
+                <h5 className="font-semibold text-sm text-foreground dark:text-white mb-4 flex items-center space-x-2">
+                  <Heart size={14} className="text-accent" />
+                  <span>Follow Our Journey</span>
+                </h5>
+                <div className="flex space-x-2">
+                  {socialLinks.map((social) => {
+                    const IconComponent = social.icon;
+                    return (
+                      <Button
+                        key={social.label}
+                        variant="ghost"
+                        size="sm"
+                        className="w-10 h-10 p-0 rounded-xl bg-background/60 dark:bg-gray-800/60 hover:bg-primary/20 dark:hover:bg-primary/30 border border-border/30 dark:border-gray-600/50 hover:border-primary/40 dark:hover:border-primary/50 text-muted-foreground dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 backdrop-blur-sm transform hover:scale-110 motion-reduce:hover:scale-100"
+                        asChild
+                        data-testid={`social-${social.label.toLowerCase()}`}
+                      >
+                        <a href={social.href} aria-label={`Follow us on ${social.label}`} target="_blank" rel="noopener noreferrer">
+                          <IconComponent size={16} />
+                        </a>
+                      </Button>
+                    );
+                  })}
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <Separator className="bg-border dark:bg-gray-700" />
+        {/* Enhanced Bottom Section with Modern Design */}
+        <div className="relative py-8 mt-8">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-border/20 dark:via-gray-600/20 to-transparent h-px" />
+          
+          <div className="pt-8">
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-6 lg:space-y-0">
+              {/* Enhanced Copyright Section */}
+              <div className="text-center lg:text-left">
+                <div className="flex items-center justify-center lg:justify-start space-x-3 mb-3">
+                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary/30 to-secondary/20 dark:from-primary/40 dark:to-secondary/30 flex items-center justify-center">
+                    <Brain size={14} className="text-white" />
+                  </div>
+                  <p className="text-foreground dark:text-white text-base font-semibold">
+                    MindCare Platform
+                  </p>
+                </div>
+                <p className="text-muted-foreground dark:text-gray-300 text-sm mb-4">
+                  © {currentYear} MindCare Platform - Confidential Mental Health Support for Students
+                </p>
+                
+                {/* Enhanced Trust Badges */}
+                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4">
+                  <div className="flex items-center space-x-2 bg-card/50 dark:bg-gray-800/40 px-3 py-2 rounded-full border border-border/30 dark:border-gray-600/40 backdrop-blur-sm">
+                    <Shield size={14} className="text-primary" />
+                    <span className="text-xs font-medium text-foreground dark:text-white">HIPAA Compliant</span>
+                  </div>
+                  <div className="flex items-center space-x-2 bg-card/50 dark:bg-gray-800/40 px-3 py-2 rounded-full border border-border/30 dark:border-gray-600/40 backdrop-blur-sm">
+                    <Shield size={14} className="text-secondary" />
+                    <span className="text-xs font-medium text-foreground dark:text-white">SSL Secured</span>
+                  </div>
+                  <div className="flex items-center space-x-2 bg-card/50 dark:bg-gray-800/40 px-3 py-2 rounded-full border border-border/30 dark:border-gray-600/40 backdrop-blur-sm">
+                    <CheckCircle2 size={14} className="text-accent" />
+                    <span className="text-xs font-medium text-foreground dark:text-white">Privacy Protected</span>
+                  </div>
+                </div>
+              </div>
 
-        {/* Bottom Footer */}
-        <div className="py-8">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            {/* Copyright and Trust Message */}
-            <div className="text-center md:text-left">
-              <p className="text-muted-foreground dark:text-gray-300 text-sm">
-                © {currentYear} MindCare Platform - Confidential Mental Health Support for Students
-              </p>
-              <div className="flex items-center justify-center md:justify-start space-x-6 mt-3">
-                <div className="flex items-center space-x-1 text-xs text-muted-foreground dark:text-gray-400">
-                  <Shield size={14} className="text-primary" />
-                  <span className="font-medium">HIPAA Compliance</span>
+              {/* Enhanced Legal Links */}
+              <div className="flex flex-col items-center lg:items-end space-y-3">
+                <div className="flex flex-wrap justify-center gap-2">
+                  {legalLinks.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className="px-3 py-2 text-xs text-muted-foreground dark:text-gray-300 hover:text-foreground dark:hover:text-white transition-all duration-300 bg-card/30 dark:bg-gray-800/30 hover:bg-card dark:hover:bg-gray-700/50 rounded-lg border border-transparent hover:border-primary/20 dark:hover:border-primary/30 backdrop-blur-sm"
+                      data-testid={`footer-legal-${link.label.toLowerCase().replace(/\s+/g, '-')}`}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
                 </div>
-                <div className="flex items-center space-x-1 text-xs text-muted-foreground dark:text-gray-400">
-                  <Shield size={14} className="text-secondary" />
-                  <span className="font-medium">SSL Secured</span>
-                </div>
-                <div className="flex items-center space-x-1 text-xs text-muted-foreground dark:text-gray-400">
-                  <Shield size={14} className="text-accent" />
-                  <span className="font-medium">Student Privacy Protected</span>
-                </div>
+                
+                {/* Back to Top Button */}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                  className="text-muted-foreground dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-primary/10 dark:hover:bg-primary/20 rounded-full transition-all duration-300"
+                  data-testid="back-to-top"
+                >
+                  <ArrowUp size={14} className="mr-1" />
+                  <span className="text-xs">Back to Top</span>
+                </Button>
               </div>
             </div>
 
-            {/* Legal Links */}
-            <div className="flex flex-wrap justify-center md:justify-end space-x-4 lg:space-x-6">
-              {legalLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-muted-foreground dark:text-gray-300 hover:text-foreground dark:hover:text-white text-xs transition-colors duration-300 focus-ring rounded px-1 py-1"
-                  data-testid={`footer-legal-${link.label.toLowerCase().replace(/\s+/g, '-')}`}
-                >
-                  {link.label}
-                </Link>
-              ))}
+            {/* Enhanced Mission Statement */}
+            <div className="mt-8 text-center">
+              <div className="inline-flex items-center justify-center space-x-2 px-4 py-3 rounded-full bg-gradient-to-r from-primary/10 via-secondary/5 to-accent/10 dark:from-primary/20 dark:via-secondary/10 dark:to-accent/20 border border-primary/20 dark:border-primary/30 backdrop-blur-sm">
+                <span className="text-sm text-muted-foreground dark:text-gray-300">Made with</span>
+                <Heart size={16} className="text-destructive animate-pulse motion-reduce:animate-none" />
+                <span className="text-sm text-muted-foreground dark:text-gray-300">for student wellness and mental health advocacy</span>
+              </div>
             </div>
-          </div>
-
-          {/* Mission Statement */}
-          <div className="mt-6 text-center">
-            <p className="text-muted-foreground dark:text-gray-400 text-sm flex items-center justify-center space-x-1">
-              <span>Made with</span>
-              <Heart size={14} className="text-destructive animate-pulse" />
-              <span>for student wellness and mental health advocacy</span>
-            </p>
           </div>
         </div>
       </div>
