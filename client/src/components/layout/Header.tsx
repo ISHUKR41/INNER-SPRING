@@ -114,10 +114,9 @@ export default function Header() {
     <header 
       className={`fixed top-0 left-0 right-0 z-[1000] transition-all duration-300 ${
         hasScrolled 
-          ? 'bg-white/95 backdrop-blur-md shadow-[0_2px_20px_rgba(0,0,0,0.1)]' 
-          : 'bg-white/95 backdrop-blur-md'
-      } border-b border-border/20`}
-      style={{ backgroundColor: 'rgba(255, 255, 255, 0.95)' }}
+          ? 'bg-background/95 dark:bg-background/95 backdrop-blur-md shadow-[0_2px_20px_rgba(0,0,0,0.1)] dark:shadow-[0_2px_20px_rgba(255,255,255,0.1)]' 
+          : 'bg-background/95 dark:bg-background/95 backdrop-blur-md'
+      } border-b border-border/40 dark:border-border/60`}
       role="banner"
     >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -129,10 +128,7 @@ export default function Header() {
             data-testid="link-logo"
           >
             <div 
-              className="w-[55px] h-[55px] rounded-full flex items-center justify-center shadow-lg relative overflow-hidden"
-              style={{
-                background: 'linear-gradient(135deg, #4A90E2 0%, #7ED321 100%)'
-              }}
+              className="w-[55px] h-[55px] rounded-full flex items-center justify-center shadow-lg relative overflow-hidden gradient-primary"
             >
               <Brain className="text-white" size={28} />
               {/* Subtle glow pulse animation */}
@@ -140,25 +136,13 @@ export default function Header() {
             </div>
             <div>
               <h1 
-                className="font-heading font-semibold leading-tight"
-                style={{
-                  fontSize: '26px',
-                  fontFamily: 'Poppins, Inter, sans-serif',
-                  fontWeight: 600,
-                  color: '#1A365D'
-                }}
+                className="font-heading font-semibold leading-tight text-[26px] text-mindcare-navy dark:text-foreground"
                 data-testid="text-brand-name"
               >
                 MindCare
               </h1>
               <p 
-                className="leading-tight"
-                style={{
-                  fontSize: '12px',
-                  fontFamily: 'Inter, sans-serif',
-                  fontWeight: 400,
-                  color: '#718096'
-                }}
+                className="leading-tight text-xs font-normal text-muted-foreground"
                 data-testid="text-brand-tagline"
               >
                 Safe - Confidential - Always Here
@@ -179,22 +163,15 @@ export default function Header() {
                   key={item.path}
                   href={item.path}
                   className={`
-                    flex items-center justify-center px-3 py-6 text-sm font-medium transition-all duration-300 relative
+                    flex items-center justify-center px-3 py-6 text-sm font-medium transition-all duration-300 relative w-[77px]
                     ${item.active 
-                      ? 'font-semibold border-b-[3px] border-[#4A90E2]' 
+                      ? 'font-semibold border-b-[3px] border-primary text-primary dark:text-primary' 
                       : item.isEmergency 
-                        ? 'hover:text-[#4A90E2]' 
-                        : 'hover:text-[#4A90E2]'
+                        ? 'text-destructive dark:text-red-400 hover:text-destructive dark:hover:text-red-300 font-medium' 
+                        : 'text-muted-foreground dark:text-muted-foreground hover:text-primary dark:hover:text-primary'
                     }
                     focus-ring
                   `}
-                  style={{
-                    fontSize: '14px',
-                    fontFamily: 'Inter, sans-serif',
-                    fontWeight: item.active ? 600 : 500,
-                    color: item.active ? '#4A90E2' : '#4A5568',
-                    width: '77px'
-                  }}
                   data-testid={`nav-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
                 >
                   <span>{item.label}</span>
@@ -208,14 +185,7 @@ export default function Header() {
             {/* Crisis Button - 130px x 45px */}
             <Link href="/crisis-help">
               <Button 
-                className="emergency-pulse text-white text-sm font-semibold hover:scale-105 transition-transform duration-200 shadow-md hover:shadow-lg hidden sm:flex"
-                style={{
-                  width: '130px',
-                  height: '45px',
-                  background: 'linear-gradient(135deg, #E53E3E 0%, #C53030 100%)',
-                  fontSize: '14px',
-                  fontWeight: 600
-                }}
+                className="emergency-pulse text-white text-sm font-bold hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl hidden sm:flex w-[130px] h-[45px] bg-gradient-to-br from-red-500 to-red-600 dark:from-red-600 dark:to-red-700 hover:from-red-600 hover:to-red-700 dark:hover:from-red-500 dark:hover:to-red-600 border-2 border-red-400 dark:border-red-500"
                 data-testid="button-crisis-help"
               >
                 🚨 Crisis Help
@@ -262,10 +232,7 @@ export default function Header() {
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="ghost"
-                  className="w-10 h-10 rounded-full text-white focus-ring overflow-hidden"
-                  style={{
-                    background: 'linear-gradient(135deg, #4A90E2 0%, #7ED321 100%)'
-                  }}
+                  className="w-10 h-10 rounded-full text-white focus-ring overflow-hidden gradient-primary hover:opacity-90 transition-opacity"
                   data-testid="button-user-profile"
                   aria-label="Open user menu"
                 >
@@ -305,21 +272,18 @@ export default function Header() {
                   <span className="sr-only">Open mobile menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-full bg-white/95 backdrop-blur-md">
+              <SheetContent side="right" className="w-full bg-background/95 dark:bg-background/95 backdrop-blur-md border-l border-border/40 dark:border-border/60">
                 <div className="flex flex-col h-full">
                   {/* Mobile Logo */}
                   <div className="flex items-center space-x-3 mb-8 pt-4">
                     <div 
-                      className="w-12 h-12 rounded-full flex items-center justify-center shadow-lg"
-                      style={{
-                        background: 'linear-gradient(135deg, #4A90E2 0%, #7ED321 100%)'
-                      }}
+                      className="w-12 h-12 rounded-full flex items-center justify-center shadow-lg gradient-primary"
                     >
                       <Brain className="text-white" size={24} />
                     </div>
                     <div>
-                      <h2 className="text-xl font-bold font-heading" style={{ color: '#1A365D' }}>MindCare</h2>
-                      <p className="text-xs" style={{ color: '#718096' }}>Mental Health Support</p>
+                      <h2 className="text-xl font-bold font-heading text-mindcare-navy dark:text-foreground">MindCare</h2>
+                      <p className="text-xs text-muted-foreground">Mental Health Support</p>
                     </div>
                   </div>
 
@@ -334,10 +298,10 @@ export default function Header() {
                           className={`
                             flex items-center space-x-3 px-4 py-4 rounded-lg text-base font-medium transition-all duration-300
                             ${item.active 
-                              ? 'bg-[#4A90E2]/10 border-l-4 border-[#4A90E2] text-[#4A90E2]' 
+                              ? 'bg-primary/10 dark:bg-primary/20 border-l-4 border-primary text-primary dark:text-primary' 
                               : item.isEmergency 
-                                ? 'text-destructive hover:bg-destructive/10' 
-                                : 'text-[#4A5568] hover:bg-muted hover:text-[#4A90E2]'
+                                ? 'text-destructive dark:text-red-400 hover:bg-destructive/10 dark:hover:bg-red-500/10 font-semibold' 
+                                : 'text-foreground dark:text-foreground hover:bg-muted dark:hover:bg-muted hover:text-primary dark:hover:text-primary'
                             }
                             focus-ring
                           `}
@@ -355,10 +319,7 @@ export default function Header() {
                   <div className="pt-6 border-t border-border/20 pb-6">
                     <Link href="/crisis-help">
                       <Button 
-                        className="w-full emergency-pulse text-white text-base font-semibold h-12 shadow-md"
-                        style={{
-                          background: 'linear-gradient(135deg, #E53E3E 0%, #C53030 100%)'
-                        }}
+                        className="w-full emergency-pulse text-white text-base font-bold h-12 shadow-lg bg-gradient-to-br from-red-500 to-red-600 dark:from-red-600 dark:to-red-700 hover:from-red-600 hover:to-red-700 dark:hover:from-red-500 dark:hover:to-red-600 border-2 border-red-400 dark:border-red-500 hover:scale-[1.02] transition-all duration-200"
                         onClick={() => setIsMobileMenuOpen(false)}
                         data-testid="mobile-button-crisis-help"
                       >

@@ -26,7 +26,7 @@
  * folder containing components, hooks, utilities, and styles.
  */
 
-import { Switch, Route } from "wouter";
+import { Router, Switch, Route } from "wouter";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -78,26 +78,28 @@ import NotFound from "@/pages/not-found/not-found";        // 404 error page for
  * The router includes a fallback route to handle invalid URLs gracefully
  * by showing a helpful 404 page instead of breaking the application.
  */
-function Router() {
+function AppRouter() {
   return (
-    <Switch>
-      {/* Primary navigation routes for core mental health features */}
-      <Route path="/" component={Home} />
-      <Route path="/chatbot" component={ChatBot} />
-      <Route path="/appointments" component={Appointments} />
-      <Route path="/assessment" component={SelfAssessment} />
-      <Route path="/resources" component={Resources} />
-      <Route path="/peer-support" component={PeerSupport} />
-      <Route path="/emergency" component={Emergency} />
-      <Route path="/crisis-help" component={CrisisHelp} />
-      
-      {/* Secondary routes for user management and information */}
-      <Route path="/dashboard" component={Dashboard} />
-      <Route path="/about" component={About} />
-      
-      {/* Fallback route for invalid URLs - must be last */}
-      <Route component={NotFound} />
-    </Switch>
+    <Router>
+      <Switch>
+        {/* Primary navigation routes for core mental health features */}
+        <Route path="/" component={Home} />
+        <Route path="/chatbot" component={ChatBot} />
+        <Route path="/appointments" component={Appointments} />
+        <Route path="/assessment" component={SelfAssessment} />
+        <Route path="/resources" component={Resources} />
+        <Route path="/peer-support" component={PeerSupport} />
+        <Route path="/emergency" component={Emergency} />
+        <Route path="/crisis-help" component={CrisisHelp} />
+        
+        {/* Secondary routes for user management and information */}
+        <Route path="/dashboard" component={Dashboard} />
+        <Route path="/about" component={About} />
+        
+        {/* Fallback route for invalid URLs - must be last */}
+        <Route component={NotFound} />
+      </Switch>
+    </Router>
   );
 }
 
@@ -143,7 +145,7 @@ function App() {
             <Toaster />
             
             {/* Main application router handling all page navigation */}
-            <Router />
+            <AppRouter />
           </div>
         </TooltipProvider>
       </ThemeProvider>
