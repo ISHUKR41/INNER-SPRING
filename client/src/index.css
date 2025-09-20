@@ -230,9 +230,150 @@
     font-weight: var(--font-weight-medium);
   }
   
+  h5 {
+    font-size: clamp(1.125rem, 2vw, 1.5rem);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-snug);
+  }
+  
+  h6 {
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-snug);
+    letter-spacing: var(--letter-spacing-normal);
+  }
+  
   p {
     line-height: var(--line-height-relaxed);
     font-weight: var(--font-weight-normal);
+    font-size: clamp(1rem, 1.25vw, 1.125rem);
+  }
+  
+  /* Professional Typography Classes */
+  .text-display {
+    font-size: clamp(3.5rem, 6vw, 5rem);
+    font-weight: var(--font-weight-extrabold);
+    line-height: var(--line-height-tight);
+    letter-spacing: var(--letter-spacing-tight);
+    font-family: var(--font-heading);
+  }
+  
+  .text-hero {
+    font-size: clamp(2.75rem, 5.5vw, 4.5rem);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    letter-spacing: var(--letter-spacing-tight);
+    font-family: var(--font-heading);
+  }
+  
+  .text-lead {
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-relaxed);
+    letter-spacing: var(--letter-spacing-normal);
+  }
+  
+  .text-body {
+    font-size: clamp(1rem, 1.25vw, 1.125rem);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-relaxed);
+    letter-spacing: var(--letter-spacing-normal);
+  }
+  
+  .text-body-large {
+    font-size: clamp(1.125rem, 1.5vw, 1.25rem);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-relaxed);
+    letter-spacing: var(--letter-spacing-normal);
+  }
+  
+  .text-caption {
+    font-size: clamp(0.875rem, 1vw, 0.95rem);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-normal);
+    letter-spacing: var(--letter-spacing-wide);
+  }
+  
+  .text-small {
+    font-size: clamp(0.8125rem, 0.9vw, 0.875rem);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-normal);
+    letter-spacing: var(--letter-spacing-normal);
+  }
+  
+  .text-overline {
+    font-size: clamp(0.75rem, 0.8vw, 0.8125rem);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-normal);
+    letter-spacing: var(--letter-spacing-wide);
+    text-transform: uppercase;
+  }
+  
+  .text-button {
+    font-size: clamp(0.875rem, 1vw, 1rem);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-normal);
+    letter-spacing: var(--letter-spacing-wide);
+  }
+  
+  .text-stat-number {
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    letter-spacing: var(--letter-spacing-tight);
+    font-family: var(--font-heading);
+  }
+  
+  .text-card-title {
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-snug);
+    letter-spacing: var(--letter-spacing-normal);
+    font-family: var(--font-heading);
+  }
+  
+  .text-card-subtitle {
+    font-size: clamp(1rem, 1.25vw, 1.125rem);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-normal);
+    letter-spacing: var(--letter-spacing-normal);
+  }
+  
+  .text-card-description {
+    font-size: clamp(0.9375rem, 1.1vw, 1rem);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-relaxed);
+    letter-spacing: var(--letter-spacing-normal);
+  }
+  
+  /* Enhanced spacing utilities */
+  .text-spacing-tight {
+    letter-spacing: var(--letter-spacing-tight);
+  }
+  
+  .text-spacing-normal {
+    letter-spacing: var(--letter-spacing-normal);
+  }
+  
+  .text-spacing-wide {
+    letter-spacing: var(--letter-spacing-wide);
+  }
+  
+  /* Professional text emphasis */
+  .text-emphasis {
+    font-weight: var(--font-weight-semibold);
+    color: hsl(var(--primary));
+  }
+  
+  .text-muted {
+    color: hsl(var(--muted-foreground));
+    font-weight: var(--font-weight-normal);
+  }
+  
+  .text-subtle {
+    color: hsl(var(--muted-foreground));
+    font-weight: var(--font-weight-light);
+    opacity: 0.8;
   }
   
   /* Enhanced readability for dark theme */
@@ -246,11 +387,207 @@
     text-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.1);
   }
   
+  /* Dark theme professional typography classes */
+  .dark .text-display, .dark .text-hero {
+    color: hsl(210, 40%, 98%);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .dark .text-lead {
+    color: hsl(210, 35%, 92%);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dark .text-body, .dark .text-body-large {
+    color: hsl(210, 30%, 88%);
+  }
+  
+  .dark .text-caption, .dark .text-small {
+    color: hsl(210, 25%, 82%);
+  }
+  
+  .dark .text-overline {
+    color: hsl(210, 30%, 85%);
+    text-shadow: none;
+  }
+  
+  .dark .text-stat-number {
+    color: hsl(210, 40%, 98%);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .dark .text-card-title {
+    color: hsl(210, 38%, 95%);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dark .text-card-subtitle {
+    color: hsl(210, 32%, 90%);
+  }
+  
+  .dark .text-card-description {
+    color: hsl(210, 28%, 85%);
+  }
+  
+  .dark .text-emphasis {
+    color: hsl(214, 80%, 75%);
+    text-shadow: 0 0 8px rgba(66, 165, 245, 0.3);
+  }
+  
+  .dark .text-muted {
+    color: hsl(210, 25%, 75%);
+  }
+  
+  .dark .text-subtle {
+    color: hsl(210, 20%, 70%);
+    opacity: 0.9;
+  }
+  
+  /* Enhanced contrast for accessibility - Light Mode */
+  .text-high-contrast {
+    color: hsl(var(--foreground));
+    font-weight: var(--font-weight-medium);
+  }
+  
+  .text-medium-contrast {
+    color: hsl(var(--muted-foreground));
+  }
+  
+  .text-low-contrast {
+    color: hsl(215, 16%, 55%); /* Slightly lighter than muted-foreground for hierarchy */
+  }
+
+  /* Enhanced contrast for accessibility - Dark Mode */
+  .dark .text-high-contrast {
+    color: hsl(0, 0%, 100%);
+    font-weight: var(--font-weight-medium);
+  }
+  
+  .dark .text-medium-contrast {
+    color: hsl(210, 40%, 92%);
+  }
+  
+  .dark .text-low-contrast {
+    color: hsl(210, 25%, 78%);
+  }
+  
+  /* Professional glow effects for light theme emphasis */
+  .text-glow-primary {
+    text-shadow: 0 1px 3px rgba(66, 165, 245, 0.2), 0 0 8px rgba(66, 165, 245, 0.1);
+  }
+  
+  .text-glow-secondary {
+    text-shadow: 0 1px 3px rgba(129, 199, 132, 0.2), 0 0 8px rgba(129, 199, 132, 0.1);
+  }
+  
+  .text-glow-accent {
+    text-shadow: 0 1px 3px rgba(186, 104, 200, 0.2), 0 0 8px rgba(186, 104, 200, 0.1);
+  }
+
+  /* Professional glow effects for dark theme emphasis */
+  .dark .text-glow-primary {
+    text-shadow: 0 0 12px rgba(66, 165, 245, 0.4), 0 0 24px rgba(66, 165, 245, 0.2);
+  }
+  
+  .dark .text-glow-secondary {
+    text-shadow: 0 0 12px rgba(129, 199, 132, 0.4), 0 0 24px rgba(129, 199, 132, 0.2);
+  }
+  
+  .dark .text-glow-accent {
+    text-shadow: 0 0 12px rgba(186, 104, 200, 0.4), 0 0 24px rgba(186, 104, 200, 0.2);
+  }
+  
   /* Remove text shadows on low-DPI screens for better contrast */
   @media (-webkit-max-device-pixel-ratio: 1), (max-resolution: 96dpi) {
-    .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6,
-    .dark p {
+    /* Light mode glow removal on low-DPI screens */
+    .text-glow-primary, .text-glow-secondary, .text-glow-accent {
       text-shadow: none;
+    }
+    
+    /* Dark mode glow removal on low-DPI screens */
+    .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6,
+    .dark p, .dark .text-display, .dark .text-hero, .dark .text-lead,
+    .dark .text-stat-number, .dark .text-card-title {
+      text-shadow: none;
+    }
+    
+    .dark .text-glow-primary, .dark .text-glow-secondary, .dark .text-glow-accent {
+      text-shadow: none;
+    }
+    
+    .dark .text-emphasis {
+      text-shadow: none;
+    }
+  }
+  
+  /* Responsive typography enhancements */
+  @media (max-width: 640px) {
+    .text-display {
+      font-size: clamp(2.5rem, 8vw, 3.5rem);
+      line-height: 1.1;
+      letter-spacing: -0.01em; /* Relax letter-spacing for better readability */
+    }
+    
+    .text-hero {
+      font-size: clamp(2rem, 7vw, 2.75rem);
+      line-height: 1.15;
+      letter-spacing: -0.01em; /* Relax letter-spacing for better readability */
+    }
+    
+    h1 {
+      letter-spacing: -0.01em; /* Relax letter-spacing on small screens */
+    }
+    
+    h2 {
+      letter-spacing: -0.005em; /* Slightly relax letter-spacing on small screens */
+    }
+    
+    .text-lead {
+      font-size: clamp(1.125rem, 3vw, 1.25rem);
+      line-height: 1.5;
+    }
+  }
+  
+  @media (min-width: 1920px) {
+    .text-display {
+      font-size: 5.5rem;
+    }
+    
+    .text-hero {
+      font-size: 5rem;
+    }
+    
+    .text-lead {
+      font-size: 1.75rem;
+    }
+    
+    .text-body-large {
+      font-size: 1.375rem;
+    }
+  }
+  
+  /* TV and large screen optimizations */
+  @media (min-width: 2560px) {
+    .text-display {
+      font-size: 6rem;
+      line-height: 1.05;
+    }
+    
+    .text-hero {
+      font-size: 5.5rem;
+      line-height: 1.1;
+    }
+    
+    .text-lead {
+      font-size: 2rem;
+    }
+    
+    .text-body {
+      font-size: 1.25rem;
+    }
+    
+    .text-body-large {
+      font-size: 1.5rem;
     }
   }
 }

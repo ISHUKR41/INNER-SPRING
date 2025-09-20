@@ -436,16 +436,16 @@ export default function Home() {
             <div className="space-y-8">
               {/* Main Headline */}
               <div className="space-y-4" data-testid="hero-content">
-                <h1 className="text-heading-xl text-enhanced leading-tight" data-testid="text-main-headline">
+                <h1 className="text-hero text-high-contrast" data-testid="text-main-headline">
                   Your Mental Health Journey
-                  <span className="block text-primary">Starts Here</span>
+                  <span className="block text-emphasis text-glow-primary">Starts Here</span>
                 </h1>
                 
-                <h2 className="text-body-lg text-enhanced font-medium" data-testid="text-secondary-headline">
+                <h2 className="text-lead text-medium-contrast" data-testid="text-secondary-headline">
                   Safe, Confidential, Professional Support Available 24/7
                 </h2>
                 
-                <p className="text-body text-enhanced leading-relaxed max-w-2xl" data-testid="text-hero-description">
+                <p className="text-body-large text-medium-contrast max-w-2xl" data-testid="text-hero-description">
                   Break free from the barriers that prevent students from accessing mental health support. Our evidence-based platform combines AI-powered assistance, professional counseling, and peer community support—all designed specifically for the unique challenges of college life.
                 </p>
               </div>
@@ -484,7 +484,7 @@ export default function Home() {
                   { text: "24/7 Available", icon: Clock },
                   { text: "Evidence-Based", icon: Award }
                 ].map((indicator, index) => (
-                  <div key={index} className="flex items-center space-x-2 text-caption font-medium text-enhanced" data-testid={`trust-indicator-${index}`}>
+                  <div key={index} className="flex items-center space-x-2 text-caption text-medium-contrast font-medium" data-testid={`trust-indicator-${index}`}>
                     <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
                     <span>{indicator.text}</span>
                   </div>
@@ -503,10 +503,10 @@ export default function Home() {
                     <div className="w-20 h-20 bg-gradient-primary rounded-full mx-auto mb-4 flex items-center justify-center">
                       <Brain className="h-10 w-10 text-white" />
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2" data-testid="text-wellness-title">
+                    <h3 className="text-card-title text-high-contrast mb-2" data-testid="text-wellness-title">
                       Supporting Student Wellness
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm" data-testid="text-wellness-description">
+                    <p className="text-caption text-medium-contrast" data-testid="text-wellness-description">
                       Join thousands of students finding their path to mental wellness
                     </p>
                   </div>
@@ -522,7 +522,7 @@ export default function Home() {
                     ].map((item, index) => (
                       <div key={index} className="text-center p-3 rounded-xl bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors" data-testid={`hero-feature-${index}`}>
                         <item.icon className="h-6 w-6 text-primary mx-auto mb-1" />
-                        <span className="text-xs text-gray-600 dark:text-gray-300">{item.label}</span>
+                        <span className="text-small text-low-contrast">{item.label}</span>
                       </div>
                     ))}
                   </div>
@@ -537,10 +537,10 @@ export default function Home() {
       <section className="stats-section py-16 lg:py-24" data-testid="section-crisis-stats">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-heading-lg font-bold text-red-600 dark:text-red-400 mb-4" data-testid="text-crisis-title">
+            <h2 className="text-hero text-high-contrast mb-4 text-red-600 dark:text-red-400" data-testid="text-crisis-title">
               The Student Mental Health Crisis Demands Immediate Action
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" data-testid="text-crisis-subtitle">
+            <p className="text-lead text-medium-contrast max-w-3xl mx-auto" data-testid="text-crisis-subtitle">
               The numbers reveal an urgent need for accessible, comprehensive mental health support
             </p>
           </div>
@@ -553,21 +553,21 @@ export default function Home() {
                     <stat.icon className="h-8 w-8 text-red-600 dark:text-red-400" />
                   </div>
                   
-                  <div className="text-5xl font-bold text-red-600 dark:text-red-400" data-testid={`stat-number-${index}`}>
+                  <div className="text-stat-number text-red-600 dark:text-red-400" data-testid={`stat-number-${index}`}>
                     {stat.number}
                   </div>
                   
-                  <p className="font-semibold text-gray-900 dark:text-white" data-testid={`stat-description-${index}`}>
+                  <p className="text-card-subtitle text-high-contrast" data-testid={`stat-description-${index}`}>
                     {stat.description}
                   </p>
                   
                   {stat.additional && (
-                    <p className="text-sm text-gray-600 dark:text-gray-400" data-testid={`stat-additional-${index}`}>
+                    <p className="text-caption text-low-contrast" data-testid={`stat-additional-${index}`}>
                       {stat.additional}
                     </p>
                   )}
                   
-                  <p className="text-xs text-gray-500 dark:text-gray-500 italic" data-testid={`stat-source-${index}`}>
+                  <p className="text-small text-subtle italic" data-testid={`stat-source-${index}`}>
                     {stat.source}
                   </p>
                 </CardContent>
@@ -581,7 +581,7 @@ export default function Home() {
       <section className="py-16 lg:py-24" style={{ background: 'var(--section-secondary)' }} data-testid="section-solution-promise">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-gray-900 dark:text-white mb-4" data-testid="text-solution-title">
+            <h2 className="text-hero text-high-contrast mb-4" data-testid="text-solution-title">
               We're Changing How Students Access Mental Health Support
             </h2>
           </div>
@@ -589,7 +589,7 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-16 items-start mb-16" data-testid="comparison-grid">
             {/* Traditional Barriers */}
             <div data-testid="traditional-barriers">
-              <h3 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-8 flex items-center">
+              <h3 className="text-card-title text-red-600 dark:text-red-400 mb-8 flex items-center">
                 <X className="h-6 w-6 mr-3" />
                 Traditional Barriers
               </h3>
@@ -597,7 +597,7 @@ export default function Home() {
                 {traditionalBarriers.map((barrier, index) => (
                   <div key={index} className="flex items-start space-x-3 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg" data-testid={`barrier-${index}`}>
                     <X className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
-                    <span className="text-gray-700 dark:text-gray-300">{barrier}</span>
+                    <span className="text-body text-medium-contrast">{barrier}</span>
                   </div>
                 ))}
               </div>
@@ -605,7 +605,7 @@ export default function Home() {
 
             {/* Our Solutions */}
             <div data-testid="our-solutions">
-              <h3 className="text-2xl font-bold text-green-600 dark:text-green-400 mb-8 flex items-center">
+              <h3 className="text-card-title text-green-600 dark:text-green-400 mb-8 flex items-center">
                 <CheckCircle className="h-6 w-6 mr-3" />
                 Our Solution
               </h3>
@@ -613,7 +613,7 @@ export default function Home() {
                 {ourSolutions.map((solution, index) => (
                   <div key={index} className="flex items-start space-x-3 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg" data-testid={`solution-${index}`}>
                     <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
-                    <span className="text-gray-700 dark:text-gray-300">{solution}</span>
+                    <span className="text-body text-medium-contrast">{solution}</span>
                   </div>
                 ))}
               </div>
@@ -626,15 +626,15 @@ export default function Home() {
               <div className="text-center space-y-6">
                 <Quote className="h-12 w-12 text-primary mx-auto" />
                 
-                <blockquote className="text-xl md:text-2xl font-medium text-gray-900 dark:text-white italic" data-testid="text-preview-quote">
+                <blockquote className="text-lead text-high-contrast italic" data-testid="text-preview-quote">
                   "I went from having daily panic attacks to managing my anxiety confidently. The 24/7 AI chat was there when I needed it most at 2 AM, and it connected me to a counselor who changed my life."
                 </blockquote>
                 
                 <div className="space-y-2">
-                  <p className="font-semibold text-primary" data-testid="text-preview-author">
+                  <p className="text-card-subtitle text-emphasis" data-testid="text-preview-author">
                     Sarah M., Junior Psychology Major
                   </p>
-                  <p className="text-lg font-bold text-green-600 dark:text-green-400" data-testid="text-preview-result">
+                  <p className="text-body-large text-green-600 dark:text-green-400 font-semibold" data-testid="text-preview-result">
                     Anxiety reduced by 70% in 3 months
                   </p>
                 </div>
@@ -650,8 +650,8 @@ export default function Home() {
               { number: "< 30 sec", text: "average response time" }
             ].map((metric, index) => (
               <div key={index} className="text-center" data-testid={`impact-metric-${index}`}>
-                <div className="text-4xl font-bold text-primary mb-2" data-testid={`impact-number-${index}`}>{metric.number}</div>
-                <p className="text-gray-600 dark:text-gray-400" data-testid={`impact-text-${index}`}>{metric.text}</p>
+                <div className="text-stat-number text-emphasis mb-2" data-testid={`impact-number-${index}`}>{metric.number}</div>
+                <p className="text-body text-low-contrast" data-testid={`impact-text-${index}`}>{metric.text}</p>
               </div>
             ))}
           </div>
@@ -662,10 +662,10 @@ export default function Home() {
       <section className="py-16 lg:py-24" style={{ background: 'var(--section-primary)' }} data-testid="section-student-journey">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-gray-900 dark:text-white mb-4" data-testid="text-journey-title">
+            <h2 className="text-hero text-high-contrast mb-4" data-testid="text-journey-title">
               Your Personal Path to Mental Wellness
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" data-testid="text-journey-subtitle">
+            <p className="text-lead text-medium-contrast max-w-3xl mx-auto" data-testid="text-journey-subtitle">
               Every journey is unique - start wherever feels right for you
             </p>
           </div>
@@ -678,19 +678,19 @@ export default function Home() {
                     <step.icon className="h-8 w-8 text-primary" />
                   </div>
                   
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white" data-testid={`journey-title-${index}`}>
+                  <h3 className="text-card-title text-high-contrast" data-testid={`journey-title-${index}`}>
                     {step.title}
                   </h3>
                   
-                  <p className="text-sm text-gray-700 dark:text-gray-300" data-testid={`journey-description-${index}`}>
+                  <p className="text-card-description text-medium-contrast" data-testid={`journey-description-${index}`}>
                     {step.description}
                   </p>
                   
                   <div className="space-y-2">
-                    <p className="text-xs font-semibold text-primary" data-testid={`journey-time-${index}`}>
+                    <p className="text-small text-emphasis font-semibold" data-testid={`journey-time-${index}`}>
                       {step.time}
                     </p>
-                    <p className="text-xs font-medium text-gray-600 dark:text-gray-400" data-testid={`journey-action-${index}`}>
+                    <p className="text-small text-low-contrast font-medium" data-testid={`journey-action-${index}`}>
                       {step.action}
                     </p>
                   </div>
@@ -708,7 +708,7 @@ export default function Home() {
             <h2 className="text-heading-lg text-enhanced mb-4" data-testid="text-features-title">
               Choose Your Starting Point
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" data-testid="text-features-subtitle">
+            <p className="text-xl text-medium-contrast max-w-3xl mx-auto" data-testid="text-features-subtitle">
               Every feature designed specifically for student mental health challenges
             </p>
           </div>
@@ -721,21 +721,21 @@ export default function Home() {
                     <div className={`w-16 h-16 rounded-full ${tile.isEmergency ? 'bg-red-500' : 'bg-white dark:bg-gray-800'} flex items-center justify-center shadow-lg`}>
                       <tile.icon className={`h-8 w-8 ${tile.isEmergency ? 'text-white' : 'text-primary'}`} />
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white" data-testid={`tile-title-${index}`}>
+                    <h3 className="text-xl font-bold text-high-contrast" data-testid={`tile-title-${index}`}>
                       {tile.title}
                     </h3>
                   </div>
                   
-                  <p className="text-gray-700 dark:text-gray-300" data-testid={`tile-description-${index}`}>
+                  <p className="text-medium-contrast" data-testid={`tile-description-${index}`}>
                     {tile.description}
                   </p>
                   
-                  <p className="text-sm text-gray-600 dark:text-gray-400 italic" data-testid={`tile-usecase-${index}`}>
+                  <p className="text-sm text-low-contrast italic" data-testid={`tile-usecase-${index}`}>
                     {tile.useCase}
                   </p>
                   
                   {(tile.additionalInfo || tile.privacyNote || tile.contentNote || tile.safetyNote) && (
-                    <p className="text-xs text-gray-500 dark:text-gray-500" data-testid={`tile-note-${index}`}>
+                    <p className="text-xs text-low-contrast" data-testid={`tile-note-${index}`}>
                       {tile.additionalInfo || tile.privacyNote || tile.contentNote || tile.safetyNote}
                     </p>
                   )}
@@ -764,10 +764,10 @@ export default function Home() {
       <section className="py-16 lg:py-24" style={{ background: 'var(--section-primary)' }} data-testid="section-challenges">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-gray-900 dark:text-white mb-4" data-testid="text-challenges-title">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-high-contrast mb-4" data-testid="text-challenges-title">
               Mental Health Challenges Unique to Student Life
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" data-testid="text-challenges-subtitle">
+            <p className="text-xl text-medium-contrast max-w-3xl mx-auto" data-testid="text-challenges-subtitle">
               We understand the specific pressures you face
             </p>
           </div>
@@ -780,7 +780,7 @@ export default function Home() {
                     <div className="w-16 h-16 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center">
                       <challenge.icon className="h-8 w-8 text-primary" />
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white" data-testid={`challenge-header-${index}`}>
+                    <h3 className="text-xl font-bold text-high-contrast" data-testid={`challenge-header-${index}`}>
                       {challenge.header}
                     </h3>
                   </div>
@@ -790,11 +790,11 @@ export default function Home() {
                       {challenge.statistic}
                     </p>
                     
-                    <p className="text-gray-700 dark:text-gray-300" data-testid={`challenge-symptoms-${index}`}>
+                    <p className="text-medium-contrast" data-testid={`challenge-symptoms-${index}`}>
                       <strong>Common experiences:</strong> {challenge.symptoms}
                     </p>
                     
-                    <blockquote className="italic text-gray-600 dark:text-gray-400 border-l-4 border-primary pl-4" data-testid={`challenge-quote-${index}`}>
+                    <blockquote className="italic text-low-contrast border-l-4 border-primary pl-4" data-testid={`challenge-quote-${index}`}>
                       "{challenge.quote}"
                     </blockquote>
                   </div>
@@ -809,7 +809,7 @@ export default function Home() {
       <section className="py-16 lg:py-24" style={{ background: 'var(--section-secondary)' }} data-testid="section-breaking-barriers">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-gray-900 dark:text-white mb-4" data-testid="text-barriers-title">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-high-contrast mb-4" data-testid="text-barriers-title">
               Breaking Down Every Barrier to Mental Health Care
             </h2>
           </div>
@@ -823,10 +823,10 @@ export default function Home() {
                 
                 <div className="space-y-6">
                   <div>
-                    <h4 className="font-semibold text-gray-900 dark:text-white mb-4">Student Concerns:</h4>
+                    <h4 className="font-semibold text-high-contrast mb-4">Student Concerns:</h4>
                     <ul className="space-y-2">
                       {barrier.concerns.map((concern, concernIndex) => (
-                        <li key={concernIndex} className="text-gray-600 dark:text-gray-400 text-sm" data-testid={`concern-${index}-${concernIndex}`}>
+                        <li key={concernIndex} className="text-low-contrast text-sm" data-testid={`concern-${index}-${concernIndex}`}>
                           • {concern}
                         </li>
                       ))}
@@ -834,12 +834,12 @@ export default function Home() {
                   </div>
                   
                   <div>
-                    <h4 className="font-semibold text-gray-900 dark:text-white mb-4">Our Solutions:</h4>
+                    <h4 className="font-semibold text-high-contrast mb-4">Our Solutions:</h4>
                     <ul className="space-y-2">
                       {barrier.solutions.map((solution, solutionIndex) => (
                         <li key={solutionIndex} className="flex items-start space-x-2" data-testid={`solution-${index}-${solutionIndex}`}>
                           <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0 mt-0.5" />
-                          <span className="text-gray-700 dark:text-gray-300 text-sm">{solution}</span>
+                          <span className="text-medium-contrast text-sm">{solution}</span>
                         </li>
                       ))}
                     </ul>
@@ -864,10 +864,10 @@ export default function Home() {
       <section className="py-16 lg:py-24" style={{ background: 'var(--section-primary)' }} data-testid="section-success-stories">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-gray-900 dark:text-white mb-4" data-testid="text-success-title">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-high-contrast mb-4" data-testid="text-success-title">
               Real Stories from Students Who Found Their Path
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" data-testid="text-success-subtitle">
+            <p className="text-xl text-medium-contrast max-w-3xl mx-auto" data-testid="text-success-subtitle">
               Anonymous testimonials showing different mental health journeys
             </p>
           </div>
@@ -882,27 +882,27 @@ export default function Home() {
                         <p className="text-sm font-semibold text-primary" data-testid={`story-type-${index}`}>
                           {story.studentType}
                         </p>
-                        <p className="text-lg text-gray-600 dark:text-gray-400" data-testid={`story-challenge-${index}`}>
+                        <p className="text-lg text-low-contrast" data-testid={`story-challenge-${index}`}>
                           Challenge: {story.challenge}
                         </p>
-                        <p className="text-sm text-gray-500 dark:text-gray-500" data-testid={`story-timeline-${index}`}>
+                        <p className="text-sm text-low-contrast" data-testid={`story-timeline-${index}`}>
                           Timeline: {story.timeline}
                         </p>
                       </div>
                       
                       <Quote className="h-12 w-12 text-primary mx-auto" />
                       
-                      <blockquote className="text-xl md:text-2xl font-medium text-gray-900 dark:text-white italic leading-relaxed" data-testid={`story-quote-${index}`}>
+                      <blockquote className="text-xl md:text-2xl font-medium text-high-contrast italic leading-relaxed" data-testid={`story-quote-${index}`}>
                         "{story.quote}"
                       </blockquote>
                       
                       <div className="space-y-3">
-                        <h4 className="font-semibold text-gray-900 dark:text-white">Outcomes:</h4>
+                        <h4 className="font-semibold text-high-contrast">Outcomes:</h4>
                         <ul className="space-y-2">
                           {story.outcomes.map((outcome, outcomeIndex) => (
                             <li key={outcomeIndex} className="flex items-center justify-center space-x-2" data-testid={`story-outcome-${index}-${outcomeIndex}`}>
                               <Star className="h-4 w-4 text-yellow-500 flex-shrink-0" />
-                              <span className="text-gray-700 dark:text-gray-300">{outcome}</span>
+                              <span className="text-medium-contrast">{outcome}</span>
                             </li>
                           ))}
                         </ul>
@@ -937,7 +937,7 @@ export default function Home() {
       <section className="py-16 lg:py-24" style={{ background: 'var(--section-secondary)' }} data-testid="section-evidence-based">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-gray-900 dark:text-white mb-4" data-testid="text-evidence-title">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-high-contrast mb-4" data-testid="text-evidence-title">
               Backed by Mental Health Science
             </h2>
           </div>
@@ -955,7 +955,7 @@ export default function Home() {
                 ].map((point, index) => (
                   <li key={index} className="flex items-start space-x-3" data-testid={`research-point-${index}`}>
                     <Award className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
-                    <span className="text-gray-700 dark:text-gray-300">{point}</span>
+                    <span className="text-medium-contrast">{point}</span>
                   </li>
                 ))}
               </ul>
@@ -973,7 +973,7 @@ export default function Home() {
                 ].map((item, index) => (
                   <div key={index} className="text-center" data-testid={`platform-stat-${index}`}>
                     <div className="text-3xl font-bold text-primary mb-1" data-testid={`platform-number-${index}`}>{item.stat}</div>
-                    <p className="text-gray-600 dark:text-gray-400" data-testid={`platform-desc-${index}`}>{item.desc}</p>
+                    <p className="text-low-contrast" data-testid={`platform-desc-${index}`}>{item.desc}</p>
                   </div>
                 ))}
               </div>
@@ -1019,7 +1019,7 @@ export default function Home() {
       <section className="py-16 lg:py-24" style={{ background: 'var(--section-primary)' }} data-testid="section-faq">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-gray-900 dark:text-white mb-4" data-testid="text-faq-title">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-high-contrast mb-4" data-testid="text-faq-title">
               Your Questions, Completely Answered
             </h2>
           </div>
@@ -1027,10 +1027,10 @@ export default function Home() {
           <Accordion type="single" collapsible className="space-y-4" data-testid="faq-accordion" role="region" aria-label="Frequently asked questions">
             {faqData.map((faq, index) => (
               <AccordionItem key={index} value={`item-${index}`} className="border border-gray-200 dark:border-gray-700 rounded-lg px-6" data-testid={`faq-item-${index}`}>
-                <AccordionTrigger className="text-left font-semibold text-gray-900 dark:text-white hover:text-primary" data-testid={`faq-question-${index}`} aria-label={`Toggle answer for: ${faq.question}`}>
+                <AccordionTrigger className="text-left font-semibold text-high-contrast hover:text-primary" data-testid={`faq-question-${index}`} aria-label={`Toggle answer for: ${faq.question}`}>
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-gray-700 dark:text-gray-300 leading-relaxed" data-testid={`faq-answer-${index}`}>
+                <AccordionContent className="text-medium-contrast leading-relaxed" data-testid={`faq-answer-${index}`}>
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
@@ -1060,10 +1060,10 @@ export default function Home() {
                   </div>
                   
                   <div className="space-y-3">
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-white" data-testid={`action-title-${index}`}>
+                    <h3 className="text-lg font-bold text-high-contrast" data-testid={`action-title-${index}`}>
                       {option.title}
                     </h3>
-                    <p className="text-gray-700 dark:text-gray-300" data-testid={`action-description-${index}`}>
+                    <p className="text-medium-contrast" data-testid={`action-description-${index}`}>
                       {option.description}
                     </p>
                     <p className="text-sm font-semibold text-primary" data-testid={`action-time-${index}`}>
