@@ -422,7 +422,7 @@ export default function Home() {
       <Header />
       
       {/* Section 1: Hero Banner */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-blue-900/20 dark:to-purple-900/20 pt-24 pb-16 lg:pt-32 lg:pb-24" data-testid="section-hero">
+      <section className="hero-section relative overflow-hidden pt-24 pb-16 lg:pt-32 lg:pb-24" data-testid="section-hero">
         {/* Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="floating-shape floating-shape-1"></div>
@@ -436,16 +436,16 @@ export default function Home() {
             <div className="space-y-8">
               {/* Main Headline */}
               <div className="space-y-4" data-testid="hero-content">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading text-gray-900 dark:text-white leading-tight" data-testid="text-main-headline">
+                <h1 className="text-heading-xl text-enhanced leading-tight" data-testid="text-main-headline">
                   Your Mental Health Journey
                   <span className="block text-primary">Starts Here</span>
                 </h1>
                 
-                <h2 className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 font-medium" data-testid="text-secondary-headline">
+                <h2 className="text-body-lg text-enhanced font-medium" data-testid="text-secondary-headline">
                   Safe, Confidential, Professional Support Available 24/7
                 </h2>
                 
-                <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed max-w-2xl" data-testid="text-hero-description">
+                <p className="text-body text-enhanced leading-relaxed max-w-2xl" data-testid="text-hero-description">
                   Break free from the barriers that prevent students from accessing mental health support. Our evidence-based platform combines AI-powered assistance, professional counseling, and peer community support—all designed specifically for the unique challenges of college life.
                 </p>
               </div>
@@ -455,7 +455,7 @@ export default function Home() {
                 <Button 
                   asChild
                   size="lg" 
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto"
+                  className="btn-professional bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold rounded-xl w-full sm:w-auto"
                 >
                   <Link href="/assessment" data-testid="button-start-assessment">
                     Start Free Assessment
@@ -484,7 +484,7 @@ export default function Home() {
                   { text: "24/7 Available", icon: Clock },
                   { text: "Evidence-Based", icon: Award }
                 ].map((indicator, index) => (
-                  <div key={index} className="flex items-center space-x-2 text-sm font-medium text-gray-700 dark:text-gray-300" data-testid={`trust-indicator-${index}`}>
+                  <div key={index} className="flex items-center space-x-2 text-caption font-medium text-enhanced" data-testid={`trust-indicator-${index}`}>
                     <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
                     <span>{indicator.text}</span>
                   </div>
@@ -534,10 +534,10 @@ export default function Home() {
       </section>
 
       {/* Section 2: Problem Awareness Statistics */}
-      <section className="py-16 lg:py-24 bg-white dark:bg-gray-900" data-testid="section-crisis-stats">
+      <section className="stats-section py-16 lg:py-24" data-testid="section-crisis-stats">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-red-600 dark:text-red-400 mb-4" data-testid="text-crisis-title">
+            <h2 className="text-heading-lg font-bold text-red-600 dark:text-red-400 mb-4" data-testid="text-crisis-title">
               The Student Mental Health Crisis Demands Immediate Action
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" data-testid="text-crisis-subtitle">
@@ -547,7 +547,7 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8" data-testid="crisis-statistics-grid">
             {crisisStatistics.map((stat, index) => (
-              <Card key={index} className="text-center p-8 hover:shadow-xl transition-all duration-300 border-t-4 border-t-red-500 dark:border-t-red-400" data-testid={`stat-card-${index}`}>
+              <Card key={index} className="card-professional text-center p-8 hover:shadow-xl transition-all duration-300 border-t-4 border-t-red-500 dark:border-t-red-400" data-testid={`stat-card-${index}`}>
                 <CardContent className="space-y-4">
                   <div className="w-16 h-16 mx-auto rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
                     <stat.icon className="h-8 w-8 text-red-600 dark:text-red-400" />
@@ -578,7 +578,7 @@ export default function Home() {
       </section>
 
       {/* Section 3: Solution Promise */}
-      <section className="py-16 lg:py-24 bg-gray-50 dark:bg-gray-800" data-testid="section-solution-promise">
+      <section className="py-16 lg:py-24" style={{ background: 'var(--section-secondary)' }} data-testid="section-solution-promise">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-gray-900 dark:text-white mb-4" data-testid="text-solution-title">
@@ -621,7 +621,7 @@ export default function Home() {
           </div>
 
           {/* Success Story Preview */}
-          <Card className="bg-primary/10 dark:bg-primary/5 border-primary/20 mb-16" data-testid="success-story-preview">
+          <Card className="card-professional bg-primary/10 dark:bg-primary/5 border-primary/20 mb-16" data-testid="success-story-preview">
             <CardContent className="p-8">
               <div className="text-center space-y-6">
                 <Quote className="h-12 w-12 text-primary mx-auto" />
@@ -659,7 +659,7 @@ export default function Home() {
       </section>
 
       {/* Section 4: 5-Step Student Journey */}
-      <section className="py-16 lg:py-24 bg-white dark:bg-gray-900" data-testid="section-student-journey">
+      <section className="py-16 lg:py-24" style={{ background: 'var(--section-primary)' }} data-testid="section-student-journey">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-gray-900 dark:text-white mb-4" data-testid="text-journey-title">
@@ -672,7 +672,7 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8" data-testid="journey-steps">
             {journeySteps.map((step, index) => (
-              <Card key={index} className={`${step.bgColor} border-none shadow-lg hover:shadow-xl transition-all duration-300`} data-testid={`journey-step-${index}`}>
+              <Card key={index} className={`card-professional ${step.bgColor} border-none shadow-lg hover:shadow-xl transition-all duration-300`} data-testid={`journey-step-${index}`}>
                 <CardContent className="p-6 text-center space-y-4">
                   <div className="w-16 h-16 mx-auto rounded-full bg-white dark:bg-gray-800 flex items-center justify-center shadow-lg">
                     <step.icon className="h-8 w-8 text-primary" />
@@ -702,10 +702,10 @@ export default function Home() {
       </section>
 
       {/* Section 5: Quick Access Feature Tiles */}
-      <section className="py-16 lg:py-24 bg-gray-50 dark:bg-gray-800" data-testid="section-feature-tiles">
+      <section className="section-secondary py-16 lg:py-24" data-testid="section-feature-tiles">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-gray-900 dark:text-white mb-4" data-testid="text-features-title">
+            <h2 className="text-heading-lg text-enhanced mb-4" data-testid="text-features-title">
               Choose Your Starting Point
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" data-testid="text-features-subtitle">
@@ -715,7 +715,7 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8" data-testid="feature-tiles-grid">
             {featureTiles.map((tile, index) => (
-              <Card key={index} className={`${tile.gradient} border-none shadow-lg hover:shadow-xl transition-all duration-300 group ${tile.isEmergency ? 'ring-2 ring-red-500 dark:ring-red-400' : ''}`} data-testid={`feature-tile-${index}`} aria-label={tile.isEmergency ? 'Emergency crisis support - immediate help available' : `${tile.title} feature`}>
+              <Card key={index} className={`feature-tile ${tile.gradient} border-none group ${tile.isEmergency ? 'ring-2 ring-red-500 dark:ring-red-400' : ''}`} data-testid={`feature-tile-${index}`} aria-label={tile.isEmergency ? 'Emergency crisis support - immediate help available' : `${tile.title} feature`}>
                 <CardContent className="p-8 space-y-6">
                   <div className="flex items-center space-x-4">
                     <div className={`w-16 h-16 rounded-full ${tile.isEmergency ? 'bg-red-500' : 'bg-white dark:bg-gray-800'} flex items-center justify-center shadow-lg`}>
@@ -761,7 +761,7 @@ export default function Home() {
       </section>
 
       {/* Section 6: Student-Specific Challenges */}
-      <section className="py-16 lg:py-24 bg-white dark:bg-gray-900" data-testid="section-challenges">
+      <section className="py-16 lg:py-24" style={{ background: 'var(--section-primary)' }} data-testid="section-challenges">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-gray-900 dark:text-white mb-4" data-testid="text-challenges-title">
@@ -774,7 +774,7 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 gap-8" data-testid="challenges-grid">
             {challengeCards.map((challenge, index) => (
-              <Card key={index} className="p-8 hover:shadow-xl transition-all duration-300" data-testid={`challenge-card-${index}`}>
+              <Card key={index} className="card-professional p-8 hover:shadow-xl transition-all duration-300" data-testid={`challenge-card-${index}`}>
                 <CardContent className="space-y-6">
                   <div className="flex items-center space-x-4">
                     <div className="w-16 h-16 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center">
@@ -806,7 +806,7 @@ export default function Home() {
       </section>
 
       {/* Section 7: Breaking Barriers */}
-      <section className="py-16 lg:py-24 bg-gray-50 dark:bg-gray-800" data-testid="section-breaking-barriers">
+      <section className="py-16 lg:py-24" style={{ background: 'var(--section-secondary)' }} data-testid="section-breaking-barriers">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-gray-900 dark:text-white mb-4" data-testid="text-barriers-title">
@@ -861,7 +861,7 @@ export default function Home() {
       </section>
 
       {/* Section 8: Success Stories Carousel */}
-      <section className="py-16 lg:py-24 bg-white dark:bg-gray-900" data-testid="section-success-stories">
+      <section className="py-16 lg:py-24" style={{ background: 'var(--section-primary)' }} data-testid="section-success-stories">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-gray-900 dark:text-white mb-4" data-testid="text-success-title">
@@ -876,7 +876,7 @@ export default function Home() {
             <CarouselContent>
               {successStories.map((story, index) => (
                 <CarouselItem key={index} data-testid={`success-story-${index}`}>
-                  <Card className="bg-primary/5 dark:bg-primary/10 border-primary/20">
+                  <Card className="card-professional bg-primary/5 dark:bg-primary/10 border-primary/20">
                     <CardContent className="p-12 text-center space-y-8">
                       <div className="space-y-4">
                         <p className="text-sm font-semibold text-primary" data-testid={`story-type-${index}`}>
@@ -934,7 +934,7 @@ export default function Home() {
       </section>
 
       {/* Section 9: Evidence-Based Approach */}
-      <section className="py-16 lg:py-24 bg-gray-50 dark:bg-gray-800" data-testid="section-evidence-based">
+      <section className="py-16 lg:py-24" style={{ background: 'var(--section-secondary)' }} data-testid="section-evidence-based">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-gray-900 dark:text-white mb-4" data-testid="text-evidence-title">
@@ -1016,7 +1016,7 @@ export default function Home() {
       </section>
 
       {/* Section 10: FAQ Section */}
-      <section className="py-16 lg:py-24 bg-white dark:bg-gray-900" data-testid="section-faq">
+      <section className="py-16 lg:py-24" style={{ background: 'var(--section-primary)' }} data-testid="section-faq">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-gray-900 dark:text-white mb-4" data-testid="text-faq-title">
@@ -1053,7 +1053,7 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8" data-testid="action-options">
             {actionOptions.map((option, index) => (
-              <Card key={index} className="bg-white dark:bg-gray-800 border-none shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-testid={`action-option-${index}`}>
+              <Card key={index} className="card-professional bg-white dark:bg-gray-800 border-none shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-testid={`action-option-${index}`}>
                 <CardContent className="p-8 text-center space-y-6">
                   <div className="w-16 h-16 mx-auto rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center">
                     <option.icon className="h-8 w-8 text-primary" />
