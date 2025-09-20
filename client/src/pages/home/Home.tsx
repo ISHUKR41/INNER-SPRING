@@ -111,7 +111,7 @@ export default function Home() {
       privacyNote: "100% anonymous option available",
       icon: ClipboardList,
       gradient: "gradient-tile-purple",
-      href: "/assessments"
+      href: "/assessment"
     },
     {
       title: "Self-Help Resource Library",
@@ -390,7 +390,7 @@ export default function Home() {
       title: "Take Mental Health Assessment", 
       description: "5-minute private screening to understand your needs",
       time: "Results in 5 minutes",
-      href: "/assessments",
+      href: "/assessment",
       icon: ClipboardList
     },
     {
@@ -457,7 +457,7 @@ export default function Home() {
                   size="lg" 
                   className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto"
                 >
-                  <Link href="/assessments" data-testid="button-start-assessment">
+                  <Link href="/assessment" data-testid="button-start-assessment">
                     Start Free Assessment
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
