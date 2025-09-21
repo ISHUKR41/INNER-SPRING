@@ -690,7 +690,7 @@ export default function Home() {
             {[
               { number: "15,000+", text: "students already supported" },
               { number: "94%", text: "report improved mental health" },
-              { number: "< 30 sec", text: "average response time" }
+              { number: "under 30 seconds", text: "average response time" }
             ].map((metric, index) => (
               <div key={index} className="text-center" data-testid={`impact-metric-${index}`}>
                 <div className="text-stat-number text-emphasis mb-2" data-testid={`impact-number-${index}`}>{metric.number}</div>
