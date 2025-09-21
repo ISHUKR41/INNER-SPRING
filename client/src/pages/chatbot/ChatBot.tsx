@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useLocation } from "wouter";
-import Header from "@/components/layout/Header";
+import ChatHeader from "@/components/chat/ChatHeader";
 import ChatInterface from "./components/ChatInterface";
 import ChatSidebar from "@/components/chat/ChatSidebar";
 import { Button } from "@/components/ui/button";
@@ -20,20 +20,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import type { ChatConversation, ChatMessage } from "@/types";
 
 /**
- * AI Chatbot Page - Real-time chat interface with conversation management
- * Features AI-powered mental health support with crisis detection
+ * Simple AI Chatbot Page - Clean, minimal chat interface
+ * Features AI-powered mental health support with simple design
  */
 export default function ChatBot() {
   const [, setLocation] = useLocation();
   const [selectedConversationId, setSelectedConversationId] = useState<string | null>(null);
-  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
-  
-  // Enhanced header state for chat mode
-  const [isFullscreen, setIsFullscreen] = useState(false);
-  const [isAnonymousMode, setIsAnonymousMode] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState('English');
-  const [isSoundEnabled, setIsSoundEnabled] = useState(true);
-  const [isNotificationsEnabled, setIsNotificationsEnabled] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   
   const queryClient = useQueryClient();
   const { toast } = useToast();
@@ -58,7 +51,6 @@ export default function ChatBot() {
     selectedConversationId || "",
     (newMessage) => {
       // Update messages cache when new message received, with deduplication
-      // Use the message's conversationId to avoid stale closure issues
       const cacheKey = [`/api/chat/messages`, newMessage.conversationId];
       queryClient.setQueryData(
         cacheKey,
@@ -88,7 +80,7 @@ export default function ChatBot() {
     onSuccess: (newConversation) => {
       queryClient.invalidateQueries({ queryKey: [`/api/chat/conversations/${userId}`] });
       setSelectedConversationId(newConversation.id);
-      setIsMobileSidebarOpen(false);
+      setIsSidebarOpen(false);
       toast({
         title: "New conversation started",
         description: "You can now chat with the AI assistant.",
@@ -207,151 +199,30 @@ export default function ChatBot() {
   };
 
   const handleDeleteConversation = (conversationId: string) => {
-    if (confirm("Are you sure you want to delete this conversation? This action cannot be undone.")) {
-      deleteConversationMutation.mutate(conversationId);
-    }
+    deleteConversationMutation.mutate(conversationId);
   };
 
-  // Enhanced Header handlers for chat mode
+  // Simple emergency handler
   const handleEmergencyClick = () => {
     toast({
       title: "Emergency Support",
       description: "Connecting you to crisis support resources...",
       variant: "destructive",
     });
-    // In a real app, this would redirect to emergency resources or open a crisis chat
     setLocation("/emergency");
   };
 
-  const handleNavigateBack = () => {
-    setLocation("/");
-  };
-
-  const handleToggleFullscreen = () => {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen();
-      setIsFullscreen(true);
-    } else {
-      document.exitFullscreen();
-      setIsFullscreen(false);
-    }
-  };
-
-  const handleSettingsChange = (setting: string, value: any) => {
-    switch (setting) {
-      case 'language':
-        setSelectedLanguage(value);
-        toast({
-          title: "Language Updated",
-          description: `Interface language changed to ${value}`,
-        });
-        break;
-      case 'sound':
-        setIsSoundEnabled(value);
-        toast({
-          title: value ? "Sound Enabled" : "Sound Disabled",
-          description: `Chat sound effects ${value ? 'enabled' : 'disabled'}`,
-        });
-        break;
-      case 'notifications':
-        setIsNotificationsEnabled(value);
-        toast({
-          title: value ? "Notifications Enabled" : "Notifications Disabled", 
-          description: `Push notifications ${value ? 'enabled' : 'disabled'}`,
-        });
-        break;
-    }
-  };
-
-  const handleToggleAnonymousMode = (enabled: boolean) => {
-    setIsAnonymousMode(enabled);
-    toast({
-      title: enabled ? "Anonymous Mode Enabled" : "Anonymous Mode Disabled",
-      description: enabled 
-        ? "Your identity is now hidden for maximum privacy" 
-        : "Your profile is now visible",
-    });
-  };
-
-  const handleProfileClick = () => {
-    toast({
-      title: "Profile Settings",
-      description: "Opening profile configuration...",
-    });
-    // In a real app, this would open a profile modal or navigate to profile page
-  };
-
-  const handleLogout = () => {
-    toast({
-      title: "Logged Out",
-      description: "You have been safely logged out",
-    });
-    setLocation("/");
-  };
-
-  // Mock user data for demonstration
-  const currentUser = {
-    id: userId,
-    username: "student_user",
-    firstName: "Student", 
-    email: "student@university.edu"
-  };
-
-  // Connection status mapping from WebSocket state
-  const getConnectionStatus = () => {
-    switch (connectionState) {
-      case 'connected': return 'connected';
-      case 'connecting': return 'connecting';
-      case 'reconnecting': return 'reconnecting';
-      case 'disconnected': return 'disconnected';
-      default: return 'disconnected';
-    }
-  };
-
-  // Connection quality (mock - in real app would be based on latency, etc.)
-  const getConnectionQuality = () => {
-    const status = getConnectionStatus();
-    if (status === 'connected') return 'excellent';
-    if (status === 'connecting' || status === 'reconnecting') return 'good';
-    return 'disconnected';
-  };
-
   return (
-    <div className="min-h-screen bg-background">
-      <Header 
-        // Enable chat mode with all enhanced features
-        isChatMode={true}
-        
-        // AI Status Display
-        aiModel="Gemini Pro"
-        connectionStatus={getConnectionStatus()}
-        connectionQuality={getConnectionQuality()}
-        
-        // Navigation
-        onNavigateBack={handleNavigateBack}
-        
-        // Emergency Support
+    <div className="min-h-screen bg-white dark:bg-gray-900">
+      {/* Simplified Header */}
+      <ChatHeader 
         onEmergencyClick={handleEmergencyClick}
-        
-        // User Profile & Authentication
-        currentUser={currentUser}
-        isAnonymousMode={isAnonymousMode}
-        onToggleAnonymousMode={handleToggleAnonymousMode}
-        onProfileClick={handleProfileClick}
-        onLogout={handleLogout}
-        
-        // Settings & Preferences
-        selectedLanguage={selectedLanguage}
-        isSoundEnabled={isSoundEnabled}
-        isNotificationsEnabled={isNotificationsEnabled}
-        onSettingsChange={handleSettingsChange}
-        
-        // Fullscreen Mode
-        isFullscreen={isFullscreen}
-        onToggleFullscreen={handleToggleFullscreen}
       />
       
-      <div className="pt-20 h-screen flex">
+      {/* Main Chat Layout - Full Width with Overlay Sidebar */}
+      <div className="h-[calc(100vh-56px)] flex">
+        
+        {/* Overlay Sidebar (Hidden by Default) */}
         <ChatSidebar
           userId={userId}
           selectedConversationId={selectedConversationId}
@@ -360,16 +231,16 @@ export default function ChatBot() {
           connectionState={connectionState}
           onConversationSelect={(id) => {
             setSelectedConversationId(id);
-            setIsMobileSidebarOpen(false);
+            setIsSidebarOpen(false);
           }}
           onNewConversation={handleNewChat}
           onDeleteConversation={handleDeleteConversation}
-          isOpen={isMobileSidebarOpen}
-          onOpenChange={setIsMobileSidebarOpen}
+          isOpen={isSidebarOpen}
+          onOpenChange={setIsSidebarOpen}
         />
 
-        {/* Main Chat Area */}
-        <div className="flex-1 flex flex-col">
+        {/* Main Chat Area - Full Width */}
+        <div className="flex-1 flex flex-col w-full">
           {selectedConversationId ? (
             <ChatInterface
               conversationId={selectedConversationId}
@@ -377,7 +248,7 @@ export default function ChatBot() {
               isLoading={messagesLoading}
               onSendMessage={handleSendMessage}
               isSending={sendMessageMutation.isPending}
-              onToggleSidebar={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)}
+              onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
             />
           ) : (
             <WelcomeScreen onNewChat={handleNewChat} />
@@ -389,24 +260,24 @@ export default function ChatBot() {
 }
 
 /**
- * Welcome Screen - Shown when no conversation is selected
+ * Simple Welcome Screen - Shown when no conversation is selected
  */
 function WelcomeScreen({ onNewChat }: { onNewChat: () => void }) {
   const features = [
     {
       icon: Brain,
-      title: "Empathetic AI Support",
-      description: "Get instant, compassionate responses to your mental health concerns"
+      title: "AI Mental Health Support",
+      description: "Get compassionate, immediate responses to your concerns"
     },
     {
       icon: Lock,
-      title: "100% Confidential",
-      description: "Your conversations are private and securely encrypted"
+      title: "Private & Secure",
+      description: "Your conversations are completely confidential"
     },
     {
       icon: Calendar,
-      title: "24/7 Availability",
-      description: "Support is available whenever you need it most"
+      title: "Available 24/7",
+      description: "Support whenever you need it most"
     },
     {
       icon: BookOpen,
@@ -416,31 +287,36 @@ function WelcomeScreen({ onNewChat }: { onNewChat: () => void }) {
   ];
 
   return (
-    <div className="flex-1 flex items-center justify-center p-8">
+    <div className="flex-1 flex items-center justify-center p-8 bg-gray-50 dark:bg-gray-800">
       <div className="max-w-2xl text-center space-y-8">
+        
+        {/* Header */}
         <div className="space-y-4">
-          <div className="w-24 h-24 gradient-primary rounded-full flex items-center justify-center mx-auto">
+          <div className="w-24 h-24 bg-blue-600 rounded-full flex items-center justify-center mx-auto">
             <MessageCircle className="text-white" size={40} />
           </div>
-          <h1 className="text-3xl font-bold text-foreground font-heading">Welcome to MindCare AI</h1>
-          <p className="text-xl text-muted-foreground">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+            Welcome to MindCare AI
+          </h1>
+          <p className="text-xl text-gray-600 dark:text-gray-300">
             Your compassionate AI companion for mental health support
           </p>
         </div>
 
+        {/* Features Grid */}
         <div className="grid md:grid-cols-2 gap-6">
           {features.map((feature, index) => {
             const IconComponent = feature.icon;
             return (
-              <Card key={index} className="text-left">
+              <Card key={index} className="text-left bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-600">
                 <CardContent className="p-6">
                   <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <IconComponent className="text-primary" size={24} />
+                    <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <IconComponent className="text-blue-600 dark:text-blue-400" size={24} />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground mb-2">{feature.title}</h3>
-                      <p className="text-sm text-muted-foreground">{feature.description}</p>
+                      <h3 className="font-semibold text-gray-900 dark:text-white mb-2">{feature.title}</h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">{feature.description}</p>
                     </div>
                   </div>
                 </CardContent>
@@ -449,25 +325,25 @@ function WelcomeScreen({ onNewChat }: { onNewChat: () => void }) {
           })}
         </div>
 
+        {/* Start Chat Button */}
         <div className="space-y-4">
           <Button 
             size="lg" 
             onClick={onNewChat}
-            className="gradient-primary text-white px-8"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 text-lg"
             data-testid="button-start-conversation"
           >
             <MessageCircle className="mr-2" size={20} />
             Start Your First Conversation
           </Button>
           
-          <div className="flex items-center justify-center space-x-4 text-sm text-muted-foreground">
-            <div className="flex items-center space-x-1">
-              <AlertTriangle size={14} className="text-destructive" />
-              <span>Crisis situations? Visit our</span>
-              <Button variant="link" className="h-auto p-0 text-destructive" asChild>
-                <a href="/emergency">Emergency Help</a>
-              </Button>
-            </div>
+          {/* Emergency Help Link */}
+          <div className="flex items-center justify-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
+            <AlertTriangle size={14} className="text-red-600" />
+            <span>Crisis situations?</span>
+            <Button variant="link" className="h-auto p-0 text-red-600 hover:text-red-700" asChild>
+              <a href="/emergency">Get Emergency Help</a>
+            </Button>
           </div>
         </div>
       </div>
