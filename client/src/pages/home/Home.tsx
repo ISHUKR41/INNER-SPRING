@@ -39,7 +39,8 @@ import {
   ChevronRight,
   Heart,
   PlayCircle,
-  HelpCircle
+  HelpCircle,
+  ClipboardCheck
 } from "lucide-react";
 
 /**
@@ -146,47 +147,52 @@ export default function Home() {
     }
   ];
 
-  // 5-step journey data
+  // 5-step journey data - Updated to match exact specifications
   const journeySteps = [
     {
-      title: "Something Feels Off",
-      description: "You're feeling anxious, depressed, overwhelmed, or just not yourself. Academic pressure is mounting, sleep is disrupted, or relationships feel strained.",
-      time: "This moment of awareness", 
-      icon: Lightbulb,
-      action: "Take anonymous self-assessment",
-      bgColor: "bg-yellow-50 dark:bg-yellow-900/20"
-    },
-    {
-      title: "Private Self-Check",
-      description: "Complete evidence-based assessments (PHQ-9, GAD-7) in complete privacy. No judgment, no pressure, just understanding your current state.",
-      time: "5-10 minutes",
-      icon: Shield, 
-      action: "Get personalized recommendations",
+      title: "Quick Assessment",
+      description: "Share your concerns in a safe, judgment-free assessment",
+      time: "2-3 minutes", 
+      icon: ClipboardCheck,
+      action: "Start Assessment",
+      href: "/assessment",
       bgColor: "bg-blue-50 dark:bg-blue-900/20"
     },
     {
-      title: "Instant AI Guidance",
-      description: "Get immediate coping strategies, breathing exercises, crisis support, and personalized recommendations available 24/7.",
-      time: "Available instantly",
-      icon: Bot,
-      action: "Chat now or explore resources", 
+      title: "Immediate Support",
+      description: "Get instant coping strategies from our AI assistant",
+      time: "Instant access",
+      icon: MessageCircle, 
+      action: "Chat Now",
+      href: "/chatbot",
       bgColor: "bg-green-50 dark:bg-green-900/20"
     },
     {
-      title: "Expert Professional Care", 
-      description: "When you're ready, connect with licensed counselors, campus professionals, or specialized therapists who understand student life.",
-      time: "Same day to 1 week",
-      icon: Handshake,
-      action: "Book confidential appointment",
+      title: "Connect with Professional",
+      description: "Schedule with licensed counselors who understand students",
+      time: "Same day",
+      icon: UserCheck,
+      action: "Book Session", 
+      href: "/appointments",
       bgColor: "bg-purple-50 dark:bg-purple-900/20"
     },
     {
-      title: "Sustained Wellness",
-      description: "Join peer support communities, track your progress, access ongoing resources, and maintain long-term mental health.", 
-      time: "Your ongoing journey",
-      icon: Sprout,
-      action: "Join student community",
-      bgColor: "bg-teal-50 dark:bg-teal-900/20"
+      title: "Build Your Toolkit", 
+      description: "Access personalized coping strategies and self-help tools",
+      time: "Ongoing",
+      icon: BookOpen,
+      action: "Explore Resources",
+      href: "/resources",
+      bgColor: "bg-orange-50 dark:bg-orange-900/20"
+    },
+    {
+      title: "Join Community",
+      description: "Connect with supportive peer groups and study wellness", 
+      time: "When ready",
+      icon: Users,
+      action: "Join Groups",
+      href: "/peer-support",
+      bgColor: "bg-pink-50 dark:bg-pink-900/20"
     }
   ];
 
@@ -713,33 +719,60 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8" data-testid="journey-steps">
-            {journeySteps.map((step, index) => (
-              <Card key={index} className={`card-professional ${step.bgColor} border-none shadow-lg hover:shadow-xl transition-all duration-300`} data-testid={`journey-step-${index}`}>
-                <CardContent className="p-6 text-center space-y-4">
-                  <div className="w-16 h-16 mx-auto rounded-full bg-white dark:bg-gray-800 flex items-center justify-center shadow-lg">
-                    <step.icon className="h-8 w-8 text-primary" />
-                  </div>
+          {/* Journey Steps with Timeline Visuals */}
+          <div className="relative" data-testid="journey-steps">
+            {/* Desktop Timeline Connector */}
+            <div className="hidden lg:block absolute top-24 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-300 via-green-300 via-purple-300 via-orange-300 to-pink-300 dark:from-blue-600 dark:via-green-600 dark:via-purple-600 dark:via-orange-600 dark:to-pink-600 z-0" style={{marginTop: '4rem'}}></div>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8 relative z-10">
+              {journeySteps.map((step, index) => (
+                <div key={index} className="relative" data-testid={`journey-step-${index}`}>
+                  {/* Mobile Timeline Connector (Vertical) */}
+                  {index < journeySteps.length - 1 && (
+                    <div className="lg:hidden absolute left-8 top-full w-0.5 h-8 bg-gradient-to-b from-current to-transparent opacity-30 z-0" style={{color: step.bgColor.includes('blue') ? '#3B82F6' : step.bgColor.includes('green') ? '#10B981' : step.bgColor.includes('purple') ? '#8B5CF6' : step.bgColor.includes('orange') ? '#F59E0B' : '#EC4899'}}></div>
+                  )}
                   
-                  <h3 className="text-card-title text-high-contrast" data-testid={`journey-title-${index}`}>
-                    {step.title}
-                  </h3>
-                  
-                  <p className="text-card-description text-medium-contrast" data-testid={`journey-description-${index}`}>
-                    {step.description}
-                  </p>
-                  
-                  <div className="space-y-2">
-                    <p className="text-small text-emphasis font-semibold" data-testid={`journey-time-${index}`}>
-                      {step.time}
-                    </p>
-                    <p className="text-small text-low-contrast font-medium" data-testid={`journey-action-${index}`}>
-                      {step.action}
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                  <Card className={`card-professional ${step.bgColor} border-none shadow-lg hover:shadow-xl transition-all duration-300 h-full`}>
+                    <CardContent className="p-6 text-center space-y-4 flex flex-col h-full">
+                      {/* Step Number Badge */}
+                      <div className="absolute -top-3 -left-3 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold shadow-lg">
+                        {index + 1}
+                      </div>
+                      
+                      <div className="w-16 h-16 mx-auto rounded-full bg-white dark:bg-gray-800 flex items-center justify-center shadow-lg">
+                        <step.icon className="h-8 w-8 text-primary" />
+                      </div>
+                      
+                      <h3 className="text-card-title text-high-contrast font-semibold" data-testid={`journey-title-${index}`}>
+                        {step.title}
+                      </h3>
+                      
+                      <p className="text-card-description text-medium-contrast flex-grow" data-testid={`journey-description-${index}`}>
+                        {step.description}
+                      </p>
+                      
+                      <div className="space-y-3">
+                        <p className="text-small text-emphasis font-semibold flex items-center justify-center gap-2" data-testid={`journey-time-${index}`}>
+                          <Clock className="h-4 w-4" />
+                          {step.time}
+                        </p>
+                        
+                        {/* Functional Action Button */}
+                        <Link href={step.href} data-testid={`button-${step.action.toLowerCase().replace(/\s+/g, '-')}`}>
+                          <Button 
+                            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium shadow-md hover:shadow-lg transition-all duration-200 flex items-center gap-2"
+                            size="sm"
+                          >
+                            {step.action}
+                            <ArrowRight className="h-4 w-4" />
+                          </Button>
+                        </Link>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
