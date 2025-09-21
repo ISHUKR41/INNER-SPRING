@@ -2,17 +2,10 @@ import { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import Header from "@/components/layout/Header";
 import ChatInterface from "./components/ChatInterface";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import ChatSidebar from "@/components/chat/ChatSidebar";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Separator } from "@/components/ui/separator";
 import { 
   MessageCircle, 
-  Plus, 
-  Trash2, 
-  Lock, 
-  Settings,
   AlertTriangle,
   Calendar,
   BookOpen,
@@ -212,123 +205,21 @@ export default function ChatBot() {
       <Header />
       
       <div className="pt-20 h-screen flex">
-        {/* Sidebar - Chat History */}
-        <div className={`
-          ${isMobileSidebarOpen ? 'translate-x-0' : '-translate-x-full'} 
-          lg:translate-x-0 fixed lg:relative z-30 w-80 h-full bg-card border-r border-border transition-transform duration-300
-        `}>
-          <div className="flex flex-col h-full">
-            {/* Sidebar Header */}
-            <div className="p-6 border-b border-border">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-bold text-foreground font-heading flex items-center">
-                  <MessageCircle className="mr-2" size={24} />
-                  AI Assistant
-                </h2>
-                <Button
-                  size="sm"
-                  onClick={handleNewChat}
-                  disabled={createConversationMutation.isPending}
-                  data-testid="button-new-chat"
-                >
-                  <Plus size={16} className="mr-1" />
-                  New Chat
-                </Button>
-              </div>
-              
-              {/* Connection Status */}
-              <div className="flex items-center space-x-2 text-sm">
-                <div className={`w-2 h-2 rounded-full ${
-                  connectionState === 'connected' ? 'bg-green-500' : 
-                  connectionState === 'connecting' ? 'bg-yellow-500' : 'bg-red-500'
-                }`}></div>
-                <span className="text-muted-foreground">
-                  {connectionState === 'connected' ? 'Connected' : 
-                   connectionState === 'connecting' ? 'Connecting...' : 'Disconnected'}
-                </span>
-              </div>
-            </div>
-
-            {/* Chat History List */}
-            <div className="flex-1 overflow-y-auto custom-scrollbar p-4">
-              {conversationsLoading ? (
-                <div className="space-y-4">
-                  {[...Array(3)].map((_, i) => (
-                    <div key={i} className="animate-pulse">
-                      <div className="h-16 bg-muted rounded-lg"></div>
-                    </div>
-                  ))}
-                </div>
-              ) : conversations && conversations.length > 0 ? (
-                <div className="space-y-2">
-                  {conversations.map((conversation: ChatConversation) => (
-                    <Card
-                      key={conversation.id}
-                      className={`cursor-pointer transition-all duration-200 hover:shadow-md ${
-                        selectedConversationId === conversation.id 
-                          ? 'border-primary bg-primary/5' 
-                          : 'border-border hover:border-primary/50'
-                      }`}
-                      onClick={() => {
-                        setSelectedConversationId(conversation.id);
-                        setIsMobileSidebarOpen(false);
-                      }}
-                      data-testid={`conversation-${conversation.id}`}
-                    >
-                      <CardContent className="p-4">
-                        <div className="flex justify-between items-start">
-                          <div className="flex-1 min-w-0">
-                            <h3 className="font-medium text-foreground truncate">
-                              {conversation.title || "New Conversation"}
-                            </h3>
-                            <p className="text-sm text-muted-foreground mt-1">
-                              {new Date(conversation.updatedAt).toLocaleDateString()}
-                            </p>
-                          </div>
-                          <Button
-                            size="icon"
-                            variant="ghost"
-                            className="opacity-0 group-hover:opacity-100 transition-opacity h-8 w-8"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleDeleteConversation(conversation.id);
-                            }}
-                            data-testid={`button-delete-conversation-${conversation.id}`}
-                          >
-                            <Trash2 size={14} />
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-8">
-                  <MessageCircle className="mx-auto text-muted-foreground mb-4" size={48} />
-                  <p className="text-muted-foreground">No conversations yet</p>
-                  <p className="text-sm text-muted-foreground mt-2">Start a new chat to begin</p>
-                </div>
-              )}
-            </div>
-
-            {/* Sidebar Footer */}
-            <div className="p-4 border-t border-border space-y-4">
-              <Alert>
-                <Lock className="h-4 w-4" />
-                <AlertDescription className="text-sm">
-                  All conversations are encrypted and confidential
-                </AlertDescription>
-              </Alert>
-              
-              <div className="flex space-x-2">
-                <Button size="sm" variant="outline" className="flex-1" data-testid="button-chat-settings">
-                  <Settings size={14} className="mr-1" />
-                  Settings
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ChatSidebar
+          userId={userId}
+          selectedConversationId={selectedConversationId}
+          conversations={conversations}
+          conversationsLoading={conversationsLoading}
+          connectionState={connectionState}
+          onConversationSelect={(id) => {
+            setSelectedConversationId(id);
+            setIsMobileSidebarOpen(false);
+          }}
+          onNewConversation={handleNewChat}
+          onDeleteConversation={handleDeleteConversation}
+          isOpen={isMobileSidebarOpen}
+          onOpenChange={setIsMobileSidebarOpen}
+        />
 
         {/* Main Chat Area */}
         <div className="flex-1 flex flex-col">

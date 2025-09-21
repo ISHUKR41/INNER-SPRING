@@ -8,6 +8,23 @@ export interface User {
   lastName?: string;
   studentId?: string;
   isAnonymous: boolean;
+  currentMood?: 'excellent' | 'good' | 'neutral' | 'low' | 'very_low';
+  lastMoodUpdate?: Date;
+  moodTrackingEnabled?: boolean;
+  moodReminderFrequency?: 'daily' | 'weekly' | 'disabled';
+  lastActiveSession?: Date;
+  preferredSessionLength?: number;
+  sessionNotificationsEnabled?: boolean;
+  autoSaveEnabled?: boolean;
+  chatPersonality?: 'supportive' | 'clinical' | 'friendly' | 'professional';
+  preferredLanguage?: string;
+  accessibilityNeeds?: string[];
+  timeZone?: string;
+  notificationPreferences?: any;
+  onboardingCompleted?: boolean;
+  privacyLevel?: 'minimal' | 'standard' | 'enhanced';
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface ChatMessage {
@@ -22,6 +39,15 @@ export interface ChatConversation {
   id: string;
   userId: string;
   title?: string;
+  pinned?: boolean;
+  archived?: boolean;
+  lastMessageAt?: Date;
+  category?: 'general' | 'anxiety' | 'depression' | 'crisis' | 'wellness' | 'academic';
+  privacyLevel?: 'minimal' | 'standard' | 'enhanced';
+  autoDeleteAfter?: number;
+  moodContext?: any;
+  messageCount?: number;
+  lastMessage?: string;
   createdAt: Date;
   updatedAt: Date;
   messages?: ChatMessage[];
