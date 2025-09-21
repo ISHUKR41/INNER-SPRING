@@ -110,6 +110,27 @@
   --animation-fast: 0.2s;
   --animation-normal: 0.3s;
   --animation-slow: 0.6s;
+  
+  /* Crisis Statistics Card Colors - Light Mode */
+  --crisis-red: hsl(0, 84%, 60%);
+  --crisis-red-bg: hsl(0, 100%, 97%);
+  --crisis-red-border: hsl(0, 84%, 60%);
+  --crisis-red-icon-bg: hsl(0, 95%, 92%);
+  
+  --crisis-orange: hsl(25, 95%, 65%);
+  --crisis-orange-bg: hsl(25, 100%, 97%);
+  --crisis-orange-border: hsl(25, 95%, 65%);
+  --crisis-orange-icon-bg: hsl(25, 95%, 92%);
+  
+  --crisis-purple: hsl(276, 70%, 65%);
+  --crisis-purple-bg: hsl(276, 100%, 97%);
+  --crisis-purple-border: hsl(276, 70%, 65%);
+  --crisis-purple-icon-bg: hsl(276, 95%, 92%);
+  
+  --crisis-dark-red: hsl(345, 85%, 60%);
+  --crisis-dark-red-bg: hsl(345, 100%, 97%);
+  --crisis-dark-red-border: hsl(345, 85%, 60%);
+  --crisis-dark-red-icon-bg: hsl(345, 95%, 92%);
 }
 
 .dark {
@@ -170,6 +191,27 @@
   --stat-dark-red: hsl(345, 85%, 68%);
   --stat-teal: hsl(180, 70%, 65%);
   --stat-blue: hsl(214, 80%, 72%);
+  
+  /* Crisis Statistics Card Colors - Dark Mode */
+  --crisis-red: hsl(0, 85%, 68%);
+  --crisis-red-bg: hsl(0, 60%, 12%);
+  --crisis-red-border: hsl(0, 85%, 68%);
+  --crisis-red-icon-bg: hsl(0, 60%, 20%);
+  
+  --crisis-orange: hsl(25, 90%, 70%);
+  --crisis-orange-bg: hsl(25, 60%, 12%);
+  --crisis-orange-border: hsl(25, 90%, 70%);
+  --crisis-orange-icon-bg: hsl(25, 60%, 20%);
+  
+  --crisis-purple: hsl(276, 70%, 72%);
+  --crisis-purple-bg: hsl(276, 50%, 12%);
+  --crisis-purple-border: hsl(276, 70%, 72%);
+  --crisis-purple-icon-bg: hsl(276, 50%, 20%);
+  
+  --crisis-dark-red: hsl(345, 85%, 70%);
+  --crisis-dark-red-bg: hsl(345, 60%, 12%);
+  --crisis-dark-red-border: hsl(345, 85%, 70%);
+  --crisis-dark-red-icon-bg: hsl(345, 60%, 20%);
   
   /* Professional Shadow System */
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
@@ -653,6 +695,85 @@
   
   .dark .gradient-tile-red {
     background: var(--gradient-tile-red);
+  }
+  
+  /* Crisis Statistics Card Classes */
+  .crisis-card {
+    @apply transition-all duration-500 ease-in-out transform hover:scale-105 hover:shadow-2xl;
+    border-radius: 1rem;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .crisis-card {
+      @apply hover:scale-100 transition-none;
+    }
+  }
+  
+  .crisis-card-red {
+    @apply crisis-card;
+    border-top: 6px solid var(--crisis-red-border);
+    background: var(--crisis-red-bg);
+    box-shadow: 0 4px 20px rgba(220, 38, 127, 0.1), 0 0 40px rgba(220, 38, 127, 0.05);
+  }
+  
+  .crisis-card-orange {
+    @apply crisis-card;
+    border-top: 6px solid var(--crisis-orange-border);
+    background: var(--crisis-orange-bg);
+    box-shadow: 0 4px 20px rgba(251, 146, 60, 0.1), 0 0 40px rgba(251, 146, 60, 0.05);
+  }
+  
+  .crisis-card-purple {
+    @apply crisis-card;
+    border-top: 6px solid var(--crisis-purple-border);
+    background: var(--crisis-purple-bg);
+    box-shadow: 0 4px 20px rgba(168, 85, 247, 0.1), 0 0 40px rgba(168, 85, 247, 0.05);
+  }
+  
+  .crisis-card-dark-red {
+    @apply crisis-card;
+    border-top: 6px solid var(--crisis-dark-red-border);
+    background: var(--crisis-dark-red-bg);
+    box-shadow: 0 4px 20px rgba(225, 29, 72, 0.1), 0 0 40px rgba(225, 29, 72, 0.05);
+  }
+  
+  .crisis-icon-red {
+    background: var(--crisis-red-icon-bg);
+    color: var(--crisis-red);
+  }
+  
+  .crisis-icon-orange {
+    background: var(--crisis-orange-icon-bg);
+    color: var(--crisis-orange);
+  }
+  
+  .crisis-icon-purple {
+    background: var(--crisis-purple-icon-bg);
+    color: var(--crisis-purple);
+  }
+  
+  .crisis-icon-dark-red {
+    background: var(--crisis-dark-red-icon-bg);
+    color: var(--crisis-dark-red);
+  }
+  
+  .crisis-stat-red {
+    color: var(--crisis-red);
+  }
+  
+  .crisis-stat-orange {
+    color: var(--crisis-orange);
+  }
+  
+  .crisis-stat-purple {
+    color: var(--crisis-purple);
+  }
+  
+  .crisis-stat-dark-red {
+    color: var(--crisis-dark-red);
   }
   
   .hero-bg {

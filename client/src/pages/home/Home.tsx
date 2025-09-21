@@ -19,6 +19,7 @@ import {
   Clock,
   Award,
   TrendingUp,
+  TrendingDown,
   AlertCircle,
   Building,
   Target,
@@ -63,7 +64,7 @@ export default function Home() {
       number: "60%", 
       description: "say mental health significantly impacted their academic performance",
       additional: "Leading to lower GPAs, course withdrawals, and delayed graduation",
-      icon: TrendingUp,
+      icon: TrendingDown,
       accent: "orange"
     },
     {
@@ -575,29 +576,43 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8" data-testid="crisis-statistics-grid">
             {crisisStatistics.map((stat, index) => (
-              <Card key={index} className="card-professional text-center p-8 hover:shadow-xl transition-all duration-300 border-t-4 border-t-red-500 dark:border-t-red-400" data-testid={`stat-card-${index}`}>
-                <CardContent className="space-y-4">
-                  <div className="w-16 h-16 mx-auto rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
-                    <stat.icon className="h-8 w-8 text-red-600 dark:text-red-400" />
+              <Card 
+                key={index} 
+                className={`crisis-card-${stat.accent} text-center p-8 group`} 
+                data-testid={`stat-card-${index}`}
+                tabIndex={0}
+                role="article"
+                aria-label={`Crisis statistic: ${stat.number} ${stat.description}`}
+              >
+                <CardContent className="space-y-6">
+                  {/* Enhanced Icon with Animation */}
+                  <div className={`w-20 h-20 mx-auto rounded-2xl crisis-icon-${stat.accent} flex items-center justify-center shadow-lg transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-3`}>
+                    <stat.icon className="h-10 w-10 transition-transform duration-300 group-hover:scale-110" />
                   </div>
                   
-                  <div className="text-stat-number text-red-600 dark:text-red-400" data-testid={`stat-number-${index}`}>
+                  {/* Enhanced Statistic Number with Professional Typography */}
+                  <div className={`text-stat-number crisis-stat-${stat.accent} font-bold leading-none tracking-tight drop-shadow-sm`} data-testid={`stat-number-${index}`}>
                     {stat.number}
                   </div>
                   
-                  <p className="text-card-subtitle text-high-contrast" data-testid={`stat-description-${index}`}>
+                  {/* Primary Description with Enhanced Typography */}
+                  <p className="text-card-subtitle text-high-contrast leading-tight font-medium" data-testid={`stat-description-${index}`}>
                     {stat.description}
                   </p>
                   
+                  {/* Additional Information with Subtle Styling */}
                   {stat.additional && (
-                    <p className="text-caption text-low-contrast" data-testid={`stat-additional-${index}`}>
+                    <p className="text-caption text-medium-contrast leading-relaxed italic border-l-2 border-l-current pl-4 ml-2 opacity-90" data-testid={`stat-additional-${index}`}>
                       {stat.additional}
                     </p>
                   )}
                   
-                  <p className="text-small text-subtle italic" data-testid={`stat-source-${index}`}>
-                    {stat.source}
-                  </p>
+                  {/* Source Attribution with Professional Styling */}
+                  <div className="pt-2 border-t border-gray-200 dark:border-gray-700">
+                    <p className="text-small text-subtle font-medium tracking-wide" data-testid={`stat-source-${index}`}>
+                      {stat.source}
+                    </p>
+                  </div>
                 </CardContent>
               </Card>
             ))}
