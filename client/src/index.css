@@ -175,7 +175,15 @@
   --gradient-accent: linear-gradient(135deg, hsl(208, 65%, 50%) 0%, hsl(276, 65%, 70%) 100%);
   --gradient-hero: linear-gradient(135deg, hsl(222, 60%, 5%) 0%, hsl(220, 50%, 8%) 50%, hsl(222, 45%, 9%) 100%);
   
-  /* Sophisticated Feature Tile Gradients */
+  /* Sophisticated Feature Tile Gradients - Task Specification Gradients */
+  --gradient-tile-blue-purple: linear-gradient(135deg, hsl(214, 60%, 12%) 0%, hsl(276, 50%, 20%) 100%);
+  --gradient-tile-green-teal: linear-gradient(135deg, hsl(145, 50%, 12%) 0%, hsl(180, 60%, 20%) 100%);
+  --gradient-tile-purple-pink: linear-gradient(135deg, hsl(276, 50%, 12%) 0%, hsl(330, 60%, 20%) 100%);
+  --gradient-tile-red-orange: linear-gradient(135deg, hsl(0, 60%, 12%) 0%, hsl(25, 70%, 20%) 100%);
+  --gradient-tile-orange-yellow: linear-gradient(135deg, hsl(25, 60%, 12%) 0%, hsl(42, 70%, 20%) 100%);
+  --gradient-tile-teal-blue: linear-gradient(135deg, hsl(180, 50%, 12%) 0%, hsl(214, 60%, 20%) 100%);
+  
+  /* Legacy gradients for backward compatibility */
   --gradient-tile-blue: linear-gradient(135deg, hsl(214, 60%, 12%) 0%, hsl(214, 70%, 20%) 100%);
   --gradient-tile-green: linear-gradient(135deg, hsl(145, 50%, 12%) 0%, hsl(145, 60%, 20%) 100%);
   --gradient-tile-purple: linear-gradient(135deg, hsl(276, 50%, 12%) 0%, hsl(276, 60%, 20%) 100%);
@@ -695,6 +703,55 @@
   
   .dark .gradient-tile-red {
     background: var(--gradient-tile-red);
+  }
+
+  /* Task Specification Gradient Classes */
+  .gradient-tile-blue-purple {
+    background: var(--gradient-tile-blue-purple, linear-gradient(135deg, hsl(214, 73%, 95%), hsl(276, 50%, 85%)));
+  }
+
+  .dark .gradient-tile-blue-purple {
+    background: var(--gradient-tile-blue-purple);
+  }
+
+  .gradient-tile-green-teal {
+    background: var(--gradient-tile-green-teal, linear-gradient(135deg, hsl(145, 70%, 95%), hsl(180, 60%, 85%)));
+  }
+
+  .dark .gradient-tile-green-teal {
+    background: var(--gradient-tile-green-teal);
+  }
+
+  .gradient-tile-purple-pink {
+    background: var(--gradient-tile-purple-pink, linear-gradient(135deg, hsl(276, 50%, 95%), hsl(330, 60%, 85%)));
+  }
+
+  .dark .gradient-tile-purple-pink {
+    background: var(--gradient-tile-purple-pink);
+  }
+
+  .gradient-tile-red-orange {
+    background: var(--gradient-tile-red-orange, linear-gradient(135deg, hsl(0, 84%, 95%), hsl(25, 85%, 85%)));
+  }
+
+  .dark .gradient-tile-red-orange {
+    background: var(--gradient-tile-red-orange);
+  }
+
+  .gradient-tile-orange-yellow {
+    background: var(--gradient-tile-orange-yellow, linear-gradient(135deg, hsl(25, 85%, 95%), hsl(42, 87%, 85%)));
+  }
+
+  .dark .gradient-tile-orange-yellow {
+    background: var(--gradient-tile-orange-yellow);
+  }
+
+  .gradient-tile-teal-blue {
+    background: var(--gradient-tile-teal-blue, linear-gradient(135deg, hsl(180, 60%, 95%), hsl(214, 73%, 85%)));
+  }
+
+  .dark .gradient-tile-teal-blue {
+    background: var(--gradient-tile-teal-blue);
   }
   
   /* Crisis Statistics Card Classes */

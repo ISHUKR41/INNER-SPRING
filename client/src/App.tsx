@@ -91,6 +91,7 @@ function AppRouter() {
         <Route path="/peer-support" component={PeerSupport} />
         <Route path="/emergency" component={Emergency} />
         <Route path="/crisis-help" component={CrisisHelp} />
+        <Route path="/crisis" component={CrisisHelp} />
         
         {/* Secondary routes for user management and information */}
         <Route path="/dashboard" component={Dashboard} />

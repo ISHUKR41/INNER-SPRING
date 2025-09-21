@@ -84,66 +84,55 @@ export default function Home() {
     }
   ];
 
-  // Quick access feature tiles data
+  // Quick access feature tiles data - Updated to Task Specifications
   const featureTiles = [
     {
-      title: "24/7 AI Mental Health Support",
-      description: "Immediate coping strategies, breathing exercises, and emotional support when you need it most",
-      useCase: "Perfect for late-night anxiety, pre-exam stress, or sudden panic",
-      button: "Start Chatting Now",
-      icon: Bot,
-      gradient: "gradient-tile-blue",
+      title: "Instant AI Chat",
+      description: "24/7 instant support and coping strategies",
+      button: "Start Chatting",
+      icon: MessageCircle,
+      gradient: "gradient-tile-blue-purple",
       href: "/chatbot"
     },
     {
-      title: "Campus Counselor Booking", 
-      description: "Schedule confidential appointments with licensed campus counselors and mental health professionals",
-      useCase: "When you need deeper support, therapy, or professional diagnosis",
-      button: "Book Appointment",
-      additionalInfo: "Average wait time: 2-3 days",
-      icon: Calendar,
-      gradient: "gradient-tile-green", 
-      href: "/appointments"
-    },
-    {
-      title: "Evidence-Based Assessment",
-      description: "Understand your mental health with validated tools used by professionals (PHQ-9, GAD-7, stress scales)",
-      useCase: "When you want to understand what you're feeling", 
+      title: "Quick Assessment",
+      description: "2-minute mental health assessment",
       button: "Take Assessment",
-      privacyNote: "100% anonymous option available",
-      icon: ClipboardList,
-      gradient: "gradient-tile-purple",
+      icon: ClipboardCheck,
+      gradient: "gradient-tile-green-teal",
       href: "/assessment"
     },
     {
-      title: "Self-Help Resource Library",
-      description: "Videos, articles, audio guides, and interactive tools for managing anxiety, depression, stress, and more",
-      useCase: "Learn coping skills at your own pace",
-      button: "Browse Resources", 
-      contentNote: "Available in multiple languages",
+      title: "Book Counseling",
+      description: "Same-day professional appointments",
+      button: "Book Session",
+      icon: Calendar,
+      gradient: "gradient-tile-purple-pink",
+      href: "/appointments"
+    },
+    {
+      title: "Crisis Support",
+      description: "Immediate help when you need it most",
+      button: "Get Help Now",
+      icon: Phone,
+      gradient: "gradient-tile-red-orange",
+      href: "/crisis"
+    },
+    {
+      title: "Self-Help Tools",
+      description: "Guided exercises and coping resources",
+      button: "Explore Tools",
       icon: BookOpen,
-      gradient: "gradient-tile-yellow",
+      gradient: "gradient-tile-orange-yellow",
       href: "/resources"
     },
     {
-      title: "Student Support Community",
-      description: "Connect with other students facing similar challenges in moderated, safe discussion groups", 
-      useCase: "When you feel alone or need peer understanding",
+      title: "Peer Support",
+      description: "Connect with supportive student community",
       button: "Join Community",
-      safetyNote: "Professionally moderated",
       icon: Users,
-      gradient: "gradient-tile-coral",
+      gradient: "gradient-tile-teal-blue",
       href: "/peer-support"
-    },
-    {
-      title: "Emergency Crisis Support", 
-      description: "Immediate help for mental health emergencies, suicidal thoughts, or when you need help right now",
-      useCase: "When you're in crisis and need immediate help",
-      button: "Get Help Now",
-      icon: PhoneCall,
-      gradient: "gradient-tile-red",
-      href: "/crisis-help",
-      isEmergency: true
     }
   ];
 
