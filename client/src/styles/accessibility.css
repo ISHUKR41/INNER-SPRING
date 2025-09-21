@@ -1,0 +1,615 @@
+/* Comprehensive Accessibility Styles for Mental Health Chat Platform */
+
+/* Base accessibility improvements */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Focus management */
+:focus {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+
+/* Enhanced focus indicators */
+.enhanced-focus :focus,
+.enhanced-focus :focus-visible {
+  outline: 3px solid hsl(var(--primary));
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px hsla(var(--primary), 0.2);
+}
+
+/* Screen reader only content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.sr-only:focus,
+.sr-only:active {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* High contrast mode */
+.high-contrast {
+  --background: 0 0% 0%;
+  --foreground: 0 0% 100%;
+  --card: 0 0% 10%;
+  --card-foreground: 0 0% 100%;
+  --popover: 0 0% 10%;
+  --popover-foreground: 0 0% 100%;
+  --primary: 210 100% 70%;
+  --primary-foreground: 0 0% 0%;
+  --secondary: 0 0% 20%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 0 0% 15%;
+  --muted-foreground: 0 0% 90%;
+  --accent: 0 0% 20%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 100% 70%;
+  --destructive-foreground: 0 0% 0%;
+  --border: 0 0% 30%;
+  --input: 0 0% 20%;
+  --ring: 210 100% 70%;
+}
+
+.high-contrast * {
+  border-color: hsl(var(--border)) !important;
+}
+
+.high-contrast button,
+.high-contrast a,
+.high-contrast [role="button"] {
+  border: 2px solid hsl(var(--border)) !important;
+}
+
+.high-contrast img {
+  filter: contrast(1.2) brightness(1.1);
+}
+
+/* Text sizing */
+.text-small {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.text-medium {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.text-large {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.text-extra-large {
+  font-size: 1.25rem;
+  line-height: 1.875rem;
+}
+
+/* Large click targets */
+.large-click-targets button,
+.large-click-targets a,
+.large-click-targets [role="button"],
+.large-click-targets input,
+.large-click-targets select,
+.large-click-targets textarea {
+  min-height: 44px !important;
+  min-width: 44px !important;
+  padding: 12px !important;
+}
+
+.large-click-targets .h-8 {
+  height: 44px !important;
+  width: 44px !important;
+}
+
+.large-click-targets .h-10 {
+  height: 48px !important;
+  width: 48px !important;
+}
+
+/* Color blindness support */
+.deuteranopia {
+  filter: url('#deuteranopia-filter');
+}
+
+.protanopia {
+  filter: url('#protanopia-filter');
+}
+
+.tritanopia {
+  filter: url('#tritanopia-filter');
+}
+
+/* Screen reader optimization */
+.screen-reader-optimized {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.screen-reader-optimized h1,
+.screen-reader-optimized h2,
+.screen-reader-optimized h3,
+.screen-reader-optimized h4,
+.screen-reader-optimized h5,
+.screen-reader-optimized h6 {
+  font-weight: bold;
+}
+
+.screen-reader-optimized p {
+  margin-bottom: 1rem;
+}
+
+.screen-reader-optimized ul,
+.screen-reader-optimized ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Responsive design enhancements */
+
+/* Mobile-first responsive breakpoints */
+/* Extra small devices (phones, 320px and up) */
+@media (min-width: 320px) {
+  .container {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+  
+  /* Touch-friendly spacing */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Mobile typography */
+  .mobile-text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+  
+  .mobile-text-base {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+  
+  .mobile-text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+    margin: 0 auto;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+  
+  /* Tablet-specific chat layout */
+  .tablet-chat-layout {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    height: 100vh;
+  }
+  
+  /* Hover states for non-touch devices */
+  @media (hover: hover) {
+    .hover-lift:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+  
+  /* Desktop chat layout */
+  .desktop-chat-layout {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    height: 100vh;
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+  
+  /* Wide desktop layout */
+  .wide-desktop-layout {
+    display: grid;
+    grid-template-columns: 400px 1fr 300px;
+    height: 100vh;
+  }
+}
+
+/* Ultra-wide displays (1400px and up) */
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1320px;
+  }
+}
+
+/* TV/Large screen displays (1920px and up) */
+@media (min-width: 1920px) {
+  .container {
+    max-width: 1800px;
+  }
+  
+  /* TV-friendly interface */
+  .tv-interface {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+  
+  .tv-interface button,
+  .tv-interface a {
+    min-height: 60px;
+    min-width: 60px;
+    font-size: 1.25rem;
+  }
+}
+
+/* Touch device optimizations */
+@media (pointer: coarse) {
+  /* Larger touch targets */
+  button,
+  a,
+  [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 12px;
+  }
+  
+  /* Remove hover effects on touch devices */
+  .hover-effect:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  
+  /* Touch-friendly scrollbars */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+    border-radius: 6px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground));
+    border-radius: 6px;
+    border: 2px solid hsl(var(--muted));
+  }
+}
+
+/* Landscape phone optimizations */
+@media (max-height: 500px) and (orientation: landscape) {
+  .landscape-optimize {
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .landscape-header {
+    height: 60px;
+    padding: 0.5rem 1rem;
+  }
+  
+  .landscape-input {
+    min-height: 40px;
+  }
+}
+
+/* Dark mode accessibility improvements */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+  
+  /* Better contrast in dark mode */
+  .dark-mode-contrast {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+  }
+}
+
+/* Animation and transition controls */
+:root {
+  --animation-duration: 0.3s;
+  --transition-duration: 0.2s;
+}
+
+.animate-fade-in {
+  animation: fadeIn var(--animation-duration) ease-in-out;
+}
+
+.animate-slide-in {
+  animation: slideIn var(--animation-duration) ease-out;
+}
+
+.animate-bounce-in {
+  animation: bounceIn var(--animation-duration) ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0.3); opacity: 0; }
+  50% { transform: scale(1.05); }
+  70% { transform: scale(0.9); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Loading dots animation */
+.loading-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.loading-dots div {
+  width: 6px;
+  height: 6px;
+  background-color: currentColor;
+  border-radius: 50%;
+  animation: loadingDots 1.4s infinite ease-in-out both;
+}
+
+.loading-dots div:nth-child(1) { animation-delay: -0.32s; }
+.loading-dots div:nth-child(2) { animation-delay: -0.16s; }
+.loading-dots div:nth-child(3) { animation-delay: 0; }
+
+@keyframes loadingDots {
+  0%, 80%, 100% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Gradient utilities */
+.gradient-primary {
+  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.8) 100%);
+}
+
+.gradient-mental-health {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.gradient-calm {
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+}
+
+.gradient-warm {
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+}
+
+/* Utility classes for mental health theming */
+.mental-health-primary {
+  color: #667eea;
+}
+
+.mental-health-secondary {
+  color: #764ba2;
+}
+
+.mental-health-accent {
+  color: #a8edea;
+}
+
+.mental-health-warm {
+  color: #fcb69f;
+}
+
+/* Skip to content link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 9999;
+  transition: top var(--transition-duration) ease;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-friendly {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+  }
+  
+  a {
+    text-decoration: underline;
+  }
+  
+  a[href^="http"]:after {
+    content: " (" attr(href) ")";
+  }
+}
+
+/* Error and success states */
+.error-state {
+  border: 2px solid hsl(var(--destructive));
+  background-color: hsl(var(--destructive) / 0.1);
+}
+
+.success-state {
+  border: 2px solid hsl(142 76% 36%);
+  background-color: hsl(142 76% 36% / 0.1);
+}
+
+.warning-state {
+  border: 2px solid hsl(38 92% 50%);
+  background-color: hsl(38 92% 50% / 0.1);
+}
+
+/* Custom scrollbar for better accessibility */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--muted-foreground)) hsl(var(--muted));
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground));
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--foreground));
+}
+
+/* Focus ring utility */
+.focus-ring {
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2;
+}
+
+/* Color blindness SVG filters */
+.color-blind-filters {
+  position: absolute;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+
+/* Mobile swipe indicators */
+.swipe-indicator {
+  position: relative;
+}
+
+.swipe-indicator::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 2px;
+  background: hsl(var(--muted-foreground));
+  border-radius: 1px;
+}
+
+/* Chat-specific responsive improvements */
+.chat-mobile-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh; /* Dynamic viewport height for mobile */
+}
+
+.chat-mobile-header {
+  flex-shrink: 0;
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+.chat-mobile-content {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-mobile-input {
+  flex-shrink: 0;
+  border-top: 1px solid hsl(var(--border));
+  padding: env(safe-area-inset-bottom);
+}
+
+/* Safe area handling for mobile devices */
+@supports (padding: env(safe-area-inset-top)) {
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  .safe-area-left {
+    padding-left: env(safe-area-inset-left);
+  }
+  
+  .safe-area-right {
+    padding-right: env(safe-area-inset-right);
+  }
+}

@@ -31,6 +31,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/theme-provider";
+import { AccessibilityProvider } from "@/components/accessibility/AccessibilityProvider";
 import { queryClient } from "./lib/queryClient";
 
 /**
@@ -140,15 +141,17 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="system" storageKey="mindcare-ui-theme">
-        <TooltipProvider>
-          <div className="min-h-screen bg-background text-foreground">
-            {/* Global toast notification system for user feedback */}
-            <Toaster />
-            
-            {/* Main application router handling all page navigation */}
-            <AppRouter />
-          </div>
-        </TooltipProvider>
+        <AccessibilityProvider>
+          <TooltipProvider>
+            <div className="min-h-screen bg-background text-foreground">
+              {/* Global toast notification system for user feedback */}
+              <Toaster />
+              
+              {/* Main application router handling all page navigation */}
+              <AppRouter />
+            </div>
+          </TooltipProvider>
+        </AccessibilityProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );
