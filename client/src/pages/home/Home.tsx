@@ -421,45 +421,47 @@ export default function Home() {
     <div className="min-h-screen bg-background text-foreground">
       <Header />
       
-      {/* Section 1: Hero Banner - Fully Responsive */}
-      <section className="hero-section relative overflow-hidden pt-16 xs:pt-20 sm:pt-24 md:pt-28 lg:pt-32 xl:pt-36 2xl:pt-40 3xl:pt-48 pb-12 xs:pb-16 sm:pb-20 md:pb-24 lg:pb-28 xl:pb-32 2xl:pb-36 3xl:pb-44" data-testid="section-hero">
-        {/* Background Elements */}
+      {/* Section 1: Hero Banner - Professional & Modern */}
+      <section className="hero-section relative overflow-hidden" data-testid="section-hero">
+        {/* Enhanced Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="floating-shape floating-shape-1"></div>
-          <div className="floating-shape floating-shape-2"></div>
-          <div className="floating-shape floating-shape-3"></div>
+          <div className="floating-shape floating-shape-1 floating"></div>
+          <div className="floating-shape floating-shape-2 floating-delayed"></div>
+          <div className="floating-shape floating-shape-3 floating"></div>
+          <div className="floating-triangle floating-triangle-1"></div>
+          <div className="floating-triangle floating-triangle-2"></div>
         </div>
 
-        <div className="relative max-w-full mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 3xl:px-24">
-          <div className="grid lg:grid-cols-2 gap-8 xs:gap-10 sm:gap-12 lg:gap-16 xl:gap-20 2xl:gap-24 3xl:gap-32 items-center">
-            {/* Left Content - Responsive Spacing */}
-            <div className="space-y-4 xs:space-y-6 sm:space-y-8 lg:space-y-10 xl:space-y-12 2xl:space-y-16">
-              {/* Main Headline */}
-              <div className="space-y-4" data-testid="hero-content">
-                <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl 3xl:text-9xl font-bold font-heading leading-tight text-high-contrast" data-testid="text-main-headline">
+        <div className="hero-content max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-20 items-center">
+            {/* Left Content - Enhanced Typography & Spacing */}
+            <div className="space-y-8 lg:space-y-10 fade-in" data-testid="hero-content">
+              {/* Main Headlines */}
+              <div className="space-y-6">
+                <h1 className="text-hero font-bold font-heading leading-tight text-high-contrast" data-testid="text-main-headline">
                   Your Mental Health Journey
-                  <span className="block text-emphasis text-glow-primary">Starts Here</span>
+                  <span className="block text-emphasis text-glow-primary mt-2">Starts Here</span>
                 </h1>
                 
-                <h2 className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl 3xl:text-7xl font-semibold text-medium-contrast leading-snug" data-testid="text-secondary-headline">
+                <h2 className="text-lead font-semibold text-medium-contrast leading-snug max-w-2xl" data-testid="text-secondary-headline">
                   Safe, Confidential, Professional Support Available 24/7
                 </h2>
                 
-                <p className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl 3xl:text-5xl text-medium-contrast max-w-full lg:max-w-2xl xl:max-w-4xl leading-relaxed" data-testid="text-hero-description">
+                <p className="text-body-large text-medium-contrast max-w-2xl leading-relaxed" data-testid="text-hero-description">
                   Break free from the barriers that prevent students from accessing mental health support. Our evidence-based platform combines AI-powered assistance, professional counseling, and peer community support—all designed specifically for the unique challenges of college life.
                 </p>
               </div>
 
-              {/* CTA Buttons - Enhanced Touch Targets */}
-              <div className="flex flex-col sm:flex-row gap-3 xs:gap-4 sm:gap-6 lg:gap-8" data-testid="hero-cta-buttons">
+              {/* Enhanced CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6" data-testid="hero-cta-buttons">
                 <Button 
                   asChild
                   size="lg" 
-                  className="btn-professional bg-primary hover:bg-primary/90 text-primary-foreground px-4 xs:px-6 sm:px-8 lg:px-12 xl:px-16 py-3 xs:py-4 sm:py-5 lg:py-6 xl:py-8 text-sm xs:text-base sm:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-semibold rounded-xl w-full sm:w-auto min-h-12 xs:min-h-14 sm:min-h-16 lg:min-h-20 xl:min-h-24"
+                  className="btn-professional px-8 py-4 text-lg font-semibold rounded-xl w-full sm:w-auto group"
                 >
                   <Link href="/assessment" data-testid="button-start-assessment">
                     Start Free Assessment
-                    <ArrowRight className="ml-2 h-5 w-5" />
+                    <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </Button>
                 
@@ -467,64 +469,90 @@ export default function Home() {
                   asChild
                   variant="outline" 
                   size="lg"
-                  className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 w-full sm:w-auto"
+                  className="btn-secondary-outline px-8 py-4 text-lg font-semibold rounded-xl w-full sm:w-auto group"
                 >
                   <Link href="/chatbot" data-testid="button-chat-ai">
-                    <MessageCircle className="mr-2 h-5 w-5" />
+                    <MessageCircle className="mr-2 h-5 w-5 transition-transform group-hover:scale-110" />
                     Chat with AI Now
                   </Link>
                 </Button>
               </div>
 
-              {/* Trust Indicators */}
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 pt-8" data-testid="trust-indicators">
+              {/* Enhanced Trust Indicators */}
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 pt-6" data-testid="trust-indicators">
                 {[
                   { text: "100% Confidential", icon: Shield },
                   { text: "HIPAA Secure", icon: CheckCircle },
                   { text: "24/7 Available", icon: Clock },
                   { text: "Evidence-Based", icon: Award }
                 ].map((indicator, index) => (
-                  <div key={index} className="flex items-center space-x-2 text-caption text-medium-contrast font-medium" data-testid={`trust-indicator-${index}`}>
-                    <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
-                    <span>{indicator.text}</span>
+                  <div key={index} className="trust-indicator group" data-testid={`trust-indicator-${index}`}>
+                    <div className="trust-checkmark">
+                      <CheckCircle className="h-4 w-4 text-white" />
+                    </div>
+                    <span className="text-sm font-medium text-high-contrast group-hover:text-primary transition-colors">
+                      {indicator.text}
+                    </span>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Right Content - Hero Illustration */}
-            <div className="relative" data-testid="hero-illustration">
-              <div className="relative bg-white dark:bg-gray-800 rounded-3xl shadow-2xl p-8 transform rotate-1">
-                <div className="absolute -top-4 -left-4 w-8 h-8 bg-primary rounded-full"></div>
-                <div className="absolute -bottom-4 -right-4 w-12 h-12 bg-secondary rounded-full"></div>
+            {/* Right Content - Enhanced Hero Illustration */}
+            <div className="relative fade-in" data-testid="hero-illustration" style={{animationDelay: '0.3s'}}>
+              <div className="hero-illustration p-8 floating">
+                {/* Decorative elements */}
+                <div className="absolute -top-6 -left-6 w-12 h-12 bg-gradient-to-br from-primary to-primary/70 rounded-2xl rotate-12 floating-delayed"></div>
+                <div className="absolute -bottom-6 -right-6 w-16 h-16 bg-gradient-to-br from-secondary to-secondary/70 rounded-full floating"></div>
+                <div className="absolute top-1/4 -right-4 w-8 h-8 bg-gradient-to-br from-purple-500 to-purple-400 rounded-lg rotate-45 floating-delayed"></div>
                 
-                <div className="space-y-6">
+                <div className="space-y-8 relative z-10">
+                  {/* Central focus */}
                   <div className="text-center">
-                    <div className="w-20 h-20 bg-gradient-primary rounded-full mx-auto mb-4 flex items-center justify-center">
-                      <Brain className="h-10 w-10 text-white" />
+                    <div className="w-24 h-24 gradient-primary rounded-2xl mx-auto mb-6 flex items-center justify-center shadow-lg floating">
+                      <Brain className="h-12 w-12 text-white" />
                     </div>
-                    <h3 className="text-card-title text-high-contrast mb-2" data-testid="text-wellness-title">
+                    <h3 className="text-card-title text-high-contrast mb-3 font-semibold" data-testid="text-wellness-title">
                       Supporting Student Wellness
                     </h3>
-                    <p className="text-caption text-medium-contrast" data-testid="text-wellness-description">
+                    <p className="text-body text-medium-contrast max-w-sm mx-auto" data-testid="text-wellness-description">
                       Join thousands of students finding their path to mental wellness
                     </p>
                   </div>
                   
+                  {/* Feature grid */}
                   <div className="grid grid-cols-3 gap-4">
                     {[
-                      { icon: Users, label: "Community" },
-                      { icon: Shield, label: "Privacy" },
-                      { icon: Heart, label: "Care" },
-                      { icon: Clock, label: "24/7" },
-                      { icon: Target, label: "Goals" },
-                      { icon: Award, label: "Quality" }
+                      { icon: Users, label: "Community", color: "text-blue-500" },
+                      { icon: Shield, label: "Privacy", color: "text-green-500" },
+                      { icon: Heart, label: "Care", color: "text-pink-500" },
+                      { icon: Clock, label: "24/7", color: "text-purple-500" },
+                      { icon: Target, label: "Goals", color: "text-orange-500" },
+                      { icon: Award, label: "Quality", color: "text-teal-500" }
                     ].map((item, index) => (
-                      <div key={index} className="text-center p-3 rounded-xl bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors" data-testid={`hero-feature-${index}`}>
-                        <item.icon className="h-6 w-6 text-primary mx-auto mb-1" />
-                        <span className="text-small text-low-contrast">{item.label}</span>
+                      <div key={index} className="text-center p-4 rounded-xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm hover:bg-white/70 dark:hover:bg-gray-800/70 transition-all duration-300 group" data-testid={`hero-feature-${index}`}>
+                        <item.icon className={`h-6 w-6 ${item.color} mx-auto mb-2 group-hover:scale-110 transition-transform`} />
+                        <span className="text-small text-medium-contrast font-medium">{item.label}</span>
                       </div>
                     ))}
+                  </div>
+                  
+                  {/* Wellness metrics */}
+                  <div className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm rounded-xl p-4 border border-white/20 dark:border-gray-700/30">
+                    <div className="grid grid-cols-3 gap-4 text-center">
+                      <div>
+                        <div className="text-lg font-bold text-emphasis">15K+</div>
+                        <div className="text-small text-medium-contrast">Students</div>
+                      </div>
+                      <div>
+                        <div className="text-lg font-bold text-emphasis">94%</div>
+                        <div className="text-small text-medium-contrast">Success</div>
+                      </div>
+                      <div>
+                        <div className="text-lg font-bold text-emphasis">24/7</div>
+                        <div className="text-small text-medium-contrast">Support</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
