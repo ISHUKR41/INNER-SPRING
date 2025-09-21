@@ -67,7 +67,7 @@ import NotFound from "@/pages/not-found/not-found";        // 404 error page for
  * - "/" - Home page with platform overview and quick access
  * - "/chatbot" - AI mental health assistant for immediate support
  * - "/appointments" - Professional counselor booking and scheduling
- * - "/assessment" - Mental health self-assessment tools
+ * - "/assessments" - Mental health self-assessment tools
  * - "/resources" - Educational content and coping resources
  * - "/peer-support" - Anonymous community discussion forum
  * - "/emergency" - Crisis intervention and emergency contacts
@@ -86,7 +86,7 @@ function AppRouter() {
         <Route path="/" component={Home} />
         <Route path="/chatbot" component={ChatBot} />
         <Route path="/appointments" component={Appointments} />
-        <Route path="/assessment" component={SelfAssessment} />
+        <Route path="/assessments" component={SelfAssessment} />
         <Route path="/resources" component={Resources} />
         <Route path="/peer-support" component={PeerSupport} />
         <Route path="/emergency" component={Emergency} />

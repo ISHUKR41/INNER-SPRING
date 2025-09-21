@@ -104,7 +104,7 @@ export default function About() {
                 </p>
                 <div className="flex items-center space-x-4">
                   <Button className="bg-primary text-white" asChild data-testid="button-get-started">
-                    <a href="/assessment">Get Started Today</a>
+                    <a href="/assessments">Get Started Today</a>
                   </Button>
                 </div>
               </div>

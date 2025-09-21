@@ -30,18 +30,14 @@ import * as schema from "@shared/schema";
 // Required for chat functionality and live updates
 neonConfig.webSocketConstructor = ws;
 
-// Validate database connection configuration
-// Ensures proper setup before application startup
-if (!process.env.DATABASE_URL) {
-  throw new Error(
-    "DATABASE_URL must be set. Did you forget to provision a database?",
-  );
-}
+// Check database availability for lazy initialization
+// Allows application to start even if database is not immediately available
+export const hasDb = !!process.env.DATABASE_URL;
 
-// Create PostgreSQL connection pool for efficient database access
+// Lazy database initialization - only create when database is available
 // Pool manages multiple connections for concurrent requests
-export const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+export const pool = hasDb ? new Pool({ connectionString: process.env.DATABASE_URL }) : undefined;
 
 // Initialize Drizzle ORM with schema for type-safe database operations
-// Provides compile-time type checking for all database queries
-export const db = drizzle({ client: pool, schema });
+// Provides compile-time type checking for all database queries when available
+export const db = hasDb ? drizzle({ client: pool!, schema }) : undefined;
