@@ -24,6 +24,8 @@ import {
   Building,
   Target,
   GraduationCap,
+  DollarSign,
+  ArrowRightLeft,
   Lightbulb,
   Handshake,
   Sprout,
@@ -185,35 +187,35 @@ export default function Home() {
     }
   ];
 
-  // Student challenge cards data
+  // Student challenge cards data - Updated to exact specifications
   const challengeCards = [
     {
-      header: "Academic Stress & Performance Anxiety",
-      statistic: "87% of students feel overwhelmed by coursework",
-      symptoms: "Test anxiety, perfectionism, imposter syndrome, fear of failure",
-      quote: "The pre-exam anxiety was paralyzing until I learned breathing techniques",
-      icon: GraduationCap
+      title: "Academic Pressure",
+      description: "Overwhelming coursework, perfectionism, and fear of failure affecting your studies and mental health",
+      symptoms: "Anxiety before exams, procrastination, feeling never good enough",
+      icon: GraduationCap,
+      accent: "blue"
     },
     {
-      header: "Social Isolation & Identity Development", 
-      statistic: "43% report feeling lonely despite being surrounded by people",
-      symptoms: "Social anxiety, homesickness, identity confusion, relationship problems",
-      quote: "Finding my community through peer support changed everything",
-      icon: Users
+      title: "Social Isolation",
+      description: "Difficulty making connections, loneliness, and social anxiety in college environments",
+      symptoms: "Feeling left out, fear of judgment, avoiding social situations",
+      icon: Users,
+      accent: "green"
     },
     {
-      header: "Financial Stress & Future Uncertainty",
-      statistic: "78% worry about student loans and career prospects", 
-      symptoms: "Financial anxiety, career uncertainty, family pressure, debt stress",
-      quote: "I learned to separate my worth from my financial situation",
-      icon: Building
+      title: "Financial Stress",
+      description: "Money worries, student loans, and working while studying creating additional pressure",
+      symptoms: "Constant worry about money, sleep loss, avoiding activities due to cost",
+      icon: DollarSign,
+      accent: "orange"
     },
     {
-      header: "Life Transitions & Independence",
-      statistic: "65% struggle with the transition to adulthood",
-      symptoms: "Homesickness, independence anxiety, adult responsibility stress", 
-      quote: "Learning to be independent without being alone was key",
-      icon: Target
+      title: "Life Transitions",
+      description: "Adjusting to independence, changing relationships, and uncertain future plans",
+      symptoms: "Feeling overwhelmed by change, identity confusion, homesickness",
+      icon: ArrowRightLeft,
+      accent: "purple"
     }
   ];
 
@@ -830,38 +832,58 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-high-contrast mb-4" data-testid="text-challenges-title">
-              Mental Health Challenges Unique to Student Life
+              Student-Specific Mental Health Challenges
             </h2>
             <p className="text-xl text-medium-contrast max-w-3xl mx-auto" data-testid="text-challenges-subtitle">
-              We understand the specific pressures you face
+              We understand the unique pressures you face
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8" data-testid="challenges-grid">
             {challengeCards.map((challenge, index) => (
-              <Card key={index} className="card-professional p-8 hover:shadow-xl transition-all duration-300" data-testid={`challenge-card-${index}`}>
-                <CardContent className="space-y-6">
+              <Card 
+                key={index} 
+                className={`card-professional hover:shadow-xl transition-all duration-300 group border-l-4 ${
+                  challenge.accent === 'blue' ? 'border-l-blue-500 bg-blue-50/50 dark:bg-blue-950/20' :
+                  challenge.accent === 'green' ? 'border-l-green-500 bg-green-50/50 dark:bg-green-950/20' :
+                  challenge.accent === 'orange' ? 'border-l-orange-500 bg-orange-50/50 dark:bg-orange-950/20' :
+                  'border-l-purple-500 bg-purple-50/50 dark:bg-purple-950/20'
+                }`} 
+                data-testid={`challenge-card-${index}`}
+              >
+                <CardHeader className="pb-4">
                   <div className="flex items-center space-x-4">
-                    <div className="w-16 h-16 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center">
-                      <challenge.icon className="h-8 w-8 text-primary" />
+                    <div className={`w-16 h-16 rounded-xl flex items-center justify-center shadow-lg ${
+                      challenge.accent === 'blue' ? 'bg-blue-500 dark:bg-blue-600' :
+                      challenge.accent === 'green' ? 'bg-green-500 dark:bg-green-600' :
+                      challenge.accent === 'orange' ? 'bg-orange-500 dark:bg-orange-600' :
+                      'bg-purple-500 dark:bg-purple-600'
+                    }`}>
+                      <challenge.icon className="h-8 w-8 text-white" />
                     </div>
-                    <h3 className="text-xl font-bold text-high-contrast" data-testid={`challenge-header-${index}`}>
-                      {challenge.header}
-                    </h3>
+                    <div>
+                      <CardTitle className="text-xl font-bold text-high-contrast" data-testid={`challenge-title-${index}`}>
+                        {challenge.title}
+                      </CardTitle>
+                    </div>
                   </div>
+                </CardHeader>
+                
+                <CardContent className="space-y-6">
+                  <p className="text-medium-contrast leading-relaxed" data-testid={`challenge-description-${index}`}>
+                    {challenge.description}
+                  </p>
                   
-                  <div className="space-y-4">
-                    <p className="text-lg font-semibold text-primary" data-testid={`challenge-statistic-${index}`}>
-                      {challenge.statistic}
+                  <div className={`p-4 rounded-lg border-l-4 ${
+                    challenge.accent === 'blue' ? 'bg-blue-50 dark:bg-blue-950/30 border-l-blue-500' :
+                    challenge.accent === 'green' ? 'bg-green-50 dark:bg-green-950/30 border-l-green-500' :
+                    challenge.accent === 'orange' ? 'bg-orange-50 dark:bg-orange-950/30 border-l-orange-500' :
+                    'bg-purple-50 dark:bg-purple-950/30 border-l-purple-500'
+                  }`}>
+                    <p className="text-sm font-semibold text-high-contrast mb-2">Common symptoms:</p>
+                    <p className="text-medium-contrast text-sm" data-testid={`challenge-symptoms-${index}`}>
+                      {challenge.symptoms}
                     </p>
-                    
-                    <p className="text-medium-contrast" data-testid={`challenge-symptoms-${index}`}>
-                      <strong>Common experiences:</strong> {challenge.symptoms}
-                    </p>
-                    
-                    <blockquote className="italic text-low-contrast border-l-4 border-primary pl-4" data-testid={`challenge-quote-${index}`}>
-                      "{challenge.quote}"
-                    </blockquote>
                   </div>
                 </CardContent>
               </Card>
