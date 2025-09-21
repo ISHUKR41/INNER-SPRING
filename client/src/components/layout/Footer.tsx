@@ -60,10 +60,10 @@ export default function Footer() {
       urgent: false
     },
     { 
-      label: "International Crisis Resources", 
-      contact: "Global Support",
-      href: "/international-crisis",
-      type: "link",
+      label: "Online Crisis Resources", 
+      contact: "Crisis Text Line",
+      href: "https://www.crisistextline.org",
+      type: "external",
       available: "24/7",
       urgent: false
     },
@@ -80,19 +80,15 @@ export default function Footer() {
   // Platform Information - About MindCare links
   const platformLinks = [
     { href: "/about", label: "Our Evidence-Based Approach", icon: BookOpen },
-    { href: "/clinical-team", label: "Clinical Advisory Team", icon: Users },
     { href: "/privacy", label: "Privacy & Security Practices", icon: Shield },
-    { href: "/accessibility", label: "Accessibility Commitment", icon: Heart },
-    { href: "/research", label: "Platform Effectiveness Research", icon: ExternalLink }
+    { href: "/accessibility", label: "Accessibility Commitment", icon: Heart }
   ];
 
   // Student Resources - Additional support links
   const studentResourceLinks = [
-    { href: "/campus-resources", label: "Campus Resource Directory", icon: MapPin },
-    { href: "/academic-support", label: "Academic Support Connections", icon: BookOpen },
-    { href: "/financial-aid", label: "Financial Aid Counseling", icon: Shield },
-    { href: "/career-services", label: "Career Services Integration", icon: ExternalLink },
-    { href: "/student-rights", label: "Student Rights & Advocacy", icon: Users }
+    { href: "/resources", label: "Mental Health Resources", icon: BookOpen },
+    { href: "/peer-support", label: "Peer Support Community", icon: Users },
+    { href: "/emergency", label: "Emergency Support", icon: AlertTriangle }
   ];
 
   // Social Links with expanded options
@@ -114,48 +110,52 @@ export default function Footer() {
 
   return (
     <footer 
-      className="relative bg-gradient-to-b from-background to-muted/30 dark:from-[#0D1117] dark:via-[#161B22] dark:to-[#21262D] border-t border-border/60 dark:border-gray-700/50 overflow-hidden"
+      className="relative bg-gradient-to-b from-gray-900 via-black to-gray-950 dark:from-gray-950 dark:via-black dark:to-gray-900 border-t border-gray-700/30 dark:border-gray-600/40 overflow-hidden"
       role="contentinfo"
     >
-      {/* Subtle Background Pattern */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.02] via-transparent to-secondary/[0.02] dark:from-primary/[0.03] dark:to-secondary/[0.03]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(59,130,246,0.05),transparent_50%)] dark:bg-[radial-gradient(circle_at_50%_0%,rgba(59,130,246,0.08),transparent_50%)]" />
+      {/* Professional Dark Background Pattern */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.05] via-transparent to-secondary/[0.05] dark:from-primary/[0.08] dark:to-secondary/[0.08]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(59,130,246,0.08),transparent_60%)] dark:bg-[radial-gradient(circle_at_50%_0%,rgba(59,130,246,0.12),transparent_60%)]" />
+      <div className="absolute inset-0 opacity-30 dark:opacity-50">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+      </div>
       
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Top Banner with Emergency Highlight */}
-        <div className="py-6 mb-8 relative">
-          <div className="bg-gradient-to-r from-destructive/10 via-destructive/5 to-transparent dark:from-destructive/15 dark:via-destructive/8 dark:to-transparent rounded-2xl p-6 border border-destructive/20 dark:border-destructive/30 backdrop-blur-sm shadow-lg dark:shadow-2xl">
-            <div className="flex items-center justify-center space-x-4 mb-4">
-              <div className="w-10 h-10 rounded-full bg-destructive/20 dark:bg-destructive/30 flex items-center justify-center animate-pulse motion-reduce:animate-none">
-                <AlertTriangle className="text-destructive dark:text-red-400" size={20} />
+        {/* Top Banner with Emergency Highlight - Professional Dark Design */}
+        <div className="py-8 mb-12 relative">
+          <div className="bg-gradient-to-r from-red-900/30 via-red-800/20 to-red-900/30 dark:from-red-900/40 dark:via-red-800/30 dark:to-red-900/40 rounded-3xl p-8 border border-red-500/30 dark:border-red-400/40 backdrop-blur-md shadow-2xl dark:shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
+            <div className="flex items-center justify-center space-x-6 mb-6">
+              <div className="w-12 h-12 rounded-full bg-red-500/20 dark:bg-red-400/30 flex items-center justify-center animate-pulse motion-reduce:animate-none shadow-lg">
+                <AlertTriangle className="text-red-400 dark:text-red-300" size={24} />
               </div>
               <div className="text-center">
-                <h3 className="text-xl font-bold font-heading text-destructive dark:text-red-400 mb-1">
+                <h3 className="text-2xl font-bold font-heading text-red-400 dark:text-red-300 mb-2">
                   Crisis Support Available 24/7
                 </h3>
-                <p className="text-sm text-muted-foreground dark:text-gray-300">
+                <p className="text-base text-gray-300 dark:text-gray-200">
                   Immediate help is always available. You're not alone in this journey.
                 </p>
               </div>
-              <div className="w-10 h-10 rounded-full bg-destructive/20 dark:bg-destructive/30 flex items-center justify-center animate-pulse motion-reduce:animate-none">
-                <Heart className="text-destructive dark:text-red-400" size={20} />
+              <div className="w-12 h-12 rounded-full bg-red-500/20 dark:bg-red-400/30 flex items-center justify-center animate-pulse motion-reduce:animate-none shadow-lg">
+                <Heart className="text-red-400 dark:text-red-300" size={24} />
               </div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {emergencyContacts.slice(0, 3).map((contact, index) => {
                 const isClickable = contact.type === 'phone' || contact.type === 'text';
                 const content = (
-                  <div className="flex items-center space-x-3 p-4 rounded-xl bg-background/80 dark:bg-gray-800/60 hover:bg-background dark:hover:bg-gray-700/80 transition-all duration-300 border border-border/30 dark:border-gray-600/50 backdrop-blur-sm shadow-sm hover:shadow-md">
+                  <div className="flex items-center space-x-3 p-4 rounded-xl bg-gray-800/60 dark:bg-gray-700/60 hover:bg-gray-700/80 dark:hover:bg-gray-600/80 transition-all duration-300 border border-gray-600/40 dark:border-gray-500/50 backdrop-blur-md shadow-lg hover:shadow-xl">
                     <div className="w-8 h-8 rounded-full bg-primary/20 dark:bg-primary/30 flex items-center justify-center">
                       {contact.type === 'phone' && <Phone size={14} className="text-primary dark:text-primary" />}
                       {contact.type === 'text' && <MessageSquare size={14} className="text-primary dark:text-primary" />}
                       {contact.type === 'link' && <Globe size={14} className="text-primary dark:text-primary" />}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-sm text-foreground dark:text-white truncate">
+                      <p className="font-semibold text-sm text-white dark:text-gray-100 truncate">
                         {contact.label}
                       </p>
-                      <p className="text-primary dark:text-primary text-xs font-medium">
+                      <p className="text-blue-400 dark:text-blue-300 text-xs font-medium">
                         {contact.contact}
                       </p>
                     </div>
@@ -198,13 +198,13 @@ export default function Footer() {
             {/* Column 1 - Extended Crisis Resources */}
             <div className="space-y-6">
               <div className="relative">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-destructive/20 to-destructive/10 dark:from-destructive/30 dark:to-destructive/20 flex items-center justify-center mb-4 shadow-lg">
-                  <AlertTriangle className="text-destructive dark:text-red-400" size={20} />
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-red-600/30 to-red-500/20 dark:from-red-500/40 dark:to-red-400/30 flex items-center justify-center mb-6 shadow-xl">
+                  <AlertTriangle className="text-red-400 dark:text-red-300" size={24} />
                 </div>
-                <h4 className="text-xl font-bold font-heading text-foreground dark:text-white mb-2">
+                <h4 className="text-2xl font-bold font-heading text-white dark:text-gray-100 mb-3">
                   Additional Emergency Resources
                 </h4>
-                <p className="text-sm text-muted-foreground dark:text-gray-300 mb-6">
+                <p className="text-base text-gray-300 dark:text-gray-200 mb-8">
                   Comprehensive crisis support network for every situation
                 </p>
               </div>
@@ -213,7 +213,7 @@ export default function Footer() {
                 {emergencyContacts.slice(3).map((contact, index) => {
                   const isClickable = contact.type === 'phone' || contact.type === 'text';
                   const content = (
-                    <div className="group p-4 rounded-xl bg-card/50 dark:bg-gray-800/40 hover:bg-card dark:hover:bg-gray-700/60 border border-border/30 dark:border-gray-600/40 transition-all duration-300 hover:shadow-md hover:shadow-primary/5 dark:hover:shadow-primary/10 backdrop-blur-sm">
+                    <div className="group p-5 rounded-xl bg-gray-800/50 dark:bg-gray-700/50 hover:bg-gray-700/70 dark:hover:bg-gray-600/70 border border-gray-600/40 dark:border-gray-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 dark:hover:shadow-primary/20 backdrop-blur-md">
                       <div className="flex items-start space-x-3">
                         <div className="w-6 h-6 rounded-lg bg-primary/20 dark:bg-primary/30 flex items-center justify-center flex-shrink-0 mt-0.5">
                           {contact.type === 'phone' && <Phone size={12} className="text-primary" />}
@@ -221,10 +221,10 @@ export default function Footer() {
                           {contact.type === 'link' && <Globe size={12} className="text-primary" />}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="font-semibold text-sm text-foreground dark:text-white group-hover:text-primary transition-colors">
+                          <p className="font-semibold text-base text-white dark:text-gray-100 group-hover:text-blue-400 transition-colors">
                             {contact.label}
                           </p>
-                          <p className="text-muted-foreground dark:text-gray-300 text-xs font-medium">
+                          <p className="text-gray-300 dark:text-gray-200 text-sm font-medium">
                             {contact.contact}
                           </p>
                           <div className="flex items-center space-x-1 mt-2">
@@ -269,13 +269,13 @@ export default function Footer() {
             {/* Column 2 - Platform Information */}
             <div className="space-y-6">
               <div className="relative">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary/30 to-secondary/20 dark:from-primary/40 dark:to-secondary/30 flex items-center justify-center mb-4 shadow-lg">
-                  <Brain className="text-white" size={20} />
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-600/40 to-purple-600/30 dark:from-blue-500/50 dark:to-purple-500/40 flex items-center justify-center mb-6 shadow-xl">
+                  <Brain className="text-white" size={24} />
                 </div>
-                <h4 className="text-xl font-bold font-heading text-foreground dark:text-white mb-2">
+                <h4 className="text-2xl font-bold font-heading text-white dark:text-gray-100 mb-3">
                   About MindCare Platform
                 </h4>
-                <p className="text-sm text-muted-foreground dark:text-gray-300 mb-6">
+                <p className="text-base text-gray-300 dark:text-gray-200 mb-8">
                   Evidence-based mental health support designed specifically for students
                 </p>
               </div>
@@ -287,13 +287,13 @@ export default function Footer() {
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="group flex items-center space-x-3 p-3 rounded-xl bg-card/30 dark:bg-gray-800/30 hover:bg-card dark:hover:bg-gray-700/50 border border-transparent hover:border-primary/20 dark:hover:border-primary/30 transition-all duration-300 hover:shadow-md hover:shadow-primary/5 dark:hover:shadow-primary/10 backdrop-blur-sm"
+                        className="group flex items-center space-x-4 p-4 rounded-xl bg-gray-800/40 dark:bg-gray-700/40 hover:bg-gray-700/60 dark:hover:bg-gray-600/60 border border-transparent hover:border-blue-500/30 dark:hover:border-blue-400/40 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/10 dark:hover:shadow-blue-400/20 backdrop-blur-md"
                         data-testid={`platform-link-${link.label.toLowerCase().replace(/\s+/g, '-')}`}
                       >
-                        <div className="w-8 h-8 rounded-lg bg-primary/10 dark:bg-primary/20 group-hover:bg-primary/20 dark:group-hover:bg-primary/30 flex items-center justify-center transition-colors">
-                          <IconComponent size={14} className="text-primary group-hover:text-primary" />
+                        <div className="w-10 h-10 rounded-lg bg-blue-500/20 dark:bg-blue-400/30 group-hover:bg-blue-500/30 dark:group-hover:bg-blue-400/40 flex items-center justify-center transition-colors">
+                          <IconComponent size={16} className="text-blue-400 dark:text-blue-300 group-hover:text-blue-300 dark:group-hover:text-blue-200" />
                         </div>
-                        <span className="text-sm font-medium text-muted-foreground dark:text-gray-300 group-hover:text-foreground dark:group-hover:text-white transition-colors">
+                        <span className="text-base font-medium text-gray-300 dark:text-gray-200 group-hover:text-white dark:group-hover:text-gray-100 transition-colors">
                           {link.label}
                         </span>
                       </Link>
@@ -302,17 +302,17 @@ export default function Footer() {
                 })}
               </ul>
 
-              <div className="mt-8 p-4 rounded-xl bg-gradient-to-br from-card/60 to-muted/40 dark:from-gray-800/40 dark:to-gray-700/30 border border-border/30 dark:border-gray-600/40 backdrop-blur-sm">
-                <h5 className="font-semibold text-sm text-foreground dark:text-white mb-3 flex items-center space-x-2">
-                  <Mail size={14} className="text-primary" />
+              <div className="mt-8 p-6 rounded-xl bg-gradient-to-br from-gray-800/60 to-gray-700/40 dark:from-gray-700/60 dark:to-gray-600/40 border border-gray-600/40 dark:border-gray-500/50 backdrop-blur-md shadow-xl">
+                <h5 className="font-semibold text-lg text-white dark:text-gray-100 mb-4 flex items-center space-x-2">
+                  <Mail size={16} className="text-blue-400 dark:text-blue-300" />
                   <span>Direct Contact</span>
                 </h5>
-                <div className="space-y-2">
-                  <a href="mailto:support@mindcare.edu" className="flex items-center space-x-2 text-sm text-primary hover:text-primary/80 transition-colors" data-testid="email-support">
+                <div className="space-y-3">
+                  <a href="mailto:support@mindcare.edu" className="flex items-center space-x-2 text-base text-blue-400 dark:text-blue-300 hover:text-blue-300 dark:hover:text-blue-200 transition-colors" data-testid="email-support">
                     <span className="font-medium">support@mindcare.edu</span>
                   </a>
-                  <div className="flex items-center space-x-2 text-sm text-muted-foreground dark:text-gray-300">
-                    <MapPin size={14} className="text-primary" />
+                  <div className="flex items-center space-x-2 text-base text-gray-300 dark:text-gray-200">
+                    <MapPin size={16} className="text-blue-400 dark:text-blue-300" />
                     <span>Student Health Center</span>
                   </div>
                 </div>
@@ -322,13 +322,13 @@ export default function Footer() {
             {/* Column 3 - Student Resources */}
             <div className="space-y-6">
               <div className="relative">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-secondary/30 to-accent/20 dark:from-secondary/40 dark:to-accent/30 flex items-center justify-center mb-4 shadow-lg">
-                  <Users className="text-white" size={20} />
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-600/40 to-teal-600/30 dark:from-green-500/50 dark:to-teal-500/40 flex items-center justify-center mb-6 shadow-xl">
+                  <Users className="text-white" size={24} />
                 </div>
-                <h4 className="text-xl font-bold font-heading text-foreground dark:text-white mb-2">
+                <h4 className="text-2xl font-bold font-heading text-white dark:text-gray-100 mb-3">
                   Student Support Network
                 </h4>
-                <p className="text-sm text-muted-foreground dark:text-gray-300 mb-6">
+                <p className="text-base text-gray-300 dark:text-gray-200 mb-8">
                   Comprehensive academic and wellness resources for your success
                 </p>
               </div>
@@ -366,7 +366,7 @@ export default function Footer() {
                     <MessageSquare size={12} className="text-primary" />
                     <span className="text-xs font-medium text-foreground dark:text-white">24/7 AI Support Chat</span>
                   </Link>
-                  <Link href="/assessment" className="flex items-center space-x-3 p-2 rounded-lg bg-background/80 dark:bg-gray-800/60 hover:bg-background dark:hover:bg-gray-700/80 border border-border/30 dark:border-gray-600/50 transition-all duration-200" data-testid="quick-access-assessment">
+                  <Link href="/assessments" className="flex items-center space-x-3 p-2 rounded-lg bg-gray-800/60 dark:bg-gray-700/60 hover:bg-gray-700/80 dark:hover:bg-gray-600/80 border border-gray-600/40 dark:border-gray-500/50 transition-all duration-200" data-testid="quick-access-assessment">
                     <BookOpen size={12} className="text-primary" />
                     <span className="text-xs font-medium text-foreground dark:text-white">Mental Health Assessment</span>
                   </Link>
@@ -381,13 +381,13 @@ export default function Footer() {
             {/* Column 4 - Community & Enhanced Engagement */}
             <div className="space-y-6">
               <div className="relative">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-accent/30 to-primary/20 dark:from-accent/40 dark:to-primary/30 flex items-center justify-center mb-4 shadow-lg">
-                  <Heart className="text-white" size={20} />
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-600/40 to-pink-600/30 dark:from-purple-500/50 dark:to-pink-500/40 flex items-center justify-center mb-6 shadow-xl">
+                  <Heart className="text-white" size={24} />
                 </div>
-                <h4 className="text-xl font-bold font-heading text-foreground dark:text-white mb-2">
+                <h4 className="text-2xl font-bold font-heading text-white dark:text-gray-100 mb-3">
                   Join Our Community
                 </h4>
-                <p className="text-sm text-muted-foreground dark:text-gray-300 mb-6">
+                <p className="text-base text-gray-300 dark:text-gray-200 mb-8">
                   Connect with others on their wellness journey and stay informed
                 </p>
               </div>

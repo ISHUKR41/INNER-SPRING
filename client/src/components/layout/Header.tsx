@@ -50,7 +50,7 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Navigation items configuration - Updated to match specifications
+  // Navigation items configuration - Crisis Help removed as requested by user
   const navItems = [
     { 
       path: "/", 

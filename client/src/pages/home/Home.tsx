@@ -87,55 +87,91 @@ export default function Home() {
     }
   ];
 
-  // Quick access feature tiles data - Updated to Task Specifications
+  // Quick access feature tiles data - Updated to exact specifications
   const featureTiles = [
     {
-      title: "Instant AI Chat",
-      description: "24/7 instant support and coping strategies",
-      button: "Start Chatting",
+      title: "24/7 AI Mental Health Support",
+      description: "Immediate coping strategies, breathing exercises, and emotional support when you need it most",
+      useCase: "Perfect for late-night anxiety, pre-exam stress, or sudden panic",
+      button: "Start Chatting Now",
       icon: MessageCircle,
       gradient: "gradient-tile-blue-purple",
-      href: "/chatbot"
+      href: "/chatbot",
+      isEmergency: false,
+      additionalInfo: null,
+      privacyNote: null,
+      contentNote: null,
+      safetyNote: null
     },
     {
-      title: "Quick Assessment",
-      description: "2-minute mental health assessment",
+      title: "Campus Counselor Booking",
+      description: "Schedule confidential appointments with licensed campus counselors and mental health professionals",
+      useCase: "When you need deeper support, therapy, or professional diagnosis",
+      button: "Book Appointment",
+      icon: Calendar,
+      gradient: "gradient-tile-green-teal",
+      href: "/appointments",
+      isEmergency: false,
+      additionalInfo: "Average wait time: 2-3 days",
+      privacyNote: null,
+      contentNote: null,
+      safetyNote: null
+    },
+    {
+      title: "Evidence-Based Assessment",
+      description: "Understand your mental health with validated tools used by professionals (PHQ-9, GAD-7, stress scales)",
+      useCase: "When you want to understand what you're feeling",
       button: "Take Assessment",
       icon: ClipboardCheck,
-      gradient: "gradient-tile-green-teal",
-      href: "/assessment"
-    },
-    {
-      title: "Book Counseling",
-      description: "Same-day professional appointments",
-      button: "Book Session",
-      icon: Calendar,
       gradient: "gradient-tile-purple-pink",
-      href: "/appointments"
+      href: "/assessments",
+      isEmergency: false,
+      additionalInfo: null,
+      privacyNote: "100% anonymous option available",
+      contentNote: null,
+      safetyNote: null
     },
     {
-      title: "Crisis Support",
-      description: "Immediate help when you need it most",
-      button: "Get Help Now",
-      icon: Phone,
-      gradient: "gradient-tile-red-orange",
-      href: "/crisis"
-    },
-    {
-      title: "Self-Help Tools",
-      description: "Guided exercises and coping resources",
-      button: "Explore Tools",
+      title: "Self-Help Resource Library",
+      description: "Videos, articles, audio guides, and interactive tools for managing anxiety, depression, stress, and more",
+      useCase: "Learn coping skills at your own pace",
+      button: "Browse Resources",
       icon: BookOpen,
       gradient: "gradient-tile-orange-yellow",
-      href: "/resources"
+      href: "/resources",
+      isEmergency: false,
+      additionalInfo: null,
+      privacyNote: null,
+      contentNote: "Available in multiple languages",
+      safetyNote: null
     },
     {
-      title: "Peer Support",
-      description: "Connect with supportive student community",
+      title: "Student Support Community",
+      description: "Connect with other students facing similar challenges in moderated, safe discussion groups",
+      useCase: "When you feel alone or need peer understanding",
       button: "Join Community",
       icon: Users,
       gradient: "gradient-tile-teal-blue",
-      href: "/peer-support"
+      href: "/peer-support",
+      isEmergency: false,
+      additionalInfo: null,
+      privacyNote: null,
+      contentNote: null,
+      safetyNote: "Professionally moderated"
+    },
+    {
+      title: "Emergency Crisis Support",
+      description: "Immediate help for mental health emergencies, suicidal thoughts, or when you need help right now",
+      useCase: "When you're in crisis and need immediate help",
+      button: "Get Help Now",
+      icon: Phone,
+      gradient: "gradient-tile-red-orange",
+      href: "/emergency",
+      isEmergency: true,
+      additionalInfo: null,
+      privacyNote: null,
+      contentNote: null,
+      safetyNote: null
     }
   ];
 
@@ -147,7 +183,7 @@ export default function Home() {
       time: "2-3 minutes", 
       icon: ClipboardCheck,
       action: "Start Assessment",
-      href: "/assessment",
+      href: "/assessments",
       bgColor: "bg-blue-50 dark:bg-blue-900/20"
     },
     {
@@ -237,39 +273,69 @@ export default function Home() {
     "Personalized support based on your needs"
   ];
 
-  // Breaking barriers data - New specification with 3 columns
+  // Breaking barriers data - Updated to exact specifications with 3 columns
   const breakingBarriers = [
     {
       icon: EyeOff,
-      title: "Eliminating Stigma",
-      description: "Mental health struggles are common and nothing to be ashamed of. We create a judgment-free environment where seeking help is seen as strength, not weakness.",
-      solutions: [
-        "Complete anonymity options available",
-        "Peer support from students who understand",
-        "Education to reduce mental health stigma"
+      title: "Fear of Judgment & Stigma",
+      description: "Breaking down privacy concerns and social stigma around mental health",
+      concerns: [
+        "What if people find out?",
+        "Will this affect my future?", 
+        "Am I weak for needing help?",
+        "What will my family think?"
       ],
+      solutions: [
+        "100% anonymous usage options",
+        "No names required for AI chat",
+        "Private, encrypted conversations",
+        "Confidential professional appointments",
+        "HIPAA-compliant data protection"
+      ],
+      testimonial: "I was terrified someone would find out, but the anonymous chat gave me the courage to eventually book counseling.",
+      attribution: "Anonymous Junior",
       accent: "purple"
     },
     {
       icon: Clock,
-      title: "Improving Accessibility",
-      description: "Mental health support should be available when you need it, not just during business hours. We make help accessible 24/7 with multiple ways to connect.",
-      solutions: [
-        "24/7 AI chat support always available",
-        "Same-day appointment booking",
-        "Multiple communication channels (text, voice, video)"
+      title: "Limited Access & Long Wait Times",
+      description: "Solving accessibility and availability barriers to mental health care",
+      concerns: [
+        "Counseling center is always booked",
+        "I need help at 2 AM, not 2 PM",
+        "I can't miss class for appointments",
+        "I can't afford private therapy"
       ],
+      solutions: [
+        "24/7 AI support, never closed",
+        "Same-day professional appointments available",
+        "Flexible scheduling around your classes",
+        "Free campus counseling integration",
+        "Multiple communication options (text, video, phone)"
+      ],
+      testimonial: "Having AI support at 3 AM during finals week literally saved me from a complete breakdown.",
+      attribution: "Anonymous Senior",
       accent: "blue"
     },
     {
-      icon: Heart,
-      title: "Enhancing Understanding",
-      description: "Mental health issues are complex and unique to each person. We provide personalized support that adapts to your specific needs and circumstances.",
-      solutions: [
-        "Personalized treatment approaches",
-        "Student-specific counseling expertise",
-        "Cultural and individual sensitivity training"
+      icon: HelpCircle,
+      title: "Not Knowing When/How to Get Help",
+      description: "Providing clarity and guidance for mental health support navigation",
+      concerns: [
+        "Is this normal college stress or something more?",
+        "How do I know if I need professional help?",
+        "Where do I even start?",
+        "What if I'm overreacting?"
       ],
+      solutions: [
+        "Evidence-based self-assessments for clarity",
+        "Educational resources about mental health",
+        "Clear guidance on when to seek help",
+        "Step-by-step support navigation",
+        "Professional validation of your experiences"
+      ],
+      testimonial: "The assessment helped me realize that what I was feeling wasn't just 'normal stress' and I deserved support.",
+      attribution: "Anonymous Sophomore",
       accent: "green"
     }
   ];
@@ -368,7 +434,7 @@ export default function Home() {
       title: "Take Mental Health Assessment", 
       description: "5-minute private screening to understand your needs",
       time: "Results in 5 minutes",
-      href: "/assessment",
+      href: "/assessments",
       icon: ClipboardList
     },
     {
@@ -437,7 +503,7 @@ export default function Home() {
                   size="lg" 
                   className="btn-professional px-8 py-4 text-lg font-semibold rounded-xl w-full sm:w-auto group"
                 >
-                  <Link href="/assessment" data-testid="button-start-assessment">
+                  <Link href="/assessments" data-testid="button-start-assessment">
                     Start Free Assessment
                     <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </Link>
@@ -872,67 +938,89 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Section 7: Breaking Down Barriers to Mental Health Support */}
-      <section className="py-16 lg:py-24" style={{ background: 'var(--section-secondary)' }} data-testid="section-breaking-barriers">
+      {/* Section 7: Breaking Down Every Barrier to Mental Health Care */}
+      <section className="py-16 lg:py-24 bg-gradient-to-b from-background via-muted/20 to-background" data-testid="section-breaking-barriers">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-high-contrast mb-4" data-testid="text-barriers-title">
-              Breaking Down Barriers to Mental Health Support
+              Breaking Down Every Barrier to Mental Health Care
             </h2>
             <p className="text-xl text-medium-contrast max-w-3xl mx-auto" data-testid="text-barriers-subtitle">
-              We're committed to eliminating the obstacles that prevent students from getting help
+              Addressing the real obstacles that prevent students from accessing mental health support
             </p>
           </div>
 
-          <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12" data-testid="barriers-grid">
-            {breakingBarriers.map((barrier, index) => (
-              <Card 
-                key={index} 
-                className={`card-professional hover:shadow-xl transition-all duration-300 group border-2 h-full ${
-                  barrier.accent === 'purple' ? 'border-purple-200 hover:border-purple-400 bg-purple-50/50 dark:bg-purple-950/20 dark:border-purple-800 dark:hover:border-purple-600' :
-                  barrier.accent === 'blue' ? 'border-blue-200 hover:border-blue-400 bg-blue-50/50 dark:bg-blue-950/20 dark:border-blue-800 dark:hover:border-blue-600' :
-                  'border-green-200 hover:border-green-400 bg-green-50/50 dark:bg-green-950/20 dark:border-green-800 dark:hover:border-green-600'
-                }`}
-                data-testid={`barrier-card-${index}`}
-              >
-                <CardHeader className="pb-6">
-                  <div className="flex flex-col items-center text-center space-y-4">
-                    <div className={`w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg transform transition-all duration-300 group-hover:scale-110 ${
-                      barrier.accent === 'purple' ? 'bg-purple-500 dark:bg-purple-600' :
-                      barrier.accent === 'blue' ? 'bg-blue-500 dark:bg-blue-600' :
-                      'bg-green-500 dark:bg-green-600'
-                    }`}>
-                      <barrier.icon className="h-10 w-10 text-white" />
+          <div className="grid lg:grid-cols-3 gap-8 lg:gap-12" data-testid="barriers-grid">
+            {breakingBarriers.map((barrier, index) => {
+              const IconComponent = barrier.icon;
+              return (
+                <Card 
+                  key={index} 
+                  className="group hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 border-2 border-transparent hover:border-primary/30 dark:hover:border-primary/50 bg-card/80 dark:bg-card/60 backdrop-blur-sm" 
+                  data-testid={`barrier-card-${index}`}
+                >
+                  <CardHeader className="text-center pb-6">
+                    <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-secondary p-4 mx-auto mb-6 shadow-lg group-hover:shadow-2xl transition-all duration-500 group-hover:scale-110">
+                      <IconComponent className="w-full h-full text-white" />
                     </div>
-                    <CardTitle className="text-2xl font-bold text-high-contrast" data-testid={`barrier-title-${index}`}>
+                    <CardTitle className="text-2xl font-bold text-high-contrast mb-4" data-testid={`barrier-title-${index}`}>
                       {barrier.title}
                     </CardTitle>
-                  </div>
-                </CardHeader>
-                
-                <CardContent className="space-y-6 flex-grow">
-                  <p className="text-medium-contrast leading-relaxed text-center" data-testid={`barrier-description-${index}`}>
-                    {barrier.description}
-                  </p>
-                  
-                  <div className="space-y-4">
-                    <h4 className="font-semibold text-high-contrast text-center">Our Solutions:</h4>
-                    <ul className="space-y-3">
-                      {barrier.solutions.map((solution, solutionIndex) => (
-                        <li key={solutionIndex} className="flex items-start space-x-3" data-testid={`solution-${index}-${solutionIndex}`}>
-                          <CheckCircle className={`h-5 w-5 flex-shrink-0 mt-0.5 ${
-                            barrier.accent === 'purple' ? 'text-purple-500 dark:text-purple-400' :
-                            barrier.accent === 'blue' ? 'text-blue-500 dark:text-blue-400' :
-                            'text-green-500 dark:text-green-400'
-                          }`} />
-                          <span className="text-medium-contrast">{solution}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                    <p className="text-medium-contrast mb-6" data-testid={`barrier-description-${index}`}>
+                      {barrier.description}
+                    </p>
+                  </CardHeader>
+                  <CardContent className="space-y-8">
+                    {/* Student Concerns */}
+                    <div>
+                      <h4 className="font-semibold text-lg text-high-contrast mb-4 flex items-center">
+                        <AlertCircle className="h-5 w-5 text-orange-500 mr-2" />
+                        Common Student Concerns:
+                      </h4>
+                      <ul className="space-y-2">
+                        {barrier.concerns.map((concern, concernIndex) => (
+                          <li key={concernIndex} className="flex items-start space-x-3" data-testid={`concern-${index}-${concernIndex}`}>
+                            <Quote className="h-4 w-4 text-muted-foreground mt-1 flex-shrink-0" />
+                            <span className="text-sm text-muted-foreground italic">"{concern}"</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Our Solutions */}
+                    <div>
+                      <h4 className="font-semibold text-lg text-high-contrast mb-4 flex items-center">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        Our Solutions:
+                      </h4>
+                      <ul className="space-y-2">
+                        {barrier.solutions.map((solution, solutionIndex) => (
+                          <li key={solutionIndex} className="flex items-start space-x-3" data-testid={`solution-${index}-${solutionIndex}`}>
+                            <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                            <span className="text-sm text-medium-contrast">{solution}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Student Testimonial */}
+                    <div className="bg-gradient-to-r from-primary/5 to-secondary/5 dark:from-primary/10 dark:to-secondary/10 rounded-xl p-4 border border-primary/20 dark:border-primary/30">
+                      <div className="flex items-start space-x-3">
+                        <Quote className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
+                        <div>
+                          <p className="text-sm text-medium-contrast italic mb-2" data-testid={`testimonial-${index}`}>
+                            "{barrier.testimonial}"
+                          </p>
+                          <p className="text-xs text-muted-foreground font-medium" data-testid={`attribution-${index}`}>
+                            - {barrier.attribution}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>
