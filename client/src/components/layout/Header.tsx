@@ -20,7 +20,6 @@ import {
   ClipboardList, 
   BookOpen, 
   Users, 
-  AlertTriangle,
   BarChart3, 
   Info,
   Menu,
@@ -72,10 +71,10 @@ export default function Header() {
       active: location === "/appointments" 
     },
     { 
-      path: "/assessment", 
+      path: "/assessments", 
       label: "Assessment", 
       icon: ClipboardList, 
-      active: location === "/assessment" 
+      active: location === "/assessments" 
     },
     { 
       path: "/resources", 
@@ -88,13 +87,6 @@ export default function Header() {
       label: "Community", 
       icon: Users, 
       active: location === "/peer-support" 
-    },
-    { 
-      path: "/crisis-help", 
-      label: "Crisis Help", 
-      icon: AlertTriangle, 
-      active: location === "/crisis-help",
-      isEmergency: true 
     },
     { 
       path: "/dashboard", 
@@ -166,9 +158,7 @@ export default function Header() {
                     flex items-center justify-center px-2 lg:px-3 xl:px-4 2xl:px-6 3xl:px-8 py-6 text-xs lg:text-sm xl:text-base 2xl:text-lg 3xl:text-xl font-medium transition-all duration-300 relative whitespace-nowrap min-w-fit
                     ${item.active 
                       ? 'font-semibold border-b-[3px] border-primary text-primary dark:text-primary' 
-                      : item.isEmergency 
-                        ? 'text-destructive dark:text-red-400 hover:text-destructive dark:hover:text-red-300 font-medium' 
-                        : 'text-muted-foreground dark:text-muted-foreground hover:text-primary dark:hover:text-primary'
+                      : 'text-muted-foreground dark:text-muted-foreground hover:text-primary dark:hover:text-primary'
                     }
                     focus-ring
                   `}
@@ -182,16 +172,6 @@ export default function Header() {
 
           {/* Right User Controls - Fully Responsive */}
           <div className="flex items-center space-x-1 xs:space-x-2 md:space-x-3 xl:space-x-4 2xl:space-x-6 3xl:space-x-8 justify-end flex-shrink-0">
-            {/* Crisis Button - Responsive Sizing */}
-            <Link href="/crisis-help">
-              <Button 
-                className="emergency-pulse text-white text-xs sm:text-sm lg:text-base xl:text-lg 2xl:text-xl font-bold hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl hidden sm:flex px-2 sm:px-3 lg:px-4 xl:px-6 2xl:px-8 3xl:px-10 py-2 sm:py-3 lg:py-4 2xl:py-5 bg-gradient-to-br from-red-500 to-red-600 dark:from-red-600 dark:to-red-700 hover:from-red-600 hover:to-red-700 dark:hover:from-red-500 dark:hover:to-red-600 border-2 border-red-400 dark:border-red-500 min-h-8 sm:min-h-10 lg:min-h-12 xl:min-h-14 2xl:min-h-16"
-                data-testid="button-crisis-help"
-              >
-                <span className="hidden lg:inline">🚨 Crisis Help</span>
-                <span className="lg:hidden">🚨 Crisis</span>
-              </Button>
-            </Link>
 
             {/* Language Selector - Responsive */}
             <Select defaultValue="en">
@@ -300,9 +280,7 @@ export default function Header() {
                             flex items-center space-x-3 px-4 xs:px-6 py-4 xs:py-5 sm:py-6 rounded-lg text-base xs:text-lg sm:text-xl font-medium transition-all duration-300 min-h-12 xs:min-h-14 sm:min-h-16
                             ${item.active 
                               ? 'bg-primary/10 dark:bg-primary/20 border-l-4 border-primary text-primary dark:text-primary' 
-                              : item.isEmergency 
-                                ? 'text-destructive dark:text-red-400 hover:bg-destructive/10 dark:hover:bg-red-500/10 font-semibold' 
-                                : 'text-foreground dark:text-foreground hover:bg-muted dark:hover:bg-muted hover:text-primary dark:hover:text-primary'
+                              : 'text-foreground dark:text-foreground hover:bg-muted dark:hover:bg-muted hover:text-primary dark:hover:text-primary'
                             }
                             focus-ring
                           `}
@@ -316,18 +294,6 @@ export default function Header() {
                     })}
                   </div>
 
-                  {/* Mobile Emergency Button */}
-                  <div className="pt-6 border-t border-border/20 pb-6">
-                    <Link href="/crisis-help">
-                      <Button 
-                        className="w-full emergency-pulse text-white text-base xs:text-lg sm:text-xl font-bold h-12 xs:h-14 sm:h-16 shadow-lg bg-gradient-to-br from-red-500 to-red-600 dark:from-red-600 dark:to-red-700 hover:from-red-600 hover:to-red-700 dark:hover:from-red-500 dark:hover:to-red-600 border-2 border-red-400 dark:border-red-500 hover:scale-[1.02] transition-all duration-200"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        data-testid="mobile-button-crisis-help"
-                      >
-                        🚨 Crisis Help
-                      </Button>
-                    </Link>
-                  </div>
                 </div>
               </SheetContent>
             </Sheet>
