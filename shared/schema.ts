@@ -47,6 +47,28 @@ export const users = pgTable("users", {
   lastName: text("last_name"), // Optional - user's last name for formal communications
   studentId: text("student_id"), // Optional - institutional student ID for verification
   isAnonymous: boolean("is_anonymous").default(false), // Privacy setting - allows anonymous forum posting
+  
+  // === MOOD TRACKING ENHANCEMENTS ===
+  currentMood: text("current_mood"), // Current mood state: 'excellent', 'good', 'neutral', 'low', 'very_low'
+  lastMoodUpdate: timestamp("last_mood_update"), // When mood was last updated - for tracking frequency
+  moodTrackingEnabled: boolean("mood_tracking_enabled").default(true), // User preference for mood tracking
+  moodReminderFrequency: text("mood_reminder_frequency").default('daily'), // Mood check-in frequency: 'daily', 'weekly', 'disabled'
+  
+  // === SESSION MANAGEMENT ===
+  lastActiveSession: timestamp("last_active_session"), // Last time user was active in a chat session
+  preferredSessionLength: integer("preferred_session_length").default(30), // Preferred chat session length in minutes
+  sessionNotificationsEnabled: boolean("session_notifications_enabled").default(true), // Session reminder preferences
+  autoSaveEnabled: boolean("auto_save_enabled").default(true), // Auto-save conversation progress
+  
+  // === PERSONALIZATION PREFERENCES ===
+  chatPersonality: text("chat_personality").default('supportive'), // AI personality: 'supportive', 'clinical', 'friendly', 'professional'
+  preferredLanguage: text("preferred_language").default('en'), // User's preferred language for AI responses
+  accessibilityNeeds: text("accessibility_needs").array(), // Array of accessibility requirements: ['large_text', 'high_contrast', 'screen_reader']
+  timeZone: text("time_zone"), // User timezone for scheduling and notifications
+  notificationPreferences: jsonb("notification_preferences"), // Complex notification settings as JSON
+  onboardingCompleted: boolean("onboarding_completed").default(false), // Whether user completed initial setup
+  privacyLevel: text("privacy_level").default('standard'), // Privacy setting: 'minimal', 'standard', 'enhanced'
+  
   createdAt: timestamp("created_at").defaultNow(), // Account creation timestamp - for analytics and support
   updatedAt: timestamp("updated_at").defaultNow(), // Last profile update - tracks account activity
 });
@@ -57,15 +79,30 @@ export const users = pgTable("users", {
  * Each conversation represents a separate chat session with the AI mental health assistant.
  * Allows users to maintain multiple ongoing conversations for different topics or concerns.
  * 
+ * Enhanced Features:
+ * - Conversation organization with pinning and archiving
+ * - Category-based filtering for different therapeutic topics
+ * - Privacy controls and auto-deletion settings
+ * - Mood context tracking for conversation-specific emotional states
+ * - Last message tracking for conversation activity sorting
+ * 
  * Business Logic:
  * - Titles are auto-generated based on the first user message
- * - Conversations persist until explicitly deleted by user
+ * - Conversations persist until explicitly deleted by user or auto-deletion triggers
  * - Used for conversation history and context continuity
+ * - Mood context enables personalized therapeutic recommendations
  */
 export const chatConversations = pgTable("chat_conversations", {
   id: uuid("id").primaryKey().default(sql`gen_random_uuid()`), // Unique conversation identifier
   userId: uuid("user_id").references(() => users.id), // Links conversation to specific user account
   title: text("title"), // Auto-generated conversation title based on first message
+  pinned: boolean("pinned").default(false), // User preference for important conversations
+  archived: boolean("archived").default(false), // Hide from active conversations list
+  lastMessageAt: timestamp("last_message_at"), // Timestamp of most recent message for sorting
+  category: text("category"), // Conversation topic: 'general', 'anxiety', 'depression', 'crisis', 'wellness'
+  privacyLevel: text("privacy_level").default('standard'), // Privacy setting: 'minimal', 'standard', 'enhanced'
+  autoDeleteAfter: integer("auto_delete_after"), // Days after which conversation auto-deletes (null = never)
+  moodContext: jsonb("mood_context"), // Conversation-specific mood tracking data and patterns
   createdAt: timestamp("created_at").defaultNow(), // When conversation was started
   updatedAt: timestamp("updated_at").defaultNow(), // Last message timestamp - for sorting
 });
@@ -76,16 +113,27 @@ export const chatConversations = pgTable("chat_conversations", {
  * Stores the complete message history for each conversation session.
  * Enables conversation context for AI responses and user review.
  * 
+ * Enhanced Features:
+ * - Message threading with reply-to functionality
+ * - Specialized message types for different therapeutic content
+ * - Metadata storage for rich message content (attachments, exercises, etc.)
+ * - Edit tracking for message modification history
+ * 
  * Message Flow:
  * 1. User sends message (role: 'user')
  * 2. AI processes and responds (role: 'assistant')
  * 3. Messages are displayed chronologically in chat interface
+ * 4. Special message types trigger contextual UI elements
  */
 export const chatMessages = pgTable("chat_messages", {
   id: uuid("id").primaryKey().default(sql`gen_random_uuid()`), // Unique message identifier
   conversationId: uuid("conversation_id").references(() => chatConversations.id).notNull(), // Links to parent conversation - required for data integrity
   role: text("role").notNull(), // Message sender - either 'user' or 'assistant' (AI)
   content: text("content").notNull(), // Actual message text - supports markdown formatting
+  messageType: text("message_type").default('text'), // Message category: 'text', 'crisis', 'resource', 'exercise', 'mood_checkin'
+  metadata: jsonb("metadata"), // Additional structured data specific to message type (exercise steps, resource links, mood data)
+  replyToId: uuid("reply_to_id"), // Self-referencing for threaded conversations - foreign key constraint handled in relations
+  editedAt: timestamp("edited_at"), // When message was last edited - null if never edited
   timestamp: timestamp("timestamp").defaultNow(), // When message was sent - for chronological ordering
 });
 
@@ -347,6 +395,156 @@ export const crisisContacts = pgTable("crisis_contacts", {
   updatedAt: timestamp("updated_at").defaultNow(), // Last update timestamp for data freshness validation
 });
 
+/**
+ * Chat Attachments Table - File attachments for chat messages
+ * 
+ * Stores metadata and references for files attached to chat messages.
+ * Supports various file types including images, documents, audio recordings.
+ * 
+ * Features:
+ * - File metadata tracking (size, type, name)
+ * - Secure file storage with URL references
+ * - Upload timestamp for file management
+ * - Integration with message threading system
+ * 
+ * Security:
+ * - File type validation to prevent malicious uploads
+ * - Size limits enforced at application layer
+ * - Secure URL generation for file access
+ */
+export const chatAttachments = pgTable("chat_attachments", {
+  id: uuid("id").primaryKey().default(sql`gen_random_uuid()`), // Unique attachment identifier
+  messageId: uuid("message_id").references(() => chatMessages.id).notNull(), // Links attachment to specific message
+  type: text("type").notNull(), // File type: 'image', 'audio', 'document', 'video'
+  url: text("url").notNull(), // Secure URL for file access - either cloud storage or local path
+  name: text("name").notNull(), // Original filename as uploaded by user
+  size: integer("size").notNull(), // File size in bytes for storage management
+  uploadedAt: timestamp("uploaded_at").defaultNow(), // When file was uploaded - for cleanup and analytics
+});
+
+/**
+ * Mood Entries Table - User mood tracking and emotional state logging
+ * 
+ * Comprehensive mood tracking system for mental health monitoring.
+ * Supports both standalone mood entries and conversation-linked emotional states.
+ * 
+ * Features:
+ * - Flexible mood recording with optional conversation context
+ * - Note field for detailed emotional descriptions
+ * - Timeline tracking for mood pattern analysis
+ * - Integration with chat conversations for contextual mood data
+ * 
+ * Clinical Use:
+ * - Mood trend analysis for therapeutic insights
+ * - Crisis detection through mood pattern recognition
+ * - Personalized therapeutic recommendations based on emotional states
+ */
+export const moodEntries = pgTable("mood_entries", {
+  id: uuid("id").primaryKey().default(sql`gen_random_uuid()`), // Unique mood entry identifier
+  userId: uuid("user_id").references(() => users.id).notNull(), // User who recorded the mood entry
+  mood: text("mood").notNull(), // Mood state: 'excellent', 'good', 'neutral', 'low', 'very_low', 'crisis'
+  note: text("note"), // Optional detailed description of emotional state and circumstances
+  conversationId: uuid("conversation_id").references(() => chatConversations.id), // Optional link to conversation context
+  createdAt: timestamp("created_at").defaultNow(), // When mood was recorded - for timeline analysis
+});
+
+/**
+ * Crisis Events Table - Mental health crisis detection and response tracking
+ * 
+ * Critical system for identifying, logging, and managing mental health emergencies.
+ * Provides comprehensive crisis intervention workflow and response tracking.
+ * 
+ * Features:
+ * - Multi-level crisis severity classification
+ * - Automatic crisis detection through AI analysis
+ * - Response tracking and resolution monitoring
+ * - Integration with emergency contact systems
+ * 
+ * Crisis Levels:
+ * - info: Mild concerns or preventive information
+ * - warning: Moderate risk requiring attention
+ * - critical: Immediate intervention required
+ * 
+ * Workflow:
+ * 1. Crisis detected (detectedAt timestamp set)
+ * 2. Intervention initiated (emergency contacts, counselor notification)
+ * 3. Response provided (notes updated with actions taken)
+ * 4. Crisis resolved (resolvedAt timestamp set)
+ */
+export const crisisEvents = pgTable("crisis_events", {
+  id: uuid("id").primaryKey().default(sql`gen_random_uuid()`), // Unique crisis event identifier
+  userId: uuid("user_id").references(() => users.id).notNull(), // User experiencing the crisis
+  conversationId: uuid("conversation_id").references(() => chatConversations.id), // Optional conversation that triggered crisis detection
+  level: text("level").notNull(), // Crisis severity: 'info', 'warning', 'critical'
+  detectedAt: timestamp("detected_at").defaultNow(), // When crisis was first identified
+  resolvedAt: timestamp("resolved_at"), // When crisis was resolved - null if ongoing
+  notes: jsonb("notes"), // Comprehensive crisis response data: detection triggers, actions taken, outcomes
+});
+
+/**
+ * Exercise Templates Table - Therapeutic exercises and activities library
+ * 
+ * Comprehensive collection of mental health exercises, coping strategies, and therapeutic activities.
+ * Provides structured, evidence-based interventions for various mental health concerns.
+ * 
+ * Features:
+ * - Categorized exercises for different therapeutic goals
+ * - Difficulty levels for progressive skill building
+ * - Duration estimates for session planning
+ * - Step-by-step instructions in structured format
+ * 
+ * Exercise Categories:
+ * - mindfulness: Meditation, breathing exercises, grounding techniques
+ * - cognitive: CBT exercises, thought restructuring, problem-solving
+ * - behavioral: Activity scheduling, exposure exercises, behavioral activation
+ * - relaxation: Progressive muscle relaxation, visualization, stress reduction
+ * - social: Communication skills, assertiveness training, relationship building
+ * 
+ * Usage:
+ * - AI can recommend appropriate exercises based on user needs
+ * - Exercises can be assigned as homework between sessions
+ * - Progress tracking through completion metrics
+ */
+export const exerciseTemplates = pgTable("exercise_templates", {
+  id: uuid("id").primaryKey().default(sql`gen_random_uuid()`), // Unique exercise identifier
+  title: text("title").notNull(), // Exercise name displayed to users
+  description: text("description").notNull(), // Brief overview of exercise purpose and benefits
+  steps: jsonb("steps").notNull(), // Structured step-by-step instructions as JSON array
+  category: text("category").notNull(), // Exercise type: 'mindfulness', 'cognitive', 'behavioral', 'relaxation', 'social'
+  difficulty: text("difficulty").notNull(), // Skill level required: 'beginner', 'intermediate', 'advanced'
+  duration: integer("duration"), // Estimated completion time in minutes
+});
+
+/**
+ * Conversation Tags Table - Organizational tags for chat conversations
+ * 
+ * Flexible tagging system for organizing and categorizing chat conversations.
+ * Enables users to create custom organizational structures for their therapeutic discussions.
+ * 
+ * Features:
+ * - User-defined tags for personal organization
+ * - System-generated tags based on conversation analysis
+ * - Time-based tag tracking for conversation evolution
+ * - Search and filtering capabilities
+ * 
+ * Tag Examples:
+ * - User-created: "work-stress", "family-issues", "exam-anxiety"
+ * - System-generated: "crisis-resolved", "mood-improving", "exercise-assigned"
+ * - Therapeutic: "cbt-session", "mindfulness-practice", "goal-setting"
+ * 
+ * Benefits:
+ * - Quick conversation retrieval and organization
+ * - Pattern recognition across similar discussions
+ * - Progress tracking through tag evolution
+ * - Personalized conversation management
+ */
+export const conversationTags = pgTable("conversation_tags", {
+  id: uuid("id").primaryKey().default(sql`gen_random_uuid()`), // Unique tag assignment identifier
+  conversationId: uuid("conversation_id").references(() => chatConversations.id).notNull(), // Tagged conversation
+  tag: text("tag").notNull(), // Tag name - can be user-created or system-generated
+  addedAt: timestamp("added_at").defaultNow(), // When tag was applied - for tracking conversation evolution
+});
+
 // =====================================
 // DATABASE RELATIONSHIPS
 // =====================================
@@ -367,6 +565,8 @@ export const usersRelations = relations(users, ({ many }) => ({
   assessments: many(assessments),
   forumPosts: many(forumPosts),
   forumReplies: many(forumReplies),
+  moodEntries: many(moodEntries),
+  crisisEvents: many(crisisEvents),
 }));
 
 export const chatConversationsRelations = relations(chatConversations, ({ one, many }) => ({
@@ -375,13 +575,22 @@ export const chatConversationsRelations = relations(chatConversations, ({ one, m
     references: [users.id],
   }),
   messages: many(chatMessages),
+  moodEntries: many(moodEntries),
+  crisisEvents: many(crisisEvents),
+  conversationTags: many(conversationTags),
 }));
 
-export const chatMessagesRelations = relations(chatMessages, ({ one }) => ({
+export const chatMessagesRelations = relations(chatMessages, ({ one, many }) => ({
   conversation: one(chatConversations, {
     fields: [chatMessages.conversationId],
     references: [chatConversations.id],
   }),
+  replyTo: one(chatMessages, {
+    fields: [chatMessages.replyToId],
+    references: [chatMessages.id],
+  }),
+  attachments: many(chatAttachments),
+  replies: many(chatMessages),
 }));
 
 export const appointmentsRelations = relations(appointments, ({ one }) => ({
@@ -431,6 +640,46 @@ export const forumRepliesRelations = relations(forumReplies, ({ one }) => ({
 
 export const forumCategoriesRelations = relations(forumCategories, ({ many }) => ({
   posts: many(forumPosts),
+}));
+
+/**
+ * New Table Relationships - Links for all the enhanced chat system tables
+ */
+
+export const chatAttachmentsRelations = relations(chatAttachments, ({ one }) => ({
+  message: one(chatMessages, {
+    fields: [chatAttachments.messageId],
+    references: [chatMessages.id],
+  }),
+}));
+
+export const moodEntriesRelations = relations(moodEntries, ({ one }) => ({
+  user: one(users, {
+    fields: [moodEntries.userId],
+    references: [users.id],
+  }),
+  conversation: one(chatConversations, {
+    fields: [moodEntries.conversationId],
+    references: [chatConversations.id],
+  }),
+}));
+
+export const crisisEventsRelations = relations(crisisEvents, ({ one }) => ({
+  user: one(users, {
+    fields: [crisisEvents.userId],
+    references: [users.id],
+  }),
+  conversation: one(chatConversations, {
+    fields: [crisisEvents.conversationId],
+    references: [chatConversations.id],
+  }),
+}));
+
+export const conversationTagsRelations = relations(conversationTags, ({ one }) => ({
+  conversation: one(chatConversations, {
+    fields: [conversationTags.conversationId],
+    references: [chatConversations.id],
+  }),
 }));
 
 // =====================================
@@ -524,6 +773,44 @@ export const insertCrisisContactSchema = createInsertSchema(crisisContacts).omit
   updatedAt: true,
 });
 
+// Enhanced Chat System Schemas
+export const insertChatAttachmentSchema = createInsertSchema(chatAttachments).omit({
+  id: true,
+  uploadedAt: true,
+});
+
+export const insertMoodEntrySchema = createInsertSchema(moodEntries).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertCrisisEventSchema = createInsertSchema(crisisEvents).omit({
+  id: true,
+  detectedAt: true,
+}).extend({
+  // Enforce valid crisis levels
+  level: z.enum(['info', 'warning', 'critical']),
+});
+
+export const insertExerciseTemplateSchema = createInsertSchema(exerciseTemplates).omit({
+  id: true,
+}).extend({
+  // Enforce structured steps format
+  steps: z.array(z.object({
+    step: z.number(),
+    instruction: z.string(),
+    duration: z.number().optional(),
+  })).min(1, "Exercise must have at least one step"),
+  // Validate category and difficulty enums
+  category: z.enum(['mindfulness', 'cognitive', 'behavioral', 'relaxation', 'social']),
+  difficulty: z.enum(['beginner', 'intermediate', 'advanced']),
+});
+
+export const insertConversationTagSchema = createInsertSchema(conversationTags).omit({
+  id: true,
+  addedAt: true,
+});
+
 // =====================================
 // TYPESCRIPT TYPES
 // =====================================
@@ -578,3 +865,19 @@ export type InsertEmergencyContact = z.infer<typeof insertEmergencyContactSchema
 
 export type CrisisContact = typeof crisisContacts.$inferSelect;
 export type InsertCrisisContact = z.infer<typeof insertCrisisContactSchema>;
+
+// Enhanced Chat System Types
+export type ChatAttachment = typeof chatAttachments.$inferSelect;
+export type InsertChatAttachment = z.infer<typeof insertChatAttachmentSchema>;
+
+export type MoodEntry = typeof moodEntries.$inferSelect;
+export type InsertMoodEntry = z.infer<typeof insertMoodEntrySchema>;
+
+export type CrisisEvent = typeof crisisEvents.$inferSelect;
+export type InsertCrisisEvent = z.infer<typeof insertCrisisEventSchema>;
+
+export type ExerciseTemplate = typeof exerciseTemplates.$inferSelect;
+export type InsertExerciseTemplate = z.infer<typeof insertExerciseTemplateSchema>;
+
+export type ConversationTag = typeof conversationTags.$inferSelect;
+export type InsertConversationTag = z.infer<typeof insertConversationTagSchema>;
