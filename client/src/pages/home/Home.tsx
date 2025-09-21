@@ -42,7 +42,8 @@ import {
   Heart,
   PlayCircle,
   HelpCircle,
-  ClipboardCheck
+  ClipboardCheck,
+  EyeOff
 } from "lucide-react";
 
 /**
@@ -236,61 +237,40 @@ export default function Home() {
     "Personalized support based on your needs"
   ];
 
-  // Breaking barriers data
-  const barrierSolutions = [
+  // Breaking barriers data - New specification with 3 columns
+  const breakingBarriers = [
     {
-      title: "Fear of Judgment & Stigma",
-      concerns: [
-        "What if people find out?",
-        "Will this affect my future?",
-        "Am I weak for needing help?",
-        "What will my family think?"
-      ],
+      icon: EyeOff,
+      title: "Eliminating Stigma",
+      description: "Mental health struggles are common and nothing to be ashamed of. We create a judgment-free environment where seeking help is seen as strength, not weakness.",
       solutions: [
-        "100% anonymous usage options",
-        "No names required for AI chat",
-        "Private, encrypted conversations", 
-        "Confidential professional appointments",
-        "HIPAA-compliant data protection"
+        "Complete anonymity options available",
+        "Peer support from students who understand",
+        "Education to reduce mental health stigma"
       ],
-      testimonial: "I was terrified someone would find out, but the anonymous chat gave me the courage to eventually book counseling.",
-      author: "Anonymous Junior"
+      accent: "purple"
     },
     {
-      title: "Limited Access & Long Wait Times",
-      concerns: [
-        "Counseling center is always booked",
-        "I need help at 2 AM, not 2 PM",
-        "I can't miss class for appointments",
-        "I can't afford private therapy"
-      ],
+      icon: Clock,
+      title: "Improving Accessibility",
+      description: "Mental health support should be available when you need it, not just during business hours. We make help accessible 24/7 with multiple ways to connect.",
       solutions: [
-        "24/7 AI support, never closed",
-        "Same-day professional appointments available",
-        "Flexible scheduling around your classes",
-        "Free campus counseling integration",
-        "Multiple communication options (text, video, phone)"
+        "24/7 AI chat support always available",
+        "Same-day appointment booking",
+        "Multiple communication channels (text, voice, video)"
       ],
-      testimonial: "Having AI support at 3 AM during finals week literally saved me from a complete breakdown.",
-      author: "Anonymous Senior"
+      accent: "blue"
     },
     {
-      title: "Not Knowing When/How to Get Help",
-      concerns: [
-        "Is this normal college stress or something more?",
-        "How do I know if I need professional help?",
-        "Where do I even start?",
-        "What if I'm overreacting?"
-      ],
+      icon: Heart,
+      title: "Enhancing Understanding",
+      description: "Mental health issues are complex and unique to each person. We provide personalized support that adapts to your specific needs and circumstances.",
       solutions: [
-        "Evidence-based self-assessments for clarity",
-        "Educational resources about mental health",
-        "Clear guidance on when to seek help",
-        "Step-by-step support navigation",
-        "Professional validation of your experiences"
+        "Personalized treatment approaches",
+        "Student-specific counseling expertise",
+        "Cultural and individual sensitivity training"
       ],
-      testimonial: "The assessment helped me realize that what I was feeling wasn't just 'normal stress' and I deserved support.",
-      author: "Anonymous Sophomore"
+      accent: "green"
     }
   ];
 
@@ -892,56 +872,66 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Section 7: Breaking Barriers */}
+      {/* Section 7: Breaking Down Barriers to Mental Health Support */}
       <section className="py-16 lg:py-24" style={{ background: 'var(--section-secondary)' }} data-testid="section-breaking-barriers">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-high-contrast mb-4" data-testid="text-barriers-title">
-              Breaking Down Every Barrier to Mental Health Care
+              Breaking Down Barriers to Mental Health Support
             </h2>
+            <p className="text-xl text-medium-contrast max-w-3xl mx-auto" data-testid="text-barriers-subtitle">
+              We're committed to eliminating the obstacles that prevent students from getting help
+            </p>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-12" data-testid="barriers-grid">
-            {barrierSolutions.map((barrier, index) => (
-              <div key={index} className="space-y-8" data-testid={`barrier-solution-${index}`}>
-                <h3 className="text-2xl font-bold text-red-600 dark:text-red-400" data-testid={`barrier-title-${index}`}>
-                  {barrier.title}
-                </h3>
+          <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12" data-testid="barriers-grid">
+            {breakingBarriers.map((barrier, index) => (
+              <Card 
+                key={index} 
+                className={`card-professional hover:shadow-xl transition-all duration-300 group border-2 h-full ${
+                  barrier.accent === 'purple' ? 'border-purple-200 hover:border-purple-400 bg-purple-50/50 dark:bg-purple-950/20 dark:border-purple-800 dark:hover:border-purple-600' :
+                  barrier.accent === 'blue' ? 'border-blue-200 hover:border-blue-400 bg-blue-50/50 dark:bg-blue-950/20 dark:border-blue-800 dark:hover:border-blue-600' :
+                  'border-green-200 hover:border-green-400 bg-green-50/50 dark:bg-green-950/20 dark:border-green-800 dark:hover:border-green-600'
+                }`}
+                data-testid={`barrier-card-${index}`}
+              >
+                <CardHeader className="pb-6">
+                  <div className="flex flex-col items-center text-center space-y-4">
+                    <div className={`w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg transform transition-all duration-300 group-hover:scale-110 ${
+                      barrier.accent === 'purple' ? 'bg-purple-500 dark:bg-purple-600' :
+                      barrier.accent === 'blue' ? 'bg-blue-500 dark:bg-blue-600' :
+                      'bg-green-500 dark:bg-green-600'
+                    }`}>
+                      <barrier.icon className="h-10 w-10 text-white" />
+                    </div>
+                    <CardTitle className="text-2xl font-bold text-high-contrast" data-testid={`barrier-title-${index}`}>
+                      {barrier.title}
+                    </CardTitle>
+                  </div>
+                </CardHeader>
                 
-                <div className="space-y-6">
-                  <div>
-                    <h4 className="font-semibold text-high-contrast mb-4">Student Concerns:</h4>
-                    <ul className="space-y-2">
-                      {barrier.concerns.map((concern, concernIndex) => (
-                        <li key={concernIndex} className="text-low-contrast text-sm" data-testid={`concern-${index}-${concernIndex}`}>
-                          • {concern}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                <CardContent className="space-y-6 flex-grow">
+                  <p className="text-medium-contrast leading-relaxed text-center" data-testid={`barrier-description-${index}`}>
+                    {barrier.description}
+                  </p>
                   
-                  <div>
-                    <h4 className="font-semibold text-high-contrast mb-4">Our Solutions:</h4>
-                    <ul className="space-y-2">
+                  <div className="space-y-4">
+                    <h4 className="font-semibold text-high-contrast text-center">Our Solutions:</h4>
+                    <ul className="space-y-3">
                       {barrier.solutions.map((solution, solutionIndex) => (
-                        <li key={solutionIndex} className="flex items-start space-x-2" data-testid={`solution-${index}-${solutionIndex}`}>
-                          <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0 mt-0.5" />
-                          <span className="text-medium-contrast text-sm">{solution}</span>
+                        <li key={solutionIndex} className="flex items-start space-x-3" data-testid={`solution-${index}-${solutionIndex}`}>
+                          <CheckCircle className={`h-5 w-5 flex-shrink-0 mt-0.5 ${
+                            barrier.accent === 'purple' ? 'text-purple-500 dark:text-purple-400' :
+                            barrier.accent === 'blue' ? 'text-blue-500 dark:text-blue-400' :
+                            'text-green-500 dark:text-green-400'
+                          }`} />
+                          <span className="text-medium-contrast">{solution}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
-                  
-                  <blockquote className="bg-white dark:bg-gray-900 p-6 rounded-lg border-l-4 border-primary" data-testid={`barrier-testimonial-${index}`}>
-                    <p className="italic text-gray-700 dark:text-gray-300 mb-3">
-                      "{barrier.testimonial}"
-                    </p>
-                    <p className="text-sm font-semibold text-primary">
-                      - {barrier.author}
-                    </p>
-                  </blockquote>
-                </div>
-              </div>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
