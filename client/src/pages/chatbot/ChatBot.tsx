@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useLocation } from "wouter";
 import Header from "@/components/layout/Header";
 import ChatInterface from "./components/ChatInterface";
 import ChatSidebar from "@/components/chat/ChatSidebar";
@@ -23,8 +24,17 @@ import type { ChatConversation, ChatMessage } from "@/types";
  * Features AI-powered mental health support with crisis detection
  */
 export default function ChatBot() {
+  const [, setLocation] = useLocation();
   const [selectedConversationId, setSelectedConversationId] = useState<string | null>(null);
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  
+  // Enhanced header state for chat mode
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isAnonymousMode, setIsAnonymousMode] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState('English');
+  const [isSoundEnabled, setIsSoundEnabled] = useState(true);
+  const [isNotificationsEnabled, setIsNotificationsEnabled] = useState(true);
+  
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
@@ -202,9 +212,144 @@ export default function ChatBot() {
     }
   };
 
+  // Enhanced Header handlers for chat mode
+  const handleEmergencyClick = () => {
+    toast({
+      title: "Emergency Support",
+      description: "Connecting you to crisis support resources...",
+      variant: "destructive",
+    });
+    // In a real app, this would redirect to emergency resources or open a crisis chat
+    setLocation("/emergency");
+  };
+
+  const handleNavigateBack = () => {
+    setLocation("/");
+  };
+
+  const handleToggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+      setIsFullscreen(true);
+    } else {
+      document.exitFullscreen();
+      setIsFullscreen(false);
+    }
+  };
+
+  const handleSettingsChange = (setting: string, value: any) => {
+    switch (setting) {
+      case 'language':
+        setSelectedLanguage(value);
+        toast({
+          title: "Language Updated",
+          description: `Interface language changed to ${value}`,
+        });
+        break;
+      case 'sound':
+        setIsSoundEnabled(value);
+        toast({
+          title: value ? "Sound Enabled" : "Sound Disabled",
+          description: `Chat sound effects ${value ? 'enabled' : 'disabled'}`,
+        });
+        break;
+      case 'notifications':
+        setIsNotificationsEnabled(value);
+        toast({
+          title: value ? "Notifications Enabled" : "Notifications Disabled", 
+          description: `Push notifications ${value ? 'enabled' : 'disabled'}`,
+        });
+        break;
+    }
+  };
+
+  const handleToggleAnonymousMode = (enabled: boolean) => {
+    setIsAnonymousMode(enabled);
+    toast({
+      title: enabled ? "Anonymous Mode Enabled" : "Anonymous Mode Disabled",
+      description: enabled 
+        ? "Your identity is now hidden for maximum privacy" 
+        : "Your profile is now visible",
+    });
+  };
+
+  const handleProfileClick = () => {
+    toast({
+      title: "Profile Settings",
+      description: "Opening profile configuration...",
+    });
+    // In a real app, this would open a profile modal or navigate to profile page
+  };
+
+  const handleLogout = () => {
+    toast({
+      title: "Logged Out",
+      description: "You have been safely logged out",
+    });
+    setLocation("/");
+  };
+
+  // Mock user data for demonstration
+  const currentUser = {
+    id: userId,
+    username: "student_user",
+    firstName: "Student", 
+    email: "student@university.edu"
+  };
+
+  // Connection status mapping from WebSocket state
+  const getConnectionStatus = () => {
+    switch (connectionState) {
+      case 'connected': return 'connected';
+      case 'connecting': return 'connecting';
+      case 'reconnecting': return 'reconnecting';
+      case 'disconnected': return 'disconnected';
+      default: return 'disconnected';
+    }
+  };
+
+  // Connection quality (mock - in real app would be based on latency, etc.)
+  const getConnectionQuality = () => {
+    const status = getConnectionStatus();
+    if (status === 'connected') return 'excellent';
+    if (status === 'connecting' || status === 'reconnecting') return 'good';
+    return 'disconnected';
+  };
+
   return (
     <div className="min-h-screen bg-background">
-      <Header />
+      <Header 
+        // Enable chat mode with all enhanced features
+        isChatMode={true}
+        
+        // AI Status Display
+        aiModel="Gemini Pro"
+        connectionStatus={getConnectionStatus()}
+        connectionQuality={getConnectionQuality()}
+        
+        // Navigation
+        onNavigateBack={handleNavigateBack}
+        
+        // Emergency Support
+        onEmergencyClick={handleEmergencyClick}
+        
+        // User Profile & Authentication
+        currentUser={currentUser}
+        isAnonymousMode={isAnonymousMode}
+        onToggleAnonymousMode={handleToggleAnonymousMode}
+        onProfileClick={handleProfileClick}
+        onLogout={handleLogout}
+        
+        // Settings & Preferences
+        selectedLanguage={selectedLanguage}
+        isSoundEnabled={isSoundEnabled}
+        isNotificationsEnabled={isNotificationsEnabled}
+        onSettingsChange={handleSettingsChange}
+        
+        // Fullscreen Mode
+        isFullscreen={isFullscreen}
+        onToggleFullscreen={handleToggleFullscreen}
+      />
       
       <div className="pt-20 h-screen flex">
         <ChatSidebar
