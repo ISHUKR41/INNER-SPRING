@@ -9,11 +9,13 @@ import {
   AlertTriangle,
   Calendar,
   BookOpen,
-  Brain
+  Brain,
+  Lock
 } from "lucide-react";
 import { useChatWebSocket } from "@/hooks/use-websocket";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { Card, CardContent } from "@/components/ui/card";
 import type { ChatConversation, ChatMessage } from "@/types";
 
 /**

@@ -21,12 +21,12 @@ import {
   Settings, Lock, Calendar, BookOpen, Users, Brain, Timer,
   Filter, Pin, Menu, ChevronDown, Smile, Heart, Zap, 
   Frown, Meh, AlertTriangle, Clock, MessageSquare, Volume2,
-  Shield, Database, Share, User, ArrowUp, ArrowDown, Palette
+  Shield, Database, Share, User as UserIcon, ArrowUp, ArrowDown, Palette
 } from "lucide-react";
 import { useChatWebSocket } from "@/hooks/use-websocket";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import { useMobile } from "@/hooks/use-mobile";
+import { useIsMobile } from "@/hooks/use-mobile";
 import type { ChatConversation, ChatMessage, User } from "@/types";
 
 // Mood options for tracking emotional state
@@ -62,7 +62,7 @@ interface ChatSidebarProps {
   selectedConversationId: string | null;
   conversations: ChatConversation[];
   conversationsLoading: boolean;
-  connectionState: 'connected' | 'connecting' | 'disconnected';
+  connectionState: 'connected' | 'connecting' | 'disconnected' | 'error';
   onConversationSelect: (id: string) => void;
   onNewConversation: () => void;
   onDeleteConversation: (id: string) => void;
@@ -95,7 +95,7 @@ export default function ChatSidebar({
   
   const queryClient = useQueryClient();
   const { toast } = useToast();
-  const isMobile = useMobile();
+  const isMobile = useIsMobile();
 
   // Fetch user profile data for enhanced sidebar features
   const { data: userProfile } = useQuery<User>({
