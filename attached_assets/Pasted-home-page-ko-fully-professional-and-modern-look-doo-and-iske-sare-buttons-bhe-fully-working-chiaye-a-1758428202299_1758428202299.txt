@@ -1,0 +1,32 @@
+home page ko fully professional and modern look doo and iske sare buttons bhe fully working chiaye and home page wala folder mai easy to understand English bhe add karo and home page ko fully responsive bhe banao and error free bhe and modern and professional look aana chiaye home page se and sb cheez fully logic and mind se karna and home page haar ek device ke liye fully responsive chiaye mujhe like haar ek chota se chota device se lekar bada device tak sab ke liye fully professional and modern look and fully responsive bhe hona chaiye mera fully home page like tv mobile tablet desktop and many more devices saab cke liye fully modern look and professional look and fully responsive bhe 
+
+
+
+home page mai jitna bhe cheez hoga mujhe sab cheez fully working mai chiaye and buttons bhe fully working mai chiaye and jab tak pura work khatam nhi ho jaye tum work karte rahna and ek pro developer jaise thining and logic and mind laga kar
+
+mujhe fully home page dark theme mai chiaye and footer beh abhi bhout jada bekar lag raha hai
+
+and bhout sara aise cheez hai jo ki phela se ban chuka hai but bhout sara cheez abhi tak nhi bana hai
+
+and home page mai koi bhe error nhi aana chiaye
+
+home page phela se hee bana hua to hai but usko or jada profeesional and modern bana dena and fotter bhe mujhe dark theme mai hee chaiye and fonts and text bhe professional and modern hona chiaye and icons bhe
+
+soch samaj kar and pls fully logic and mind ka use karna sab cheez karna ke liye and jo mujhe text website par show hoga matlab ki website par jo output hoga wo bhe easy to understand enlgish mai hona chiaye 
+
+
+like kuch bhe karna se soch lena ki ye karne se website par kya output aayegaa like ye information sahi se fit ho payegaa na website mai and ho sake to libraies ka bhe use kar hee lena but website ka jo output hona chiaye wo bhuout hee well structure hona chiye matlab fully ek pro developer jaise soch kar sab cheez karna 
+
+reference ke liye text file de diya hu upar mai 
+
+navbar mai jo crisis help wala section hai usko hata dena 
+
+
+last time ye sab miss ho gaya tha 
+
+Adjust layout for all devices
+Update content to match specs
+Improve button styles and actions
+Apply professional design patterns
+Add smooth animations for modern feel
+Check all features work correctly
