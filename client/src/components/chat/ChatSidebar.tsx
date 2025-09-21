@@ -37,7 +37,8 @@ import {
   Sparkles, Flame, Snowflake, Wind, Sun, Loader2, Wifi,
   WifiOff, Signal, Phone, Shield as ShieldIcon, Bell, BellOff,
   Bookmark, Folder, FolderOpen, Hash, Grid, List, SortAsc,
-  SortDesc, Calendar as CalendarIcon, UserPlus, UserMinus
+  SortDesc, Calendar as CalendarIcon, UserPlus, UserMinus,
+  ClipboardList
 } from "lucide-react";
 import { useChatWebSocket } from "@/hooks/use-websocket";
 import { apiRequest } from "@/lib/queryClient";
