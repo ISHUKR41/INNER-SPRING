@@ -18,7 +18,11 @@ import {
   AnimatePresence,
   stagger,
   useMotionValue,
-  useMotionTemplate
+  useMotionTemplate,
+  useReducedMotion,
+  Variants,
+  LazyMotion,
+  domAnimation
 } from "framer-motion";
 import { 
   MessageCircle, 
@@ -57,8 +61,167 @@ import {
   PlayCircle,
   HelpCircle,
   ClipboardCheck,
-  EyeOff
+  EyeOff,
+  ChevronUp
 } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Suspense, useMemo, useCallback } from "react";
+
+// Centralized Animation Variants - GPU Accelerated
+const animationVariants: { [key: string]: Variants } = {
+  // Fade up animation with GPU acceleration
+  fadeUp: {
+    initial: { 
+      opacity: 0, 
+      y: 60,
+      transform: "translate3d(0, 60px, 0)" // Force GPU acceleration
+    },
+    animate: { 
+      opacity: 1, 
+      y: 0,
+      transform: "translate3d(0, 0, 0)",
+      transition: {
+        duration: 0.6,
+        ease: [0.6, -0.05, 0.01, 0.99], // Custom ease curve
+      }
+    }
+  },
+
+  // Stagger children animation
+  stagger: {
+    animate: {
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  },
+
+  // Scale in animation for cards and buttons
+  scaleIn: {
+    initial: { 
+      opacity: 0, 
+      scale: 0.8,
+      transform: "scale3d(0.8, 0.8, 1)" // GPU acceleration
+    },
+    animate: { 
+      opacity: 1, 
+      scale: 1,
+      transform: "scale3d(1, 1, 1)",
+      transition: {
+        duration: 0.4,
+        ease: [0.6, -0.05, 0.01, 0.99],
+      }
+    }
+  },
+
+  // Slide in from left
+  slideInLeft: {
+    initial: { 
+      opacity: 0, 
+      x: -60,
+      transform: "translate3d(-60px, 0, 0)"
+    },
+    animate: { 
+      opacity: 1, 
+      x: 0,
+      transform: "translate3d(0, 0, 0)",
+      transition: {
+        duration: 0.7,
+        ease: [0.6, -0.05, 0.01, 0.99],
+      }
+    }
+  },
+
+  // Slide in from right
+  slideInRight: {
+    initial: { 
+      opacity: 0, 
+      x: 60,
+      transform: "translate3d(60px, 0, 0)"
+    },
+    animate: { 
+      opacity: 1, 
+      x: 0,
+      transform: "translate3d(0, 0, 0)",
+      transition: {
+        duration: 0.7,
+        ease: [0.6, -0.05, 0.01, 0.99],
+      }
+    }
+  },
+
+  // Hover effects for interactive elements
+  hover: {
+    initial: { scale: 1 },
+    animate: { 
+      scale: 1.02,
+      transition: { duration: 0.2, ease: "easeOut" }
+    }
+  },
+
+  // Tap effects for buttons
+  tap: {
+    initial: { scale: 1 },
+    animate: { 
+      scale: 0.98,
+      transition: { duration: 0.1, ease: "easeOut" }
+    }
+  },
+
+  // Float animation for icons
+  float: {
+    initial: { y: 0 },
+    animate: {
+      y: [-10, 10, -10],
+      transition: {
+        duration: 3,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }
+    }
+  },
+
+  // Pulse animation
+  pulse: {
+    initial: { scale: 1 },
+    animate: {
+      scale: [1, 1.05, 1],
+      transition: {
+        duration: 2,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }
+    }
+  }
+};
+
+// ParallaxSection Component for scroll-triggered parallax effects
+const ParallaxSection: React.FC<{
+  children: React.ReactNode;
+  offset?: number;
+  className?: string;
+}> = ({ children, offset = 50, className = "" }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+  
+  const y = useTransform(scrollYProgress, [0, 1], [-offset, offset]);
+  const reducedMotion = useReducedMotion();
+  
+  return (
+    <div ref={ref} className={`relative ${className}`}>
+      <motion.div
+        style={{ y: reducedMotion ? 0 : y }}
+        className="will-change-transform"
+      >
+        {children}
+      </motion.div>
+    </div>
+  );
+};
 
 /**
  * MindCare Homepage - Enhanced Mental Health Platform
@@ -89,11 +252,16 @@ import {
  * 11. Call-to-action section with multiple entry points
  */
 export default function Home() {
+  // Accessibility: Check for reduced motion preference
+  const reducedMotion = useReducedMotion();
+  
   // State management for interactive elements
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [visibleStats, setVisibleStats] = useState(false);
   const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [showBackToTop, setShowBackToTop] = useState(false);
   
   // Refs for scroll-triggered animations and intersection observers
   const heroRef = useRef(null);
@@ -101,7 +269,7 @@ export default function Home() {
   const featuresRef = useRef(null);
   const journeyRef = useRef(null);
   
-  // Simplified motion values for better compatibility
+  // Enhanced spring configuration
   const springConfig = { stiffness: 300, damping: 30, restDelta: 0.001 };
   
   // Intersection observer hooks for scroll-triggered animations
@@ -114,9 +282,134 @@ export default function Home() {
   const heroControls = useAnimation();
   const statsControls = useAnimation();
   const featuresControls = useAnimation();
+  
+  // Feature flag for mobile optimization
+  const shouldUseHeavyAnimations = !isMobile && !reducedMotion;
 
-  // Crisis statistics data from specifications
-  const crisisStatistics = [
+  // Skeleton Components
+  const StatsSkeleton = () => (
+    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {[...Array(4)].map((_, i) => (
+        <Card key={i} className="p-6">
+          <div className="flex items-center space-x-4">
+            <Skeleton className="h-12 w-12 rounded-full" />
+            <div className="space-y-2">
+              <Skeleton className="h-4 w-20" />
+              <Skeleton className="h-4 w-32" />
+            </div>
+          </div>
+        </Card>
+      ))}
+    </div>
+  );
+
+  const CardsSkeleton = () => (
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {[...Array(6)].map((_, i) => (
+        <Card key={i} className="p-6">
+          <Skeleton className="h-8 w-8 mb-4" />
+          <Skeleton className="h-4 w-3/4 mb-2" />
+          <Skeleton className="h-4 w-full mb-2" />
+          <Skeleton className="h-4 w-2/3" />
+        </Card>
+      ))}
+    </div>
+  );
+
+  // Enhanced Icon Component with float/pulse animations
+  const AnimatedIcon: React.FC<{
+    IconComponent: React.ComponentType<any>;
+    className?: string;
+    size?: number;
+    animation?: "float" | "pulse" | "none";
+  }> = ({ IconComponent, className = "", size = 24, animation = "none" }) => {
+    const variants = {
+      float: reducedMotion ? {} : animationVariants.float,
+      pulse: reducedMotion ? {} : animationVariants.pulse,
+      none: {}
+    };
+
+    return (
+      <motion.div
+        className={`inline-block ${className}`}
+        variants={variants[animation]}
+        animate={shouldUseHeavyAnimations ? animation : "none"}
+        whileHover={
+          shouldUseHeavyAnimations 
+            ? { scale: 1.1, transition: { duration: 0.2 } }
+            : {}
+        }
+      >
+        <IconComponent size={size} />
+      </motion.div>
+    );
+  };
+
+  // Enhanced Card Component with tilt and hover effects
+  const EnhancedCard: React.FC<{
+    children: React.ReactNode;
+    className?: string;
+    onClick?: () => void;
+    tiltEffect?: boolean;
+  }> = ({ children, className = "", onClick, tiltEffect = true }) => {
+    const [rotateX, setRotateX] = useState(0);
+    const [rotateY, setRotateY] = useState(0);
+
+    const handleMouseMove = useCallback((e: React.MouseEvent) => {
+      if (!tiltEffect || reducedMotion || isMobile) return;
+      
+      const card = e.currentTarget as HTMLElement;
+      const rect = card.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const mouseX = e.clientX - centerX;
+      const mouseY = e.clientY - centerY;
+      
+      setRotateY((mouseX / rect.width) * 6); // ±3deg max
+      setRotateX(-(mouseY / rect.height) * 6);
+    }, [tiltEffect, reducedMotion, isMobile]);
+
+    const handleMouseLeave = useCallback(() => {
+      setRotateX(0);
+      setRotateY(0);
+    }, []);
+
+    return (
+      <motion.div
+        className={`${className} will-change-transform cursor-pointer`}
+        style={{ perspective: 1000 }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        onClick={onClick}
+        whileHover={
+          shouldUseHeavyAnimations 
+            ? { scale: 1.02, transition: { duration: 0.2 } }
+            : {}
+        }
+        whileTap={
+          shouldUseHeavyAnimations 
+            ? { scale: 0.98, transition: { duration: 0.1 } }
+            : {}
+        }
+      >
+        <motion.div
+          style={{
+            rotateX: shouldUseHeavyAnimations ? rotateX : 0,
+            rotateY: shouldUseHeavyAnimations ? rotateY : 0,
+          }}
+          transition={{ duration: 0.1 }}
+          className="will-change-transform"
+        >
+          <Card className={className}>
+            {children}
+          </Card>
+        </motion.div>
+      </motion.div>
+    );
+  };
+
+  // Memoized crisis statistics data for performance
+  const crisisStatistics = useMemo(() => [
     {
       number: "73%",
       description: "of students experienced a mental health crisis in the past year",
@@ -145,10 +438,10 @@ export default function Home() {
       icon: AlertCircle,
       accent: "dark-red"
     }
-  ];
+  ], []);
 
-  // Quick access feature tiles data - Updated to exact specifications
-  const featureTiles = [
+  // Memoized feature tiles data for performance
+  const featureTiles = useMemo(() => [
     {
       title: "24/7 AI Mental Health Support",
       description: "Immediate coping strategies, breathing exercises, and emotional support when you need it most",
@@ -233,10 +526,10 @@ export default function Home() {
       contentNote: null,
       safetyNote: null
     }
-  ];
+  ], []);
 
-  // 5-step journey data - Updated to match exact specifications
-  const journeySteps = [
+  // Memoized journey steps data for performance
+  const journeySteps = useMemo(() => [
     {
       title: "Quick Assessment",
       description: "Share your concerns in a safe, judgment-free assessment",
@@ -282,10 +575,10 @@ export default function Home() {
       href: "/peer-support",
       bgColor: "bg-pink-50 dark:bg-pink-900/20"
     }
-  ];
+  ], []);
 
-  // Student challenge cards data - Updated to exact specifications
-  const challengeCards = [
+  // Memoized challenge cards data for performance
+  const challengeCards = useMemo(() => [
     {
       title: "Academic Pressure",
       description: "Overwhelming coursework, perfectionism, and fear of failure affecting your studies and mental health",
@@ -314,27 +607,27 @@ export default function Home() {
       icon: ArrowRightLeft,
       accent: "purple"
     }
-  ];
+  ], []);
 
-  // Traditional barriers vs our solutions
-  const traditionalBarriers = [
+  // Memoized barriers and solutions data for performance
+  const traditionalBarriers = useMemo(() => [
     "Wait 3-6 weeks for counseling appointment",
     "Limited hours (9 AM - 5 PM only)",
     "Fear of judgment and stigma",
     "No immediate help during crisis",
     "One-size-fits-all approach"
-  ];
+  ], []);
 
-  const ourSolutions = [
+  const ourSolutions = useMemo(() => [
     "24/7 AI support and immediate coping strategies",
     "Same-day professional appointment booking",
     "Complete anonymity options available",
     "Instant crisis intervention protocols",
     "Personalized support based on your needs"
-  ];
+  ], []);
 
-  // Breaking barriers data - Updated to exact specifications with 3 columns
-  const breakingBarriers = [
+  // Memoized breaking barriers data for performance
+  const breakingBarriers = useMemo(() => [
     {
       icon: EyeOff,
       title: "Fear of Judgment & Stigma",
@@ -398,10 +691,10 @@ export default function Home() {
       attribution: "Anonymous Sophomore",
       accent: "green"
     }
-  ];
+  ], []);
 
-  // Success stories carousel data
-  const successStories = [
+  // Memoized success stories data for performance with scroll-snap
+  const successStories = useMemo(() => [
     {
       studentType: "Freshman, Pre-Med Student",
       challenge: "Severe social anxiety and panic attacks",
@@ -435,7 +728,7 @@ export default function Home() {
         "Now works as peer counselor training program"
       ]
     }
-  ];
+  ], []);
 
   // FAQ data
   const faqData = [
@@ -681,49 +974,79 @@ export default function Home() {
     }
   ];
 
-  // Enhanced scroll and animation effects
+  // Enhanced scroll and animation effects with throttling
   useEffect(() => {
-    // Track scroll position for navigation highlighting and parallax effects
+    // Enhanced mobile detection with matchMedia
+    const mobileQuery = window.matchMedia('(max-width: 768px)');
+    const touchQuery = window.matchMedia('(pointer: coarse)');
+    
+    const checkMobile = () => {
+      setIsMobile(mobileQuery.matches || touchQuery.matches);
+    };
+    
+    checkMobile();
+    mobileQuery.addEventListener('change', checkMobile);
+    touchQuery.addEventListener('change', checkMobile);
+
+    // Throttled scroll handler for performance
+    let timeoutId: NodeJS.Timeout;
     const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      setIsScrolled(scrollTop > 100);
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        const scrollTop = window.scrollY;
+        setIsScrolled(scrollTop > 100);
+        setShowBackToTop(scrollTop > 600);
+      }, 16); // ~60fps throttling
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      mobileQuery.removeEventListener('change', checkMobile);
+      touchQuery.removeEventListener('change', checkMobile);
+      clearTimeout(timeoutId);
+    };
   }, []);
 
-  // Trigger animations when sections come into view
+  // Trigger animations when sections come into view with reduced motion support
   useEffect(() => {
     if (isHeroInView) {
-      heroControls.start({
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.8, ease: "easeOut" }
-      });
+      heroControls.start(
+        reducedMotion 
+          ? { opacity: 1, y: 0, transition: { duration: 0.1 } }
+          : animationVariants.fadeUp.animate
+      );
     }
-  }, [isHeroInView, heroControls]);
+  }, [isHeroInView, heroControls, reducedMotion]);
 
   useEffect(() => {
     if (isStatsInView) {
       setVisibleStats(true);
-      statsControls.start({
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.6, staggerChildren: 0.1 }
-      });
+      statsControls.start(
+        reducedMotion 
+          ? { opacity: 1, y: 0, transition: { duration: 0.1 } }
+          : {
+              opacity: 1,
+              y: 0,
+              transition: { duration: 0.6, staggerChildren: 0.1, delayChildren: 0.2 }
+            }
+      );
     }
-  }, [isStatsInView, statsControls]);
+  }, [isStatsInView, statsControls, reducedMotion]);
 
   useEffect(() => {
     if (isFeaturesInView) {
-      featuresControls.start({
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.5, staggerChildren: 0.1, delayChildren: 0.2 }
-      });
+      featuresControls.start(
+        reducedMotion 
+          ? { opacity: 1, y: 0, transition: { duration: 0.1 } }
+          : {
+              opacity: 1,
+              y: 0,
+              transition: { duration: 0.5, staggerChildren: 0.1, delayChildren: 0.2 }
+            }
+      );
     }
-  }, [isFeaturesInView, featuresControls]);
+  }, [isFeaturesInView, featuresControls, reducedMotion]);
 
   // Animated counter component for statistics
   const AnimatedCounter = ({ end, suffix = "", duration = 2 }: { end: string; suffix?: string; duration?: number }) => {
@@ -762,62 +1085,170 @@ export default function Home() {
     return () => clearInterval(timer);
   }, [successStories.length]);
 
+  // BackToTop Component
+  const BackToTop = () => {
+    const handleScrollToTop = () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    return (
+      <AnimatePresence>
+        {showBackToTop && (
+          <motion.button
+            onClick={handleScrollToTop}
+            className="fixed bottom-8 right-8 z-50 p-4 bg-primary text-primary-foreground rounded-full shadow-lg hover:shadow-xl transition-shadow"
+            variants={reducedMotion ? {} : animationVariants.scaleIn}
+            initial="initial"
+            animate="animate"
+            exit="initial"
+            whileHover={reducedMotion ? {} : { scale: 1.02 }}
+            whileTap={reducedMotion ? {} : { scale: 0.98 }}
+            data-testid="button-back-to-top"
+            aria-label="Back to top"
+          >
+            <ChevronUp className="w-6 h-6" />
+          </motion.button>
+        )}
+      </AnimatePresence>
+    );
+  };
+
+  // Enhanced Button Component with micro-interactions
+  const EnhancedButton: React.FC<{
+    children: React.ReactNode;
+    href?: string;
+    className?: string;
+    variant?: "default" | "secondary" | "outline";
+    size?: "default" | "sm" | "lg";
+    onClick?: () => void;
+  }> = ({ children, href, className = "", variant = "default", size = "default", onClick }) => {
+    const buttonProps = {
+      className: `${className} will-change-transform`,
+      whileHover: reducedMotion ? {} : { 
+        scale: 1.02, 
+        boxShadow: "0 8px 25px rgba(0,0,0,0.15)",
+        transition: { duration: 0.2 }
+      },
+      whileTap: reducedMotion ? {} : { 
+        scale: 0.98,
+        transition: { duration: 0.1 }
+      },
+      onClick
+    };
+
+    if (href) {
+      return (
+        <motion.div {...buttonProps}>
+          <Link href={href}>
+            <Button variant={variant} size={size} className={className}>
+              {children}
+            </Button>
+          </Link>
+        </motion.div>
+      );
+    }
+
+    return (
+      <motion.div {...buttonProps}>
+        <Button variant={variant} size={size} className={className} onClick={onClick}>
+          {children}
+        </Button>
+      </motion.div>
+    );
+  };
+
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <Header />
+    <LazyMotion features={domAnimation}>
+      <div className="min-h-screen bg-background text-foreground scroll-smooth">
+        <Header />
+        <BackToTop />
       
       {/* Section 1: Hero Banner - Enhanced with Framer Motion Animations */}
-      <motion.section 
-        ref={heroRef}
-        className="hero-section relative overflow-hidden min-h-screen flex items-center" 
-        data-testid="section-hero"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        {/* Animated Background Elements with Floating Shapes */}
-        <div className="absolute inset-0 overflow-hidden">
-          <motion.div 
-            className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full blur-xl"
-            animate={{
-              x: [0, 100, 0],
-              y: [0, -50, 0],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-          <motion.div 
-            className="absolute top-40 right-20 w-24 h-24 bg-gradient-to-br from-secondary/30 to-primary/30 rounded-full blur-lg"
-            animate={{
-              x: [0, -80, 0],
-              y: [0, 60, 0],
-              scale: [1, 0.8, 1],
-            }}
-            transition={{
-              duration: 15,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 2
-            }}
-          />
-          <motion.div 
-            className="absolute bottom-20 left-1/4 w-40 h-40 bg-gradient-to-br from-accent/10 to-primary/10 rounded-full blur-2xl"
-            animate={{
-              scale: [1, 1.3, 1],
-              opacity: [0.3, 0.6, 0.3],
-            }}
-            transition={{
-              duration: 12,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 1
-            }}
-          />
-        </div>
+      <ParallaxSection offset={shouldUseHeavyAnimations ? 80 : 0} className="hero-section relative overflow-hidden min-h-screen flex items-center scroll-mt-16">
+        <motion.section 
+          id="hero"
+          ref={heroRef}
+          className="w-full"
+          data-testid="section-hero"
+          variants={reducedMotion ? {} : animationVariants.fadeUp}
+          initial="initial"
+          animate={isHeroInView ? "animate" : "initial"}
+        >
+          {/* Animated Background Gradient Mesh */}
+          <div className="absolute inset-0 animated-gradient-mesh" />
+          
+          {/* Enhanced Animated Background Elements with Floating Shapes and Particles */}
+          <div className="absolute inset-0 overflow-hidden">
+            {/* Existing floating shapes */}
+            <motion.div 
+              className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full blur-xl"
+              animate={shouldUseHeavyAnimations ? {
+                x: [0, 100, 0],
+                y: [0, -50, 0],
+                scale: [1, 1.2, 1],
+              } : {}}
+              transition={{
+                duration: 20,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+            <motion.div 
+              className="absolute top-40 right-20 w-24 h-24 bg-gradient-to-br from-secondary/30 to-primary/30 rounded-full blur-lg"
+              animate={shouldUseHeavyAnimations ? {
+                x: [0, -80, 0],
+                y: [0, 60, 0],
+                scale: [1, 0.8, 1],
+              } : {}}
+              transition={{
+                duration: 15,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 2
+              }}
+            />
+            <motion.div 
+              className="absolute bottom-20 left-1/4 w-40 h-40 bg-gradient-to-br from-accent/10 to-primary/10 rounded-full blur-2xl"
+              animate={shouldUseHeavyAnimations ? {
+                scale: [1, 1.3, 1],
+                opacity: [0.3, 0.6, 0.3],
+              } : {}}
+              transition={{
+                duration: 12,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 1
+              }}
+            />
+            
+            {/* Lightweight particle effects (disabled on mobile) */}
+            {shouldUseHeavyAnimations && (
+              <>
+                {[...Array(6)].map((_, i) => (
+                  <motion.div
+                    key={`particle-${i}`}
+                    className="absolute w-2 h-2 bg-gradient-to-r from-primary/40 to-secondary/40 rounded-full"
+                    style={{
+                      left: `${20 + i * 15}%`,
+                      top: `${30 + (i % 3) * 20}%`,
+                    }}
+                    animate={{
+                      y: [-20, 20, -20],
+                      x: [-10, 10, -10],
+                      opacity: [0.4, 0.8, 0.4],
+                      scale: [0.8, 1.2, 0.8],
+                    }}
+                    transition={{
+                      duration: 4 + i,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: i * 0.8,
+                    }}
+                  />
+                ))}
+              </>
+            )}
+          </div>
 
         {/* Main Hero Content Container with Enhanced Layout */}
         <div className="hero-content max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 relative z-10">
@@ -988,15 +1419,18 @@ export default function Home() {
           </div>
         </div>
       </motion.section>
+      </ParallaxSection>
 
       {/* Section 2: Problem Awareness Statistics - Enhanced with Animated Counters */}
       <motion.section 
+        id="crisis-stats"
         ref={statsRef}
-        className="stats-section py-16 lg:py-24" 
+        className="stats-section py-16 lg:py-24 scroll-mt-16" 
         data-testid="section-crisis-stats"
         initial={{ opacity: 0, y: 50 }}
-        animate={isStatsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, staggerChildren: 0.1 }}
+        viewport={{ once: true, amount: 0.2 }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header with Enhanced Typography and Animation */}
@@ -1529,7 +1963,16 @@ export default function Home() {
       </section>
 
       {/* Section 4: 5-Step Student Journey */}
-      <section className="py-16 lg:py-24" style={{ background: 'var(--section-primary)' }} data-testid="section-student-journey">
+      <motion.section 
+        id="journey-steps"
+        className="py-16 lg:py-24 scroll-mt-16" 
+        style={{ background: 'var(--section-primary)' }} 
+        data-testid="section-student-journey"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true, amount: 0.1 }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-hero text-high-contrast mb-4" data-testid="text-journey-title">
@@ -1596,7 +2039,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Section 5: Quick Access Feature Tiles - Enhanced with Framer Motion and Modern Design */}
       {/* 
@@ -1926,7 +2369,16 @@ export default function Home() {
       </motion.section>
 
       {/* Section 6: Student-Specific Challenges */}
-      <section className="py-16 lg:py-24" style={{ background: 'var(--section-primary)' }} data-testid="section-challenges">
+      <motion.section 
+        id="challenges"
+        className="py-16 lg:py-24 scroll-mt-16" 
+        style={{ background: 'var(--section-primary)' }} 
+        data-testid="section-challenges"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true, amount: 0.1 }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-high-contrast mb-4" data-testid="text-challenges-title">
@@ -1988,7 +2440,7 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Section 7: Breaking Down Every Barrier to Mental Health Care */}
       <section className="py-16 lg:py-24 bg-gradient-to-b from-background via-muted/20 to-background" data-testid="section-breaking-barriers">
@@ -2305,6 +2757,7 @@ export default function Home() {
       </section>
 
       <Footer />
-    </div>
+      </div>
+    </LazyMotion>
   );
 }

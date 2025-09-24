@@ -90,6 +90,9 @@
   /* Design system */
   --radius: 0.75rem;
   
+  /* Smooth scrolling */
+  scroll-behavior: smooth;
+  
   /* Custom MindCare gradients */
   --gradient-primary: linear-gradient(135deg, hsl(214, 73%, 59%), hsl(84, 76%, 50%));
   --gradient-secondary: linear-gradient(135deg, hsl(84, 76%, 50%), hsl(208, 57%, 24%));
@@ -247,9 +250,70 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply font-sans antialiased bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Animated gradient mesh for hero background */
+  .animated-gradient-mesh {
+    background: linear-gradient(-45deg, 
+      hsl(214, 73%, 59% / 0.1), 
+      hsl(84, 76%, 50% / 0.1), 
+      hsl(208, 57%, 24% / 0.1), 
+      hsl(276, 50%, 54% / 0.1)
+    );
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+  }
+
+  .dark .animated-gradient-mesh {
+    background: linear-gradient(-45deg, 
+      hsl(214, 80%, 72% / 0.08), 
+      hsl(145, 70%, 65% / 0.08), 
+      hsl(208, 65%, 50% / 0.08), 
+      hsl(276, 65%, 70% / 0.08)
+    );
+    background-size: 400% 400%;
+  }
+
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  /* Section scroll margins for fixed header */
+  section {
+    scroll-margin-top: 120px;
+  }
+
+  /* Scroll snap for carousels */
+  .scroll-snap-x {
+    scroll-snap-type: x mandatory;
+  }
+
+  .scroll-snap-center {
+    scroll-snap-align: center;
+  }
+
+  /* Performance optimizations */
+  .will-change-transform {
+    will-change: transform;
+  }
+
+  .will-change-auto {
+    will-change: auto;
   }
 
   /* Enhanced Typography Base Styles */
