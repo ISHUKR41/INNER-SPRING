@@ -101,15 +101,8 @@ export default function Home() {
   const featuresRef = useRef(null);
   const journeyRef = useRef(null);
   
-  // Framer Motion hooks for advanced animations
-  const { scrollY } = useScroll();
-  const heroParallax = useTransform(scrollY, [0, 500], [0, -100]);
-  const heroOpacity = useTransform(scrollY, [0, 300], [1, 0.3]);
-  const heroScale = useTransform(scrollY, [0, 300], [1, 0.95]);
-  
-  // Spring animation configuration for smooth, natural movement
+  // Simplified motion values for better compatibility
   const springConfig = { stiffness: 300, damping: 30, restDelta: 0.001 };
-  const springY = useSpring(heroParallax, springConfig);
   
   // Intersection observer hooks for scroll-triggered animations
   const isHeroInView = useInView(heroRef, { once: true, threshold: 0.3 });
@@ -778,7 +771,9 @@ export default function Home() {
         ref={heroRef}
         className="hero-section relative overflow-hidden min-h-screen flex items-center" 
         data-testid="section-hero"
-        style={{ y: springY, opacity: heroOpacity, scale: heroScale }}
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
       >
         {/* Animated Background Elements with Floating Shapes */}
         <div className="absolute inset-0 overflow-hidden">
@@ -929,7 +924,7 @@ export default function Home() {
                   </div>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
             {/* Right Content - Enhanced Hero Illustration */}
             <div className="relative fade-in" data-testid="hero-illustration" style={{animationDelay: '0.3s'}}>
@@ -992,7 +987,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Section 2: Problem Awareness Statistics - Enhanced with Animated Counters */}
       <motion.section 
