@@ -92,7 +92,7 @@ export default function Home() {
   // State management for interactive elements
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [visibleStats, setVisibleStats] = useState(false);
-  const [hoveredFeature, setHoveredFeature] = useState(null);
+  const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   
   // Refs for scroll-triggered animations and intersection observers
@@ -105,10 +105,10 @@ export default function Home() {
   const springConfig = { stiffness: 300, damping: 30, restDelta: 0.001 };
   
   // Intersection observer hooks for scroll-triggered animations
-  const isHeroInView = useInView(heroRef, { once: true, threshold: 0.3 });
-  const isStatsInView = useInView(statsRef, { once: true, threshold: 0.2 });
-  const isFeaturesInView = useInView(featuresRef, { once: true, threshold: 0.1 });
-  const isJourneyInView = useInView(journeyRef, { once: true, threshold: 0.1 });
+  const isHeroInView = useInView(heroRef, { once: true, amount: 0.3 });
+  const isStatsInView = useInView(statsRef, { once: true, amount: 0.2 });
+  const isFeaturesInView = useInView(featuresRef, { once: true, amount: 0.1 });
+  const isJourneyInView = useInView(journeyRef, { once: true, amount: 0.1 });
   
   // Animation controls for complex sequences
   const heroControls = useAnimation();
@@ -726,7 +726,7 @@ export default function Home() {
   }, [isFeaturesInView, featuresControls]);
 
   // Animated counter component for statistics
-  const AnimatedCounter = ({ end, suffix = "", duration = 2 }) => {
+  const AnimatedCounter = ({ end, suffix = "", duration = 2 }: { end: string; suffix?: string; duration?: number }) => {
     const [count, setCount] = useState(0);
     const [hasStarted, setHasStarted] = useState(false);
     
@@ -1251,7 +1251,7 @@ export default function Home() {
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        viewport={{ once: true, threshold: 0.2 }}
+        viewport={{ once: true, amount: 0.2 }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
@@ -1340,7 +1340,7 @@ export default function Home() {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
-        viewport={{ once: true, threshold: 0.2 }}
+        viewport={{ once: true, amount: 0.2 }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
@@ -1618,7 +1618,7 @@ export default function Home() {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
-        viewport={{ once: true, threshold: 0.1 }}
+        viewport={{ once: true, amount: 0.1 }}
       >
         {/* Background decorative elements for visual appeal */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -1689,7 +1689,7 @@ export default function Home() {
               staggerChildren: 0.1, 
               delayChildren: 0.4 
             }}
-            viewport={{ once: true, threshold: 0.1 }}
+            viewport={{ once: true, amount: 0.1 }}
           >
             {featureTiles.map((tile, index) => (
               /* Individual Feature Tile Component with Advanced Animations */
