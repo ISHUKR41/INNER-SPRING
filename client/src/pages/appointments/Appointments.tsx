@@ -3,30 +3,43 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import Header from "@/components/layout/Header";
+import ProfessionalNavbar from "@/components/layout/ProfessionalNavbar";
 import CalendarView from "./components/CalendarView";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  Calendar, 
-  Clock, 
-  User, 
-  Phone, 
-  Video, 
+import {
+  Calendar,
+  Clock,
+  User,
+  Phone,
+  Video,
   MapPin,
   Star,
   CheckCircle,
   AlertTriangle,
   Edit,
-  Trash2
+  Trash2,
 } from "lucide-react";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -45,7 +58,9 @@ const appointmentSchema = z.object({
   additionalInfo: z.string().optional(),
   isAnonymous: z.boolean().default(false),
   consentReminders: z.boolean().default(false),
-  agreeCancellationPolicy: z.boolean().refine(val => val === true, "You must agree to the cancellation policy")
+  agreeCancellationPolicy: z
+    .boolean()
+    .refine((val) => val === true, "You must agree to the cancellation policy"),
 });
 
 type AppointmentFormData = z.infer<typeof appointmentSchema>;
@@ -57,9 +72,11 @@ type AppointmentFormData = z.infer<typeof appointmentSchema>;
 export default function Appointments() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
-  const [selectedCounselor, setSelectedCounselor] = useState<string | null>(null);
+  const [selectedCounselor, setSelectedCounselor] = useState<string | null>(
+    null
+  );
   const [activeTab, setActiveTab] = useState("book");
-  
+
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
@@ -67,15 +84,18 @@ export default function Appointments() {
   const userId = "mock-user-id";
 
   // Fetch available counselors with proper typing and default empty array
-  const { data: counselors = [], isLoading: counselorsLoading } = useQuery<Counselor[]>({
+  const { data: counselors = [], isLoading: counselorsLoading } = useQuery<
+    Counselor[]
+  >({
     queryKey: ["/api/counselors/available"],
   });
 
   // Fetch user's appointments with proper typing and default empty array
-  const { data: userAppointments = [], isLoading: appointmentsLoading } = useQuery<Appointment[]>({
-    queryKey: [`/api/appointments/user/${userId}`],
-    enabled: !!userId,
-  });
+  const { data: userAppointments = [], isLoading: appointmentsLoading } =
+    useQuery<Appointment[]>({
+      queryKey: [`/api/appointments/user/${userId}`],
+      enabled: !!userId,
+    });
 
   // Form setup
   const form = useForm<AppointmentFormData>({
@@ -104,7 +124,7 @@ export default function Appointments() {
       }
 
       const appointmentDateTime = new Date(selectedDate);
-      const [hours, minutes] = selectedTime.split(':').map(Number);
+      const [hours, minutes] = selectedTime.split(":").map(Number);
       appointmentDateTime.setHours(hours, minutes);
 
       const response = await apiRequest("POST", "/api/appointments", {
@@ -119,7 +139,9 @@ export default function Appointments() {
       return await response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [`/api/appointments/user/${userId}`] });
+      queryClient.invalidateQueries({
+        queryKey: [`/api/appointments/user/${userId}`],
+      });
       form.reset();
       setSelectedDate(null);
       setSelectedTime(null);
@@ -127,12 +149,13 @@ export default function Appointments() {
       setActiveTab("manage");
       toast({
         title: "Appointment Booked",
-        description: "Your appointment has been successfully scheduled. You'll receive a confirmation email shortly.",
+        description:
+          "Your appointment has been successfully scheduled. You'll receive a confirmation email shortly.",
       });
     },
     onError: (error: Error) => {
       toast({
-        title: "Booking Failed", 
+        title: "Booking Failed",
         description: error.message,
         variant: "destructive",
       });
@@ -142,11 +165,17 @@ export default function Appointments() {
   // Cancel appointment mutation
   const cancelAppointmentMutation = useMutation({
     mutationFn: async (appointmentId: string) => {
-      const response = await apiRequest("DELETE", `/api/appointments/${appointmentId}`, {});
+      const response = await apiRequest(
+        "DELETE",
+        `/api/appointments/${appointmentId}`,
+        {}
+      );
       return await response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [`/api/appointments/user/${userId}`] });
+      queryClient.invalidateQueries({
+        queryKey: [`/api/appointments/user/${userId}`],
+      });
       toast({
         title: "Appointment Cancelled",
         description: "Your appointment has been cancelled successfully.",
@@ -173,43 +202,82 @@ export default function Appointments() {
 
   // Session type options
   const sessionTypes = [
-    { value: "video", label: "Video Call", icon: Video, description: "Online session via secure video" },
-    { value: "in-person", label: "In-Person", icon: MapPin, description: "Face-to-face at campus counseling center" },
-    { value: "phone", label: "Phone Call", icon: Phone, description: "Audio-only phone consultation" },
-    { value: "crisis", label: "Crisis Session", icon: AlertTriangle, description: "Immediate crisis intervention" },
+    {
+      value: "video",
+      label: "Video Call",
+      icon: Video,
+      description: "Online session via secure video",
+    },
+    {
+      value: "in-person",
+      label: "In-Person",
+      icon: MapPin,
+      description: "Face-to-face at campus counseling center",
+    },
+    {
+      value: "phone",
+      label: "Phone Call",
+      icon: Phone,
+      description: "Audio-only phone consultation",
+    },
+    {
+      value: "crisis",
+      label: "Crisis Session",
+      icon: AlertTriangle,
+      description: "Immediate crisis intervention",
+    },
   ];
 
   // Primary concern options
   const concernOptions = [
     "Anxiety and stress management",
-    "Depression and mood issues", 
+    "Depression and mood issues",
     "Academic pressure and performance",
     "Relationship and social issues",
     "Sleep and lifestyle problems",
     "Identity and self-esteem",
     "Trauma and difficult experiences",
-    "General mental health check-in"
+    "General mental health check-in",
   ];
 
   // Urgency level options
   const urgencyOptions = [
-    { value: "routine", label: "Routine (within 2 weeks)", color: "bg-green-100 text-green-800" },
-    { value: "moderate", label: "Moderate (within 1 week)", color: "bg-yellow-100 text-yellow-800" },
-    { value: "high", label: "High Priority (within 3 days)", color: "bg-orange-100 text-orange-800" },
-    { value: "crisis", label: "Crisis (same day)", color: "bg-red-100 text-red-800" },
+    {
+      value: "routine",
+      label: "Routine (within 2 weeks)",
+      color: "bg-green-100 text-green-800",
+    },
+    {
+      value: "moderate",
+      label: "Moderate (within 1 week)",
+      color: "bg-yellow-100 text-yellow-800",
+    },
+    {
+      value: "high",
+      label: "High Priority (within 3 days)",
+      color: "bg-orange-100 text-orange-800",
+    },
+    {
+      value: "crisis",
+      label: "Crisis (same day)",
+      color: "bg-red-100 text-red-800",
+    },
   ];
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
-      
+      <ProfessionalNavbar />
+
       <div className="pt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Page Header */}
           <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-foreground mb-4 font-heading">Schedule Counseling Sessions</h1>
+            <h1 className="text-4xl font-bold text-foreground mb-4 font-heading">
+              Schedule Counseling Sessions
+            </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Book confidential appointments with licensed mental health professionals at your convenience
+              Book confidential appointments with licensed mental health
+              professionals at your convenience
             </p>
             <Alert className="max-w-md mx-auto mt-6">
               <CheckCircle className="h-4 w-4" />
@@ -219,10 +287,18 @@ export default function Appointments() {
             </Alert>
           </div>
 
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+          <Tabs
+            value={activeTab}
+            onValueChange={setActiveTab}
+            className="space-y-6"
+          >
             <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto">
-              <TabsTrigger value="book" data-testid="tab-book-appointment">Book New</TabsTrigger>
-              <TabsTrigger value="manage" data-testid="tab-manage-appointments">My Appointments</TabsTrigger>
+              <TabsTrigger value="book" data-testid="tab-book-appointment">
+                Book New
+              </TabsTrigger>
+              <TabsTrigger value="manage" data-testid="tab-manage-appointments">
+                My Appointments
+              </TabsTrigger>
             </TabsList>
 
             {/* Book Appointment Tab */}
@@ -253,8 +329,8 @@ export default function Appointments() {
                             <Card
                               key={counselor.id}
                               className={`cursor-pointer transition-all duration-200 ${
-                                selectedCounselor === counselor.id 
-                                  ? "border-primary bg-primary/5" 
+                                selectedCounselor === counselor.id
+                                  ? "border-primary bg-primary/5"
                                   : "border-border hover:border-primary/50"
                               }`}
                               onClick={() => setSelectedCounselor(counselor.id)}
@@ -266,24 +342,42 @@ export default function Appointments() {
                                     {counselor.name.charAt(0)}
                                   </div>
                                   <div className="flex-1 min-w-0">
-                                    <h3 className="font-semibold text-foreground">{counselor.name}</h3>
-                                    <p className="text-sm text-muted-foreground">{counselor.credentials}</p>
+                                    <h3 className="font-semibold text-foreground">
+                                      {counselor.name}
+                                    </h3>
+                                    <p className="text-sm text-muted-foreground">
+                                      {counselor.credentials}
+                                    </p>
                                     <div className="flex items-center mt-1">
                                       <div className="flex">
                                         {[...Array(5)].map((_, i) => (
-                                          <Star 
-                                            key={i} 
-                                            size={12} 
-                                            className={`${i < counselor.rating ? 'text-yellow-400 fill-current' : 'text-gray-300'}`} 
+                                          <Star
+                                            key={i}
+                                            size={12}
+                                            className={`${
+                                              i < counselor.rating
+                                                ? "text-yellow-400 fill-current"
+                                                : "text-gray-300"
+                                            }`}
                                           />
                                         ))}
                                       </div>
-                                      <span className="text-xs text-muted-foreground ml-2">({counselor.rating}/5)</span>
+                                      <span className="text-xs text-muted-foreground ml-2">
+                                        ({counselor.rating}/5)
+                                      </span>
                                     </div>
                                     <div className="flex flex-wrap gap-1 mt-2">
-                                      {counselor.specializations.slice(0, 2).map((spec, i) => (
-                                        <Badge key={i} variant="secondary" className="text-xs">{spec}</Badge>
-                                      ))}
+                                      {counselor.specializations
+                                        .slice(0, 2)
+                                        .map((spec, i) => (
+                                          <Badge
+                                            key={i}
+                                            variant="secondary"
+                                            className="text-xs"
+                                          >
+                                            {spec}
+                                          </Badge>
+                                        ))}
                                     </div>
                                   </div>
                                 </div>
@@ -309,15 +403,22 @@ export default function Appointments() {
                 <div>
                   <Card className="sticky top-24">
                     <CardHeader>
-                      <CardTitle className="font-heading">Book Your Session</CardTitle>
+                      <CardTitle className="font-heading">
+                        Book Your Session
+                      </CardTitle>
                     </CardHeader>
                     <CardContent>
                       <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                        <form
+                          onSubmit={form.handleSubmit(onSubmit)}
+                          className="space-y-4"
+                        >
                           {/* Personal Information */}
                           <div className="space-y-4">
-                            <h4 className="font-medium text-foreground">Personal Information</h4>
-                            
+                            <h4 className="font-medium text-foreground">
+                              Personal Information
+                            </h4>
+
                             <FormField
                               control={form.control}
                               name="firstName"
@@ -325,7 +426,10 @@ export default function Appointments() {
                                 <FormItem>
                                   <FormLabel>First Name *</FormLabel>
                                   <FormControl>
-                                    <Input {...field} data-testid="input-first-name" />
+                                    <Input
+                                      {...field}
+                                      data-testid="input-first-name"
+                                    />
                                   </FormControl>
                                   <FormMessage />
                                 </FormItem>
@@ -339,7 +443,10 @@ export default function Appointments() {
                                 <FormItem>
                                   <FormLabel>Last Name (Optional)</FormLabel>
                                   <FormControl>
-                                    <Input {...field} data-testid="input-last-name" />
+                                    <Input
+                                      {...field}
+                                      data-testid="input-last-name"
+                                    />
                                   </FormControl>
                                   <FormMessage />
                                 </FormItem>
@@ -353,7 +460,10 @@ export default function Appointments() {
                                 <FormItem>
                                   <FormLabel>Student ID *</FormLabel>
                                   <FormControl>
-                                    <Input {...field} data-testid="input-student-id" />
+                                    <Input
+                                      {...field}
+                                      data-testid="input-student-id"
+                                    />
                                   </FormControl>
                                   <FormMessage />
                                 </FormItem>
@@ -367,7 +477,11 @@ export default function Appointments() {
                                 <FormItem>
                                   <FormLabel>Email *</FormLabel>
                                   <FormControl>
-                                    <Input type="email" {...field} data-testid="input-email" />
+                                    <Input
+                                      type="email"
+                                      {...field}
+                                      data-testid="input-email"
+                                    />
                                   </FormControl>
                                   <FormMessage />
                                 </FormItem>
@@ -377,15 +491,20 @@ export default function Appointments() {
 
                           {/* Session Details */}
                           <div className="space-y-4">
-                            <h4 className="font-medium text-foreground">Session Details</h4>
-                            
+                            <h4 className="font-medium text-foreground">
+                              Session Details
+                            </h4>
+
                             <FormField
                               control={form.control}
                               name="sessionType"
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>Session Type *</FormLabel>
-                                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                  <Select
+                                    onValueChange={field.onChange}
+                                    defaultValue={field.value}
+                                  >
                                     <FormControl>
                                       <SelectTrigger data-testid="select-session-type">
                                         <SelectValue />
@@ -395,7 +514,10 @@ export default function Appointments() {
                                       {sessionTypes.map((type) => {
                                         const IconComponent = type.icon;
                                         return (
-                                          <SelectItem key={type.value} value={type.value}>
+                                          <SelectItem
+                                            key={type.value}
+                                            value={type.value}
+                                          >
                                             <div className="flex items-center space-x-2">
                                               <IconComponent size={16} />
                                               <span>{type.label}</span>
@@ -416,7 +538,10 @@ export default function Appointments() {
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>Primary Concern *</FormLabel>
-                                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                  <Select
+                                    onValueChange={field.onChange}
+                                    defaultValue={field.value}
+                                  >
                                     <FormControl>
                                       <SelectTrigger data-testid="select-primary-concern">
                                         <SelectValue placeholder="Select your main concern" />
@@ -424,7 +549,10 @@ export default function Appointments() {
                                     </FormControl>
                                     <SelectContent>
                                       {concernOptions.map((concern) => (
-                                        <SelectItem key={concern} value={concern}>
+                                        <SelectItem
+                                          key={concern}
+                                          value={concern}
+                                        >
                                           {concern}
                                         </SelectItem>
                                       ))}
@@ -441,7 +569,10 @@ export default function Appointments() {
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>Urgency Level *</FormLabel>
-                                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                  <Select
+                                    onValueChange={field.onChange}
+                                    defaultValue={field.value}
+                                  >
                                     <FormControl>
                                       <SelectTrigger data-testid="select-urgency-level">
                                         <SelectValue />
@@ -449,8 +580,14 @@ export default function Appointments() {
                                     </FormControl>
                                     <SelectContent>
                                       {urgencyOptions.map((option) => (
-                                        <SelectItem key={option.value} value={option.value}>
-                                          <Badge className={option.color} variant="secondary">
+                                        <SelectItem
+                                          key={option.value}
+                                          value={option.value}
+                                        >
+                                          <Badge
+                                            className={option.color}
+                                            variant="secondary"
+                                          >
                                             {option.label}
                                           </Badge>
                                         </SelectItem>
@@ -467,10 +604,12 @@ export default function Appointments() {
                               name="additionalInfo"
                               render={({ field }) => (
                                 <FormItem>
-                                  <FormLabel>Additional Information (Optional)</FormLabel>
+                                  <FormLabel>
+                                    Additional Information (Optional)
+                                  </FormLabel>
                                   <FormControl>
-                                    <Textarea 
-                                      {...field} 
+                                    <Textarea
+                                      {...field}
                                       placeholder="Share anything you'd like your counselor to know beforehand"
                                       data-testid="textarea-additional-info"
                                     />
@@ -505,13 +644,20 @@ export default function Appointments() {
                             />
                           </div>
 
-                          <Button 
-                            type="submit" 
+                          <Button
+                            type="submit"
                             className="w-full gradient-primary text-white"
-                            disabled={bookAppointmentMutation.isPending || !selectedDate || !selectedTime || !selectedCounselor}
+                            disabled={
+                              bookAppointmentMutation.isPending ||
+                              !selectedDate ||
+                              !selectedTime ||
+                              !selectedCounselor
+                            }
                             data-testid="button-schedule-appointment"
                           >
-                            {bookAppointmentMutation.isPending ? "Scheduling..." : "Schedule My Appointment"}
+                            {bookAppointmentMutation.isPending
+                              ? "Scheduling..."
+                              : "Schedule My Appointment"}
                           </Button>
                         </form>
                       </Form>
@@ -525,7 +671,9 @@ export default function Appointments() {
             <TabsContent value="manage">
               <Card>
                 <CardHeader>
-                  <CardTitle className="font-heading">Your Appointments</CardTitle>
+                  <CardTitle className="font-heading">
+                    Your Appointments
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   {appointmentsLoading ? (
@@ -544,42 +692,66 @@ export default function Appointments() {
                             <div className="flex items-start justify-between">
                               <div className="space-y-2">
                                 <div className="flex items-center space-x-2">
-                                  <Badge className={
-                                    appointment.status === 'confirmed' ? 'bg-green-100 text-green-800' :
-                                    appointment.status === 'scheduled' ? 'bg-blue-100 text-blue-800' :
-                                    appointment.status === 'cancelled' ? 'bg-red-100 text-red-800' :
-                                    'bg-gray-100 text-gray-800'
-                                  }>
+                                  <Badge
+                                    className={
+                                      appointment.status === "confirmed"
+                                        ? "bg-green-100 text-green-800"
+                                        : appointment.status === "scheduled"
+                                        ? "bg-blue-100 text-blue-800"
+                                        : appointment.status === "cancelled"
+                                        ? "bg-red-100 text-red-800"
+                                        : "bg-gray-100 text-gray-800"
+                                    }
+                                  >
                                     {appointment.status}
                                   </Badge>
-                                  <Badge variant="outline">{appointment.sessionType}</Badge>
+                                  <Badge variant="outline">
+                                    {appointment.sessionType}
+                                  </Badge>
                                 </div>
-                                
+
                                 <div className="flex items-center space-x-4 text-sm text-muted-foreground">
                                   <div className="flex items-center space-x-1">
                                     <Calendar size={14} />
-                                    <span>{new Date(appointment.dateTime).toLocaleDateString()}</span>
+                                    <span>
+                                      {new Date(
+                                        appointment.dateTime
+                                      ).toLocaleDateString()}
+                                    </span>
                                   </div>
                                   <div className="flex items-center space-x-1">
                                     <Clock size={14} />
-                                    <span>{new Date(appointment.dateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                                    <span>
+                                      {new Date(
+                                        appointment.dateTime
+                                      ).toLocaleTimeString([], {
+                                        hour: "2-digit",
+                                        minute: "2-digit",
+                                      })}
+                                    </span>
                                   </div>
                                 </div>
-                                
+
                                 <p className="text-sm text-muted-foreground">
                                   Primary concern: {appointment.primaryConcern}
                                 </p>
                               </div>
 
                               <div className="flex space-x-2">
-                                <Button size="sm" variant="outline" data-testid={`button-reschedule-${appointment.id}`}>
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  data-testid={`button-reschedule-${appointment.id}`}
+                                >
                                   <Edit size={14} className="mr-1" />
                                   Reschedule
                                 </Button>
-                                <Button 
-                                  size="sm" 
+                                <Button
+                                  size="sm"
                                   variant="outline"
-                                  onClick={() => handleCancelAppointment(appointment.id)}
+                                  onClick={() =>
+                                    handleCancelAppointment(appointment.id)
+                                  }
                                   disabled={cancelAppointmentMutation.isPending}
                                   data-testid={`button-cancel-${appointment.id}`}
                                 >
@@ -594,10 +766,15 @@ export default function Appointments() {
                     </div>
                   ) : (
                     <div className="text-center py-8">
-                      <Calendar className="mx-auto text-muted-foreground mb-4" size={48} />
-                      <p className="text-muted-foreground">No appointments scheduled</p>
-                      <Button 
-                        className="mt-4" 
+                      <Calendar
+                        className="mx-auto text-muted-foreground mb-4"
+                        size={48}
+                      />
+                      <p className="text-muted-foreground">
+                        No appointments scheduled
+                      </p>
+                      <Button
+                        className="mt-4"
                         onClick={() => setActiveTab("book")}
                         data-testid="button-book-first-appointment"
                       >

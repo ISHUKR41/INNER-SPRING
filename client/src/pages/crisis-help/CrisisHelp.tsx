@@ -1,12 +1,12 @@
 import { useState } from "react";
-import Header from "@/components/layout/Header";
+import ProfessionalNavbar from "@/components/layout/ProfessionalNavbar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  Phone, 
+import {
+  Phone,
   MessageSquare,
   AlertTriangle,
   Shield,
@@ -20,16 +20,16 @@ import {
   User,
   Users,
   Heart,
-  CheckCircle
+  CheckCircle,
 } from "lucide-react";
 
 /**
  * Crisis Help Page - Dedicated emergency support and crisis intervention
- * 
+ *
  * This page provides immediate access to crisis support resources, emergency contacts,
  * and guided assistance for students experiencing mental health emergencies.
  * Designed for maximum accessibility and immediate help during crisis situations.
- * 
+ *
  * Features:
  * - Immediate emergency contacts with one-click calling
  * - Crisis assessment and guided support steps
@@ -37,7 +37,7 @@ import {
  * - Safety planning resources
  * - Professional emergency intervention options
  * - 24/7 availability information
- * 
+ *
  * @author MindCare Development Team
  * @version 1.0.0
  */
@@ -50,15 +50,16 @@ export default function CrisisHelp() {
     {
       name: "988 Suicide & Crisis Lifeline",
       number: "988",
-      description: "Free, confidential support 24/7 for people in suicidal crisis or emotional distress",
+      description:
+        "Free, confidential support 24/7 for people in suicidal crisis or emotional distress",
       available: "24/7",
       languages: ["English", "Spanish"],
       type: "phone",
       priority: "high",
-      testId: "crisis-988"
+      testId: "crisis-988",
     },
     {
-      name: "Crisis Text Line", 
+      name: "Crisis Text Line",
       number: "741741",
       description: "Text HOME to 741741 for free, 24/7 crisis counseling",
       available: "24/7",
@@ -66,7 +67,7 @@ export default function CrisisHelp() {
       type: "text",
       priority: "high",
       textInstructions: "Text HOME to 741741",
-      testId: "crisis-text"
+      testId: "crisis-text",
     },
     {
       name: "National Domestic Violence Hotline",
@@ -76,7 +77,7 @@ export default function CrisisHelp() {
       languages: ["Multiple languages"],
       type: "phone",
       priority: "medium",
-      testId: "crisis-domestic-violence"
+      testId: "crisis-domestic-violence",
     },
     {
       name: "LGBTQ National Lifeline",
@@ -84,10 +85,10 @@ export default function CrisisHelp() {
       description: "Confidential support for LGBTQ+ individuals in crisis",
       available: "24/7",
       languages: ["English"],
-      type: "phone", 
+      type: "phone",
       priority: "medium",
-      testId: "crisis-lgbtq"
-    }
+      testId: "crisis-lgbtq",
+    },
   ];
 
   // Local campus emergency resources
@@ -95,10 +96,11 @@ export default function CrisisHelp() {
     {
       service: "Campus Emergency Services",
       contact: "911",
-      description: "Immediate emergency response for life-threatening situations",
+      description:
+        "Immediate emergency response for life-threatening situations",
       location: "Available campus-wide",
       response: "Immediate",
-      type: "emergency"
+      type: "emergency",
     },
     {
       service: "Campus Crisis Counselor",
@@ -106,7 +108,7 @@ export default function CrisisHelp() {
       description: "24/7 on-call mental health crisis intervention",
       location: "Student Health Center",
       response: "Within 30 minutes",
-      type: "crisis"
+      type: "crisis",
     },
     {
       service: "Campus Security Escort",
@@ -114,7 +116,7 @@ export default function CrisisHelp() {
       description: "Safe escort services anywhere on campus",
       location: "Campus-wide",
       response: "Within 15 minutes",
-      type: "safety"
+      type: "safety",
     },
     {
       service: "Emergency Room - University Hospital",
@@ -122,8 +124,8 @@ export default function CrisisHelp() {
       description: "24/7 emergency medical and psychiatric care",
       location: "1234 University Ave",
       response: "Immediate",
-      type: "medical"
-    }
+      type: "medical",
+    },
   ];
 
   // Crisis assessment questions to help guide users
@@ -133,37 +135,38 @@ export default function CrisisHelp() {
       questions: [
         "Are you in immediate physical danger?",
         "Do you have thoughts of harming yourself or others?",
-        "Are you in a safe location right now?"
+        "Are you in a safe location right now?",
       ],
       action: "If YES to any danger questions, call 911 or 988 immediately",
       icon: AlertTriangle,
       color: "text-red-600",
-      bgColor: "bg-red-50"
+      bgColor: "bg-red-50",
     },
     {
       title: "Current Support System",
       questions: [
         "Is there someone you trust nearby?",
         "Do you have a safe person you can contact?",
-        "Are you alone right now?"
+        "Are you alone right now?",
       ],
       action: "Contact a trusted person or crisis counselor for support",
       icon: HeartHandshake,
-      color: "text-blue-600", 
-      bgColor: "bg-blue-50"
+      color: "text-blue-600",
+      bgColor: "bg-blue-50",
     },
     {
       title: "Professional Help Assessment",
       questions: [
         "Have you been thinking about this crisis for more than a few hours?",
         "Do you feel unable to cope with current stress?",
-        "Would talking to a professional help right now?"
+        "Would talking to a professional help right now?",
       ],
-      action: "Consider speaking with a campus counselor or calling a crisis line",
+      action:
+        "Consider speaking with a campus counselor or calling a crisis line",
       icon: User,
       color: "text-green-600",
-      bgColor: "bg-green-50"
-    }
+      bgColor: "bg-green-50",
+    },
   ];
 
   // Safety planning steps for crisis management
@@ -171,33 +174,38 @@ export default function CrisisHelp() {
     {
       step: 1,
       title: "Recognize Warning Signs",
-      description: "Identify thoughts, feelings, or situations that indicate you may be entering a crisis",
-      icon: Brain
+      description:
+        "Identify thoughts, feelings, or situations that indicate you may be entering a crisis",
+      icon: Brain,
     },
     {
       step: 2,
-      title: "Internal Coping Strategies", 
-      description: "Things you can do to distract yourself or feel better without contacting others",
-      icon: HeartHandshake
+      title: "Internal Coping Strategies",
+      description:
+        "Things you can do to distract yourself or feel better without contacting others",
+      icon: HeartHandshake,
     },
     {
       step: 3,
       title: "Contact Support People",
-      description: "Friends, family, or mentors who can provide support and help you feel better",
-      icon: User
+      description:
+        "Friends, family, or mentors who can provide support and help you feel better",
+      icon: User,
     },
     {
       step: 4,
       title: "Contact Professionals",
-      description: "Mental health professionals, crisis hotlines, or emergency services",
-      icon: Phone
+      description:
+        "Mental health professionals, crisis hotlines, or emergency services",
+      icon: Phone,
     },
     {
       step: 5,
       title: "Secure Your Environment",
-      description: "Remove or secure access to potentially harmful items or situations",
-      icon: Shield
-    }
+      description:
+        "Remove or secure access to potentially harmful items or situations",
+      icon: Shield,
+    },
   ];
 
   /**
@@ -207,10 +215,10 @@ export default function CrisisHelp() {
   const handleEmergencyCall = (number: string, label: string) => {
     // Analytics tracking for crisis intervention
     console.log(`Crisis call initiated: ${label} - ${number}`);
-    
+
     // Open phone dialer
-    window.open(`tel:${number}`, '_self');
-    
+    window.open(`tel:${number}`, "_self");
+
     // Set emergency mode to show additional resources
     setIsEmergencyMode(true);
   };
@@ -222,13 +230,13 @@ export default function CrisisHelp() {
   const handleTextCrisis = (instructions: string) => {
     // Create SMS link with pre-filled message
     const smsLink = `sms:741741?body=HOME`;
-    window.open(smsLink, '_self');
+    window.open(smsLink, "_self");
   };
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
-      
+      <ProfessionalNavbar />
+
       <div className="pt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Emergency Alert Header */}
@@ -242,36 +250,45 @@ export default function CrisisHelp() {
               Crisis Help & Support
             </h1>
             <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
-              You are not alone. Professional help is available 24/7. If you're in immediate danger, call 911 or 988 now.
+              You are not alone. Professional help is available 24/7. If you're
+              in immediate danger, call 911 or 988 now.
             </p>
-            
+
             {/* Immediate Crisis Banner */}
             <Alert variant="destructive" className="max-w-5xl mx-auto mt-6">
               <AlertTriangle className="h-4 w-4" />
               <AlertDescription className="text-left">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <span className="font-bold block mb-2">IMMEDIATE CRISIS:</span>
+                    <span className="font-bold block mb-2">
+                      IMMEDIATE CRISIS:
+                    </span>
                     <div className="space-y-1 text-sm">
-                      <div>• Call 911 if you're in immediate physical danger</div>
+                      <div>
+                        • Call 911 if you're in immediate physical danger
+                      </div>
                       <div>• Call 988 if you're having thoughts of suicide</div>
                       <div>• Go to your nearest emergency room</div>
                     </div>
                   </div>
                   <div className="flex flex-col space-y-2">
-                    <Button 
-                      size="sm" 
+                    <Button
+                      size="sm"
                       className="bg-red-600 hover:bg-red-700 text-white"
-                      onClick={() => handleEmergencyCall("911", "Emergency Services")}
+                      onClick={() =>
+                        handleEmergencyCall("911", "Emergency Services")
+                      }
                       data-testid="button-call-911"
                     >
                       <Phone size={16} className="mr-1" />
                       Call 911
                     </Button>
-                    <Button 
-                      size="sm" 
+                    <Button
+                      size="sm"
                       className="bg-red-500 hover:bg-red-600 text-white"
-                      onClick={() => handleEmergencyCall("988", "Crisis Lifeline")}
+                      onClick={() =>
+                        handleEmergencyCall("988", "Crisis Lifeline")
+                      }
                       data-testid="button-call-988"
                     >
                       <Phone size={16} className="mr-1" />
@@ -284,7 +301,11 @@ export default function CrisisHelp() {
           </div>
 
           {/* Main Crisis Support Tabs */}
-          <Tabs value={selectedTab} onValueChange={setSelectedTab} className="w-full">
+          <Tabs
+            value={selectedTab}
+            onValueChange={setSelectedTab}
+            className="w-full"
+          >
             <TabsList className="grid w-full grid-cols-4 mb-8">
               <TabsTrigger value="immediate" data-testid="tab-immediate">
                 Immediate Help
@@ -313,19 +334,29 @@ export default function CrisisHelp() {
                   </CardHeader>
                   <CardContent className="space-y-4">
                     {nationalCrisisLines.map((hotline, index) => (
-                      <div 
-                        key={index} 
-                        className={`border rounded-lg p-4 space-y-3 ${hotline.priority === 'high' ? 'border-red-200 bg-red-50/50' : 'border-gray-200'}`}
+                      <div
+                        key={index}
+                        className={`border rounded-lg p-4 space-y-3 ${
+                          hotline.priority === "high"
+                            ? "border-red-200 bg-red-50/50"
+                            : "border-gray-200"
+                        }`}
                       >
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
                             <div className="flex items-center space-x-2 mb-2">
-                              <h3 className="font-semibold text-foreground">{hotline.name}</h3>
-                              {hotline.priority === 'high' && (
-                                <Badge className="bg-red-100 text-red-700">Priority</Badge>
+                              <h3 className="font-semibold text-foreground">
+                                {hotline.name}
+                              </h3>
+                              {hotline.priority === "high" && (
+                                <Badge className="bg-red-100 text-red-700">
+                                  Priority
+                                </Badge>
                               )}
                             </div>
-                            <p className="text-sm text-muted-foreground mb-2">{hotline.description}</p>
+                            <p className="text-sm text-muted-foreground mb-2">
+                              {hotline.description}
+                            </p>
                             <div className="flex items-center space-x-4 text-sm text-muted-foreground">
                               <div className="flex items-center space-x-1">
                                 <Clock size={14} />
@@ -338,12 +369,14 @@ export default function CrisisHelp() {
                             </div>
                           </div>
                         </div>
-                        
+
                         <div className="flex items-center justify-between">
                           <div className="space-y-1">
                             <div className="flex items-center space-x-2">
                               <Phone size={16} className="text-primary" />
-                              <span className="font-mono text-lg font-bold">{hotline.number}</span>
+                              <span className="font-mono text-lg font-bold">
+                                {hotline.number}
+                              </span>
                             </div>
                             {hotline.textInstructions && (
                               <div className="text-sm text-muted-foreground">
@@ -351,12 +384,17 @@ export default function CrisisHelp() {
                               </div>
                             )}
                           </div>
-                          
+
                           <div className="flex space-x-2">
                             {hotline.type === "phone" && (
                               <Button
                                 className="bg-red-500 hover:bg-red-600 text-white"
-                                onClick={() => handleEmergencyCall(hotline.number, hotline.name)}
+                                onClick={() =>
+                                  handleEmergencyCall(
+                                    hotline.number,
+                                    hotline.name
+                                  )
+                                }
                                 data-testid={hotline.testId}
                               >
                                 <Phone size={16} className="mr-1" />
@@ -365,9 +403,13 @@ export default function CrisisHelp() {
                             )}
                             {hotline.type === "text" && (
                               <Button
-                                variant="outline" 
+                                variant="outline"
                                 className="border-red-200 text-red-600 hover:bg-red-50"
-                                onClick={() => handleTextCrisis(hotline.textInstructions || "")}
+                                onClick={() =>
+                                  handleTextCrisis(
+                                    hotline.textInstructions || ""
+                                  )
+                                }
                                 data-testid={hotline.testId}
                               >
                                 <MessageSquare size={16} className="mr-1" />
@@ -392,17 +434,23 @@ export default function CrisisHelp() {
                   <CardContent className="space-y-4">
                     <div className="space-y-4">
                       <div className="p-4 bg-blue-50 rounded-lg">
-                        <h4 className="font-semibold text-blue-900 mb-2">If you're having thoughts of suicide:</h4>
+                        <h4 className="font-semibold text-blue-900 mb-2">
+                          If you're having thoughts of suicide:
+                        </h4>
                         <ul className="text-sm text-blue-800 space-y-1">
-                          <li>• Call 988 (Suicide & Crisis Lifeline) immediately</li>
+                          <li>
+                            • Call 988 (Suicide & Crisis Lifeline) immediately
+                          </li>
                           <li>• Stay with someone you trust</li>
                           <li>• Remove access to lethal means</li>
                           <li>• Go to the nearest emergency room</li>
                         </ul>
                       </div>
-                      
+
                       <div className="p-4 bg-green-50 rounded-lg">
-                        <h4 className="font-semibold text-green-900 mb-2">If you're feeling overwhelmed:</h4>
+                        <h4 className="font-semibold text-green-900 mb-2">
+                          If you're feeling overwhelmed:
+                        </h4>
                         <ul className="text-sm text-green-800 space-y-1">
                           <li>• Take slow, deep breaths</li>
                           <li>• Call a trusted friend or family member</li>
@@ -410,9 +458,11 @@ export default function CrisisHelp() {
                           <li>• Call our campus crisis counselor</li>
                         </ul>
                       </div>
-                      
+
                       <div className="p-4 bg-purple-50 rounded-lg">
-                        <h4 className="font-semibold text-purple-900 mb-2">If you're supporting someone in crisis:</h4>
+                        <h4 className="font-semibold text-purple-900 mb-2">
+                          If you're supporting someone in crisis:
+                        </h4>
                         <ul className="text-sm text-purple-800 space-y-1">
                           <li>• Listen without judgment</li>
                           <li>• Don't leave them alone</li>
@@ -437,30 +487,55 @@ export default function CrisisHelp() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground mb-6">
-                    These questions can help you determine the level of support you need. Answer honestly - there's no judgment here.
+                    These questions can help you determine the level of support
+                    you need. Answer honestly - there's no judgment here.
                   </p>
-                  
+
                   <div className="space-y-6">
                     {crisisAssessmentSteps.map((step, index) => {
                       const IconComponent = step.icon;
                       return (
-                        <div key={index} className={`p-6 rounded-lg ${step.bgColor} border`}>
+                        <div
+                          key={index}
+                          className={`p-6 rounded-lg ${step.bgColor} border`}
+                        >
                           <div className="flex items-start space-x-4">
-                            <div className={`w-12 h-12 rounded-full bg-white flex items-center justify-center ${step.color}`}>
+                            <div
+                              className={`w-12 h-12 rounded-full bg-white flex items-center justify-center ${step.color}`}
+                            >
                               <IconComponent size={24} />
                             </div>
                             <div className="flex-1">
-                              <h3 className="text-lg font-semibold text-foreground mb-3">{step.title}</h3>
+                              <h3 className="text-lg font-semibold text-foreground mb-3">
+                                {step.title}
+                              </h3>
                               <div className="space-y-2 mb-4">
                                 {step.questions.map((question, qIndex) => (
-                                  <div key={qIndex} className="flex items-start space-x-2">
-                                    <span className="text-muted-foreground">•</span>
-                                    <span className="text-foreground">{question}</span>
+                                  <div
+                                    key={qIndex}
+                                    className="flex items-start space-x-2"
+                                  >
+                                    <span className="text-muted-foreground">
+                                      •
+                                    </span>
+                                    <span className="text-foreground">
+                                      {question}
+                                    </span>
                                   </div>
                                 ))}
                               </div>
-                              <div className={`p-3 rounded-md bg-white border-l-4 ${step.color.includes('red') ? 'border-red-400' : step.color.includes('blue') ? 'border-blue-400' : 'border-green-400'}`}>
-                                <p className="font-medium text-foreground">{step.action}</p>
+                              <div
+                                className={`p-3 rounded-md bg-white border-l-4 ${
+                                  step.color.includes("red")
+                                    ? "border-red-400"
+                                    : step.color.includes("blue")
+                                    ? "border-blue-400"
+                                    : "border-green-400"
+                                }`}
+                              >
+                                <p className="font-medium text-foreground">
+                                  {step.action}
+                                </p>
                               </div>
                             </div>
                           </div>
@@ -483,38 +558,53 @@ export default function CrisisHelp() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground mb-6">
-                    A safety plan is a personalized, practical plan that can help you stay safe when having thoughts of suicide.
+                    A safety plan is a personalized, practical plan that can
+                    help you stay safe when having thoughts of suicide.
                   </p>
-                  
+
                   <div className="space-y-6">
                     {safetyPlanningSteps.map((step) => {
                       const IconComponent = step.icon;
                       return (
-                        <div key={step.step} className="flex items-start space-x-4 p-4 border rounded-lg">
+                        <div
+                          key={step.step}
+                          className="flex items-start space-x-4 p-4 border rounded-lg"
+                        >
                           <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold">
                             {step.step}
                           </div>
                           <div className="flex-1">
                             <div className="flex items-center space-x-2 mb-2">
-                              <IconComponent className="text-primary" size={20} />
-                              <h3 className="text-lg font-semibold text-foreground">{step.title}</h3>
+                              <IconComponent
+                                className="text-primary"
+                                size={20}
+                              />
+                              <h3 className="text-lg font-semibold text-foreground">
+                                {step.title}
+                              </h3>
                             </div>
-                            <p className="text-muted-foreground">{step.description}</p>
+                            <p className="text-muted-foreground">
+                              {step.description}
+                            </p>
                           </div>
                         </div>
                       );
                     })}
                   </div>
-                  
+
                   <div className="mt-8 p-4 bg-blue-50 rounded-lg">
                     <div className="flex items-center space-x-2 mb-2">
                       <ExternalLink className="text-blue-600" size={20} />
-                      <h4 className="font-semibold text-blue-900">Professional Safety Planning</h4>
+                      <h4 className="font-semibold text-blue-900">
+                        Professional Safety Planning
+                      </h4>
                     </div>
                     <p className="text-blue-800 text-sm mb-3">
-                      For a comprehensive safety plan, consider working with a mental health professional who can guide you through the process.
+                      For a comprehensive safety plan, consider working with a
+                      mental health professional who can guide you through the
+                      process.
                     </p>
-                    <Button 
+                    <Button
                       className="bg-blue-600 hover:bg-blue-700 text-white"
                       onClick={() => window.open("/appointments", "_blank")}
                       data-testid="button-book-safety-planning"
@@ -539,11 +629,18 @@ export default function CrisisHelp() {
                 <CardContent>
                   <div className="grid md:grid-cols-2 gap-6">
                     {campusEmergencyResources.map((resource, index) => (
-                      <div key={index} className="border rounded-lg p-4 space-y-3">
+                      <div
+                        key={index}
+                        className="border rounded-lg p-4 space-y-3"
+                      >
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
-                            <h3 className="font-semibold text-foreground">{resource.service}</h3>
-                            <p className="text-sm text-muted-foreground mb-2">{resource.description}</p>
+                            <h3 className="font-semibold text-foreground">
+                              {resource.service}
+                            </h3>
+                            <p className="text-sm text-muted-foreground mb-2">
+                              {resource.description}
+                            </p>
                             <div className="space-y-1 text-sm text-muted-foreground">
                               <div className="flex items-center space-x-2">
                                 <MapPin size={14} />
@@ -556,18 +653,31 @@ export default function CrisisHelp() {
                             </div>
                           </div>
                         </div>
-                        
+
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-2">
                             <Phone size={16} className="text-primary" />
-                            <span className="font-mono text-lg font-bold">{resource.contact}</span>
+                            <span className="font-mono text-lg font-bold">
+                              {resource.contact}
+                            </span>
                           </div>
-                          
+
                           <Button
-                            variant={resource.type === "emergency" ? "destructive" : "outline"}
+                            variant={
+                              resource.type === "emergency"
+                                ? "destructive"
+                                : "outline"
+                            }
                             size="sm"
-                            onClick={() => handleEmergencyCall(resource.contact, resource.service)}
-                            data-testid={`button-call-${resource.service.toLowerCase().replace(/\s+/g, '-')}`}
+                            onClick={() =>
+                              handleEmergencyCall(
+                                resource.contact,
+                                resource.service
+                              )
+                            }
+                            data-testid={`button-call-${resource.service
+                              .toLowerCase()
+                              .replace(/\s+/g, "-")}`}
                           >
                             <Phone size={16} className="mr-1" />
                             Call
@@ -576,10 +686,12 @@ export default function CrisisHelp() {
                       </div>
                     ))}
                   </div>
-                  
+
                   {/* Additional Resources */}
                   <div className="mt-8 pt-6 border-t border-border">
-                    <h4 className="text-lg font-semibold mb-4">Additional Support Options</h4>
+                    <h4 className="text-lg font-semibold mb-4">
+                      Additional Support Options
+                    </h4>
                     <div className="grid md:grid-cols-3 gap-4">
                       <Card className="p-4">
                         <div className="flex items-center space-x-2 mb-2">
@@ -587,19 +699,22 @@ export default function CrisisHelp() {
                           <h5 className="font-medium">AI Crisis Support</h5>
                         </div>
                         <p className="text-sm text-muted-foreground mb-3">
-                          Get immediate support from our crisis-trained AI assistant
+                          Get immediate support from our crisis-trained AI
+                          assistant
                         </p>
-                        <Button 
-                          size="sm" 
-                          variant="outline" 
+                        <Button
+                          size="sm"
+                          variant="outline"
                           className="w-full"
-                          onClick={() => window.open("/chatbot?crisis=true", "_blank")}
+                          onClick={() =>
+                            window.open("/chatbot?crisis=true", "_blank")
+                          }
                           data-testid="button-ai-crisis-support"
                         >
                           Start Crisis Chat
                         </Button>
                       </Card>
-                      
+
                       <Card className="p-4">
                         <div className="flex items-center space-x-2 mb-2">
                           <Video className="text-primary" size={20} />
@@ -608,17 +723,19 @@ export default function CrisisHelp() {
                         <p className="text-sm text-muted-foreground mb-3">
                           Connect with a crisis counselor via video call
                         </p>
-                        <Button 
-                          size="sm" 
-                          variant="outline" 
+                        <Button
+                          size="sm"
+                          variant="outline"
                           className="w-full"
-                          onClick={() => window.open("/appointments?crisis=true", "_blank")}
+                          onClick={() =>
+                            window.open("/appointments?crisis=true", "_blank")
+                          }
                           data-testid="button-telehealth-crisis"
                         >
                           Video Counseling
                         </Button>
                       </Card>
-                      
+
                       <Card className="p-4">
                         <div className="flex items-center space-x-2 mb-2">
                           <Users className="text-primary" size={20} />
@@ -627,11 +744,13 @@ export default function CrisisHelp() {
                         <p className="text-sm text-muted-foreground mb-3">
                           Connect with trained peer crisis supporters
                         </p>
-                        <Button 
-                          size="sm" 
-                          variant="outline" 
+                        <Button
+                          size="sm"
+                          variant="outline"
                           className="w-full"
-                          onClick={() => window.open("/peer-support?crisis=true", "_blank")}
+                          onClick={() =>
+                            window.open("/peer-support?crisis=true", "_blank")
+                          }
                           data-testid="button-peer-crisis-support"
                         >
                           Peer Support
@@ -656,9 +775,10 @@ export default function CrisisHelp() {
               <CardContent>
                 <div className="space-y-4">
                   <p className="text-foreground">
-                    Reaching out for help shows incredible strength. Here are some additional resources while you wait for support:
+                    Reaching out for help shows incredible strength. Here are
+                    some additional resources while you wait for support:
                   </p>
-                  
+
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="p-4 bg-white rounded-lg border">
                       <h4 className="font-semibold mb-2">While You Wait:</h4>
@@ -669,7 +789,7 @@ export default function CrisisHelp() {
                         <li>• Stay connected with someone you trust</li>
                       </ul>
                     </div>
-                    
+
                     <div className="p-4 bg-white rounded-lg border">
                       <h4 className="font-semibold mb-2">Immediate Comfort:</h4>
                       <ul className="text-sm space-y-1">
@@ -680,11 +800,13 @@ export default function CrisisHelp() {
                       </ul>
                     </div>
                   </div>
-                  
+
                   <Alert>
                     <CheckCircle className="h-4 w-4" />
                     <AlertDescription>
-                      <strong>You are not alone.</strong> Help is available, and you deserve support. Crisis counselors are specially trained to help people in your situation.
+                      <strong>You are not alone.</strong> Help is available, and
+                      you deserve support. Crisis counselors are specially
+                      trained to help people in your situation.
                     </AlertDescription>
                   </Alert>
                 </div>
@@ -703,7 +825,9 @@ export default function CrisisHelp() {
             <CardContent>
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-3">
-                  <h4 className="font-semibold text-foreground">Crisis Services Are:</h4>
+                  <h4 className="font-semibold text-foreground">
+                    Crisis Services Are:
+                  </h4>
                   <ul className="space-y-2 text-sm text-muted-foreground">
                     <li className="flex items-center space-x-2">
                       <CheckCircle className="text-green-600" size={16} />
@@ -723,9 +847,11 @@ export default function CrisisHelp() {
                     </li>
                   </ul>
                 </div>
-                
+
                 <div className="space-y-3">
-                  <h4 className="font-semibold text-foreground">We Understand:</h4>
+                  <h4 className="font-semibold text-foreground">
+                    We Understand:
+                  </h4>
                   <ul className="space-y-2 text-sm text-muted-foreground">
                     <li className="flex items-center space-x-2">
                       <Heart className="text-red-500" size={16} />

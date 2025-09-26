@@ -1,24 +1,30 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import Header from "@/components/layout/Header";
+import ProfessionalNavbar from "@/components/layout/ProfessionalNavbar";
 import ResourceCard from "./components/ResourceCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { 
-  Search, 
-  BookOpen, 
-  Video, 
-  Headphones, 
-  FileText, 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Search,
+  BookOpen,
+  Video,
+  Headphones,
+  FileText,
   Filter,
   Download,
   Star,
   Clock,
-  Globe
+  Globe,
 } from "lucide-react";
 import type { Resource, ResourceFilters } from "@/types";
 
@@ -31,7 +37,7 @@ export default function Resources() {
     category: "",
     type: "",
     language: "en",
-    search: ""
+    search: "",
   });
   const [activeCategory, setActiveCategory] = useState("all");
 
@@ -43,7 +49,7 @@ export default function Resources() {
       if (filters.category) params.append("category", filters.category);
       if (filters.type) params.append("type", filters.type);
       if (filters.language) params.append("language", filters.language);
-      
+
       const response = await fetch(`/api/resources?${params.toString()}`);
       return await response.json();
     },
@@ -55,11 +61,15 @@ export default function Resources() {
   });
 
   // Search resources with proper typing and default empty array
-  const { data: searchResults = [], isLoading: searchLoading } = useQuery<Resource[]>({
+  const { data: searchResults = [], isLoading: searchLoading } = useQuery<
+    Resource[]
+  >({
     queryKey: ["/api/resources/search", filters.search],
     queryFn: async () => {
       if (!filters.search) return [];
-      const response = await fetch(`/api/resources/search?q=${encodeURIComponent(filters.search)}`);
+      const response = await fetch(
+        `/api/resources/search?q=${encodeURIComponent(filters.search)}`
+      );
       return await response.json();
     },
     enabled: !!filters.search,
@@ -67,13 +77,58 @@ export default function Resources() {
 
   // Resource categories
   const categories = [
-    { id: "all", name: "All Resources", icon: BookOpen, count: resources?.length || 0 },
-    { id: "anxiety", name: "Anxiety", icon: BookOpen, count: resources?.filter((r: Resource) => r.category === "anxiety").length || 0 },
-    { id: "depression", name: "Depression", icon: BookOpen, count: resources?.filter((r: Resource) => r.category === "depression").length || 0 },
-    { id: "stress", name: "Stress Management", icon: BookOpen, count: resources?.filter((r: Resource) => r.category === "stress").length || 0 },
-    { id: "sleep", name: "Sleep & Rest", icon: BookOpen, count: resources?.filter((r: Resource) => r.category === "sleep").length || 0 },
-    { id: "academic", name: "Academic Support", icon: BookOpen, count: resources?.filter((r: Resource) => r.category === "academic").length || 0 },
-    { id: "general", name: "General Wellness", icon: BookOpen, count: resources?.filter((r: Resource) => r.category === "general").length || 0 },
+    {
+      id: "all",
+      name: "All Resources",
+      icon: BookOpen,
+      count: resources?.length || 0,
+    },
+    {
+      id: "anxiety",
+      name: "Anxiety",
+      icon: BookOpen,
+      count:
+        resources?.filter((r: Resource) => r.category === "anxiety").length ||
+        0,
+    },
+    {
+      id: "depression",
+      name: "Depression",
+      icon: BookOpen,
+      count:
+        resources?.filter((r: Resource) => r.category === "depression")
+          .length || 0,
+    },
+    {
+      id: "stress",
+      name: "Stress Management",
+      icon: BookOpen,
+      count:
+        resources?.filter((r: Resource) => r.category === "stress").length || 0,
+    },
+    {
+      id: "sleep",
+      name: "Sleep & Rest",
+      icon: BookOpen,
+      count:
+        resources?.filter((r: Resource) => r.category === "sleep").length || 0,
+    },
+    {
+      id: "academic",
+      name: "Academic Support",
+      icon: BookOpen,
+      count:
+        resources?.filter((r: Resource) => r.category === "academic").length ||
+        0,
+    },
+    {
+      id: "general",
+      name: "General Wellness",
+      icon: BookOpen,
+      count:
+        resources?.filter((r: Resource) => r.category === "general").length ||
+        0,
+    },
   ];
 
   // Content types
@@ -97,35 +152,40 @@ export default function Resources() {
   // Filter resources based on active category and search
   const getFilteredResources = () => {
     let filtered = filters.search ? searchResults || [] : resources || [];
-    
+
     if (activeCategory !== "all") {
-      filtered = filtered.filter((resource: Resource) => resource.category === activeCategory);
+      filtered = filtered.filter(
+        (resource: Resource) => resource.category === activeCategory
+      );
     }
-    
+
     return filtered;
   };
 
   const handleSearchChange = (value: string) => {
-    setFilters(prev => ({ ...prev, search: value }));
+    setFilters((prev) => ({ ...prev, search: value }));
   };
 
   const handleFilterChange = (key: keyof ResourceFilters, value: string) => {
-    setFilters(prev => ({ ...prev, [key]: value }));
+    setFilters((prev) => ({ ...prev, [key]: value }));
   };
 
   const filteredResources = getFilteredResources();
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
-      
+      <ProfessionalNavbar />
+
       <div className="pt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Page Header */}
           <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-foreground mb-4 font-heading">Mental Health Resources</h1>
+            <h1 className="text-4xl font-bold text-foreground mb-4 font-heading">
+              Mental Health Resources
+            </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Access curated videos, audio guides, articles, and PDFs on mental health topics in multiple languages
+              Access curated videos, audio guides, articles, and PDFs on mental
+              health topics in multiple languages
             </p>
           </div>
 
@@ -142,7 +202,10 @@ export default function Resources() {
                 </CardHeader>
                 <CardContent>
                   <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={16} />
+                    <Search
+                      className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"
+                      size={16}
+                    />
                     <Input
                       placeholder="Search for topics, keywords..."
                       value={filters.search}
@@ -165,10 +228,14 @@ export default function Resources() {
                 <CardContent className="space-y-4">
                   {/* Content Type Filter */}
                   <div>
-                    <label className="text-sm font-medium text-foreground mb-2 block">Content Type</label>
-                    <Select 
-                      value={filters.type} 
-                      onValueChange={(value) => handleFilterChange("type", value)}
+                    <label className="text-sm font-medium text-foreground mb-2 block">
+                      Content Type
+                    </label>
+                    <Select
+                      value={filters.type}
+                      onValueChange={(value) =>
+                        handleFilterChange("type", value)
+                      }
                     >
                       <SelectTrigger data-testid="select-content-type">
                         <SelectValue />
@@ -191,10 +258,14 @@ export default function Resources() {
 
                   {/* Language Filter */}
                   <div>
-                    <label className="text-sm font-medium text-foreground mb-2 block">Language</label>
-                    <Select 
-                      value={filters.language} 
-                      onValueChange={(value) => handleFilterChange("language", value)}
+                    <label className="text-sm font-medium text-foreground mb-2 block">
+                      Language
+                    </label>
+                    <Select
+                      value={filters.language}
+                      onValueChange={(value) =>
+                        handleFilterChange("language", value)
+                      }
                     >
                       <SelectTrigger data-testid="select-language">
                         <SelectValue />
@@ -213,11 +284,18 @@ export default function Resources() {
                   </div>
 
                   {/* Clear Filters */}
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
+                  <Button
+                    variant="outline"
+                    size="sm"
                     className="w-full"
-                    onClick={() => setFilters({ category: "", type: "", language: "en", search: "" })}
+                    onClick={() =>
+                      setFilters({
+                        category: "",
+                        type: "",
+                        language: "en",
+                        search: "",
+                      })
+                    }
                     data-testid="button-clear-filters"
                   >
                     Clear All Filters
@@ -228,7 +306,9 @@ export default function Resources() {
               {/* Categories */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-lg font-heading">Categories</CardTitle>
+                  <CardTitle className="text-lg font-heading">
+                    Categories
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
@@ -237,7 +317,9 @@ export default function Resources() {
                       return (
                         <Button
                           key={category.id}
-                          variant={activeCategory === category.id ? "default" : "ghost"}
+                          variant={
+                            activeCategory === category.id ? "default" : "ghost"
+                          }
                           className="w-full justify-between"
                           onClick={() => setActiveCategory(category.id)}
                           data-testid={`button-category-${category.id}`}
@@ -259,8 +341,18 @@ export default function Resources() {
             <div className="lg:col-span-3">
               <Tabs defaultValue="browse" className="space-y-6">
                 <TabsList>
-                  <TabsTrigger value="browse" data-testid="tab-browse-resources">Browse</TabsTrigger>
-                  <TabsTrigger value="featured" data-testid="tab-featured-resources">Featured</TabsTrigger>
+                  <TabsTrigger
+                    value="browse"
+                    data-testid="tab-browse-resources"
+                  >
+                    Browse
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="featured"
+                    data-testid="tab-featured-resources"
+                  >
+                    Featured
+                  </TabsTrigger>
                 </TabsList>
 
                 {/* Browse Resources */}
@@ -270,10 +362,15 @@ export default function Resources() {
                     <div className="flex items-center justify-between">
                       <div>
                         <h2 className="text-2xl font-bold text-foreground font-heading">
-                          {filters.search ? `Search Results` : categories.find(c => c.id === activeCategory)?.name}
+                          {filters.search
+                            ? `Search Results`
+                            : categories.find((c) => c.id === activeCategory)
+                                ?.name}
                         </h2>
                         <p className="text-muted-foreground">
-                          {isLoading || searchLoading ? "Loading..." : `${filteredResources.length} resources found`}
+                          {isLoading || searchLoading
+                            ? "Loading..."
+                            : `${filteredResources.length} resources found`}
                         </p>
                       </div>
                     </div>
@@ -290,8 +387,8 @@ export default function Resources() {
                     ) : filteredResources.length > 0 ? (
                       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {filteredResources.map((resource: Resource) => (
-                          <ResourceCard 
-                            key={resource.id} 
+                          <ResourceCard
+                            key={resource.id}
                             resource={resource}
                             data-testid={`resource-card-${resource.id}`}
                           />
@@ -299,18 +396,27 @@ export default function Resources() {
                       </div>
                     ) : (
                       <div className="text-center py-12">
-                        <BookOpen className="mx-auto text-muted-foreground mb-4" size={64} />
-                        <h3 className="text-xl font-semibold text-foreground mb-2">No Resources Found</h3>
+                        <BookOpen
+                          className="mx-auto text-muted-foreground mb-4"
+                          size={64}
+                        />
+                        <h3 className="text-xl font-semibold text-foreground mb-2">
+                          No Resources Found
+                        </h3>
                         <p className="text-muted-foreground mb-4">
-                          {filters.search 
+                          {filters.search
                             ? `No resources match your search "${filters.search}"`
-                            : "No resources available in this category"
-                          }
+                            : "No resources available in this category"}
                         </p>
-                        <Button 
+                        <Button
                           variant="outline"
                           onClick={() => {
-                            setFilters({ category: "", type: "", language: "en", search: "" });
+                            setFilters({
+                              category: "",
+                              type: "",
+                              language: "en",
+                              search: "",
+                            });
                             setActiveCategory("all");
                           }}
                           data-testid="button-view-all-resources"
@@ -326,17 +432,20 @@ export default function Resources() {
                 <TabsContent value="featured">
                   <div className="space-y-6">
                     <div>
-                      <h2 className="text-2xl font-bold text-foreground mb-2 font-heading">Featured Resources</h2>
+                      <h2 className="text-2xl font-bold text-foreground mb-2 font-heading">
+                        Featured Resources
+                      </h2>
                       <p className="text-muted-foreground">
-                        Hand-picked resources recommended by our mental health professionals
+                        Hand-picked resources recommended by our mental health
+                        professionals
                       </p>
                     </div>
 
                     {featuredResources && featuredResources.length > 0 ? (
                       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {featuredResources.map((resource: Resource) => (
-                          <ResourceCard 
-                            key={resource.id} 
+                          <ResourceCard
+                            key={resource.id}
                             resource={resource}
                             featured={true}
                             data-testid={`featured-resource-${resource.id}`}
@@ -345,9 +454,16 @@ export default function Resources() {
                       </div>
                     ) : (
                       <div className="text-center py-12">
-                        <Star className="mx-auto text-muted-foreground mb-4" size={64} />
-                        <h3 className="text-xl font-semibold text-foreground mb-2">No Featured Resources</h3>
-                        <p className="text-muted-foreground">Check back soon for featured content</p>
+                        <Star
+                          className="mx-auto text-muted-foreground mb-4"
+                          size={64}
+                        />
+                        <h3 className="text-xl font-semibold text-foreground mb-2">
+                          No Featured Resources
+                        </h3>
+                        <p className="text-muted-foreground">
+                          Check back soon for featured content
+                        </p>
                       </div>
                     )}
                   </div>
