@@ -345,11 +345,11 @@ const AdvancedProfessionalSignup: React.FC = () => {
   const currentStepProgress = (step / totalSteps) * 100;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900 relative overflow-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
-          className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-blue-400/10 to-purple-400/10 rounded-full blur-3xl"
+          className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-3xl"
           animate={{
             scale: [1, 1.1, 1],
             opacity: [0.3, 0.6, 0.3],
@@ -361,7 +361,7 @@ const AdvancedProfessionalSignup: React.FC = () => {
           }}
         />
         <motion.div
-          className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-r from-pink-400/10 to-indigo-400/10 rounded-full blur-3xl"
+          className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-r from-indigo-500/20 to-cyan-500/20 rounded-full blur-3xl"
           animate={{
             scale: [1, 1.2, 1],
             opacity: [0.2, 0.5, 0.2],
@@ -377,7 +377,7 @@ const AdvancedProfessionalSignup: React.FC = () => {
 
       <div className="relative z-10 min-h-screen flex">
         {/* Left Side - Branding & Features */}
-        <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 p-12 flex-col justify-between text-white relative overflow-hidden">
+        <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-slate-800 via-gray-800 to-slate-900 p-12 flex-col justify-between text-white relative overflow-hidden border-r border-gray-700">
           {/* Background Pattern */}
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-20 left-20 w-32 h-32 border border-white/20 rounded-full animate-pulse"></div>
@@ -394,7 +394,7 @@ const AdvancedProfessionalSignup: React.FC = () => {
             {/* Logo */}
             <div className="flex items-center space-x-4 mb-12">
               <motion.div
-                className="h-16 w-16 bg-white/20 backdrop-blur-xl rounded-2xl flex items-center justify-center shadow-2xl"
+                className="h-16 w-16 bg-blue-600/30 backdrop-blur-xl rounded-2xl flex items-center justify-center shadow-2xl border border-blue-500/30"
                 whileHover={{ scale: 1.05, rotate: 5 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
@@ -508,7 +508,7 @@ const AdvancedProfessionalSignup: React.FC = () => {
         </div>
 
         {/* Right Side - Signup Form */}
-        <div className="w-full lg:w-1/2 flex items-center justify-center p-6 lg:p-12">
+        <div className="w-full lg:w-1/2 flex items-center justify-center p-6 lg:p-12 bg-gray-900/50 backdrop-blur-sm">
           <motion.div
             className="w-full max-w-md"
             initial={{ opacity: 0, x: 30 }}
@@ -533,7 +533,7 @@ const AdvancedProfessionalSignup: React.FC = () => {
             {/* Desktop Header */}
             <div className="hidden lg:block text-center mb-8">
               <motion.h1
-                className="text-4xl font-bold bg-gradient-to-r from-gray-900 via-indigo-900 to-purple-900 bg-clip-text text-transparent mb-3"
+                className="text-4xl font-bold bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent mb-3"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
@@ -541,7 +541,7 @@ const AdvancedProfessionalSignup: React.FC = () => {
                 Create Your Account
               </motion.h1>
               <motion.p
-                className="text-gray-600 text-lg mb-4"
+                className="text-gray-300 text-lg mb-4"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
@@ -608,12 +608,12 @@ const AdvancedProfessionalSignup: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <Card className="shadow-2xl border-0 backdrop-blur-sm bg-white/95 rounded-3xl">
+              <Card className="shadow-2xl border border-gray-700 backdrop-blur-sm bg-gray-800/95 rounded-3xl">
                 <CardHeader className="space-y-4 pb-6 text-center">
-                  <CardTitle className="text-2xl font-semibold text-gray-900">
+                  <CardTitle className="text-2xl font-semibold text-white">
                     {step === 1 ? "Personal Information" : "Account Security"}
                   </CardTitle>
-                  <CardDescription className="text-gray-600">
+                  <CardDescription className="text-gray-300">
                     {step === 1
                       ? "Tell us about yourself"
                       : "Set up your secure account"}
@@ -640,7 +640,7 @@ const AdvancedProfessionalSignup: React.FC = () => {
                               name="firstName"
                               render={({ field }) => (
                                 <FormItem>
-                                  <FormLabel className="text-sm font-semibold text-gray-700 flex items-center space-x-2">
+                                  <FormLabel className="text-sm font-semibold text-gray-300 flex items-center space-x-2">
                                     <User className="h-4 w-4" />
                                     <span>First Name</span>
                                   </FormLabel>
@@ -648,7 +648,7 @@ const AdvancedProfessionalSignup: React.FC = () => {
                                     <Input
                                       {...field}
                                       placeholder="John"
-                                      className="h-12 rounded-xl border-gray-200 focus:border-indigo-500 focus:ring-indigo-500"
+                                      className="h-12 rounded-xl border-gray-600 bg-gray-700 text-white placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500"
                                       disabled={isLoading}
                                     />
                                   </FormControl>
@@ -662,7 +662,7 @@ const AdvancedProfessionalSignup: React.FC = () => {
                               name="lastName"
                               render={({ field }) => (
                                 <FormItem>
-                                  <FormLabel className="text-sm font-semibold text-gray-700 flex items-center space-x-2">
+                                  <FormLabel className="text-sm font-semibold text-gray-300 flex items-center space-x-2">
                                     <User className="h-4 w-4" />
                                     <span>Last Name</span>
                                   </FormLabel>
@@ -670,7 +670,7 @@ const AdvancedProfessionalSignup: React.FC = () => {
                                     <Input
                                       {...field}
                                       placeholder="Doe"
-                                      className="h-12 rounded-xl border-gray-200 focus:border-indigo-500 focus:ring-indigo-500"
+                                      className="h-12 rounded-xl border-gray-600 bg-gray-700 text-white placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500"
                                       disabled={isLoading}
                                     />
                                   </FormControl>
@@ -686,7 +686,7 @@ const AdvancedProfessionalSignup: React.FC = () => {
                             name="age"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel className="text-sm font-semibold text-gray-700 flex items-center space-x-2">
+                                <FormLabel className="text-sm font-semibold text-gray-300 flex items-center space-x-2">
                                   <Calendar className="h-4 w-4" />
                                   <span>Age</span>
                                 </FormLabel>
@@ -701,7 +701,7 @@ const AdvancedProfessionalSignup: React.FC = () => {
                                     disabled={isLoading}
                                   />
                                 </FormControl>
-                                <FormDescription className="text-xs text-gray-500">
+                                <FormDescription className="text-xs text-gray-400">
                                   You must be at least 13 years old to create an
                                   account
                                 </FormDescription>
@@ -716,7 +716,7 @@ const AdvancedProfessionalSignup: React.FC = () => {
                             name="phone"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel className="text-sm font-semibold text-gray-700 flex items-center space-x-2">
+                                <FormLabel className="text-sm font-semibold text-gray-300 flex items-center space-x-2">
                                   <Phone className="h-4 w-4" />
                                   <span>Phone Number (Optional)</span>
                                 </FormLabel>
@@ -725,11 +725,11 @@ const AdvancedProfessionalSignup: React.FC = () => {
                                     {...field}
                                     type="tel"
                                     placeholder="+1 (555) 123-4567"
-                                    className="h-12 rounded-xl border-gray-200 focus:border-indigo-500 focus:ring-indigo-500"
+                                    className="h-12 rounded-xl border-gray-600 bg-gray-700 text-white placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500"
                                     disabled={isLoading}
                                   />
                                 </FormControl>
-                                <FormDescription className="text-xs text-gray-500">
+                                <FormDescription className="text-xs text-gray-400">
                                   For appointment reminders and emergency
                                   contacts
                                 </FormDescription>
@@ -770,7 +770,7 @@ const AdvancedProfessionalSignup: React.FC = () => {
                             name="email"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel className="text-sm font-semibold text-gray-700 flex items-center space-x-2">
+                                <FormLabel className="text-sm font-semibold text-gray-300 flex items-center space-x-2">
                                   <Mail className="h-4 w-4" />
                                   <span>Email Address</span>
                                 </FormLabel>
@@ -781,7 +781,7 @@ const AdvancedProfessionalSignup: React.FC = () => {
                                       type="email"
                                       placeholder="john.doe@example.com"
                                       className={cn(
-                                        "h-12 rounded-xl border-gray-200 focus:border-indigo-500 focus:ring-indigo-500 transition-all duration-300 pr-10",
+                                        "h-12 rounded-xl border-gray-600 bg-gray-700 text-white placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500 transition-all duration-300 pr-10",
                                         getEmailValidationStatus() ===
                                           "error" &&
                                           "border-red-300 focus:border-red-500 focus:ring-red-500",
@@ -816,7 +816,7 @@ const AdvancedProfessionalSignup: React.FC = () => {
                             name="password"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel className="text-sm font-semibold text-gray-700 flex items-center space-x-2">
+                                <FormLabel className="text-sm font-semibold text-gray-300 flex items-center space-x-2">
                                   <Lock className="h-4 w-4" />
                                   <span>Password</span>
                                 </FormLabel>
@@ -826,7 +826,7 @@ const AdvancedProfessionalSignup: React.FC = () => {
                                       {...field}
                                       type={showPassword ? "text" : "password"}
                                       placeholder="Create a strong password"
-                                      className="h-12 pr-12 rounded-xl border-gray-200 focus:border-indigo-500 focus:ring-indigo-500"
+                                      className="h-12 pr-12 rounded-xl border-gray-600 bg-gray-700 text-white placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500"
                                       disabled={isLoading}
                                     />
                                     <Button
@@ -840,9 +840,9 @@ const AdvancedProfessionalSignup: React.FC = () => {
                                       disabled={isLoading}
                                     >
                                       {showPassword ? (
-                                        <EyeOff className="h-4 w-4 text-gray-500" />
+                                        <EyeOff className="h-4 w-4 text-gray-400" />
                                       ) : (
-                                        <Eye className="h-4 w-4 text-gray-500" />
+                                        <Eye className="h-4 w-4 text-gray-400" />
                                       )}
                                     </Button>
                                   </div>
@@ -857,7 +857,7 @@ const AdvancedProfessionalSignup: React.FC = () => {
                                     transition={{ duration: 0.3 }}
                                   >
                                     <div className="flex items-center justify-between">
-                                      <span className="text-xs text-gray-500">
+                                      <span className="text-xs text-gray-400">
                                         Password strength:
                                       </span>
                                       <span
@@ -895,7 +895,7 @@ const AdvancedProfessionalSignup: React.FC = () => {
                                               "text-xs",
                                               check.test(watchedPassword)
                                                 ? "text-green-600"
-                                                : "text-gray-500"
+                                                : "text-gray-400"
                                             )}
                                           >
                                             {check.label}
@@ -915,7 +915,7 @@ const AdvancedProfessionalSignup: React.FC = () => {
                             name="confirmPassword"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel className="text-sm font-semibold text-gray-700 flex items-center space-x-2">
+                                <FormLabel className="text-sm font-semibold text-gray-300 flex items-center space-x-2">
                                   <Lock className="h-4 w-4" />
                                   <span>Confirm Password</span>
                                 </FormLabel>
@@ -930,7 +930,7 @@ const AdvancedProfessionalSignup: React.FC = () => {
                                       }
                                       placeholder="Confirm your password"
                                       className={cn(
-                                        "h-12 pr-12 rounded-xl border-gray-200 focus:border-indigo-500 focus:ring-indigo-500",
+                                        "h-12 pr-12 rounded-xl border-gray-600 bg-gray-700 text-white placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500",
                                         watchedConfirmPassword &&
                                           watchedPassword &&
                                           watchedConfirmPassword ===
@@ -957,9 +957,9 @@ const AdvancedProfessionalSignup: React.FC = () => {
                                       disabled={isLoading}
                                     >
                                       {showConfirmPassword ? (
-                                        <EyeOff className="h-4 w-4 text-gray-500" />
+                                        <EyeOff className="h-4 w-4 text-gray-400" />
                                       ) : (
-                                        <Eye className="h-4 w-4 text-gray-500" />
+                                        <Eye className="h-4 w-4 text-gray-400" />
                                       )}
                                     </Button>
                                     {watchedConfirmPassword &&
@@ -976,7 +976,7 @@ const AdvancedProfessionalSignup: React.FC = () => {
                           />
 
                           {/* Terms and Privacy */}
-                          <div className="space-y-4 pt-4 border-t border-gray-100">
+                          <div className="space-y-4 pt-4 border-t border-gray-700">
                             <FormField
                               control={form.control}
                               name="termsAccepted"
@@ -990,7 +990,7 @@ const AdvancedProfessionalSignup: React.FC = () => {
                                     />
                                   </FormControl>
                                   <div className="space-y-1 leading-none">
-                                    <FormLabel className="text-sm text-gray-700">
+                                    <FormLabel className="text-sm text-gray-300">
                                       I accept the{" "}
                                       <Link href="/terms">
                                         <span className="text-indigo-600 hover:text-indigo-800 font-medium cursor-pointer">
@@ -1023,7 +1023,7 @@ const AdvancedProfessionalSignup: React.FC = () => {
                                     />
                                   </FormControl>
                                   <div className="space-y-1 leading-none">
-                                    <FormLabel className="text-sm text-gray-700">
+                                    <FormLabel className="text-sm text-gray-300">
                                       I consent to the processing of my personal
                                       data for mental health services
                                     </FormLabel>
@@ -1046,7 +1046,7 @@ const AdvancedProfessionalSignup: React.FC = () => {
                                     />
                                   </FormControl>
                                   <div className="space-y-1 leading-none">
-                                    <FormLabel className="text-sm text-gray-700">
+                                    <FormLabel className="text-sm text-gray-300">
                                       Send me wellness tips and platform updates
                                       (optional)
                                     </FormLabel>
@@ -1062,7 +1062,7 @@ const AdvancedProfessionalSignup: React.FC = () => {
                               type="button"
                               variant="outline"
                               onClick={() => setStep(1)}
-                              className="flex-1 h-12 rounded-xl border-gray-200 hover:bg-gray-50"
+                              className="flex-1 h-12 rounded-xl border-gray-600 bg-gray-800 text-white hover:bg-gray-600"
                               disabled={isLoading}
                             >
                               Back
@@ -1091,11 +1091,11 @@ const AdvancedProfessionalSignup: React.FC = () => {
                   </Form>
 
                   {/* Login Link */}
-                  <div className="text-center pt-6 border-t border-gray-100">
+                  <div className="text-center pt-6 border-t border-gray-700">
                     <p className="text-sm text-gray-600">
                       Already have an account?{" "}
                       <Link href="/login">
-                        <span className="text-indigo-600 hover:text-indigo-800 font-semibold transition-colors duration-200 cursor-pointer">
+                        <span className="text-indigo-400 hover:text-indigo-300 font-semibold transition-colors duration-200 cursor-pointer">
                           Sign in here
                         </span>
                       </Link>

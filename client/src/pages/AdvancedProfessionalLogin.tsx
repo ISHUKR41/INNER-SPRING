@@ -247,14 +247,14 @@ const AdvancedProfessionalLogin: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900 relative overflow-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
-          className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-blue-400/10 to-purple-400/10 rounded-full blur-3xl"
+          className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-3xl"
           animate={{
             scale: [1, 1.1, 1],
-            opacity: [0.3, 0.6, 0.3],
+            opacity: [0.4, 0.7, 0.4],
           }}
           transition={{
             duration: 8,
@@ -263,10 +263,10 @@ const AdvancedProfessionalLogin: React.FC = () => {
           }}
         />
         <motion.div
-          className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-r from-pink-400/10 to-indigo-400/10 rounded-full blur-3xl"
+          className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-r from-indigo-500/20 to-cyan-500/20 rounded-full blur-3xl"
           animate={{
             scale: [1, 1.2, 1],
-            opacity: [0.2, 0.5, 0.2],
+            opacity: [0.3, 0.6, 0.3],
           }}
           transition={{
             duration: 10,
@@ -279,7 +279,7 @@ const AdvancedProfessionalLogin: React.FC = () => {
 
       <div className="relative z-10 min-h-screen flex">
         {/* Left Side - Branding & Features */}
-        <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 p-12 flex-col justify-between text-white relative overflow-hidden">
+        <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-slate-800 via-gray-800 to-slate-900 p-12 flex-col justify-between text-white relative overflow-hidden border-r border-gray-700">
           {/* Background Pattern */}
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-20 left-20 w-32 h-32 border border-white/20 rounded-full animate-pulse"></div>
@@ -296,7 +296,7 @@ const AdvancedProfessionalLogin: React.FC = () => {
             {/* Logo */}
             <div className="flex items-center space-x-4 mb-12">
               <motion.div
-                className="h-16 w-16 bg-white/20 backdrop-blur-xl rounded-2xl flex items-center justify-center shadow-2xl"
+                className="h-16 w-16 bg-blue-600/30 backdrop-blur-xl rounded-2xl flex items-center justify-center shadow-2xl border border-blue-500/30"
                 whileHover={{ scale: 1.05, rotate: 5 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
@@ -398,7 +398,7 @@ const AdvancedProfessionalLogin: React.FC = () => {
         </div>
 
         {/* Right Side - Login Form */}
-        <div className="w-full lg:w-1/2 flex items-center justify-center p-6 lg:p-12">
+        <div className="w-full lg:w-1/2 flex items-center justify-center p-6 lg:p-12 bg-gray-900/50 backdrop-blur-sm">
           <motion.div
             className="w-full max-w-md"
             initial={{ opacity: 0, x: 30 }}
@@ -408,14 +408,14 @@ const AdvancedProfessionalLogin: React.FC = () => {
             {/* Mobile Logo */}
             <div className="lg:hidden text-center mb-8">
               <div className="flex items-center justify-center mb-4">
-                <div className="h-16 w-16 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 rounded-2xl flex items-center justify-center shadow-xl">
+                <div className="h-16 w-16 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 rounded-2xl flex items-center justify-center shadow-xl border border-blue-500/30">
                   <Brain className="h-10 w-10 text-white" />
                 </div>
               </div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 via-indigo-900 to-purple-900 bg-clip-text text-transparent mb-2">
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent mb-2">
                 Welcome Back
               </h1>
-              <p className="text-gray-600">
+              <p className="text-gray-300">
                 Sign in to continue your mental health journey
               </p>
             </div>
@@ -423,7 +423,7 @@ const AdvancedProfessionalLogin: React.FC = () => {
             {/* Desktop Header */}
             <div className="hidden lg:block text-center mb-8">
               <motion.h1
-                className="text-4xl font-bold bg-gradient-to-r from-gray-900 via-indigo-900 to-purple-900 bg-clip-text text-transparent mb-3"
+                className="text-4xl font-bold bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent mb-3"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
@@ -431,7 +431,7 @@ const AdvancedProfessionalLogin: React.FC = () => {
                 Welcome Back
               </motion.h1>
               <motion.p
-                className="text-gray-600 text-lg mb-4"
+                className="text-gray-300 text-lg mb-4"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
@@ -498,12 +498,12 @@ const AdvancedProfessionalLogin: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <Card className="shadow-2xl border-0 backdrop-blur-sm bg-white/95 rounded-3xl">
+              <Card className="shadow-2xl border border-gray-700 backdrop-blur-sm bg-gray-800/95 rounded-3xl">
                 <CardHeader className="space-y-4 pb-6 text-center">
-                  <CardTitle className="text-2xl font-semibold text-gray-900">
+                  <CardTitle className="text-2xl font-semibold text-white">
                     Sign In to Your Account
                   </CardTitle>
-                  <CardDescription className="text-gray-600">
+                  <CardDescription className="text-gray-300">
                     Enter your credentials to access your dashboard
                   </CardDescription>
                 </CardHeader>
@@ -513,33 +513,33 @@ const AdvancedProfessionalLogin: React.FC = () => {
                   <div className="grid grid-cols-3 gap-3">
                     <Button
                       variant="outline"
-                      className="h-12 rounded-xl border-gray-200 hover:bg-gray-50 hover:border-gray-300 transition-all duration-300 hover:scale-105 hover:shadow-md"
+                      className="h-12 rounded-xl border-gray-600 bg-gray-700 hover:bg-gray-600 hover:border-gray-500 transition-all duration-300 hover:scale-105 hover:shadow-md text-white"
                       disabled={isLoading}
                     >
-                      <Globe className="h-5 w-5 text-red-500" />
+                      <Globe className="h-5 w-5 text-red-400" />
                     </Button>
                     <Button
                       variant="outline"
-                      className="h-12 rounded-xl border-gray-200 hover:bg-gray-50 hover:border-gray-300 transition-all duration-300 hover:scale-105 hover:shadow-md"
+                      className="h-12 rounded-xl border-gray-600 bg-gray-700 hover:bg-gray-600 hover:border-gray-500 transition-all duration-300 hover:scale-105 hover:shadow-md text-white"
                       disabled={isLoading}
                     >
-                      <Smartphone className="h-5 w-5 text-gray-900" />
+                      <Smartphone className="h-5 w-5 text-gray-300" />
                     </Button>
                     <Button
                       variant="outline"
-                      className="h-12 rounded-xl border-gray-200 hover:bg-gray-50 hover:border-gray-300 transition-all duration-300 hover:scale-105 hover:shadow-md"
+                      className="h-12 rounded-xl border-gray-600 bg-gray-700 hover:bg-gray-600 hover:border-gray-500 transition-all duration-300 hover:scale-105 hover:shadow-md text-white"
                       disabled={isLoading}
                     >
-                      <Github className="h-5 w-5 text-gray-900" />
+                      <Github className="h-5 w-5 text-gray-300" />
                     </Button>
                   </div>
 
                   <div className="relative">
                     <div className="absolute inset-0 flex items-center">
-                      <Separator className="w-full" />
+                      <Separator className="w-full bg-gray-600" />
                     </div>
                     <div className="relative flex justify-center text-xs uppercase">
-                      <span className="bg-white px-4 text-gray-500 font-medium">
+                      <span className="bg-gray-800 px-4 text-gray-400 font-medium">
                         Or continue with email
                       </span>
                     </div>
@@ -592,7 +592,7 @@ const AdvancedProfessionalLogin: React.FC = () => {
                         name="email"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-sm font-semibold text-gray-700 flex items-center space-x-2">
+                            <FormLabel className="text-sm font-semibold text-gray-300 flex items-center space-x-2">
                               <Mail className="h-4 w-4" />
                               <span>Email Address</span>
                             </FormLabel>
@@ -603,11 +603,11 @@ const AdvancedProfessionalLogin: React.FC = () => {
                                   type="email"
                                   placeholder="Enter your email address"
                                   className={cn(
-                                    "h-12 rounded-xl border-gray-200 focus:border-indigo-500 focus:ring-indigo-500 transition-all duration-300 pr-10",
+                                    "h-12 rounded-xl border-gray-600 bg-gray-700 text-white placeholder:text-gray-400 focus:border-blue-500 focus:ring-blue-500 transition-all duration-300 pr-10",
                                     getEmailValidationStatus() === "error" &&
-                                      "border-red-300 focus:border-red-500 focus:ring-red-500",
+                                      "border-red-400 focus:border-red-500 focus:ring-red-500",
                                     getEmailValidationStatus() === "success" &&
-                                      "border-green-300 focus:border-green-500 focus:ring-green-500"
+                                      "border-green-400 focus:border-green-500 focus:ring-green-500"
                                   )}
                                   disabled={isLoading}
                                 />
@@ -630,7 +630,7 @@ const AdvancedProfessionalLogin: React.FC = () => {
                         name="password"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-sm font-semibold text-gray-700 flex items-center space-x-2">
+                            <FormLabel className="text-sm font-semibold text-gray-300 flex items-center space-x-2">
                               <Lock className="h-4 w-4" />
                               <span>Password</span>
                             </FormLabel>
@@ -640,14 +640,14 @@ const AdvancedProfessionalLogin: React.FC = () => {
                                   {...field}
                                   type={showPassword ? "text" : "password"}
                                   placeholder="Enter your password"
-                                  className="h-12 pr-12 rounded-xl border-gray-200 focus:border-indigo-500 focus:ring-indigo-500 transition-all duration-300"
+                                  className="h-12 pr-12 rounded-xl border-gray-600 bg-gray-700 text-white placeholder:text-gray-400 focus:border-blue-500 focus:ring-blue-500 transition-all duration-300"
                                   disabled={isLoading}
                                 />
                                 <Button
                                   type="button"
                                   variant="ghost"
                                   size="sm"
-                                  className="absolute right-2 top-1/2 transform -translate-y-1/2 h-8 w-8 rounded-lg hover:bg-gray-100"
+                                  className="absolute right-2 top-1/2 transform -translate-y-1/2 h-8 w-8 rounded-lg hover:bg-gray-600 text-gray-300"
                                   onClick={() => setShowPassword(!showPassword)}
                                   disabled={isLoading}
                                 >
@@ -704,17 +704,17 @@ const AdvancedProfessionalLogin: React.FC = () => {
                             id="remember"
                             checked={rememberMe}
                             onChange={(e) => setRememberMe(e.target.checked)}
-                            className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                            className="rounded border-gray-500 bg-gray-700 text-blue-600 focus:ring-blue-500"
                           />
                           <Label
                             htmlFor="remember"
-                            className="text-sm text-gray-600"
+                            className="text-sm text-gray-300"
                           >
                             Remember me
                           </Label>
                         </div>
                         <Link href="/forgot-password">
-                          <span className="text-sm text-indigo-600 hover:text-indigo-800 font-medium transition-colors duration-200 cursor-pointer">
+                          <span className="text-sm text-blue-400 hover:text-blue-300 font-medium transition-colors duration-200 cursor-pointer">
                             Forgot password?
                           </span>
                         </Link>
@@ -724,7 +724,7 @@ const AdvancedProfessionalLogin: React.FC = () => {
                       <Button
                         type="submit"
                         disabled={isLoading || !isValid}
-                        className="w-full h-14 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02]"
+                        className="w-full h-14 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold shadow-xl hover:shadow-2xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] border border-blue-500"
                       >
                         {isLoading ? (
                           <>
@@ -742,11 +742,11 @@ const AdvancedProfessionalLogin: React.FC = () => {
                   </Form>
 
                   {/* Sign Up Link */}
-                  <div className="text-center pt-6 border-t border-gray-100">
-                    <p className="text-sm text-gray-600">
+                  <div className="text-center pt-6 border-t border-gray-600">
+                    <p className="text-sm text-gray-300">
                       Don't have an account?{" "}
                       <Link href="/signup">
-                        <span className="text-indigo-600 hover:text-indigo-800 font-semibold transition-colors duration-200 cursor-pointer">
+                        <span className="text-blue-400 hover:text-blue-300 font-semibold transition-colors duration-200 cursor-pointer">
                           Create your free account
                         </span>
                       </Link>
