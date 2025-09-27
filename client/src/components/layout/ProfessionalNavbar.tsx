@@ -17,13 +17,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Badge } from "@/components/ui/badge";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import {
   Brain,
   Home,
@@ -36,23 +29,10 @@ import {
   Info,
   Menu,
   User,
-  Settings,
   LogOut,
-  ChevronDown,
-  X,
-  Bell,
-  Search,
-  Sparkles,
-  Heart,
-  Shield,
-  Zap,
-  Activity,
-  Globe,
-  ChevronRight,
-  Mic,
-  Video,
+  AlertTriangle,
   Phone,
-  Star,
+  X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -61,9 +41,6 @@ const ProfessionalNavbar: React.FC = () => {
   const [location, setLocation] = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [notifications, setNotifications] = useState(3);
 
   // Handle scroll effect for navbar transparency
   useEffect(() => {
@@ -74,73 +51,59 @@ const ProfessionalNavbar: React.FC = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Navigation items with professional structure
+  // Navigation items - simplified without emojis
   const navigationItems = [
     {
       href: "/",
       label: "Home",
       icon: Home,
-      description: "Dashboard and overview",
-      category: "main",
     },
     {
-      href: "/chat",
-      label: "AI Support",
+      href: "/chatbot",
+      label: "AI Chat",
       icon: MessageCircle,
-      description: "Mental health chatbot",
-      category: "main",
-      badge: "AI",
     },
     {
       href: "/appointments",
-      label: "Counseling",
+      label: "Appointments",
       icon: Calendar,
-      description: "Professional sessions",
-      category: "main",
     },
     {
       href: "/assessments",
       label: "Assessment",
       icon: ClipboardList,
-      description: "Mental health evaluation",
-      category: "main",
     },
     {
       href: "/resources",
       label: "Resources",
       icon: BookOpen,
-      description: "Learning materials",
-      category: "secondary",
     },
     {
       href: "/peer-support",
       label: "Community",
       icon: Users,
-      description: "Peer support network",
-      category: "secondary",
+    },
+    {
+      href: "/emergency",
+      label: "Emergency",
+      icon: AlertTriangle,
+    },
+    {
+      href: "/crisis-help",
+      label: "Crisis Help",
+      icon: Phone,
     },
     {
       href: "/dashboard",
       label: "Dashboard",
       icon: BarChart3,
-      description: "Progress tracking",
-      category: "secondary",
     },
     {
       href: "/about",
       label: "About",
       icon: Info,
-      description: "Platform information",
-      category: "secondary",
     },
   ];
-
-  const mainNavItems = navigationItems.filter(
-    (item) => item.category === "main"
-  );
-  const secondaryNavItems = navigationItems.filter(
-    (item) => item.category === "secondary"
-  );
 
   const handleLogout = async () => {
     try {
@@ -169,440 +132,260 @@ const ProfessionalNavbar: React.FC = () => {
   };
 
   return (
-    <TooltipProvider>
-      <header
-        className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out",
-          isScrolled
-            ? "bg-white/95 backdrop-blur-xl border-b border-gray-200/50 shadow-lg shadow-gray-900/5"
-            : "bg-white/80 backdrop-blur-md border-b border-gray-100/50"
-        )}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 lg:h-20">
-            {/* Logo Section */}
-            <div className="flex items-center space-x-4">
-              <Link href="/">
-                <div className="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-200 cursor-pointer">
-                  <div className="relative">
-                    <div className="h-10 w-10 lg:h-12 lg:w-12 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 rounded-2xl flex items-center justify-center shadow-xl">
-                      <Brain className="h-6 w-6 lg:h-7 lg:w-7 text-white" />
-                    </div>
-                    {/* Live indicator */}
-                    <div className="absolute -top-1 -right-1 h-4 w-4 bg-green-500 rounded-full border-2 border-white animate-pulse"></div>
-                  </div>
-                  <div className="hidden sm:block">
-                    <h1 className="text-xl lg:text-2xl font-bold bg-gradient-to-r from-gray-900 via-indigo-900 to-purple-900 bg-clip-text text-transparent">
-                      InnerSpring
-                    </h1>
-                    <p className="text-xs text-gray-500 -mt-1">
-                      Mental Health Platform
-                    </p>
-                  </div>
+    <header className="bg-white/95 backdrop-blur-md border-b border-gray-200/80 shadow-sm sticky top-0 z-50 transition-all duration-300">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex items-center justify-between h-14 sm:h-16 px-2 xs:px-3 sm:px-4 lg:px-6">
+          
+          {/* Logo - Responsive sizing */}
+          <div className="flex items-center flex-shrink-0">
+            <Link href="/">
+              <div className="flex items-center space-x-2 sm:space-x-3 cursor-pointer hover:opacity-80 transition-opacity">
+                <div className="h-8 w-8 sm:h-10 sm:w-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center shadow-md">
+                  <Brain className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 text-white" />
                 </div>
+                <div className="hidden xs:block">
+                  <h1 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900 leading-tight">
+                    InnerSpring
+                  </h1>
+                  <p className="text-xs text-gray-500 -mt-0.5 hidden sm:block">
+                    Mental Health Platform
+                  </p>
+                </div>
+              </div>
+            </Link>
+          </div>
+
+          {/* Desktop Navigation - Hidden on mobile and tablet */}
+          <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2">
+            {navigationItems.slice(0, 6).map((item) => (
+              <Link key={item.href} href={item.href}>
+                <Button
+                  variant={isActivePath(item.href) ? "default" : "ghost"}
+                  size="sm"
+                  className={cn(
+                    "h-9 px-2 xl:px-3 text-xs xl:text-sm font-medium transition-all duration-200 relative",
+                    isActivePath(item.href)
+                      ? "bg-blue-600 text-white hover:bg-blue-700 shadow-md"
+                      : "text-gray-700 hover:text-gray-900 hover:bg-gray-100/80"
+                  )}
+                >
+                  <item.icon className="h-3.5 w-3.5 xl:h-4 xl:w-4 mr-1.5 xl:mr-2" />
+                  <span className="hidden xl:inline">{item.label}</span>
+                  <span className="xl:hidden">{item.label.split(' ')[0]}</span>
+                </Button>
               </Link>
-            </div>
-
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-1">
-              {mainNavItems.map((item) => (
-                <Tooltip key={item.href} delayDuration={300}>
-                  <TooltipTrigger asChild>
-                    <Link href={item.href}>
-                      <Button
-                        variant={isActivePath(item.href) ? "default" : "ghost"}
-                        className={cn(
-                          "h-10 px-4 font-medium text-sm transition-all duration-200 relative group",
-                          isActivePath(item.href)
-                            ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg shadow-indigo-500/25 hover:shadow-xl hover:shadow-indigo-500/30"
-                            : "text-gray-700 hover:text-gray-900 hover:bg-gray-100/80"
-                        )}
-                      >
-                        <item.icon className="h-4 w-4 mr-2" />
-                        {item.label}
-                        {item.badge && (
-                          <Badge
-                            variant="secondary"
-                            className="ml-2 text-xs bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-700 border-0"
-                          >
-                            {item.badge}
-                          </Badge>
-                        )}
-                        {/* Active indicator */}
-                        {isActivePath(item.href) && (
-                          <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full"></div>
-                        )}
-                      </Button>
-                    </Link>
-                  </TooltipTrigger>
-                  <TooltipContent
-                    side="bottom"
-                    className="bg-gray-900 text-white border-gray-700"
-                  >
-                    <p className="font-medium">{item.label}</p>
-                    <p className="text-xs text-gray-300">{item.description}</p>
-                  </TooltipContent>
-                </Tooltip>
-              ))}
-
-              {/* More menu for secondary items */}
+            ))}
+            
+            {/* More menu for remaining items */}
+            {navigationItems.length > 6 && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    className="h-10 px-4 text-gray-700 hover:text-gray-900 hover:bg-gray-100/80"
-                  >
-                    <span className="text-sm font-medium">More</span>
-                    <ChevronDown className="h-4 w-4 ml-2" />
+                  <Button variant="ghost" size="sm" className="h-9 px-2 xl:px-3">
+                    <Menu className="h-3.5 w-3.5 xl:h-4 xl:w-4 mr-1.5" />
+                    <span className="text-xs xl:text-sm">More</span>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  align="center"
-                  className="w-64 p-2 bg-white/95 backdrop-blur-xl border border-gray-200/50 shadow-xl"
-                >
-                  <DropdownMenuLabel className="text-gray-900 font-semibold">
-                    Additional Features
-                  </DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  {secondaryNavItems.map((item) => (
-                    <DropdownMenuItem key={item.href} className="p-0">
-                      <Link href={item.href} className="w-full">
-                        <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors duration-200">
-                          <div className="h-10 w-10 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl flex items-center justify-center">
-                            <item.icon className="h-5 w-5 text-gray-600" />
-                          </div>
-                          <div className="flex-1">
-                            <p className="font-medium text-gray-900">
-                              {item.label}
-                            </p>
-                            <p className="text-xs text-gray-500">
-                              {item.description}
-                            </p>
-                          </div>
-                          <ChevronRight className="h-4 w-4 text-gray-400" />
-                        </div>
+                <DropdownMenuContent align="end" className="w-48">
+                  {navigationItems.slice(6).map((item) => (
+                    <DropdownMenuItem key={item.href} asChild>
+                      <Link href={item.href} className="flex items-center">
+                        <item.icon className="mr-2 h-4 w-4" />
+                        <span>{item.label}</span>
                       </Link>
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenuContent>
               </DropdownMenu>
-            </nav>
+            )}
+          </nav>
 
-            {/* Search and User Section */}
-            <div className="flex items-center space-x-4">
-              {/* Search (Desktop) */}
-              <div className="hidden md:flex relative">
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                  <input
-                    type="text"
-                    placeholder="Search resources..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-64 h-10 pl-10 pr-4 text-sm bg-gray-50/80 border border-gray-200/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-300 transition-all duration-200"
-                  />
-                </div>
-              </div>
+          {/* Tablet Navigation - Visible on medium screens */}
+          <nav className="hidden md:flex lg:hidden items-center space-x-1">
+            {navigationItems.slice(0, 4).map((item) => (
+              <Link key={item.href} href={item.href}>
+                <Button
+                  variant={isActivePath(item.href) ? "default" : "ghost"}
+                  size="sm"
+                  className={cn(
+                    "h-9 px-2 text-xs font-medium",
+                    isActivePath(item.href)
+                      ? "bg-blue-600 text-white hover:bg-blue-700"
+                      : "text-gray-700 hover:text-gray-900 hover:bg-gray-100"
+                  )}
+                >
+                  <item.icon className="h-3.5 w-3.5" />
+                </Button>
+              </Link>
+            ))}
+            
+            {/* More dropdown for tablet */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="sm" className="h-9 px-2">
+                  <Menu className="h-3.5 w-3.5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                {navigationItems.slice(4).map((item) => (
+                  <DropdownMenuItem key={item.href} asChild>
+                    <Link href={item.href} className="flex items-center">
+                      <item.icon className="mr-2 h-4 w-4" />
+                      <span>{item.label}</span>
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </nav>
 
-              {/* Notifications */}
-              <Tooltip delayDuration={300}>
-                <TooltipTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="relative h-10 w-10 rounded-xl hover:bg-gray-100/80"
-                  >
-                    <Bell className="h-5 w-5 text-gray-600" />
-                    {notifications > 0 && (
-                      <div className="absolute -top-1 -right-1 h-5 w-5 bg-red-500 rounded-full flex items-center justify-center">
-                        <span className="text-xs text-white font-medium">
-                          {notifications}
-                        </span>
-                      </div>
-                    )}
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent side="bottom">
-                  <p>Notifications ({notifications})</p>
-                </TooltipContent>
-              </Tooltip>
+          {/* Right side - User Menu & Mobile Menu */}
+          <div className="flex items-center space-x-2 sm:space-x-3">
+            
+            {/* User Menu - Always visible */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  className="h-8 w-8 sm:h-9 sm:w-9 lg:h-10 lg:w-10 rounded-full p-0 hover:bg-gray-100"
+                >
+                  <Avatar className="h-7 w-7 sm:h-8 sm:w-8 lg:h-9 lg:w-9">
+                    <AvatarImage
+                      src={firebaseUser?.photoURL || undefined}
+                      alt={getUserDisplayName()}
+                    />
+                    <AvatarFallback className="bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-semibold text-xs sm:text-sm">
+                      {getUserInitials()}
+                    </AvatarFallback>
+                  </Avatar>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56 sm:w-64">
+                <DropdownMenuLabel>
+                  <div className="flex flex-col space-y-1">
+                    <p className="text-sm font-medium leading-none truncate">
+                      {getUserDisplayName()}
+                    </p>
+                    <p className="text-xs leading-none text-muted-foreground truncate">
+                      {firebaseUser?.email}
+                    </p>
+                  </div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  <User className="mr-2 h-4 w-4" />
+                  <span>Profile</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleLogout} className="text-red-600">
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Log out</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
-              {/* User Menu */}
-              <DropdownMenu
-                open={isUserMenuOpen}
-                onOpenChange={setIsUserMenuOpen}
+            {/* Mobile Menu Button - Visible on mobile and tablet */}
+            <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+              <SheetTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="md:hidden h-8 w-8 sm:h-9 sm:w-9 p-0 hover:bg-gray-100"
+                >
+                  <Menu className="h-4 w-4 sm:h-5 sm:w-5" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent 
+                side="right" 
+                className="w-[280px] sm:w-[320px] p-0 bg-white/95 backdrop-blur-md"
               >
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    className="h-10 px-3 rounded-xl hover:bg-gray-100/80 transition-all duration-200"
-                  >
-                    <div className="flex items-center space-x-3">
-                      <Avatar className="h-8 w-8 ring-2 ring-gray-200/50">
+                {/* Mobile Menu Header */}
+                <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200">
+                  <div className="flex items-center space-x-3">
+                    <div className="h-8 w-8 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
+                      <Brain className="h-5 w-5 text-white" />
+                    </div>
+                    <div>
+                      <h2 className="text-lg font-bold text-gray-900">InnerSpring</h2>
+                      <p className="text-xs text-gray-500">Mental Health Platform</p>
+                    </div>
+                  </div>
+                  <SheetClose asChild>
+                    <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </SheetClose>
+                </div>
+
+                {/* Mobile Navigation */}
+                <div className="flex flex-col p-4 sm:p-6 space-y-2">
+                  <div className="mb-4">
+                    <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
+                      Navigation
+                    </h3>
+                  </div>
+                  
+                  {navigationItems.map((item, index) => (
+                    <Link key={item.href} href={item.href}>
+                      <SheetClose asChild>
+                        <Button
+                          variant={isActivePath(item.href) ? "default" : "ghost"}
+                          className={cn(
+                            "w-full justify-start h-12 px-4 text-sm font-medium transition-all duration-200 touch-manipulation",
+                            isActivePath(item.href)
+                              ? "bg-blue-600 text-white hover:bg-blue-700 shadow-md"
+                              : "text-gray-700 hover:text-gray-900 hover:bg-gray-100 active:bg-gray-200"
+                          )}
+                        >
+                          <item.icon className="h-5 w-5 mr-3 flex-shrink-0" />
+                          <span className="flex-1 text-left">{item.label}</span>
+                          {isActivePath(item.href) && (
+                            <div className="h-2 w-2 bg-white rounded-full animate-pulse" />
+                          )}
+                        </Button>
+                      </SheetClose>
+                    </Link>
+                  ))}
+                  
+                  {/* Mobile User Actions */}
+                  <div className="mt-6 pt-6 border-t border-gray-200">
+                    <div className="flex items-center space-x-3 mb-4 p-3 bg-gray-50 rounded-lg">
+                      <Avatar className="h-10 w-10">
                         <AvatarImage
                           src={firebaseUser?.photoURL || undefined}
                           alt={getUserDisplayName()}
                         />
-                        <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-500 text-white font-semibold">
+                        <AvatarFallback className="bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-semibold">
                           {getUserInitials()}
                         </AvatarFallback>
                       </Avatar>
-                      <div className="hidden lg:block text-left">
-                        <p className="text-sm font-medium text-gray-900 max-w-32 truncate">
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-gray-900 truncate">
                           {getUserDisplayName()}
                         </p>
-                        <div className="flex items-center space-x-1">
-                          <div className="h-2 w-2 bg-green-500 rounded-full"></div>
-                          <p className="text-xs text-gray-500">Online</p>
-                        </div>
-                      </div>
-                      <ChevronDown className="h-4 w-4 text-gray-500 hidden lg:block" />
-                    </div>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  align="end"
-                  className="w-80 p-4 bg-white/95 backdrop-blur-xl border border-gray-200/50 shadow-xl"
-                >
-                  {/* User Info Section */}
-                  <div className="flex items-center space-x-4 p-3 mb-3 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl">
-                    <Avatar className="h-12 w-12 ring-2 ring-white shadow-lg">
-                      <AvatarImage
-                        src={firebaseUser?.photoURL || undefined}
-                        alt={getUserDisplayName()}
-                      />
-                      <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-500 text-white font-semibold text-lg">
-                        {getUserInitials()}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="flex-1">
-                      <p className="font-semibold text-gray-900">
-                        {getUserDisplayName()}
-                      </p>
-                      <p className="text-sm text-gray-500">
-                        {firebaseUser?.email}
-                      </p>
-                      <div className="flex items-center space-x-2 mt-1">
-                        <Badge
-                          variant="secondary"
-                          className="text-xs bg-green-100 text-green-700 border-0"
-                        >
-                          <div className="h-1.5 w-1.5 bg-green-500 rounded-full mr-1"></div>
-                          Verified
-                        </Badge>
-                        <Badge
-                          variant="secondary"
-                          className="text-xs bg-blue-100 text-blue-700 border-0"
-                        >
-                          Premium
-                        </Badge>
-                      </div>
-                    </div>
-                  </div>
-
-                  <DropdownMenuSeparator />
-
-                  {/* Quick Actions */}
-                  <div className="grid grid-cols-3 gap-2 mb-3">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="h-16 flex-col space-y-1 hover:bg-gray-50"
-                    >
-                      <Video className="h-5 w-5 text-blue-600" />
-                      <span className="text-xs">Video Call</span>
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="h-16 flex-col space-y-1 hover:bg-gray-50"
-                    >
-                      <Phone className="h-5 w-5 text-green-600" />
-                      <span className="text-xs">Voice Call</span>
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="h-16 flex-col space-y-1 hover:bg-gray-50"
-                    >
-                      <Star className="h-5 w-5 text-yellow-600" />
-                      <span className="text-xs">Favorites</span>
-                    </Button>
-                  </div>
-
-                  <DropdownMenuSeparator />
-
-                  {/* Menu Items */}
-                  <DropdownMenuItem className="p-3 rounded-lg hover:bg-gray-50 cursor-pointer">
-                    <User className="h-5 w-5 mr-3 text-gray-500" />
-                    <div className="flex-1">
-                      <p className="font-medium">Profile Settings</p>
-                      <p className="text-xs text-gray-500">
-                        Manage your account
-                      </p>
-                    </div>
-                  </DropdownMenuItem>
-
-                  <DropdownMenuItem className="p-3 rounded-lg hover:bg-gray-50 cursor-pointer">
-                    <Settings className="h-5 w-5 mr-3 text-gray-500" />
-                    <div className="flex-1">
-                      <p className="font-medium">Preferences</p>
-                      <p className="text-xs text-gray-500">
-                        Customize your experience
-                      </p>
-                    </div>
-                  </DropdownMenuItem>
-
-                  <DropdownMenuItem className="p-3 rounded-lg hover:bg-gray-50 cursor-pointer">
-                    <Activity className="h-5 w-5 mr-3 text-gray-500" />
-                    <div className="flex-1">
-                      <p className="font-medium">Activity Log</p>
-                      <p className="text-xs text-gray-500">
-                        View your progress
-                      </p>
-                    </div>
-                  </DropdownMenuItem>
-
-                  <DropdownMenuSeparator />
-
-                  {/* Security & Trust */}
-                  <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg mb-2">
-                    <div className="flex items-center space-x-3">
-                      <Shield className="h-5 w-5 text-green-600" />
-                      <div>
-                        <p className="text-sm font-medium text-green-900">
-                          Secure Session
-                        </p>
-                        <p className="text-xs text-green-600">
-                          256-bit encryption
+                        <p className="text-xs text-gray-500 truncate">
+                          {firebaseUser?.email}
                         </p>
                       </div>
                     </div>
-                    <div className="h-2 w-2 bg-green-500 rounded-full animate-pulse"></div>
+                    
+                    <Button
+                      variant="ghost"
+                      onClick={handleLogout}
+                      className="w-full justify-start h-11 text-red-600 hover:text-red-700 hover:bg-red-50"
+                    >
+                      <LogOut className="h-4 w-4 mr-3" />
+                      Log out
+                    </Button>
                   </div>
-
-                  <DropdownMenuItem
-                    onClick={handleLogout}
-                    className="p-3 rounded-lg hover:bg-red-50 cursor-pointer text-red-600 hover:text-red-700"
-                  >
-                    <LogOut className="h-5 w-5 mr-3" />
-                    <div className="flex-1">
-                      <p className="font-medium">Sign Out</p>
-                      <p className="text-xs text-red-500">
-                        End your session securely
-                      </p>
-                    </div>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-
-              {/* Mobile Menu Button */}
-              <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-                <SheetTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="lg:hidden h-10 w-10 rounded-xl hover:bg-gray-100/80"
-                  >
-                    <Menu className="h-5 w-5" />
-                  </Button>
-                </SheetTrigger>
-                <SheetContent
-                  side="right"
-                  className="w-full sm:w-80 p-0 bg-white/95 backdrop-blur-xl border-l border-gray-200/50"
-                >
-                  {/* Mobile Menu Header */}
-                  <div className="flex items-center justify-between p-6 border-b border-gray-200/50">
-                    <div className="flex items-center space-x-3">
-                      <div className="h-10 w-10 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 rounded-2xl flex items-center justify-center">
-                        <Brain className="h-6 w-6 text-white" />
-                      </div>
-                      <div>
-                        <h2 className="text-lg font-bold text-gray-900">
-                          InnerSpring
-                        </h2>
-                        <p className="text-xs text-gray-500">
-                          Mental Health Platform
-                        </p>
-                      </div>
-                    </div>
-                    <SheetClose asChild>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="h-8 w-8 rounded-lg"
-                      >
-                        <X className="h-4 w-4" />
-                      </Button>
-                    </SheetClose>
-                  </div>
-
-                  {/* Mobile Search */}
-                  <div className="p-6 border-b border-gray-200/50">
-                    <div className="relative">
-                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                      <input
-                        type="text"
-                        placeholder="Search resources..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full h-12 pl-10 pr-4 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-300"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Mobile Navigation */}
-                  <div className="p-6 space-y-2">
-                    <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">
-                      Main Navigation
-                    </h3>
-                    {navigationItems.map((item) => (
-                      <Link key={item.href} href={item.href}>
-                        <SheetClose asChild>
-                          <Button
-                            variant={
-                              isActivePath(item.href) ? "default" : "ghost"
-                            }
-                            className={cn(
-                              "w-full justify-start h-12 px-4 rounded-xl transition-all duration-200",
-                              isActivePath(item.href)
-                                ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
-                                : "text-gray-700 hover:text-gray-900 hover:bg-gray-100"
-                            )}
-                          >
-                            <item.icon className="h-5 w-5 mr-3" />
-                            <div className="flex-1 text-left">
-                              <p className="font-medium">{item.label}</p>
-                              <p className="text-xs opacity-70">
-                                {item.description}
-                              </p>
-                            </div>
-                            {item.badge && (
-                              <Badge
-                                variant="secondary"
-                                className="ml-2 text-xs"
-                              >
-                                {item.badge}
-                              </Badge>
-                            )}
-                          </Button>
-                        </SheetClose>
-                      </Link>
-                    ))}
-                  </div>
-                </SheetContent>
-              </Sheet>
-            </div>
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
-
-        {/* Progress bar for page loading */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 opacity-0"></div>
-      </header>
-
-      {/* Content spacer */}
-      <div className="h-16 lg:h-20"></div>
-    </TooltipProvider>
+      </div>
+      
+      {/* Content spacer to prevent overlap - responsive height */}
+      <div className="h-14 sm:h-16" aria-hidden="true" />
+    </header>
   );
 };
 
