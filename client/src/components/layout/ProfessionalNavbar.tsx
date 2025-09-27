@@ -131,21 +131,21 @@ const ProfessionalNavbar: React.FC = () => {
   };
 
   return (
-    <header className="bg-white/98 backdrop-blur-lg border-b border-gray-300 shadow-lg sticky top-0 z-50 transition-all duration-300">
+    <header className="bg-white backdrop-blur-xl border-b-2 border-gray-500 shadow-2xl sticky top-0 z-50 transition-all duration-300">
       <div className="max-w-7xl mx-auto">
-        <div className="flex items-center justify-between h-14 sm:h-16 px-2 xs:px-3 sm:px-4 lg:px-6">
+        <div className="flex items-center justify-between h-16 sm:h-18 md:h-20 lg:h-16 px-4 sm:px-6 md:px-8 lg:px-6 xl:px-8">
           {/* Logo - Responsive sizing */}
           <div className="flex items-center flex-shrink-0">
             <Link href="/">
               <div className="flex items-center space-x-2 sm:space-x-3 cursor-pointer hover:opacity-80 transition-opacity">
-                <div className="h-8 w-8 sm:h-10 sm:w-10 bg-gradient-to-br from-blue-700 to-indigo-700 rounded-lg flex items-center justify-center shadow-lg">
-                  <Brain className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 text-white" />
+                <div className="h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 lg:h-11 lg:w-11 xl:h-12 xl:w-12 bg-gradient-to-br from-blue-800 to-indigo-900 rounded-xl flex items-center justify-center shadow-xl border-2 border-blue-600">
+                  <Brain className="h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 lg:h-5 lg:w-5 xl:h-6 xl:w-6 text-white" />
                 </div>
                 <div className="hidden xs:block">
-                  <h1 className="text-base sm:text-lg lg:text-xl font-bold text-gray-800 leading-tight">
+                  <h1 className="text-lg sm:text-xl md:text-2xl lg:text-xl xl:text-2xl font-black text-gray-900 leading-tight">
                     InnerSpring
                   </h1>
-                  <p className="text-xs text-gray-600 -mt-0.5 hidden sm:block">
+                  <p className="text-sm sm:text-base md:text-lg lg:text-sm xl:text-base text-gray-800 -mt-0.5 hidden sm:block font-bold">
                     Mental Health Platform
                   </p>
                 </div>
@@ -161,10 +161,10 @@ const ProfessionalNavbar: React.FC = () => {
                   variant={isActivePath(item.href) ? "default" : "ghost"}
                   size="sm"
                   className={cn(
-                    "h-10 px-3 lg:px-4 text-sm font-medium transition-all duration-200 border",
+                    "h-12 lg:h-11 xl:h-12 px-4 lg:px-5 xl:px-6 text-sm lg:text-sm xl:text-base font-bold transition-all duration-200 border-2 rounded-lg shadow-lg",
                     isActivePath(item.href)
-                      ? "bg-blue-700 text-white hover:bg-blue-800 shadow-lg border-blue-600"
-                      : "text-gray-800 hover:text-gray-900 hover:bg-gray-200 border-transparent hover:border-gray-300"
+                      ? "bg-blue-800 text-white hover:bg-blue-900 shadow-2xl border-blue-700 ring-2 ring-blue-300"
+                      : "text-gray-900 hover:text-black hover:bg-gray-200 border-gray-500 hover:border-gray-600 hover:shadow-xl bg-gray-100"
                   )}
                 >
                   <item.icon className="h-4 w-4 mr-2 flex-shrink-0" />
@@ -180,7 +180,7 @@ const ProfessionalNavbar: React.FC = () => {
                   <Button 
                     variant="ghost" 
                     size="sm" 
-                    className="h-10 px-3 lg:px-4 text-gray-800 hover:text-gray-900 hover:bg-gray-200 border border-transparent hover:border-gray-300"
+                    className="h-12 lg:h-11 xl:h-12 px-4 lg:px-5 xl:px-6 text-sm lg:text-sm xl:text-base font-bold text-gray-900 hover:text-black hover:bg-gray-200 border-2 border-gray-500 hover:border-gray-600 hover:shadow-xl bg-gray-100 rounded-lg shadow-lg"
                   >
                     <Menu className="h-4 w-4 mr-2" />
                     <span className="hidden xl:inline">More</span>
@@ -208,10 +208,10 @@ const ProfessionalNavbar: React.FC = () => {
                   variant={isActivePath(item.href) ? "default" : "ghost"}
                   size="sm"
                   className={cn(
-                    "h-9 px-2 text-xs font-medium border",
+                    "h-12 md:h-14 px-3 md:px-4 text-sm md:text-base font-bold border-2 rounded-lg shadow-lg",
                     isActivePath(item.href)
-                      ? "bg-blue-700 text-white hover:bg-blue-800 border-blue-600 shadow-md"
-                      : "text-gray-800 hover:text-gray-900 hover:bg-gray-200 border-transparent hover:border-gray-300"
+                      ? "bg-blue-800 text-white hover:bg-blue-900 border-blue-700 shadow-2xl ring-2 ring-blue-300"
+                      : "text-gray-900 hover:text-black hover:bg-gray-200 border-gray-500 hover:border-gray-600 bg-gray-100 hover:shadow-xl"
                   )}
                 >
                   <item.icon className="h-3.5 w-3.5" />
@@ -222,7 +222,7 @@ const ProfessionalNavbar: React.FC = () => {
             {/* More dropdown for tablet */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="h-9 px-2 text-gray-800 hover:bg-gray-200 border border-transparent hover:border-gray-300">
+                <Button variant="ghost" size="sm" className="h-12 md:h-14 px-3 md:px-4 text-sm md:text-base font-bold text-gray-900 hover:text-black hover:bg-gray-200 border-2 border-gray-500 hover:border-gray-600 bg-gray-100 hover:shadow-xl rounded-lg shadow-lg">
                   <Menu className="h-3.5 w-3.5" />
                 </Button>
               </DropdownMenuTrigger>
@@ -247,14 +247,14 @@ const ProfessionalNavbar: React.FC = () => {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="relative h-8 w-8 sm:h-9 sm:w-9 lg:h-10 lg:w-10 rounded-full hover:bg-gray-200 border border-gray-300 hover:border-gray-400 transition-all shadow-sm"
+                  className="relative h-12 w-12 sm:h-13 sm:w-13 md:h-14 md:w-14 lg:h-12 lg:w-12 xl:h-14 xl:w-14 rounded-full hover:bg-gray-200 border-2 border-gray-500 hover:border-gray-600 transition-all shadow-xl hover:shadow-2xl bg-gray-100"
                 >
-                  <Avatar className="h-7 w-7 sm:h-8 sm:w-8 lg:h-9 lg:w-9">
+                  <Avatar className="h-10 w-10 sm:h-11 sm:w-11 md:h-12 md:w-12 lg:h-10 lg:w-10 xl:h-12 xl:w-12">
                     <AvatarImage
                       src={firebaseUser?.photoURL || undefined}
                       alt={getUserDisplayName()}
                     />
-                    <AvatarFallback className="bg-gradient-to-br from-blue-700 to-indigo-700 text-white text-xs sm:text-sm font-semibold">
+                    <AvatarFallback className="bg-gradient-to-br from-blue-800 to-indigo-900 text-white text-sm sm:text-base md:text-lg lg:text-sm xl:text-lg font-black border-2 border-blue-600">
                       {getUserInitials()}
                     </AvatarFallback>
                   </Avatar>
@@ -295,9 +295,9 @@ const ProfessionalNavbar: React.FC = () => {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="h-9 w-9 p-0 md:hidden hover:bg-gray-200 border border-gray-300 hover:border-gray-400"
+                  className="h-12 w-12 sm:h-14 sm:w-14 p-0 md:hidden hover:bg-gray-200 border-2 border-gray-500 hover:border-gray-600 bg-gray-100 hover:shadow-xl rounded-lg shadow-lg"
                 >
-                  <Menu className="h-5 w-5 text-gray-800" />
+                  <Menu className="h-7 w-7 sm:h-8 sm:w-8 text-gray-900" />
                   <span className="sr-only">Toggle navigation menu</span>
                 </Button>
               </SheetTrigger>
