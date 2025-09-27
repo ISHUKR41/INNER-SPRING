@@ -177,19 +177,25 @@ const ProfessionalNavbar: React.FC = () => {
             {navigationItems.length > 6 && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
+                  <Button
+                    variant="ghost"
+                    size="sm"
                     className="h-12 lg:h-11 xl:h-12 px-4 lg:px-5 xl:px-6 text-sm lg:text-sm xl:text-base font-bold text-gray-900 hover:text-black hover:bg-gray-200 border-2 border-gray-500 hover:border-gray-600 hover:shadow-xl bg-gray-100 rounded-lg shadow-lg"
                   >
                     <Menu className="h-4 w-4 mr-2" />
                     <span className="hidden xl:inline">More</span>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48 bg-white/98 backdrop-blur-lg shadow-xl border border-gray-300">
+                <DropdownMenuContent
+                  align="end"
+                  className="w-48 bg-white/98 backdrop-blur-lg shadow-xl border border-gray-300"
+                >
                   {navigationItems.slice(6).map((item) => (
                     <DropdownMenuItem key={item.href} asChild>
-                      <Link href={item.href} className="flex items-center text-gray-800 hover:text-gray-900">
+                      <Link
+                        href={item.href}
+                        className="flex items-center text-gray-800 hover:text-gray-900"
+                      >
                         <item.icon className="mr-2 h-4 w-4" />
                         <span>{item.label}</span>
                       </Link>
@@ -222,14 +228,24 @@ const ProfessionalNavbar: React.FC = () => {
             {/* More dropdown for tablet */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="h-12 md:h-14 px-3 md:px-4 text-sm md:text-base font-bold text-gray-900 hover:text-black hover:bg-gray-200 border-2 border-gray-500 hover:border-gray-600 bg-gray-100 hover:shadow-xl rounded-lg shadow-lg">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="h-12 md:h-14 px-3 md:px-4 text-sm md:text-base font-bold text-gray-900 hover:text-black hover:bg-gray-200 border-2 border-gray-500 hover:border-gray-600 bg-gray-100 hover:shadow-xl rounded-lg shadow-lg"
+                >
                   <Menu className="h-3.5 w-3.5" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48 bg-white/98 backdrop-blur-lg shadow-xl border border-gray-300">
+              <DropdownMenuContent
+                align="end"
+                className="w-48 bg-white/98 backdrop-blur-lg shadow-xl border border-gray-300"
+              >
                 {navigationItems.slice(4).map((item) => (
                   <DropdownMenuItem key={item.href} asChild>
-                    <Link href={item.href} className="flex items-center text-gray-800 hover:text-gray-900">
+                    <Link
+                      href={item.href}
+                      className="flex items-center text-gray-800 hover:text-gray-900"
+                    >
                       <item.icon className="mr-2 h-4 w-4" />
                       <span>{item.label}</span>
                     </Link>
@@ -260,7 +276,10 @@ const ProfessionalNavbar: React.FC = () => {
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56 bg-white/98 backdrop-blur-lg shadow-xl border border-gray-300">
+              <DropdownMenuContent
+                align="end"
+                className="w-56 bg-white/98 backdrop-blur-lg shadow-xl border border-gray-300"
+              >
                 <DropdownMenuLabel className="text-gray-800">
                   <div className="flex flex-col space-y-1">
                     <p className="text-sm font-medium leading-none">
@@ -273,13 +292,16 @@ const ProfessionalNavbar: React.FC = () => {
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator className="bg-gray-300" />
                 <DropdownMenuItem asChild>
-                  <Link href="/profile" className="flex items-center text-gray-800">
+                  <Link
+                    href="/profile"
+                    className="flex items-center text-gray-800"
+                  >
                     <User className="mr-2 h-4 w-4" />
                     <span>Profile</span>
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator className="bg-gray-300" />
-                <DropdownMenuItem 
+                <DropdownMenuItem
                   onClick={handleLogout}
                   className="text-red-600 hover:text-red-700 hover:bg-red-50 cursor-pointer"
                 >
@@ -321,7 +343,11 @@ const ProfessionalNavbar: React.FC = () => {
                     </div>
                   </div>
                   <SheetClose asChild>
-                    <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-gray-200">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-8 w-8 p-0 hover:bg-gray-200"
+                    >
                       <X className="h-4 w-4" />
                     </Button>
                   </SheetClose>
